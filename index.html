@@ -10,9 +10,6 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="assets/css/main.css" />
-	  <link rel="stylesheet" type="text/css" href="assets/slick/slick.css"/>
-    <!--Add the new slick-theme.css if you want the default styling -->
-    <link rel="stylesheet" type="text/css" href="assets/slick/slick-theme.css"/>
 	</head>
 	<body>
 
@@ -26,127 +23,85 @@
 						<p>Astronomer &nbsp;•&nbsp; Graduate student &nbsp;•&nbsp; Not actually left-handed</p>
 						<ul class="icons">
 							<li><div><a href="https://github.com/rodluger" class="icon style2 fa-github" id="icon-github"></a><div class="icon-label" id="label-icon-github">Github</div></div></li>
+							<!--<li><div><a href="#" onclick = "return false;" class="icon style2 fa-info" id="icon-about" data-poptrox="ignore"></a><div class="icon-label" id="label-icon-about">About</div></div></li>-->
+							<li><div class="popicon"><a href="about.html" class="icon style2 fa-info" id="icon-about2" data-poptrox="iframe"></a><div class="icon-label" id="label-icon-about2">About</div></div></li>
 							<li><div><a href="pdf/CV.pdf" class="icon style2 fa-file-text" id="icon-cv"></a><div class="icon-label" id="label-icon-cv">CV</div></div></li>
 							<li><div><a href="http://adsabs.harvard.edu/cgi-bin/nph-abs_connect?db_key=AST&db_key=PRE&qform=AST&arxiv_sel=astro-ph&arxiv_sel=cond-mat&arxiv_sel=cs&arxiv_sel=gr-qc&arxiv_sel=hep-ex&arxiv_sel=hep-lat&arxiv_sel=hep-ph&arxiv_sel=hep-th&arxiv_sel=math&arxiv_sel=math-ph&arxiv_sel=nlin&arxiv_sel=nucl-ex&arxiv_sel=nucl-th&arxiv_sel=physics&arxiv_sel=quant-ph&arxiv_sel=q-bio&sim_query=YES&ned_query=YES&adsobj_query=YES&aut_logic=OR&obj_logic=OR&author=luger%2C+rodrigo&object=&start_mon=&start_year=&end_mon=&end_year=&ttl_logic=OR&title=&txt_logic=OR&text=&nr_to_return=200&start_nr=1&jou_pick=ALL&ref_stems=&data_and=ALL&group_and=ALL&start_entry_day=&start_entry_mon=&start_entry_year=&end_entry_day=&end_entry_mon=&end_entry_year=&min_score=&sort=SCORE&data_type=SHORT&aut_syn=YES&ttl_syn=YES&txt_syn=YES&aut_wt=1.0&obj_wt=1.0&ttl_wt=0.3&txt_wt=3.0&aut_wgt=YES&obj_wgt=YES&ttl_wgt=YES&txt_wgt=YES&ttl_sco=YES&txt_sco=YES&version=1" class="icon style2 fa-newspaper-o" id="icon-pub"></a><div class="icon-label" id="label-icon-pub">Publications</div></div></li>
 							<li><div><a href="mailto:rodluger@uw.edu" class="icon style2 fa-envelope-o" id="icon-email"></a><div class="icon-label" id="label-icon-email">Email</div></div></li>
+						  <!-- NOT YET READY
+						  <li><div><a href="#" onclick = "return false;" class="icon style2 fa-plus" id="icon-more"></a><div class="icon-label" id="label-icon-more">More...</div></div></li>
+						  -->
 						</ul>
 					</header>
         
-        <!-- TODO: Move to CSS -->
-        <style type="text/css">
-        .thumb {width:90%;}
-        .carousel {text-align:center; width:90%; margin:0px auto;}
-        .slick-slide{margin:0.25%;}
-        .slick-slide img{width:100%;}
-        </style>
-        
-        <!-- Carousel -->        
-        <div class="carousel">
-          <div class="carousel-image" id = "elem00" style="opacity:1;" onclick="$('.carousel').slick('slickGoTo',0,false);">
-              <img src="images/thumbs/exoaurora.jpg" alt="Element 0" class="thumb"/>
-              <h3>Element 0</h3>
+        <!--        
+        <section id="about">
+          <div class='about-wrapper'>
+            <div class="about-text"><span style = "font-weight:700;">About</span> 
+            I am a fifth year Astronomy and Astrobiology graduate student at the University of
+            Washington in Seattle. My research interests include the detection and characterization of 
+            exoplanets and investigations into their habitability. I focus primarily
+            on planets orbiting low-mass M dwarfs, stars whose vigorous magnetic activity and
+            evolutionary history pose interesting challenges to the habitability of their
+            planets. As of this past year, I have also been trying to detect planets in the habitable
+            zones of these low mass stars with the <i>K2</i> mission. Check out my research projects
+            below for more information.
+            </div>
           </div>
-          <div class="carousel-image" id = "elem01" onclick="$('.carousel').slick('slickGoTo',1,false);">
-              <img src="images/thumbs/exoaurora.jpg" alt="Element 1" class="thumb"/>
-              <h3>Element 1</h3>
-          </div>
-          <div class="carousel-image" id = "elem02" onclick="$('.carousel').slick('slickGoTo',2,false);">
-              <img src="images/thumbs/exoaurora.jpg" alt="Element 2" class="thumb"/>
-              <h3>Element 2</h3>
-          </div>
-          <div class="carousel-image" id = "elem03" onclick="$('.carousel').slick('slickGoTo',3,false);">
-              <img src="images/thumbs/exoaurora.jpg" alt="Element 3" class="thumb"/>
-              <h3>Element 3</h3>
-          </div>
-          <div class="carousel-image" id = "elem04" onclick="$('.carousel').slick('slickGoTo',4,false);">
-              <img src="images/thumbs/exoaurora.jpg" alt="Element 4" class="thumb"/>
-              <h3>Element 4</h3>
-          </div>
-        </div>
-        
-        <div class="popout" id="popout00" style="display:block;">
-          <div class="popout-text">
-            <span style="font-weight: 600;">EVEREST</span> (EPIC Variability Extraction and Removal for Exoplanet Science Targets) is 
-            an open-source pipeline for removing instrumental noise from light curves generated by <i>K2</i>, 
-            the repurposed Kepler spacecraft. Operating with only two of four reaction wheels, <i>K2</i> is 
-            unable to maintain the precise pointing precision required to detect the small light modulations 
-            caused by transiting exoplanets. <span style="font-weight: 600;">EVEREST</span> exploits correlations across the pixels on the <i>Kepler</i> 
-            CCD to remove systematics introduced by the spacecraft's pointing error, yielding light curves 
-            with precision comparable to that of the original <i>Kepler</i> mission. <span style="font-weight: 600;">EVEREST</span> was coded in Python 
-            and is freely available on github.
-            <br><br>
-          </div>
-          <div class="popout-icons">
-            <ul class="icons" style="text-align: center;">
-                <li><div><a href="https://github.com/rodluger/everest" class="icon style3 fa-github" style="margin-bottom: 0"></a><div>Github</div></div></li>
-                <li><div><a href="http://staff.washington.edu/rodluger/everest" class="icon style3 fa-info" style="margin-bottom: 0"></a><div>Docs</div></div></li>
-                <li><div><a href="http://adsabs.harvard.edu/abs/2016arXiv160700524L" class="icon style3 fa-newspaper-o" style="margin-bottom: 0"></a><div>ADS</div></div></li>
-                <li><div><a href="https://archive.stsci.edu/prepds/everest" class="icon style3 fa-area-chart" style="margin-bottom: 0"></a><div>MAST</div></div></li>
-                <li><div><a href="pdf/exoplanetsI.pdf" class="icon style3 fa-picture-o" style="margin-bottom: 0"></a><div>Poster</div></div></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="popout" id="popout01">
-          <div class="popout-text">
-            Hello 1.
-            <br><br>
-          </div>
-          <div class="popout-icons">
-            <ul class="icons" style="text-align: center;">
-                <li><div><a href="https://github.com/rodluger/everest" class="icon style3 fa-github" style="margin-bottom: 0"></a><div>Github</div></div></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="popout" id="popout02">
-          <div class="popout-text">
-            Hello 2.
-            <br><br>
-          </div>
-          <div class="popout-icons">
-            <ul class="icons" style="text-align: center;">
-                <li><div><a href="https://github.com/rodluger/everest" class="icon style3 fa-github" style="margin-bottom: 0"></a><div>Github</div></div></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="popout" id="popout03">
-          <div class="popout-text">
-            Hello 3.
-            <br><br>
-          </div>
-          <div class="popout-icons">
-            <ul class="icons" style="text-align: center;">
-                <li><div><a href="https://github.com/rodluger/everest" class="icon style3 fa-github" style="margin-bottom: 0"></a><div>Github</div></div></li>
-            </ul>
-          </div>
-        </div>
-        
-        <div class="popout" id="popout04">
-          <div class="popout-text">
-            Hello 4.
-            <br><br>
-          </div>
-          <div class="popout-icons">
-            <ul class="icons" style="text-align: center;">
-                <li><div><a href="https://github.com/rodluger/everest" class="icon style3 fa-github" style="margin-bottom: 0"></a><div>Github</div></div></li>
-            </ul>
-          </div>
-        </div>
-        
-        <!-- Footer -->
+        </section>
+        -->
+
+				<!-- Research -->
+					<section id="research">
+
+						<!-- Thumbnails -->
+							<section class="thumbnails">
+								<div>
+									<a href="everest.html" data-poptrox="iframe">
+										<img src="images/thumbs/everest.jpg" alt="Everest" />
+										<h3><span class="caption-heading">Everest</span><span class="caption-detail">K2 lightcurve de-trending</span></h3>
+									</a>
+									<a href="pysyzygy.html" data-poptrox="iframe">
+										<img src="images/thumbs/pysyzygy.jpg" alt="Pysyzygy" />
+										<h3><span class="caption-heading">Pysyzygy</span><span class="caption-detail">Python transit code</span></h3>
+									</a>
+								</div>
+								<div>
+									<a href="exoaurora.html" data-poptrox="iframe">
+										<img src="images/thumbs/exoaurora.jpg" alt="Pale Green Dot" />
+										<h3><span class="caption-heading">Pale Green Dot</span><span class="caption-detail">Aurorae on Proxima b</span></h3>
+									</a>
+									<a href="vplanet.html" data-poptrox="iframe">
+										<img src="images/thumbs/vplanet.jpg" alt="VPlanet" />
+										<h3><span class="caption-heading">VPlanet</span><span class="caption-detail">The virtual planet</span></h3>
+									</a>
+								</div>
+								<div>
+									<a href="mirage.html" data-poptrox="iframe">
+										<img src="images/thumbs/mirage.jpg" alt="Mirage Earths" />
+										<h3><span class="caption-heading">Mirage Earths</span><span class="caption-detail">M Dwarf water loss</span></h3>
+									</a>
+									<a href="hecs.html" data-poptrox="iframe">
+										<img src="images/thumbs/hecs.jpg" alt="HECs" />
+										<h3><span class="caption-heading">HECs</span><span class="caption-detail">Habitable evaporated cores</span></h3>
+									</a>
+								</div>
+							</section>
+
+					</section>
+
+				<!-- Footer -->
 					<footer id="footer">
 						<p>&copy; Rodrigo Luger 2016. Design adapted from <a href="http://templated.co">templated</a>.</p>
 					</footer>
-                
-			</div>    
-    
+
+			</div>
+
 		<!-- Scripts -->
-    <script type="text/javascript" src="assets/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="assets/slick/slick.min.js"></script>
-    <script src="assets/js/main.js"></script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.poptrox.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/main.js"></script>
 
   <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

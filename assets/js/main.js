@@ -16,11 +16,60 @@ $(function() {
   var i;
   details = document.getElementsByClassName('caption-detail');
   for (i = details.length - 1; i >= 0; i--) {
-    if ($(window).width() <= 800)
+    if ($(window).width() <= 480)
       details[i].style.display = 'none';
     else
       details[i].style.display = 'inline';
   }
+  
+	// Breakpoints.
+		skel.breakpoints({
+			xlarge:	'(max-width: 1680px)',
+			large:	'(max-width: 1280px)',
+			medium:	'(max-width: 980px)',
+			small:	'(max-width: 736px)',
+			xsmall:	'(max-width: 480px)'
+		});
+
+	// Disable animations/transitions until everything's loaded.
+		$body.addClass('is-loading');
+
+		$window.on('load', function() {
+			$body.removeClass('is-loading');
+		});
+
+	// Poptrox.
+		$window.on('load', function() {
+
+			$('.thumbnails').poptrox({
+				onPopupClose: function() { $body.removeClass('is-covered'); },
+				onPopupOpen: function() { $body.addClass('is-covered'); },
+				baseZIndex: 10001,
+				useBodyOverflow: false,
+				usePopupEasyClose: true,
+				overlayColor: '#000000',
+				overlayOpacity: 0.75,
+				popupLoaderText: '',
+				fadeSpeed: 500,
+				usePopupDefaultStyling: false,
+				windowMargin: (skel.breakpoint('small').active ? 5 : 50)
+			});
+			
+			$('.popicon').poptrox({
+				onPopupClose: function() { $body.removeClass('is-covered'); },
+				onPopupOpen: function() { $body.addClass('is-covered'); },
+				baseZIndex: 10001,
+				useBodyOverflow: false,
+				usePopupEasyClose: true,
+				overlayColor: '#000000',
+				overlayOpacity: 0.75,
+				popupLoaderText: '',
+				fadeSpeed: 500,
+				usePopupDefaultStyling: false,
+				windowMargin: (skel.breakpoint('small').active ? 5 : 50)
+			});
+
+		});
   
   // Fontawesome labels
   $("a").hover(function(){
@@ -34,64 +83,62 @@ $(function() {
         label.style.visibility = 'hidden';
       }
   });
-    
-});
-
-// Slick
-$(document).ready(function(){
-  $('.carousel').slick({
-    dots: true,
-    centerMode: true,
-    infinite: true,
-    centerPadding: '80px',
-    slidesToShow: 3,
-    prevArrow:"<button type='button' class='slick-prev' style='top:45%; left:-5%;'>Previous</button>",
-    nextArrow:"<button type='button' class='slick-next' style='top:45%; right:-5%;'>Next</button>",
-    responsive: [
-    {
-      breakpoint: 768,
-      settings: {
-        arrows: false,
-        centerMode: true,
-        centerPadding: '40px',
-        slidesToShow: 3
+  
+  // Show/hide About/Presentations text
+  /*
+  $("a").click(function(){
+      if (this.id == 'icon-about') {
+        var about = document.getElementById('about');
+        if (about.clientHeight) {
+          about.style.height = 0;
+        } else {
+          var wrapper = document.querySelector('.about-wrapper');
+          about.style.height = wrapper.clientHeight + "px";
+        }
       }
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        arrows: false,
-        centerMode: true,
-        centerPadding: '40px',
-        slidesToShow: 1
-      }
-    }
-  ]
   });
-});
-
-// On before slide change
-$('.carousel').on('afterChange', function(event, slick, newSlide){
+  */
   
-  // Reset all opacities
-  elements = document.getElementsByClassName('carousel-image');
-  for (var i = elements.length - 1; i >= 0; i--) {
-    elements[i].style.opacity = 0.5;
-  }
+  // Smooth anchor scrolling
+  $(function() {
+    $('a[href*="#"]:not([href="#"])').click(function() {
+      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+        var target = $(this.hash);
+        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+        if (target.length) {
+          $('html, body').animate({
+            scrollTop: target.offset().top
+          }, 1000);
+          return false;
+        }
+      }
+    });
+  });
   
-  // Make all popouts invisible
-  popouts = document.getElementsByClassName('popout');
-  for (var i = popouts.length - 1; i >= 0; i--) {
-    popouts[i].style.display = 'none';
-  }
-  
-  // Make current element/popout visible
-  if (newSlide < 10) {
-    document.getElementById('elem0'.concat(newSlide)).style.opacity = 1;
-    document.getElementById('popout0'.concat(newSlide)).style.display = 'block';
-  } else {
-    document.getElementById('elem'.concat(newSlide)).style.opacity = 1;
-    document.getElementById('popout'.concat(newSlide)).style.display = 'block';
-  }
+  // Window resizing actions
+  $window.on('resize', function() {
+    
+    // If the window actually resized, close about
+    /*
+    var newWidth = $(window).width();
+    var about;
+    if(newWidth !== cachedWidth){
+      about = document.getElementById('about')
+      if (about != null)
+        about.style.height = 0;
+      cachedWidth = newWidth;
+    }
+    */
+    
+    // Hide thumbnail details when window is too small
+    var i;
+    details = document.getElementsByClassName('caption-detail');
+    for (i = details.length - 1; i >= 0; i--) {
+      if ($(window).width() <= 480)
+        details[i].style.display = 'none';
+      else
+        details[i].style.display = 'inline';
+    }
+  });
   
 });
