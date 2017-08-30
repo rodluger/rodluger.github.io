@@ -16,7 +16,7 @@ $(function() {
   var i;
   details = document.getElementsByClassName('caption-detail');
   for (i = details.length - 1; i >= 0; i--) {
-    if ($(window).width() <= 480)
+    if ($(window).width() <= 700)
       details[i].style.display = 'none';
     else
       details[i].style.display = 'inline';
@@ -37,39 +37,6 @@ $(function() {
 		$window.on('load', function() {
 			$body.removeClass('is-loading');
 		});
-
-	// Poptrox.
-		$window.on('load', function() {
-
-			$('.thumbnails').poptrox({
-				onPopupClose: function() { $body.removeClass('is-covered'); },
-				onPopupOpen: function() { $body.addClass('is-covered'); },
-				baseZIndex: 10001,
-				useBodyOverflow: false,
-				usePopupEasyClose: true,
-				overlayColor: '#000000',
-				overlayOpacity: 0.75,
-				popupLoaderText: '',
-				fadeSpeed: 500,
-				usePopupDefaultStyling: false,
-				windowMargin: (skel.breakpoint('small').active ? 5 : 50)
-			});
-			
-			$('.popicon').poptrox({
-				onPopupClose: function() { $body.removeClass('is-covered'); },
-				onPopupOpen: function() { $body.addClass('is-covered'); },
-				baseZIndex: 10001,
-				useBodyOverflow: false,
-				usePopupEasyClose: true,
-				overlayColor: '#000000',
-				overlayOpacity: 0.75,
-				popupLoaderText: '',
-				fadeSpeed: 500,
-				usePopupDefaultStyling: false,
-				windowMargin: (skel.breakpoint('small').active ? 5 : 50)
-			});
-
-		});
   
   // Fontawesome labels
   $("a").hover(function(){
@@ -83,21 +50,6 @@ $(function() {
         label.style.visibility = 'hidden';
       }
   });
-  
-  // Show/hide About/Presentations text
-  /*
-  $("a").click(function(){
-      if (this.id == 'icon-about') {
-        var about = document.getElementById('about');
-        if (about.clientHeight) {
-          about.style.height = 0;
-        } else {
-          var wrapper = document.querySelector('.about-wrapper');
-          about.style.height = wrapper.clientHeight + "px";
-        }
-      }
-  });
-  */
   
   // Smooth anchor scrolling
   $(function() {
@@ -118,23 +70,11 @@ $(function() {
   // Window resizing actions
   $window.on('resize', function() {
     
-    // If the window actually resized, close about
-    /*
-    var newWidth = $(window).width();
-    var about;
-    if(newWidth !== cachedWidth){
-      about = document.getElementById('about')
-      if (about != null)
-        about.style.height = 0;
-      cachedWidth = newWidth;
-    }
-    */
-    
     // Hide thumbnail details when window is too small
     var i;
     details = document.getElementsByClassName('caption-detail');
     for (i = details.length - 1; i >= 0; i--) {
-      if ($(window).width() <= 480)
+      if ($(window).width() <= 700)
         details[i].style.display = 'none';
       else
         details[i].style.display = 'inline';
