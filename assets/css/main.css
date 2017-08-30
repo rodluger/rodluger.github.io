@@ -2557,33 +2557,6 @@
 
 		}
 
-    /* Single column
-		@media screen and (max-width: 480px) {
-
-			.thumbnails {
-				display: block;
-			}
-
-				.thumbnails a {
-					margin: 0 0 2em 0 !important;
-				}
-
-				.thumbnails > div {
-					display: block;
-					width: 100%;
-				}
-
-					.thumbnails > div:last-child > :last-child {
-						margin-bottom: 0 !important;
-					}
-
-				.thumbnails h3 {
-					font-size: 1em;
-				}
-
-		}
-		*/
-
 /* Make caption details disappear when screen too small */
 
   .caption-heading {
@@ -2595,68 +2568,6 @@
     font-weight: 600;
     margin-right: 6px; 
   }
-
-/* Poptrox */
-
-	.poptrox-popup {
-		-moz-box-sizing: content-box;
-		-webkit-box-sizing: content-box;
-		-ms-box-sizing: content-box;
-		box-sizing: content-box;
-		background: rgba(240, 160, 200, 0.35);
-		padding: 0.5em 0.5em 0em 0.5em;
-		border-radius: 4px;
-		overflow: hidden;
-	}
-
-		.poptrox-popup .closer {
-			-moz-transition: opacity 0.2s ease-in-out;
-			-webkit-transition: opacity 0.2s ease-in-out;
-			-ms-transition: opacity 0.2s ease-in-out;
-			transition: opacity 0.2s ease-in-out;
-			text-decoration: none;
-			position: absolute;
-			top: 1em;
-			right: 1em;
-			z-index: 99999;
-			-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-			white-space: nowrap;
-			text-indent: 2.5em;
-			overflow: hidden;
-			width: 2.5em;
-			height: 2.5em;
-			display: block;
-		}
-
-			.poptrox-popup .closer:before {
-				content: "";
-				-moz-osx-font-smoothing: grayscale;
-				-webkit-font-smoothing: antialiased;
-				font-family: FontAwesome;
-				font-style: normal;
-				font-weight: normal;
-				text-transform: none !important;
-			}
-
-			.poptrox-popup .closer:before {
-				display: block;
-				position: relative;
-				text-indent: 0;
-				border-radius: 100%;
-				box-shadow: inset 0 0 0 1px #ffffff;
-				color: #ffffff !important;
-				width: 2.5em;
-				height: 2.5em;
-				line-height: 2.5em;
-			}
-
-		.poptrox-popup:hover .closer {
-			opacity: 0.5;
-		}
-
-			.poptrox-popup:hover .closer:hover {
-				opacity: 1.0;
-			}
 
 /* Wrapper */
 
