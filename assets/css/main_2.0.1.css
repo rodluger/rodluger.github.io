@@ -1448,11 +1448,7 @@
   a {
     color: inherit;
     text-decoration: none;
-    border-bottom: dotted 1px rgba(255, 255, 255, 0.35);
-    -moz-transition: border-bottom-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    -webkit-transition: border-bottom-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    -ms-transition: border-bottom-color 0.2s ease-in-out, color 0.2s ease-in-out;
-    transition: border-bottom-color 0.2s ease-in-out, color 0.2s ease-in-out;
+    border-bottom: none;
   }
 
     a:hover {
