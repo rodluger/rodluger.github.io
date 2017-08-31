@@ -12,7 +12,132 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 	</head>
 	<body>
+    
+    <style>
+      .thumb
+      {
+          position:relative;
+          overflow:hidden;
+      }
+      .thumb-description
+      {
+          z-index:100;
+          position:absolute;    
+          color:white;
+          left:10%;
+          right:10%;
+          top:10%;
+          text-align:justify;
+          -webkit-hyphens: auto;
+          -moz-hyphens: auto;
+          -ms-hyphens: auto;
+          hyphens: auto;
+          display: none;
+      }
+      .thumb-description-icons
+      {
+          margin-top:10%;
+      }
+      .thumb-description-text
+      {
+          font-size: 0.8em;
+      }
+      .thumb img
+      {
+          transition: all .2s ease-in-out;
+          -webkit-transition: all .2s ease-in-out;
+           -moz-transition: all .2s ease-in-out;
+           -o-transition: all .2s ease-in-out;
+          transform: translateX(0);
+           -webkit-transform: translateX(0);
+      }
+      
+      
+      @media screen and (max-width: 9999px) {
+          .thumb:hover img {
+              filter: brightness(0.25) opacity(0.75);
+              -webkit-filter: brightness(0.25) opacity(0.75);
+          }
+      }
+      
+      @media screen and (max-width: 1100px) {
+          .thumb-description-text {
+              font-size: 0.75em;
+              line-height: 145%;
+          }
+          .thumb ul.icons li {
+              display: inline-block;
+              padding: 0 0 0 0;
+              font-size: 0.6em;
+          }
+          .thumb .icon-label {
+              width: 40px;
+              max-width: 40px;
+              font-size: 1em;
+          } 
+      }
+      
+      @media screen and (max-width: 1000px) {
+          .thumb-description-text {
+              font-size: 0.65em;
+              line-height: 150%;
+          }
+          .thumb ul.icons li {
+              display: inline-block;
+              padding: 0 0 0 0;
+              font-size: 0.6em;
+          }
+          .thumb .icon-label {
+              width: 40px;
+              max-width: 40px;
+              font-size: 1em;
+          } 
+      }
 
+      @media screen and (max-width: 900px) {
+          .thumb-description-text {
+              font-size: 0.6em;
+              line-height: 140%;
+          }
+          .thumb ul.icons li {
+              display: inline-block;
+              padding: 0 0 0 0;
+              font-size: 0.6em;
+          }
+          .thumb .icon-label {
+              width: 40px;
+              max-width: 40px;
+              font-size: 1em;
+          } 
+      }
+      
+      @media screen and (max-width: 800px) {
+          .thumb-description-text {
+              font-size: 0.53em;
+              line-height: 150%;
+          }
+          .thumb ul.icons li {
+              display: inline-block;
+              padding: 0 0 0 0;
+              font-size: 0.6em;
+          }
+          .thumb .icon-label {
+              width: 40px;
+              max-width: 40px;
+              font-size: 1em;
+          } 
+      }
+      
+      @media screen and (max-width: 700px) {
+          .thumb:hover img{
+              filter: brightness(1) opacity(0.75);
+              -webkit-filter: brightness(1) opacity(0.75);
+          }
+      }
+
+            
+    </style>
+    
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -20,12 +145,12 @@
 					<header id="header">
 						<span class="avatar"><img src="images/avatar.jpg" alt="Rodrigo Luger" /></span>
 						<h1>Rodrigo Luger</h1>
-						<p>astronomer &nbsp;•&nbsp; postdoc &nbsp;•&nbsp; not actually left-handed</p>
+						<p>astronomer &nbsp;•&nbsp; postdoc @ uw &nbsp;•&nbsp; not actually left-handed</p>
 						<ul class="icons">
-							<li><div><a href="https://github.com/rodluger" class="icon style2 fa-github" id="icon-github"></a><div class="icon-label" id="label-icon-github">Github</div></div></li>
-							<li><div><a href="pdf/CV.pdf" class="icon style2 fa-file-text" id="icon-cv"></a><div class="icon-label" id="label-icon-cv">CV</div></div></li>
-							<li><div><a href="http://adsabs.harvard.edu/cgi-bin/nph-abs_connect?db_key=AST&db_key=PRE&qform=AST&arxiv_sel=astro-ph&arxiv_sel=cond-mat&arxiv_sel=cs&arxiv_sel=gr-qc&arxiv_sel=hep-ex&arxiv_sel=hep-lat&arxiv_sel=hep-ph&arxiv_sel=hep-th&arxiv_sel=math&arxiv_sel=math-ph&arxiv_sel=nlin&arxiv_sel=nucl-ex&arxiv_sel=nucl-th&arxiv_sel=physics&arxiv_sel=quant-ph&arxiv_sel=q-bio&sim_query=YES&ned_query=YES&adsobj_query=YES&aut_logic=OR&obj_logic=OR&author=luger%2C+rodrigo&object=&start_mon=&start_year=&end_mon=&end_year=&ttl_logic=OR&title=&txt_logic=OR&text=&nr_to_return=200&start_nr=1&jou_pick=ALL&ref_stems=&data_and=ALL&group_and=ALL&start_entry_day=&start_entry_mon=&start_entry_year=&end_entry_day=&end_entry_mon=&end_entry_year=&min_score=&sort=SCORE&data_type=SHORT&aut_syn=YES&ttl_syn=YES&txt_syn=YES&aut_wt=1.0&obj_wt=1.0&ttl_wt=0.3&txt_wt=3.0&aut_wgt=YES&obj_wgt=YES&ttl_wgt=YES&txt_wgt=YES&ttl_sco=YES&txt_sco=YES&version=1" class="icon style2 fa-newspaper-o" id="icon-pub"></a><div class="icon-label" id="label-icon-pub">Publications</div></div></li>
-							<li><div><a href="mailto:rodluger@uw.edu" class="icon style2 fa-envelope-o" id="icon-email"></a><div class="icon-label" id="label-icon-email">Email</div></div></li>
+							<li><div><a href="https://github.com/rodluger" class="icon style2 fa-github" id="icon-github"></a><div class="icon-label" id="label-icon-github">github</div></div></li>
+							<li><div><a href="pdf/CV.pdf" class="icon style2 fa-id-card-o" id="icon-cv"></a><div class="icon-label" id="label-icon-cv">cv</div></div></li>
+							<li><div><a href="http://adsabs.harvard.edu/cgi-bin/nph-abs_connect?db_key=AST&db_key=PRE&qform=AST&arxiv_sel=astro-ph&arxiv_sel=cond-mat&arxiv_sel=cs&arxiv_sel=gr-qc&arxiv_sel=hep-ex&arxiv_sel=hep-lat&arxiv_sel=hep-ph&arxiv_sel=hep-th&arxiv_sel=math&arxiv_sel=math-ph&arxiv_sel=nlin&arxiv_sel=nucl-ex&arxiv_sel=nucl-th&arxiv_sel=physics&arxiv_sel=quant-ph&arxiv_sel=q-bio&sim_query=YES&ned_query=YES&adsobj_query=YES&aut_logic=OR&obj_logic=OR&author=luger%2C+rodrigo&object=&start_mon=&start_year=&end_mon=&end_year=&ttl_logic=OR&title=&txt_logic=OR&text=&nr_to_return=200&start_nr=1&jou_pick=ALL&ref_stems=&data_and=ALL&group_and=ALL&start_entry_day=&start_entry_mon=&start_entry_year=&end_entry_day=&end_entry_mon=&end_entry_year=&min_score=&sort=SCORE&data_type=SHORT&aut_syn=YES&ttl_syn=YES&txt_syn=YES&aut_wt=1.0&obj_wt=1.0&ttl_wt=0.3&txt_wt=3.0&aut_wgt=YES&obj_wgt=YES&ttl_wgt=YES&txt_wgt=YES&ttl_sco=YES&txt_sco=YES&version=1" class="icon style2 fa-file-text-o" id="icon-pub"></a><div class="icon-label" id="label-icon-pub">publications</div></div></li>
+							<li><div><a href="mailto:rodluger@uw.edu" class="icon style2 fa-envelope-o" id="icon-email"></a><div class="icon-label" id="label-icon-email">email</div></div></li>
 						</ul>
 					</header>
 
@@ -34,48 +159,266 @@
 
 						<!-- Thumbnails -->
 							<section class="thumbnails">
+								
+								<!-- Column 1 -->
 								<div>
-									<a href="javascript:void(0)">
-										<img src="images/thumbs/planetplanet.jpg" alt="planetplanet" />
-										<h3><span class="caption-heading">planetplanet</span><span class="caption-detail">photo<wbr>dynamical code</span></h3>
-									</a>
-									<a href="javascript:void(0)">
-										<img src="images/thumbs/exoaurora.jpg" alt="pale green dot" />
-										<h3><span class="caption-heading">pale green dot</span><span class="caption-detail">aurorae on Proxima b</span></h3>
-									</a>
-									<a href="javascript:void(0)">
-										<img src="images/thumbs/pysyzygy.jpg" alt="pysyzygy" />
-										<h3><span class="caption-heading">pysyzygy</span><span class="caption-detail">transit code</span></h3>
-									</a>
+								
+								  <!-- planetplanet -->
+								  <div class="thumb" id="planetplanet" onclick="gotoPage('https://github.com/rodluger/planetplanet');">
+                    <div class="thumb-image" id="planetplanet-image">
+                      <img src="images/thumbs/planetplanet.jpg" alt="planetplanet"/>
+                      <h3><span class="caption-heading" id="planetplanet-caption-heading">planetplanet</span>
+                      <span class="caption-detail" id="planetplanet-caption-detail">photo<wbr>dynamical code</span></h3>
+                    </div>
+                    <div class="thumb-description" id="planetplanet-description">
+                      <div class="thumb-description-text" id="planetplanet-description-text">
+                        In my latest paper, I showed that planet-planet occultations are extremely common in the TRAPPIST-1 system.
+                        Detections of these events with JWST will constrain the 3D architecture 
+                        of the system and simple properties of the planet surfaces. Below I make available the code 
+                        I developed for predicting and modeling planet-<wbr>planet occultations, as well as
+                        transit and secondary eclipse light curves, phase curves, mutual transits, and more. 
+                      </div>
+                      <div class="thumb-description-icons" id="planetplanet-description-icons">
+                        <ul class="icons" style="text-align:center;">
+                          <li><div>
+                            <a href="https://github.com/rodluger/planetplanet" class="icon style2 fa-github" id="icon-planetplanet-github"></a>
+                            <div class="icon-label" id="label-icon-planetplanet-github">github</div>
+                          </div></li>
+                          <li><div>
+                            <a href="http://staff.washington.edu/rodluger/planetplanet/PPOs.pdf" class="icon style2 fa-file-text-o" id="icon-planetplanet-paper"></a>
+                            <div class="icon-label" id="label-icon-planetplanet-paper">paper</div>
+                          </div></li>
+                          <li><div>
+                            <a href="http://staff.washington.edu/rodluger/planetplanet/overview.html" class="icon style2 fa-info" id="icon-planetplanet-docs"></a>
+                            <div class="icon-label" id="label-icon-planetplanet-docs">docs</div>
+                          </div></li>
+                        </ul>   
+                      </div>
+                    </div>
+									</div>
+									
+									<!-- exoaurora -->
+									<div class="thumb" id="exoaurora" onclick="gotoPage('https://github.com/rodluger/exoaurora');">
+                    <div class="thumb-image" id="exoaurora-image">
+                      <img src="images/thumbs/exoaurora.jpg" alt="exoaurora"/>
+                      <h3><span class="caption-heading" id="exoaurora-caption-heading">pale green dot</span>
+                      <span class="caption-detail" id="exoaurora-caption-detail">aurorae on proxima b</span></h3>
+                    </div>
+                    <div class="thumb-description" id="exoaurora-description">
+                      <div class="thumb-description-text" id="exoaurora-description-text">
+                        In this paper, I showed how auroral emission from the habitable zone planet Proxima Centauri b can be used
+                        to characterize its orbital properties, its mass, and its atmospheric composition.
+                      </div>
+                      <div class="thumb-description-icons" id="exoaurora-description-icons">
+                        <ul class="icons" style="text-align:center;">
+                          <li><div>
+                            <a href="https://github.com/rodluger/exoaurora" class="icon style2 fa-github" id="icon-exoaurora-github"></a>
+                            <div class="icon-label" id="label-icon-exoaurora-github">github</div>
+                          </div></li>
+                          <li><div>
+                            <a href="http://adsabs.harvard.edu/abs/2017ApJ...837...63L" class="icon style2 fa-file-text-o" id="icon-exoaurora-paper"></a>
+                            <div class="icon-label" id="label-icon-exoaurora-paper">paper</div>
+                          </div></li>
+                        </ul>   
+                      </div>
+                    </div>
+									</div>
+									
+									<!-- pysyzygy -->
+									<div class="thumb" id="pysyzygy" onclick="gotoPage('https://github.com/rodluger/pysyzygy');">
+                    <div class="thumb-image" id="pysyzygy-image">
+                      <img src="images/thumbs/pysyzygy.jpg" alt="pysyzygy"/>
+                      <h3><span class="caption-heading" id="pysyzygy-caption-heading">pysyzygy</span>
+                      <span class="caption-detail" id="pysyzygy-caption-detail">transit code</span></h3>
+                    </div>
+                    <div class="thumb-description" id="pysyzygy-description">
+                      <div class="thumb-description-text" id="pysyzygy-description-text">
+                        A fast, flexible, and user-friendly exoplanet transit code for the general case of a massive, 
+                        eccentric planet with transit timing variations.
+                      </div>
+                      <div class="thumb-description-icons" id="pysyzygy-description-icons">
+                        <ul class="icons" style="text-align:center;">
+                          <li><div>
+                            <a href="https://github.com/rodluger/pysyzygy" class="icon style2 fa-github" id="icon-pysyzygy-github"></a>
+                            <div class="icon-label" id="label-icon-pysyzygy-github">github</div>
+                          </div></li>
+                        </ul>   
+                      </div>
+                    </div>
+									</div>
+									
 								</div>
+								
+								<!-- Column 2 -->
 								<div>
-									<a href="javascript:void(0)">
-										<img src="images/thumbs/trappist1.gif" alt="TRAPPIST-1" />
-										<h3><span class="caption-heading">TRAPPIST-1</span><span class="caption-detail">search for planet h</span></h3>
-									</a>
-									<a href="javascript:void(0)">
-										<img src="images/thumbs/mirage.jpg" alt="mirage" />
-										<h3><span class="caption-heading">mirage earths</span><span class="caption-detail">M dwarf water loss</span></h3>
-									</a>
-									<a href="javascript:void(0)">
-										<img src="images/thumbs/about.jpg" alt="about" />
-										<h3><span class="caption-heading">about</span><span class="caption-detail">about Rodrigo</span></h3>
-									</a>
+								
+								  <!-- trappist-1 -->
+									<div class="thumb" id="trappist1" onclick="gotoPage('https://github.com/rodluger/trappist1');">
+                    <div class="thumb-image" id="trappist1-image">
+                      <img src="images/thumbs/trappist1.gif" alt="trappist1"/>
+                      <h3><span class="caption-heading" id="trappist1-caption-heading">trappist-1</span>
+                      <span class="caption-detail" id="trappist1-caption-detail">search for planet h</span></h3>
+                    </div>
+                    <div class="thumb-description" id="trappist1-description">
+                      <div class="thumb-description-text" id="trappist1-description-text">
+                        I used data from K2 to confirm the period of TRAPPIST-1h, measure the rotation period of
+                        the star, and establish that all seven planets in TRAPPIST-1 are in three-body Laplace
+                        resonances.
+                      </div>
+                      <div class="thumb-description-icons" id="trappist1-description-icons">
+                        <ul class="icons" style="text-align:center;">
+                          <li><div>
+                            <a href="https://github.com/rodluger/trappist1" class="icon style2 fa-github" id="icon-trappist1-github"></a>
+                            <div class="icon-label" id="label-icon-trappist1-github">github</div>
+                          </div></li>                          
+                          <li><div>
+                            <a href="http://adsabs.harvard.edu/abs/2017NatAs...1E.129L" class="icon style2 fa-file-text-o" id="icon-trappist1-paper"></a>
+                            <div class="icon-label" id="label-icon-trappist1-paper">paper</div>
+                          </div></li>
+                          <li><div>
+                            <a href="https://ac.arc.nasa.gov/pbl7zb5efqsl/" class="icon style2 fa-youtube-play" id="icon-trappist1-talk"></a>
+                            <div class="icon-label" id="label-icon-trappist1-talk">talk</div>
+                          </div></li>
+                        </ul>   
+                      </div>
+                    </div>
+									</div>
+                  
+                  <!-- mirage earths -->
+									<div class="thumb" id="mirage" onclick="gotoPage('http://adsabs.harvard.edu/abs/2015AsBio..15..119L');">
+                    <div class="thumb-image" id="mirage-image">
+                      <img src="images/thumbs/mirage.jpg" alt="mirage"/>
+                      <h3><span class="caption-heading" id="mirage-caption-heading">mirage earths</span>
+                      <span class="caption-detail" id="mirage-caption-detail">m dwarf water loss</span></h3>
+                    </div>
+                    <div class="thumb-description" id="mirage-description">
+                      <div class="thumb-description-text" id="mirage-description-text">
+                        In this paper, I showed how the extended pre-main sequence phase of M dwarfs can lead to
+                        extreme water loss and the possible buildup of oxygen in the atmospheres
+                        of terrestrial planets in the habitable zones of these stars.
+                      </div>
+                      <div class="thumb-description-icons" id="mirage-description-icons">
+                        <ul class="icons" style="text-align:center;">
+                        <li><div>
+                            <a href="http://adsabs.harvard.edu/abs/2015AsBio..15..119L" class="icon style2 fa-file-text-o" id="icon-mirage-paper"></a>
+                            <div class="icon-label" id="label-icon-mirage-paper">paper</div>
+                        </div></li>   
+                        </ul>
+                      </div>
+                    </div>
+									</div>
+                  
+									<!-- about -->
+									<div class="thumb" id="aboutme" onclick="gotoPage('https://github.com/rodluger')">
+                    <div class="thumb-image" id="aboutme-image">
+                      <img src="images/thumbs/about.jpg" alt="aboutme"/>
+                      <h3><span class="caption-heading" id="aboutme-caption-heading">about</span>
+                      <span class="caption-detail" id="aboutme-caption-detail">about rodrigo</span></h3>
+                    </div>
+                    <div class="thumb-description" id="aboutme-description">
+                      <div class="thumb-description-text" id="aboutme-description-text">
+                        I'm currently a postdoc at UW in Seattle, working on finding novel
+                        ways to detect and characterize exoplanets, particularly those in the
+                        habitable zone. I mainly work with light curves from the K2 mission,
+                        and I'm gearing up to tackle science with TESS and JWST.
+                        Outside the office I love to hike, bike, swim, 
+                        craft lattes, faulty parallelism, and oxford commas.
+                      </div>
+                      <div class="thumb-description-icons" id="aboutme-description-icons">
+                        <!-- Nothing for now --> 
+                      </div>
+                    </div>
+									</div>
+									
 								</div>
+								
+								<!-- Column 3 -->
 								<div>
-									<a href="javascript:void(0)">
-										<img src="images/thumbs/everest.jpg" alt="everest" />
-										<h3><span class="caption-heading">everest</span><span class="caption-detail">K2 precision photometry</span></h3>
-									</a>
-									<a href="javascript:void(0)">
-										<img src="images/thumbs/hecs.jpg" alt="HECs" />
-										<h3><span class="caption-heading">HECs</span><span class="caption-detail">Habitable evaporated cores</span></h3>
-									</a>
-									<a href="javascript:void(0)">
-										<img src="images/thumbs/vplanet.jpg" alt="vplanet" />
-										<h3><span class="caption-heading">vplanet</span><span class="caption-detail">the virtual planet</span></h3>
-									</a>
+								
+								
+									<!-- everest -->
+									<div class="thumb" id="everest" onclick="gotoPage('https://github.com/rodluger/everest');">
+                    <div class="thumb-image" id="everest-image">
+                      <img src="images/thumbs/everest.jpg" alt="everest"/>
+                      <h3><span class="caption-heading" id="everest-caption-heading">everest</span>
+                      <span class="caption-detail" id="everest-caption-detail">k2 precision photometry</span></h3>
+                    </div>
+                    <div class="thumb-description" id="everest-description">
+                      <div class="thumb-description-text" id="everest-description-text">
+                        <span style="font-weight:600;">everest</span> is an open-source pipeline for removing instrumental noise from light curves generated by K2. 
+                        The code exploits correlations across the pixels on the Kepler CCD to remove systematics introduced by the spacecraft's pointing error, 
+                        yielding light curves with precision comparable to that of the original Kepler mission.
+                      </div>
+                      <div class="thumb-description-icons" id="everest-description-icons">
+                        <ul class="icons" style="text-align:center;">
+                          <li><div>
+                            <a href="https://github.com/rodluger/everest" class="icon style2 fa-github" id="icon-everest-github"></a>
+                            <div class="icon-label" id="label-icon-everest-github">github</div>
+                          </div></li>
+                          <li><div>
+                            <a href="http://adsabs.harvard.edu/abs/2016AJ....152..100L" class="icon style2 fa-file-text-o" id="icon-everest-paper1"></a>
+                            <div class="icon-label" id="label-icon-everest-paper1">paper 1</div>
+                          </div></li>
+                          <li><div>
+                            <a href="http://adsabs.harvard.edu/abs/2017arXiv170205488L" class="icon style2 fa-file-text-o" id="icon-everest-paper2"></a>
+                            <div class="icon-label" id="label-icon-everest-paper2">paper 2</div>
+                          </div></li>
+                        </ul>   
+                      </div>
+                    </div>
+									</div>
+									
+									
+									<!-- hecs -->
+									<div class="thumb" id="hecs" onclick="gotoPage('http://adsabs.harvard.edu/abs/2015AsBio..15...57L');">
+                    <div class="thumb-image" id="hecs-image">
+                      <img src="images/thumbs/hecs.jpg" alt="hecs"/>
+                      <h3><span class="caption-heading" id="hecs-caption-heading">hecs</span>
+                      <span class="caption-detail" id="hecs-caption-detail">habitable evaporated cores</span></h3>
+                    </div>
+                    <div class="thumb-description" id="hecs-description">
+                      <div class="thumb-description-text" id="hecs-description-text">
+                        The extended pre-main sequence phase of M dwarfs can drive vigorous hydrodynamic escape from
+                        their planets. In this paper, I showed how in some cases, small, gas-rich planets can lose 
+                        their hydrogen envelopes and form HECs.
+                      </div>
+                      <div class="thumb-description-icons" id="hecs-description-icons">
+                        <ul class="icons" style="text-align:center;">
+                          <li><div>
+                            <a href="http://adsabs.harvard.edu/abs/2015AsBio..15...57L" class="icon style2 fa-file-text-o" id="icon-hecs-paper"></a>
+                            <div class="icon-label" id="label-icon-hecs-paper">paper</div>
+                          </div></li>
+                        </ul>   
+                      </div>
+                    </div>
+									</div>
+									
+									<!-- vplanet -->
+									<div class="thumb" id="vplanet" onclick="gotoPage('http://adsabs.harvard.edu/cgi-bin/bib_query?arXiv:1608.06919');">
+                    <div class="thumb-image" id="vplanet-image">
+                      <img src="images/thumbs/vplanet.jpg" alt="vplanet"/>
+                      <h3><span class="caption-heading" id="vplanet-caption-heading">vplanet</span>
+                      <span class="caption-detail" id="vplanet-caption-detail">the virtual planet</span></h3>
+                    </div>
+                    <div class="thumb-description" id="vplanet-description">
+                      <div class="thumb-description-text" id="vplanet-description-text">
+                        <span style="font-weight:600;">VPLANET</span> models the evolution of potentially habitable planets 
+                        from their formation to the present day, accounting for processes such as stellar evolution, atmospheric escape, 
+                        climate evolution, etc.
+                      </div>
+                      <div class="thumb-description-icons" id="vplanet-description-icons">
+                        <ul class="icons" style="text-align:center;">
+                          <li><div>
+                            <a href="http://adsabs.harvard.edu/cgi-bin/bib_query?arXiv:1608.06919" class="icon style2 fa-file-text-o" id="icon-vplanet-paper"></a>
+                            <div class="icon-label" id="label-icon-vplanet-paper">paper</div>
+                          </div></li>
+                        </ul>   
+                      </div>
+                    </div>
+									</div>
+									
 								</div>
+								
 							</section>
 
 					</section>

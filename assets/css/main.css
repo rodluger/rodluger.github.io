@@ -2446,7 +2446,7 @@
 		margin: 0 0 2em -2em;
 	}
 
-		.thumbnails a {
+		.thumbnails .thumb {
 			-moz-transition: all 0.2s ease;
 			-webkit-transition: all 0.2s ease;
 			-ms-transition: all 0.2s ease;
@@ -2459,25 +2459,19 @@
 			border-radius: 4px;
 			box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25);
 			background-color: rgba(255, 255, 255, 0.075);
-			cursor: pointer;
 			outline: 0;
 			overflow: hidden;
 		}
 
-			.thumbnails a img {
+			.thumbnails .thumb img {
 				display: block;
 				width: 100%;
 				border-top-left-radius: 4px;
 				border-top-right-radius: 4px;
 			}
 
-			.thumbnails a h3 {
+			.thumbnails .thumb h3 {
 				margin: 1em;
-			}
-
-			.thumbnails a:hover {
-				background-color: rgba(255, 255, 255, 0.25);
-				box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.25), 0 0 0.5em 0 #FF6382;
 			}
 
 		.thumbnails > div {
@@ -2503,13 +2497,14 @@
 				margin: 0 0 2em -1.5em;
 			}
 
-				.thumbnails a {
+				.thumbnails .thumb {
 					margin: 0 0 1.5em 0;
 				}
 
 				.thumbnails > div {
 					padding-left: 1.5em;
 				}
+				
 
 		}
 
@@ -2518,7 +2513,11 @@
 			.thumbnails h3 {
 				font-size: 0.8em;
 			}
-
+			
+			.thumbnails p {
+				font-size: 0.8em;
+			}
+      
 		}
 		
 		@media screen and (max-width: 800px) {
@@ -2527,11 +2526,15 @@
 				font-size: 0.67em;
 			}
 			
+			.thumbnails p {
+				font-size: 0.67em;
+			}
+			
 			.thumbnails > div {
 					padding-left: 0.75em;
 			}
 			
-			.thumbnails a {
+			.thumbnails .thumb {
 					margin: 0 0 0.75em 0;
 			}
 

@@ -7,36 +7,72 @@
 $(function() {
 
 	// Vars.
-		var	$window = $(window),
-			$body = $('body'),
-			$wrapper = $('#wrapper');
-    var cachedWidth = $(window).width();
+	var	$window = $(window), $body = $('body');
   
   // Show caption detail?
-  var i;
   details = document.getElementsByClassName('caption-detail');
-  for (i = details.length - 1; i >= 0; i--) {
+  for (var i = details.length - 1; i >= 0; i--) {
     if ($(window).width() <= 700)
       details[i].style.display = 'none';
     else
       details[i].style.display = 'inline';
   }
   
-	// Breakpoints.
-		skel.breakpoints({
-			xlarge:	'(max-width: 1680px)',
-			large:	'(max-width: 1280px)',
-			medium:	'(max-width: 980px)',
-			small:	'(max-width: 736px)',
-			xsmall:	'(max-width: 480px)'
-		});
+  // Show thumbnail description?
+  description = document.getElementsByClassName('thumb-description-text');
+  for (var i = description.length - 1; i >= 0; i--) {
+    if ($(window).width() <= 700)
+      description[i].style.display = 'none';
+    else
+      description[i].style.display = 'block';
+  }
+  
+  // Show thumbnail icons?
+  icons = document.getElementsByClassName('thumb-description-icons');
+  for (var i = icons.length - 1; i >= 0; i--) {
+    if ($(window).width() <= 700)
+      icons[i].style.display = 'none';
+    else
+      icons[i].style.display = 'block';
+  }
+
+  // Window resizing actions
+  $window.on('resize', function() {
+    
+    // Hide thumbnail details when window is too small
+    details = document.getElementsByClassName('caption-detail');
+    for (var i = details.length - 1; i >= 0; i--) {
+      if ($(window).width() <= 700)
+        details[i].style.display = 'none';
+      else
+        details[i].style.display = 'inline';
+    }
+    
+    // Hide thumbnail description when window is too small
+    description = document.getElementsByClassName('thumb-description-text');
+    for (var i = description.length - 1; i >= 0; i--) {
+      if ($(window).width() <= 700)
+        description[i].style.display = 'none';
+      else
+        description[i].style.display = 'block';
+    }
+    
+    // Hide thumbnail icons when window is too small
+    icons = document.getElementsByClassName('thumb-description-icons');
+    for (var i = icons.length - 1; i >= 0; i--) {
+      if ($(window).width() <= 700)
+        icons[i].style.display = 'none';
+      else
+        icons[i].style.display = 'block';
+    }
+    
+  });
 
 	// Disable animations/transitions until everything's loaded.
-		$body.addClass('is-loading');
-
-		$window.on('load', function() {
-			$body.removeClass('is-loading');
-		});
+  $body.addClass('is-loading');
+  $window.on('load', function() {
+    $body.removeClass('is-loading');
+  });
   
   // Fontawesome labels
   $("a").hover(function(){
@@ -51,34 +87,25 @@ $(function() {
       }
   });
   
-  // Smooth anchor scrolling
-  $(function() {
-    $('a[href*="#"]:not([href="#"])').click(function() {
-      if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
-        var target = $(this.hash);
-        target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
-        if (target.length) {
-          $('html, body').animate({
-            scrollTop: target.offset().top
-          }, 1000);
-          return false;
-        }
-      }
-    });
-  });
-  
-  // Window resizing actions
-  $window.on('resize', function() {
+  // Thumbnail descriptions
+  $(".thumb").hover(
     
-    // Hide thumbnail details when window is too small
-    var i;
-    details = document.getElementsByClassName('caption-detail');
-    for (i = details.length - 1; i >= 0; i--) {
-      if ($(window).width() <= 700)
-        details[i].style.display = 'none';
-      else
-        details[i].style.display = 'inline';
-    }
-  });
+    // On enter
+    function(){ 
+      document.getElementById(this.id.concat('-description')).style.display = 'block';
+    }, 
   
+    // On leave
+    function(){
+      document.getElementById(this.id.concat('-description')).style.display = 'none';
+    }
+  
+  );
+      
 });
+
+function gotoPage(page) {
+  if ($(window).width() <= 700) {
+    window.location.href = page;
+  }
+}
