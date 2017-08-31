@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+rsync -aP --times --exclude='publish' --exclude='*.DS_Store' * $WEBSITE
