@@ -1,3 +1,3 @@
 # website
 
-Code for my [website](http://staff.washington.edu/rodluger/).
+Code for my [website](https://rodluger.github.io).
