@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/main_2.0.1.css" />
   </head>
   <body>
-    
+
     <!-- Wrapper -->
       <div id="wrapper">
 
@@ -34,24 +34,58 @@
 
             <!-- Thumbnails -->
               <section class="thumbnails">
-                
+
                 <!-- Column 1 -->
                 <div>
-                
+
+                  <!-- starry -->
+                  <div class="thumb" id="starry">
+                    <div class="thumb-image" id="starry-image">
+                      <img src="images/thumbs/starry.jpg" alt="starry"/>
+                      <h3><span class="caption-heading" id="starry-caption-heading">starry</span>
+                      <span class="caption-detail" id="starry-caption-detail">analytic lightcurves</span></h3>
+                    </div>
+                    <div class="thumb-description" id="starry-description">
+                      <div class="thumb-description-text" id="starry-description-text">
+                        Computation of transit and secondary eclipse light curves of exoplanets, light curves of eclipsing
+                        binaries, rotational phase curves of exoplanets, light curves of planet-planet and planet-moon
+                        occultations, and more. By modeling celestial body surface maps as sums of spherical harmonics,
+                        starry does all this analytically and is therefore fast, stable, and differentiable.
+                        starry is coded in C++ and wrapped in Python.
+                      </div>
+                      <div class="thumb-description-mini" id="starry-description-mini">
+                        <a href="https://github.com/rodluger/starry" target="_blank">Analytic occultation light curves for astronomy.</a>
+                      </div>
+                      <div class="thumb-description-icons" id="starry-description-icons">
+                        <ul class="icons" style="text-align:center;">
+                          <li><div>
+                            <a href="https://github.com/rodluger/starry" class="icon style2 fa-github" id="icon-starry-github" target="_blank"></a>
+                            <div class="icon-label" id="label-icon-starry-github">github</div>
+                          </div></li>
+                          <li><div>
+                            <a href="https://github.com/rodluger/starry/raw/master-pdf/tex/starry.pdf" class="icon style2 fa-file-text-o" id="icon-starry-paper" target="_blank"></a>
+                            <div class="icon-label" id="label-icon-starry-paper">paper</div>
+                          </div></li>
+                          <li><div>
+                            <a href="http://rodluger.github.io/starry" class="icon style2 fa-info" id="icon-starry-docs" target="_blank"></a>
+                            <div class="icon-label" id="label-icon-starry-docs">docs</div>
+                          </div></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
                   <!-- planetplanet -->
                   <div class="thumb" id="planetplanet">
                     <div class="thumb-image" id="planetplanet-image">
                       <img src="images/thumbs/planetplanet.jpg" alt="planetplanet"/>
                       <h3><span class="caption-heading" id="planetplanet-caption-heading">planetplanet</span>
-                      <span class="caption-detail" id="planetplanet-caption-detail">photo<wbr>dynamical code</span></h3>
+                      <span class="caption-detail" id="planetplanet-caption-detail">dynamical code</span></h3>
                     </div>
                     <div class="thumb-description" id="planetplanet-description">
                       <div class="thumb-description-text" id="planetplanet-description-text">
-                        In my latest paper, I showed that planet-planet occultations are extremely common in the TRAPPIST-1 system.
-                        Detections of these events with JWST will constrain the 3D architecture 
-                        of the system and simple properties of the planet surfaces. Below I make available the code 
-                        I developed for predicting and modeling planet-<wbr>planet occultations, as well as
-                        transit and secondary eclipse light curves, phase curves, mutual transits, and more. 
+                        Code for predicting and modeling planet-<wbr>planet occultations, as well as
+                        transit and secondary eclipse light curves, phase curves, mutual transits, and more.
                       </div>
                       <div class="thumb-description-mini" id="planetplanet-description-mini">
                         <a href="https://github.com/rodluger/planetplanet" target="_blank">Code for predicting and modeling planet-planet occultations in TRAPPIST-1 and other exoplanet systems.</a>
@@ -63,38 +97,22 @@
                             <div class="icon-label" id="label-icon-planetplanet-github">github</div>
                           </div></li>
                           <li><div>
-                            <a href="http://staff.washington.edu/rodluger/planetplanet/PPOs.pdf" class="icon style2 fa-file-text-o" id="icon-planetplanet-paper" target="_blank"></a>
+                            <a href="http://rodluger.github.io/planetplanet/PPOs.pdf" class="icon style2 fa-file-text-o" id="icon-planetplanet-paper" target="_blank"></a>
                             <div class="icon-label" id="label-icon-planetplanet-paper">paper</div>
                           </div></li>
                           <li><div>
-                            <a href="http://staff.washington.edu/rodluger/planetplanet/overview.html" class="icon style2 fa-info" id="icon-planetplanet-docs" target="_blank"></a>
+                            <a href="http://rodluger.github.io/planetplanet/overview.html" class="icon style2 fa-info" id="icon-planetplanet-docs" target="_blank"></a>
                             <div class="icon-label" id="label-icon-planetplanet-docs">docs</div>
                           </div></li>
                           <li><div>
                             <a href="pdf/trappist1_owl17.pdf" class="icon style2 fa-comment" id="icon-planetplanet-talk" target="_blank"></a>
                             <div class="icon-label" id="label-icon-planetplanet-talk">talk</div>
                           </div></li>
-                        </ul>   
+                        </ul>
                       </div>
                     </div>
                   </div>
-                  <!--
-                  <div class="thumb" id="planetplanet">
-                    <div class="thumb-image" id="planetplanet-image">
-                      <img src="images/thumbs/planetplanet.jpg" alt="planetplanet"/>
-                      <h3><span class="caption-heading" id="planetplanet-caption-heading">planetplanet</span>
-                      <span class="caption-detail" id="planetplanet-caption-detail">photo<wbr>dynamical code</span></h3>
-                    </div>
-                    <div class="thumb-description" id="planetplanet-description">
-                      <div class="thumb-description-text" id="planetplanet-description-text">
-                        Code for modeling transit and secondary eclipse light curves, phase curves, mutual transits, and more. Coming soon!
-                      </div>
-                      <div class="thumb-description-mini" id="planetplanet-description-mini">
-                        Code for modeling transit and secondary eclipse light curves, phase curves, mutual transits, and more. Coming soon!
-                      </div>
-                    </div>
-                  </div>
-                  -->
+
                   <!-- exoaurora -->
                   <div class="thumb" id="exoaurora">
                     <div class="thumb-image" id="exoaurora-image">
@@ -120,42 +138,16 @@
                             <a href="http://adsabs.harvard.edu/abs/2017ApJ...837...63L" class="icon style2 fa-file-text-o" id="icon-exoaurora-paper" target="_blank"></a>
                             <div class="icon-label" id="label-icon-exoaurora-paper">paper</div>
                           </div></li>
-                        </ul>   
+                        </ul>
                       </div>
                     </div>
                   </div>
-                  
-                  <!-- pysyzygy -->
-                  <div class="thumb" id="pysyzygy">
-                    <div class="thumb-image" id="pysyzygy-image">
-                      <img src="images/thumbs/pysyzygy.jpg" alt="pysyzygy"/>
-                      <h3><span class="caption-heading" id="pysyzygy-caption-heading">pysyzygy</span>
-                      <span class="caption-detail" id="pysyzygy-caption-detail">transit code</span></h3>
-                    </div>
-                    <div class="thumb-description" id="pysyzygy-description">
-                      <div class="thumb-description-text" id="pysyzygy-description-text">
-                        A fast, flexible, and user-friendly exoplanet transit code for the general case of a massive, 
-                        eccentric planet with transit timing variations.
-                      </div>
-                      <div class="thumb-description-mini" id="pysyzygy-description-mini">
-                        <a href="https://github.com/rodluger/pysyzygy" target="_blank">User-friendly exoplanet transit code for the general case of a massive, eccentric planet with TTVs.</a>
-                      </div>
-                      <div class="thumb-description-icons" id="pysyzygy-description-icons">
-                        <ul class="icons" style="text-align:center;">
-                          <li><div>
-                            <a href="https://github.com/rodluger/pysyzygy" class="icon style2 fa-github" id="icon-pysyzygy-github" target="_blank"></a>
-                            <div class="icon-label" id="label-icon-pysyzygy-github">github</div>
-                          </div></li>
-                        </ul>   
-                      </div>
-                    </div>
-                  </div>
-                  
+
                 </div>
-                
+
                 <!-- Column 2 -->
                 <div>
-                
+
                   <!-- trappist-1 -->
                   <div class="thumb" id="trappist1">
                     <div class="thumb-image" id="trappist1-image">
@@ -177,7 +169,7 @@
                           <li><div>
                             <a href="https://github.com/rodluger/trappist1" class="icon style2 fa-github" id="icon-trappist1-github" target="_blank"></a>
                             <div class="icon-label" id="label-icon-trappist1-github">github</div>
-                          </div></li>                          
+                          </div></li>
                           <li><div>
                             <a href="http://adsabs.harvard.edu/abs/2017NatAs...1E.129L" class="icon style2 fa-file-text-o" id="icon-trappist1-paper" target="_blank"></a>
                             <div class="icon-label" id="label-icon-trappist1-paper">paper</div>
@@ -186,11 +178,11 @@
                             <a href="https://ac.arc.nasa.gov/pbl7zb5efqsl/" class="icon style2 fa-youtube-play" id="icon-trappist1-talk" target="_blank"></a>
                             <div class="icon-label" id="label-icon-trappist1-talk">talk</div>
                           </div></li>
-                        </ul>   
+                        </ul>
                       </div>
                     </div>
                   </div>
-                  
+
                   <!-- mirage earths -->
                   <div class="thumb" id="mirage">
                     <div class="thumb-image" id="mirage-image">
@@ -213,7 +205,7 @@
                         <li><div>
                             <a href="http://adsabs.harvard.edu/abs/2015AsBio..15..119L" class="icon style2 fa-file-text-o" id="icon-mirage-paper" target="_blank"></a>
                             <div class="icon-label" id="label-icon-mirage-paper">paper</div>
-                        </div></li>   
+                        </div></li>
                         <li><div>
                             <a href="pdf/mirage_aas15.pdf" class="icon style2 fa-comment-o" id="icon-mirage-talk1" target="_blank"></a>
                             <div class="icon-label" id="label-icon-mirage-talk1">talk 1</div>
@@ -230,7 +222,7 @@
                       </div>
                     </div>
                   </div>
-                  
+
                   <!-- about -->
                   <div class="thumb" id="aboutme">
                     <div class="thumb-image" id="aboutme-image">
@@ -244,24 +236,24 @@
                         ways to detect and characterize exoplanets, particularly those in the
                         habitable zone. I mainly work with light curves from the K2 mission,
                         and I'm gearing up to tackle science with TESS and JWST.
-                        Outside the office I love to hike, bike, swim, 
+                        Outside the office I love to hike, bike, swim,
                         craft lattes, faulty parallelism, and oxford commas.
                       </div>
                       <div class="thumb-description-mini" id="aboutme-description-mini">
                         <a href="https://github.com/rodluger" target="_blank">Postdoc in Seattle. View this page on a bigger screen for more!</a>
                       </div>
                       <div class="thumb-description-icons" id="aboutme-description-icons">
-                        <!-- Nothing for now --> 
+                        <!-- Nothing for now -->
                       </div>
                     </div>
                   </div>
-                  
+
                 </div>
-                
+
                 <!-- Column 3 -->
                 <div>
-                
-                
+
+
                   <!-- everest -->
                   <div class="thumb" id="everest">
                     <div class="thumb-image" id="everest-image">
@@ -271,8 +263,8 @@
                     </div>
                     <div class="thumb-description" id="everest-description">
                       <div class="thumb-description-text" id="everest-description-text">
-                        <span style="font-weight:600;">everest</span> is an open-source pipeline for removing instrumental noise from light curves generated by K2. 
-                        The code exploits correlations across the pixels on the Kepler CCD to remove systematics introduced by the spacecraft's pointing error, 
+                        <span style="font-weight:600;">everest</span> is an open-source pipeline for removing instrumental noise from light curves generated by K2.
+                        The code exploits correlations across the pixels on the Kepler CCD to remove systematics introduced by the spacecraft's pointing error,
                         yielding light curves with precision comparable to that of the original Kepler mission.
                       </div>
                       <div class="thumb-description-mini" id="everest-description-mini">
@@ -300,12 +292,12 @@
                             <a href="pdf/everest_vpl_workshop17.pdf" class="icon style2 fa-comment" id="icon-everest-talk" target="_blank"></a>
                             <div class="icon-label" id="label-icon-everest-talk">talk</div>
                           </div></li>
-                        </ul>   
+                        </ul>
                       </div>
                     </div>
                   </div>
-                  
-                  
+
+
                   <!-- hecs -->
                   <div class="thumb" id="hecs">
                     <div class="thumb-image" id="hecs-image">
@@ -316,7 +308,7 @@
                     <div class="thumb-description" id="hecs-description">
                       <div class="thumb-description-text" id="hecs-description-text">
                         The extended pre-main sequence phase of M dwarfs can drive vigorous hydrodynamic escape from
-                        their planets. In this paper, I showed how in some cases, small, gas-rich planets can lose 
+                        their planets. In this paper, I showed how in some cases, small, gas-rich planets can lose
                         their hydrogen envelopes and form HECs.
                       </div>
                       <div class="thumb-description-mini" id="hecs-description-mini">
@@ -336,11 +328,11 @@
                             <a href="pdf/hecs_aas14.pdf" class="icon style2 fa-comment" id="icon-hecs-talk" target="_blank"></a>
                             <div class="icon-label" id="label-icon-hecs-talk">talk</div>
                           </div></li>
-                        </ul>   
+                        </ul>
                       </div>
                     </div>
                   </div>
-                  
+
                   <!-- vplanet -->
                   <div class="thumb" id="vplanet">
                     <div class="thumb-image" id="vplanet-image">
@@ -350,8 +342,8 @@
                     </div>
                     <div class="thumb-description" id="vplanet-description">
                       <div class="thumb-description-text" id="vplanet-description-text">
-                        <span style="font-weight:600;">VPLANET</span> models the evolution of potentially habitable planets 
-                        from their formation to the present day, accounting for processes such as stellar evolution, atmospheric escape, 
+                        <span style="font-weight:600;">VPLANET</span> models the evolution of potentially habitable planets
+                        from their formation to the present day, accounting for processes such as stellar evolution, atmospheric escape,
                         climate evolution, etc.
                       </div>
                       <div class="thumb-description-mini" id="vplanet-description-mini">
@@ -367,20 +359,20 @@
                             <a href="pdf/vplanet_abscicon17.pdf" class="icon style2 fa-comment" id="icon-vplanet-talk" target="_blank"></a>
                             <div class="icon-label" id="label-icon-vplanet-talk">talk</div>
                           </div></li>
-                        </ul> 
+                        </ul>
                       </div>
                     </div>
                   </div>
-                  
+
                 </div>
-                
+
               </section>
 
           </section>
 
         <!-- Footer -->
           <footer id="footer">
-            <p>&copy; Rodrigo Luger 2017. Design adapted from <a href="http://templated.co" target="_blank">templated</a>.<br/>Trouble viewing this page? <a href="https://github.com/rodluger/rodluger.github.io/issues" target="_blank">Submit an issue</a>.</p>
+            <p>&copy; Rodrigo Luger 2018. Design adapted from <a href="http://templated.co" target="_blank">templated</a>.<br/>Trouble viewing this page? <a href="https://github.com/rodluger/rodluger.github.io/issues" target="_blank">Submit an issue</a>.</p>
           </footer>
 
       </div>
