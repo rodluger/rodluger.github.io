@@ -30,7 +30,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 
 h1 {
-    font-size: 62px;
+    font-size: 68px;
     padding-bottom: 14px;
     margin-bottom: 0px;
     font-weight: 700;
@@ -713,7 +713,6 @@ a:hover, a:active, a:focus {
 }
 
 
-
 /*---------------------------------------
    Footer section              
 -----------------------------------------*/
@@ -797,7 +796,7 @@ footer .avatar img {
 @media (max-width: 767px) {
 
   h1 {
-    font-size: 38px;
+    font-size: 52px;
   }
 
   h2 {
@@ -843,6 +842,7 @@ footer .avatar img {
   .social-icon {
     text-align: center;
   }
+
 }
 
 
