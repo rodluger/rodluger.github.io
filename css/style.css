@@ -14,6 +14,11 @@ img {
   filter: grayscale(100%);
 }
 
+.package{
+  font-weight: 700; 
+  color: #666;
+}
+
 /*---------------------------------------
     Typorgraphy              
 -----------------------------------------*/
@@ -438,7 +443,7 @@ a:hover, a:active, a:focus {
 #single-project .single-project-thumb {
   position: relative;
   padding: 0;
-  margin-top: 32px;
+  margin: 0;
 }
 
 #single-project .single-project-thumb .single-project-overlay {
@@ -474,6 +479,37 @@ a:hover, a:active, a:focus {
   padding-top: 62px;
 }
 
+#single-project p {
+  text-align: justify;
+}
+
+#single-project .code-link {
+  padding: 3px; 
+  margin-top:10px; 
+  text-align:center;
+}
+
+#single-project .code-link a {
+  padding:0; 
+  margin:0;
+}
+
+#single-project .code-link-box {
+  border: solid 1px #dddddd; 
+  width:55px; 
+  height:55px;  
+  display: inline-block;
+}
+
+#single-project .code-link i {
+  padding-top:1px; 
+  font-size:26pt; 
+  line-height:52px;
+}
+
+#single-project h3 {
+  font-size:12pt;
+}
 
 /*---------------------------------------
    Contact section              
