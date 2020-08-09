@@ -73,97 +73,105 @@
                               tools for
                               mapping stars and exoplanets based on timeseries data.
 
-                              It enables the computation of transit and secondary eclipse light curves of exoplanets,
-                              light curves of eclipsing binaries, rotational light curves of stars,
-                              rotational phase curves of exoplanets,
-                              light curves of planet-planet and planet-moon occultations,
-                              light curves in reflected light, and more.
+                              It enables the computation of
+                              <a href="https://rodluger.github.io/starry/latest/notebooks/Exoplanet.html">transit and
+                                   secondary eclipse light curves of exoplanets</a>, <a
+                                   href="https://rodluger.github.io/starry/latest/notebooks/EclipsingBinary_FullSolution.html">light
+                                   curves of eclipsing binaries</a>, <a
+                                   href="https://rodluger.github.io/starry/v1.0.0/notebooks/MarginalLikelihood.html">rotational
+                                   light curves of stars</a>,
+                              <a href="https://rodluger.github.io/starry/latest/notebooks/HotJupiterPhaseCurve.html">rotational
+                                   phase curves of exoplanets</a>,
+                              <a href="https://ui.adsabs.harvard.edu/abs/2017ApJ...851...94L/abstract">light curves of
+                                   planet-planet and planet-moon occultations</a>,
+                              <a href="https://rodluger.github.io/starry/latest/notebooks/ReflectedLight.html">light
+                                   curves in reflected light</a>, and more.
                               By modeling celestial body surface maps as sums of spherical harmonics,
                               <span class="package">starry</span> does all this analytically and
                               is therefore
                               fast, stable, and differentiable.
                               <span class="package">starry</span> is coded in C++ and wrapped in
                               Python.
+
+                         <div class="single-project-figure">
+                              <hr>
+                              <div>
+                                   <div class="figure">
+                                        <img src="images/ylms.gif" />
+                                   </div>
+                                   <div class="caption">
+                                        <span class="bold">Figure 1</span>
+                                        The first six degrees of the real spherical harmonics.
+                                        <span class="package">starry</span> models the surface
+                                        intensity profile of stars and planets as a linear combination
+                                        of spherical harmonics up to arbitrary degree.
+                                   </div>
+                              </div>
+                              <hr>
+                         </div>
+
+                         <div class="single-project-figure">
+                              <hr>
+                              <div>
+                                   <div class="caption">
+                                        <span class="bold">Figure 2</span>
+                                        Evaluation time for a single occultation calculation as a function of the
+                                        spherical harmonic degree of the map using <span class="package">starry</span>
+                                        (blue, purple), and three different numerical integration techniques (orange,
+                                        green, red). The size of each
+                                        point is proportional to the log of the error relative to the starry
+                                        quadruple-precision solution.
+                                        <span class="bold">
+                                             <span class="package">starry</span>
+                                             is five orders of magnitude faster
+                                             and ten orders of magnitude more accurate than numerical evaluation methods
+                                             when computing occultation light curves.
+                                        </span>
+                                   </div>
+                                   <div class="figure">
+                                        <img src="images/starry-speed.jpg" />
+                                   </div>
+                              </div>
+                              <hr>
+                         </div>
+
                          </p>
 
                          <hr>
 
-                         <div class="col-md-offset-1 col-sm-offset-1 col-md-2 col-sm-2 code-link">
-                              <a href="https://github.com/rodluger/starry">
-                                   <div class="code-link-box">
-                                        <div class="single-project-thumb">
-                                             <i class="fab fa-github"></i>
-                                             <div class="single-project-overlay">
-                                                  <div class="single-project-item">
-                                                       <h3>code</h3>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                   </div>
-                              </a>
+                         <div class="project-links">
+                              <div class="project-link">
+                                   <a href="https://github.com/rodluger/starry" data-toggle="tooltip"
+                                        data-placement="bottom" title="code">
+                                        <i class="fab fa-github"></i>
+                                   </a>
+                              </div>
+                              <div class="project-link">
+                                   <a href="https://pypi.org/project/starry/" data-toggle="tooltip"
+                                        data-placement="bottom" title="PyPI">
+                                        <i class="fab fa-python"></i>
+                                   </a>
+                              </div>
+                              <div class="project-link">
+                                   <a href="https://ui.adsabs.harvard.edu/abs/2019AJ....157...64L/abstract"
+                                        data-toggle="tooltip" data-placement="bottom" title="paper">
+                                        <i class="fas fa-scroll"></i>
+                                   </a>
+                              </div>
+                              <div class="project-link">
+                                   <a href="https://rodluger.github.io/starry" data-toggle="tooltip"
+                                        data-placement="bottom" title="docs">
+                                        <i class="fas fa-info-circle"></i>
+                                   </a>
+                              </div>
+                              <div class="project-link">
+                                   <a href="https://rodluger.github.io/starry/latest/tutorials.html"
+                                        data-toggle="tooltip" data-placement="bottom" data-toggle="tooltip"
+                                        data-placement="bottom" title="tutorials">
+                                        <i class="fas fa-laptop-code"></i>
+                                   </a>
+                              </div>
                          </div>
-
-                         <div class="col-md-2 col-sm-2 code-link">
-                              <a href="https://pypi.org/project/starry/">
-                                   <div class="code-link-box">
-                                        <div class="single-project-thumb">
-                                             <i class="fab fa-python"></i>
-                                             <div class="single-project-overlay">
-                                                  <div class="single-project-item">
-                                                       <h3>PyPI</h3>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                   </div>
-                              </a>
-                         </div>
-
-                         <div class="col-md-2 col-sm-2 code-link">
-                              <a href="https://ui.adsabs.harvard.edu/abs/2019AJ....157...64L/abstract">
-                                   <div class="code-link-box">
-                                        <div class="single-project-thumb">
-                                             <i class="fas fa-scroll"></i>
-                                             <div class="single-project-overlay">
-                                                  <div class="single-project-item">
-                                                       <h3>paper</h3>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                   </div>
-                              </a>
-                         </div>
-
-                         <div class="col-md-2 col-sm-2 code-link">
-                              <a href="https://rodluger.github.io/starry">
-                                   <div class="code-link-box">
-                                        <div class="single-project-thumb">
-                                             <i class="fas fa-info-circle"></i>
-                                             <div class="single-project-overlay">
-                                                  <div class="single-project-item">
-                                                       <h3>docs</h3>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                   </div>
-                              </a>
-                         </div>
-
-                         <div class="col-md-2 col-sm-2 code-link">
-                              <a href="https://rodluger.github.io/starry/latest/tutorials.html">
-                                   <div class="code-link-box">
-                                        <div class="single-project-thumb">
-                                             <i class="fas fa-laptop-code"></i>
-                                             <div class="single-project-overlay">
-                                                  <div class="single-project-item">
-                                                       <h3 style="font-size:10pt;">tutorial</h3>
-                                                  </div>
-                                             </div>
-                                        </div>
-                                   </div>
-                              </a>
-                         </div>
-
-
                     </div>
                </div>
           </div>
