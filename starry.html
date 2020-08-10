@@ -24,9 +24,11 @@
 
      <!-- PRE LOADER -->
 
+
      <div class="preloader">
-          <div class="sk-spinner sk-spinner-wordpress">
-               <span class="sk-inner-circle"></span>
+          <div class="spinner">
+               <div class="dot1"></div>
+               <div class="dot2"></div>
           </div>
      </div>
 
@@ -92,11 +94,12 @@
                               fast, stable, and differentiable.
                               <span class="package">starry</span> is coded in C++ and wrapped in
                               Python.
+                         </p>
 
                          <div class="single-project-figure">
                               <hr>
                               <div>
-                                   <div class="figure">
+                                   <div class="figure-left">
                                         <img src="images/ylms.gif" />
                                    </div>
                                    <div class="caption">
@@ -105,36 +108,71 @@
                                         <span class="package">starry</span> models the surface
                                         intensity profile of stars and planets as a linear combination
                                         of spherical harmonics up to arbitrary degree.
+                                        The expressions for rotational and occultation light curves
+                                        can be computed analytically, so <span class="package">starry</span>
+                                        is <span class="bold">extremely fast and extremely precise</span>.
                                    </div>
                               </div>
                               <hr>
                          </div>
+
+                         <p>
+                              Recently, I used <span class="package">starry</span> to
+                              <a href="sold.html">map the
+                                   surface of the Earth</a> from the scattered light in the background
+                              pixels of the TESS satellite.
+                              The <span class="package">starry</span> algorithm is also at the
+                              heart of the <a href="https://github.com/exoplanet-dev/exoplanet">exoplanet package</a>
+                              for analysis of exoplanet transit light curves and the
+                              <a href="https://ui.adsabs.harvard.edu/abs/2020AJ....159..123A/abstract">
+                                   limb darkening code
+                              </a>for fast modeling of transits across stars with arbitrary order polynomial
+                              limb darkening.
+                              I am currently working on a paper extending the <span class="package">starry</span>
+                              formalism to
+                              <a href="https://github.com/rodluger/starrynight/raw/master-pdf/tex/ms.pdf">reflected
+                                   light curves of exoplanets and solar system moons</a>, as well
+                              as on a paper to enable fast, semi-analytic models of <a
+                                   href="https://github.com/rodluger/paparazzi/raw/master-pdf/tex/ms.pdf">Doppler
+                                   imaging datasets
+                                   for stars</a>.
+                              Finally, I am working on turning the <span class="package">starry</span> algorithm
+                              into an <a href="https://github.com/rodluger/starry_process">interpretable Gaussian
+                                   process</a>,
+                              whose hyperparameters are physical properties of the star, such as the size, contrast, and
+                              latitude(s) of star spots. Stay tuned!
+                         </p>
 
                          <div class="single-project-figure">
                               <hr>
                               <div>
                                    <div class="caption">
                                         <span class="bold">Figure 2</span>
-                                        Evaluation time for a single occultation calculation as a function of the
-                                        spherical harmonic degree of the map using <span class="package">starry</span>
-                                        (blue, purple), and three different numerical integration techniques (orange,
-                                        green, red). The size of each
-                                        point is proportional to the log of the error relative to the starry
-                                        quadruple-precision solution.
-                                        <span class="bold">
-                                             <span class="package">starry</span>
-                                             is five orders of magnitude faster
-                                             and ten orders of magnitude more accurate than numerical evaluation methods
-                                             when computing occultation light curves.
-                                        </span>
+                                        Sample analytic exoplanet system light curves computed with <span
+                                             class="package">starry</span>.
+                                        <span style="font-style:italic;">Top</span>: a hot
+                                        Jupiter transiting a Sun-like star. The planet’s map is a simple dipole, with
+                                        the hotspot offset
+                                        15 degrees
+                                        from stellar noon; the offset in the secondary eclipse from the peak of the
+                                        phase curve is
+                                        apparent. <span style="font-style:italic;">Bottom</span>: a two-planet system
+                                        with more complex surface maps. In
+                                        addition to
+                                        transits and secondary eclipses, a few planet-planet occultations are visible
+                                        (e.g., the very
+                                        short events at t = 0.1 and t = 3.4 days).
                                    </div>
-                                   <div class="figure">
-                                        <img src="images/starry-speed.jpg" />
+                                   <div class="figure-right">
+                                        <img src="images/sample-lcs.jpg" />
                                    </div>
                               </div>
                               <hr>
                          </div>
 
+                         <p>
+                              Check out the links below for the source code, the paper(s),
+                              the documentation, tutorials, and more.
                          </p>
 
                          <hr>

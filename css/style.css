@@ -150,44 +150,46 @@ a:hover, a:active, a:focus {
   background: none repeat scroll 0 0 #ffffff;
 }
 
-.sk-spinner-wordpress.sk-spinner {
-  background-color: #bdc3c7;
+.spinner {
+  margin: 100px auto;
   width: 40px;
   height: 40px;
-  border-radius: 40px;
   position: relative;
-  -webkit-animation: sk-innerCircle 1s linear infinite;
-  animation: sk-innerCircle 1s linear infinite; 
+  text-align: center;
 }
 
-.sk-spinner-wordpress .sk-inner-circle {
-  display: block;
-  background-color: #ffffff;
-  width: 16px;
-  height: 16px;
+.dot1 {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
   position: absolute;
-  border-radius: 8px;
-  top: 5px;
-  left: 5px; 
+  top: 0;
+  background-color: #999;
+  border-radius: 100%;
+  z-index: 1;
 }
 
-@-webkit-keyframes sk-innerCircle {
-  0% {
-    -webkit-transform: rotate(0);
-            transform: rotate(0); }
+.dot2 {
+  display: inline-block;
+  position: absolute;
+  background-color: #666;
+  border-radius: 100%;
+  width: 40%;
+  height: 40%;
+  top: 30px;
+  left: 0px;
+  z-index: 2;
+  -webkit-animation: sk-orbit 0.75s infinite linear;
+  animation: sk-orbit 0.75s infinite linear;
+}
 
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg); } }
-
-@keyframes sk-innerCircle {
-  0% {
-    -webkit-transform: rotate(0);
-            transform: rotate(0); }
-
-  100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg); } }
+@keyframes sk-orbit {
+  0% { z-index: 2; transform: translate(0%, 0%); }
+  49% { z-index: 2; transform: translate(400%, -200%); }
+  50% { z-index: 0; transform: translate(400%, -200%); }
+  99% { z-index: 0; transform: translate(0%, 0%); }
+  100% { z-index: 2; transform: translate(0%, 0%); }
+}
 
 
 
@@ -532,6 +534,8 @@ a:hover, a:active, a:focus {
 }
 
 #single-project .single-project-figure {
+  margin-top: 30px;
+  margin-bottom: 30px;
   visibility: visible;
 }
 
@@ -539,7 +543,15 @@ a:hover, a:active, a:focus {
   display: table;
 }
 
-#single-project .single-project-figure .figure { 
+#single-project .single-project-figure .figure-left { 
+  text-align: left;
+  display: table-cell; 
+  vertical-align: middle; 
+  width:66%;
+}
+
+#single-project .single-project-figure .figure-right { 
+  text-align: right;
   display: table-cell; 
   vertical-align: middle; 
   width:66%;
@@ -553,8 +565,8 @@ a:hover, a:active, a:focus {
 }
 
 #single-project .single-project-figure img {
-  filter: unset;
-  width: 90%;
+  width: 95%;
+  filter: grayscale(75%);
 }
 
 #single-project .single-project-figure hr {
