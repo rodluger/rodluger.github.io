@@ -12,6 +12,11 @@ body {
 
 img {
   filter: grayscale(100%);
+  transition: 3s;
+}
+
+img:hover {
+  filter: unset !important;
 }
 
 .package{
