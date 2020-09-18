@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="">
+     <meta name="keywords" content="">
+     <meta name="author" content="">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <title>vplanet</title>
+
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/fontawesome.css">
+
+     <!-- Main css -->
+     <link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body>
+
+     <!-- PRE LOADER -->
+
+     <div class="preloader">
+          <div class="spinner">
+               <div class="dot1"></div>
+               <div class="dot2"></div>
+          </div>
+     </div>
+
+     <!-- Navigation section  -->
+
+     <div class="navbar navbar-default navbar-static-top" role="navigation">
+          <div class="container">
+
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
+                    <a href="index.html" class="navbar-brand">
+                         <span class="avatar">
+                              <img src="images/avatar.jpg">
+                         </span>
+                    </a>
+               </div>
+               <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                         <li class="active"><a href="index.html">home</a></li>
+                         <li><a href="about.html">about</a></li>
+                         <li><a href="https://github.com/rodluger/cv/raw/master-pdf/cv.pdf">cv</a></li>
+                         <li><a href="blog/index.html">blog</a></li>
+                    </ul>
+               </div>
+
+          </div>
+     </div>
+
+
+     <!-- Single Project Section -->
+
+     <section id="single-project">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-offset-1 col-md-10 col-sm-12">
+                         <h1>vplanet</h1>
+                         <p>
+                              Planetary systems evolve due to a myriad of processes, often non-linearly, which
+                              complicates simulating exoplanetary systems. The relevant physical processes have often
+                              been modeled and explored within disparate fields of science, so a universal model of
+                              planetary system evolution must unite theories developed in multiple scientific
+                              disciplines. <span class="package">vplanet</span> is an interdisciplinary software tool
+                              that models planetary system
+                              evolution to self-consistently track stellar, orbital, tidal, rotational, atmospheric,
+                              internal, magnetic, climate, and galactic evolution for generic planetary systems, but
+                              focusing on systems with habitable worlds.
+
+                              <br /><br />
+
+                              <span class="package">vplanet</span> was primarily developed by one of my graduate school
+                              advisors, <a href="https://depts.washington.edu/astron/profile/barnes-rory/">Rory
+                                   Barnes</a>. I'm the second author on the paper -- I worked on the stellar evolution
+                              and atmospheric escape bits of the code, as well as on the plotting routines and
+                              making it open source on GitHub. Check out the links at the bottom for more
+                              information!
+
+                         </p>
+
+                         <div class="single-project-figure">
+                              <hr>
+                              <div>
+                                   <div class="caption">
+                                        <span class="bold">Figure 1</span>
+                                        Orbital evolution of the circumbinary planet Kepler-16b according to the
+                                        <span class="package">binary</span> module in <span
+                                             class="package">vplanet</span>.
+                                        Perturbations from the central binary force orbital eccentricity
+                                        and inclination oscillations for the planet (top left and right panels,
+                                        respectively) and cause appreciable precession of the longitudes of the periapse
+                                        and ascending node (bottom left and right panels, respectively).
+                                   </div>
+                                   <div class="figure-right">
+                                        <img src="images/vplanet-plot1.jpg" />
+                                   </div>
+                              </div>
+                         </div>
+
+                         <div class="single-project-figure">
+                              <div>
+                                   <div class="figure-left">
+                                        <img src="images/vplanet-plot2.jpg" />
+                                   </div>
+                                   <div class="caption">
+                                        <span class="bold">Figure 2</span>
+                                        Seasonal evolution of an Earth-like planet at 1.02 AU with an obliquity of 55
+                                        degrees
+                                        over the course of its orbit. Insolation (left
+                                        panel) shows incident radiation as a function of latitude. The middle panel
+                                        shows the surface temperature. The ice balance (right panel) shows the
+                                        difference between ice growth and melting. Note that ice is more stable on the
+                                        equator than the poles.
+                                   </div>
+                              </div>
+                         </div>
+
+                         <hr>
+
+                         <div class="project-links">
+
+                              <div class="project-link">
+                                   <a href="https://ui.adsabs.harvard.edu/abs/2020PASP..132b4502B/abstract"
+                                        data-toggle="tooltip" data-placement="bottom" title="paper">
+                                        <i class="far fa-file-alt"></i>
+                                   </a>
+                              </div>
+
+                              <div class="project-link">
+                                   <a href="https://github.com/VirtualPlanetaryLaboratory/vplanet" data-toggle="tooltip"
+                                        data-placement="bottom" title="code">
+                                        <i class="fab fa-github"></i>
+                                   </a>
+                              </div>
+
+                              <div class="project-link">
+                                   <a href="https://virtualplanetarylaboratory.github.io/vplanet/" data-toggle="tooltip"
+                                        data-placement="bottom" title="docs">
+                                        <i class="fas fa-info-circle"></i>
+                                   </a>
+                              </div>
+
+                              <div class="project-link">
+                                   <a href="https://virtualplanetarylaboratory.github.io/vplanet/examples.html"
+                                        data-toggle="tooltip" data-placement="bottom" data-toggle="tooltip"
+                                        data-placement="bottom" title="examples">
+                                        <i class="fas fa-laptop-code"></i>
+                                   </a>
+                              </div>
+
+                         </div>
+                    </div>
+               </div>
+          </div>
+
+
+
+     </section>
+
+     <!-- Footer Section -->
+
+     <footer>
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-3 col-sm-3">
+                         <span class="avatar">
+                              <img src="images/avatar.jpg">
+                         </span>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                         <p>162 5th Ave, 5th Floor<br />New York NY 10100 United States</p>
+                    </div>
+
+                    <div class="col-md-offset-1 col-md-4 col-sm-offset-1 col-sm-3">
+                         <p><a href="mailto:rodluger@gmail.com">rodluger@gmail.com</a> <br /> (610) 675 6056</p>
+                    </div>
+
+                    <div class="clearfix col-md-12 col-sm-12">
+                         <hr>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <div class="footer-copyright">
+                              <p>© 2020 Rodrigo Luger &nbsp | &nbsp <a
+                                        href="https://github.com/rodluger/rodluger.github.io">hosted on github</a>
+                              </p>
+                         </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <ul class="social-icon">
+                              <li><a href="https://github.com/rodluger" class="fab fa-github"></a></li>
+                              <li><a href="https://twitter.com/rodluger" class="fab fa-twitter"></a></li>
+                              <li><a href="https://www.facebook.com/rodrigo.luger" class="fab fa-facebook"></a></li>
+                         </ul>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+
+     <!-- SCRIPTS -->
+
+     <script src="js/jquery.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/custom.js"></script>
+
+</body>
+
+</html>
