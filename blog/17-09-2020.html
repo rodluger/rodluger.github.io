@@ -16,7 +16,7 @@
      <link rel="stylesheet" href="../css/fontawesome.css">
 
      <!-- Main css -->
-     <link rel="stylesheet" href="../css/style.css">
+     <link rel="stylesheet" href="../css/custom.css">
 
 </head>
 
@@ -79,20 +79,81 @@
                               <div class="blog-post-format">
                                    <span><a href="#"><img src="../images/avatar.jpg" class="img-responsive img-circle"
                                                   style="margin-right: 8px;">Rodrigo Luger</a></span>
-                                   <span><i class="far fa-calendar"
-                                             style="margin-right:5px; color: #666;"></i>September 17 2020</span>
+                                   <span><i class="far fa-calendar" style="margin-right:5px; color: #666;"></i>September
+                                        17 2020</span>
                               </div>
 
                               <div class="blog-post-des">
-                                   <p>Ever since I started my postdoc at the <a href='https://www.simonsfoundation.org/flatiron/center-for-computational-astrophysics/'>CCA</a>, it feels like I've started a million different projects (and finished none). I have a lot of half-finished (or more like half-baked) ideas that I felt I had to write down somewhere, so I decided to start a blog! This blog will be a mishmash of posts on astronomy, data science, math, and any other random thoughts that pop into my head.</p><p>My main scientific interest right now is the mapping problem: trying to figure out what a (celestial) object looks like based only on its unresolved light curve (i.e., the changing flux we observe over time as the object spins on its axis). Astronomers have been studying the light curves of stars and solar system objects for <a href='http://articles.adsabs.harvard.edu/pdf/1906ApJ....24....1R'>over a century</a>, trying to figure out the shapes and albedo distributions of asteroids and the spot properties of magnetically active stars. More recently, this same technique has been applied to exoplanets: we can study their changing phase curves as they orbit their host star to infer temperature differences across their surfaces, which can tell us a whole host of information about their surface morphology, their atmospheres, and even (some day) their habitability. In the age of big data, where thanks to missions like Kepler and TESS we now have access to hundreds of thousands of stellar light curves, one might expect that astronomers have already figured out everything there is to know about stellar and planetary surfaces from their light curves. But, unfortunately, that is far from being true. The reason is mathematical in nature: the mapping problem is extremely ill-conditioned.</p>
-            <div style='text-align: center; width:75%; margin-left: auto; margin-right:auto; margin-bottom: 30px;'>
-                <a href='images/hd189733b.jpg'><img src='images/hd189733b.jpg' style='width:100%;'></img></a>
-                <p>
-                <span style='font-weight: 600; padding-right: 0.5em;'>Figure 1</span>
-                <span>A light curve of HD 189733 (left) and the inferred surface map of its hot Jupiter companion, HD 189733b (right), from <a href='https://ui.adsabs.harvard.edu/abs/2007Natur.447..183K/abstract'>Knutson et al. (2007)</a>. At phase 0 the planet transits the star, while at phase 0.5 the planet is occulted by the star, causing dips in the light curve. The curvature of the light curve is due to the phase curve of the planet. Near the transiting configuration, we see the planet's cold night side (flux minimum) and near the occulting configuration, we see the planet's hot day side (flux maximum). The fact that the flux maximum occurs slightly <span style='font-style: italic;'>before</span> occultation implies the hottest point on the surface of the planet is slightly shifted away from stellar noon, as shown in the inferred brightness map at the right.</span>
-                </p>
-            </div>
-            <p>While in some cases it is possible to infer a (low resolution) map of the star or planet (as in the figure above), in most cases there exists no unique solution. The projection from a two-dimensional space (the stellar or planetary surface) to a one-dimensional curve (the light curve) is <span style='font-style: italic;'>many-to-one</span>, meaning there are many maps that result in the same light curve. The information lost in this projection has nothing to do with the quality of the data or the duration of the observation: it's a fundamental issue with the mapping technique. And by "many maps" I actually mean an <span style='font-style: italic;'>infinite number of maps</span>. The problem is so degenerate, in fact, that if you're interested in surface features on scales of (say) tens of degrees (such as star spots or continents), the light curve contains only on the order of ten percent of the surface brightness information. Ninety percent of it is lost in the projection! This gets progressively worse as we go to smaller scales, making it almost impossible to construct useful maps of stars and planets from their light curves.</p><p><span style='font-style: italic;'>Almost</span>.</p><p>With clever statistical tricks, lots of data, and some fancy math, it is possible to squeeze more information out of these light curves to infer the things we actually care about: star spot properties, exoplanet atmosphere properties, and (eventually) surface properties of temperate terrestrial exoplanets. I plan to write a lot more about how to do this in future posts, so if you're interested, stay tuned!</p>
+                                   <p>Ever since I started my postdoc at the <a
+                                             href='https://www.simonsfoundation.org/flatiron/center-for-computational-astrophysics/'>CCA</a>,
+                                        it feels like I've started a million different projects (and finished none). I
+                                        have a lot of half-finished (or more like half-baked) ideas that I felt I had to
+                                        write down somewhere, so I decided to start a blog! This blog will be a mishmash
+                                        of posts on astronomy, data science, math, and any other random thoughts that
+                                        pop into my head.</p>
+                                   <p>My main scientific interest right now is the mapping problem: trying to figure out
+                                        what a (celestial) object looks like based only on its unresolved light curve
+                                        (i.e., the changing flux we observe over time as the object spins on its axis).
+                                        Astronomers have been studying the light curves of stars and solar system
+                                        objects for <a
+                                             href='http://articles.adsabs.harvard.edu/pdf/1906ApJ....24....1R'>over a
+                                             century</a>, trying to figure out the shapes and albedo distributions of
+                                        asteroids and the spot properties of magnetically active stars. More recently,
+                                        this same technique has been applied to exoplanets: we can study their changing
+                                        phase curves as they orbit their host star to infer temperature differences
+                                        across their surfaces, which can tell us a whole host of information about their
+                                        surface morphology, their atmospheres, and even (some day) their habitability.
+                                        In the age of big data, where thanks to missions like Kepler and TESS we now
+                                        have access to hundreds of thousands of stellar light curves, one might expect
+                                        that astronomers have already figured out everything there is to know about
+                                        stellar and planetary surfaces from their light curves. But, unfortunately, that
+                                        is far from being true. The reason is mathematical in nature: the mapping
+                                        problem is extremely ill-conditioned.</p>
+                                   <div
+                                        style='text-align: center; width:75%; margin-left: auto; margin-right:auto; margin-bottom: 30px;'>
+                                        <a href='images/hd189733b.jpg'><img src='images/hd189733b.jpg'
+                                                  style='width:100%;'></img></a>
+                                        <p>
+                                             <span style='font-weight: 600; padding-right: 0.5em;'>Figure 1</span>
+                                             <span>A light curve of HD 189733 (left) and the inferred surface map of its
+                                                  hot Jupiter companion, HD 189733b (right), from <a
+                                                       href='https://ui.adsabs.harvard.edu/abs/2007Natur.447..183K/abstract'>Knutson
+                                                       et al. (2007)</a>. At phase 0 the planet transits the star, while
+                                                  at phase 0.5 the planet is occulted by the star, causing dips in the
+                                                  light curve. The curvature of the light curve is due to the phase
+                                                  curve of the planet. Near the transiting configuration, we see the
+                                                  planet's cold night side (flux minimum) and near the occulting
+                                                  configuration, we see the planet's hot day side (flux maximum). The
+                                                  fact that the flux maximum occurs slightly <span
+                                                       style='font-style: italic;'>before</span> occultation implies the
+                                                  hottest point on the surface of the planet is slightly shifted away
+                                                  from stellar noon, as shown in the inferred brightness map at the
+                                                  right.</span>
+                                        </p>
+                                   </div>
+                                   <p>While in some cases it is possible to infer a (low resolution) map of the star or
+                                        planet (as in the figure above), in most cases there exists no unique solution.
+                                        The projection from a two-dimensional space (the stellar or planetary surface)
+                                        to a one-dimensional curve (the light curve) is <span
+                                             style='font-style: italic;'>many-to-one</span>, meaning there are many maps
+                                        that result in the same light curve. The information lost in this projection has
+                                        nothing to do with the quality of the data or the duration of the observation:
+                                        it's a fundamental issue with the mapping technique. And by "many maps" I
+                                        actually mean an <span style='font-style: italic;'>infinite number of
+                                             maps</span>. The problem is so degenerate, in fact, that if you're
+                                        interested in surface features on scales of (say) tens of degrees (such as star
+                                        spots or continents), the light curve contains only on the order of ten percent
+                                        of the surface brightness information. Ninety percent of it is lost in the
+                                        projection! This gets progressively worse as we go to smaller scales, making it
+                                        almost impossible to construct useful maps of stars and planets from their light
+                                        curves.</p>
+                                   <p><span style='font-style: italic;'>Almost</span>.</p>
+                                   <p>With clever statistical tricks, lots of data, and some fancy math, it is possible
+                                        to squeeze more information out of these light curves to infer the things we
+                                        actually care about: star spot properties, exoplanet atmosphere properties, and
+                                        (eventually) surface properties of temperate terrestrial exoplanets. I plan to
+                                        write a lot more about how to do this in future posts, so if you're interested,
+                                        stay tuned!</p>
                               </div>
 
                               <div class="blog-author">
@@ -102,11 +163,16 @@
                                                   alt="Rodrigo Luger">
                                         </div>
                                         <div class="media-body">
-                                             <h3 class="media-heading"><a
-                                                       href="../about.html">Rodrigo Luger</a>
+                                             <h3 class="media-heading"><a href="../about.html">Rodrigo Luger</a>
                                              </h3>
                                              <p style="text-align:justify;">
-                                                  I'm a Flatiron Fellow at the CCA in New York City, working on a variety of things related to exoplanets, stars, and astronomical data analysis. I'm interested in systematics de-trending, the search for and characterization of potentially habitable exoplanets, and the mapping of stellar and exoplanetary surfaces from photometric and spectroscopic datasets. Outside the office I love to hike, bike, swim, craft lattes, faulty parallelism, and oxford commas.
+                                                  I'm a Flatiron Fellow at the CCA in New York City, working on a
+                                                  variety of things related to exoplanets, stars, and astronomical data
+                                                  analysis. I'm interested in systematics de-trending, the search for
+                                                  and characterization of potentially habitable exoplanets, and the
+                                                  mapping of stellar and exoplanetary surfaces from photometric and
+                                                  spectroscopic datasets. Outside the office I love to hike, bike, swim,
+                                                  craft lattes, faulty parallelism, and oxford commas.
                                              </p>
                                         </div>
                                    </div>
@@ -117,23 +183,24 @@
                          </div>
                     </div>
                </div>
-          
+
           </div>
      </section>
 
      <script>
           var disqus_config = function () {
-          this.page.url = "https://luger.dev/blog/17-09-2020.html";
-          this.page.identifier = "17-09-2020";
+               this.page.url = "https://luger.dev/blog/17-09-2020.html";
+               this.page.identifier = "17-09-2020";
           };
-          (function() { // DON'T EDIT BELOW THIS LINE
-          var d = document, s = d.createElement('script');
-          s.src = 'https://rodluger.disqus.com/embed.js';
-          s.setAttribute('data-timestamp', +new Date());
-          (d.head || d.body).appendChild(s);
+          (function () { // DON'T EDIT BELOW THIS LINE
+               var d = document, s = d.createElement('script');
+               s.src = 'https://rodluger.disqus.com/embed.js';
+               s.setAttribute('data-timestamp', +new Date());
+               (d.head || d.body).appendChild(s);
           })();
      </script>
-     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+               Disqus.</a></noscript>
 
      <!-- Footer Section -->
 
