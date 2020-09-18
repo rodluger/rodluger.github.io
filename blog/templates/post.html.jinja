@@ -10,7 +10,7 @@
      <meta name="author" content="">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-     <title>rodrigo's blog</title>
+     <title>{{post.title}}</title>
 
      <link rel="stylesheet" href="../css/bootstrap.min.css">
      <link rel="stylesheet" href="../css/fontawesome.css">
@@ -53,99 +53,79 @@
                          <li class="active"><a href="../index.html">home</a></li>
                          <li><a href="../about.html">about</a></li>
                          <li><a href="https://github.com/rodluger/cv/raw/master-pdf/cv.pdf">cv</a></li>
-                         <li><a href="#">blog</a></li>
+                         <li><a href="index.html">blog</a></li>
                     </ul>
                </div>
 
           </div>
      </div>
 
-     <!-- Blog Section -->
+     <!-- Blog Single Post Section -->
 
-     <section id="blog">
+     <section id="blog-single-post">
           <div class="container">
                <div class="row">
 
                     <div class="col-md-offset-1 col-md-10 col-sm-12">
-                         <div class="section-title">
-                              <h1>rodrigo's blog</h1>
-                         </div>
-
-                         <style>
-                              #toc_container {
-                                   display: table;
-                                   font-size: 12pt;
-                                   margin-bottom: 1em;
-                                   padding: 20px;
-                                   width: auto;
-                                   margin-left: auto;
-                                   margin-right: auto;
-                              }
-
-                              .toc_title {
-                                   font-size: 16pt;
-                                   font-weight: 700;
-                                   color: #666;
-                                   text-align: center;
-                              }
-
-                              .toc_list {
-                                   padding: 0;
-                              }
-
-                              #toc_container a {
-                                   color: #666;
-                              }
-
-                              #toc_container a:hover {
-                                   color: #000;
-                              }
-                         </style>
-
-                         <div id="toc_container">
-                              <p class="toc_title">Contents</p>
-                              <table style="width:100%">
-
-                                   
-                                   <tr>
-                                        <td style="text-align:right;">17-09-2020</td>
-                                        <td style="padding: 0 0.5em;">|</td>
-                                        <td><a href="17_09_2020" style="font-weight:400;">So I started a blog...</a></td>
-                                   </tr>
-                                   
-
-                              </table>
-                         </div>
-
-                         
-                         <div class="blog-post-thumb" id="17_09_2020">
+                         <div class="blog-single-post-thumb">
                               <div class="blog-post-image">
-                                   <a href="17-09-2020.html">
-                                        <img src="images/first-post.jpg" class="img-responsive" alt="Blog Image">
-                                   </a>
+                                   <img src="{{post.banner}}" class="img-responsive" alt="Blog Image">
                               </div>
+
                               <div class="blog-post-title">
-                                   <h3><a href="17-09-2020.html">So I started a blog...</a></h3>
+                                   <h3>{{post.title}}</h3>
                               </div>
+
                               <div class="blog-post-format">
-                                   <span><a href="../about.html"><img src="../images/avatar.jpg"
-                                                  class="img-responsive img-circle">
-                                             Rodrigo Luger</a></span>
+                                   <span><a href="#"><img src="{{post.author.image}}" class="img-responsive img-circle"
+                                                  style="margin-right: 8px;">{{post.author.name}}</a></span>
                                    <span><i class="far fa-calendar"
-                                             style="margin-right:5px; color: #666;"></i>September 17 2020</span>
+                                             style="margin-right:5px; color: #666;"></i>{{post.date}}</span>
                               </div>
+
                               <div class="blog-post-des">
-                                   <p>Ever since I started my postdoc at the <a href='https://www.simonsfoundation.org/flatiron/center-for-computational-astrophysics/'>CCA</a>, it feels like I've started a million different projects (and finished none). I have a lot of half-finished (or more like half-baked) ideas that I felt I had to write down somewhere, so I decided to start a blog! This blog will be a mishmash of posts on astronomy, data science, math, and any other random thoughts that pop into my head.</p>
-                                   <a href="17-09-2020.html" class="btn btn-default">Continue Reading</a>
+                                   {{post.text}}
                               </div>
+
+                              <div class="blog-author">
+                                   <div class="media">
+                                        <div class="media-object pull-left">
+                                             <img src="{{post.author.image}}" class="img-circle img-responsive"
+                                                  alt="{{post.author.name}}">
+                                        </div>
+                                        <div class="media-body">
+                                             <h3 class="media-heading"><a
+                                                       href="{{post.author.url}}">{{post.author.name}}</a>
+                                             </h3>
+                                             <p style="text-align:justify;">
+                                                  {{post.author.about}}
+                                             </p>
+                                        </div>
+                                   </div>
+                              </div>
+
+                              <div class="disqus" id="disqus_thread"></div>
+
                          </div>
-                         
-
                     </div>
-
                </div>
+          
           </div>
      </section>
+
+     <script>
+          var disqus_config = function () {
+          this.page.url = "{{post.disqus.url}}";
+          this.page.identifier = "{{post.disqus.identifier}}";
+          };
+          (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://rodluger.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+     </script>
+     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
      <!-- Footer Section -->
 

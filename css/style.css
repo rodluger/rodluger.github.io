@@ -1,5 +1,9 @@
 
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,500,700");
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700");
+
+html{
+  scroll-behavior: smooth;
+}
 
 body {
 		background: #ffffff;
@@ -25,7 +29,7 @@ img:hover {
 }
 
 /*---------------------------------------
-    Typorgraphy              
+    Typography              
 -----------------------------------------*/
 
 h1,h2,h3,h4,h5,h6 {
@@ -45,7 +49,7 @@ h1 {
 
 h2 {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 300;
   line-height: 46px;
   letter-spacing: 0px;
   color: #333;
@@ -90,15 +94,21 @@ html{
 }
 
 a {
-  color: #4d638c;
+  font-weight: 600;
+  color: #666;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
   text-decoration: none !important;
 }
 a:hover, a:active, a:focus {
-  color: #4d638c;
+  font-weight: 600;
+  color: #333;
   outline: none;
+}
+
+p {
+  text-align: justify;
 }
 
 * {
@@ -237,7 +247,7 @@ a:hover, a:active, a:focus {
 .navbar-default .navbar-nav li a {
     color: #333;
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 300;
     letter-spacing: 1px;
     -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
@@ -371,7 +381,7 @@ a:hover, a:active, a:focus {
 -----------------------------------------*/
 
 #portfolio small {
-  color: #f0f0f0;
+  color: #666666;
   font-size: 14px;
   font-weight: 700;
   letter-spacing: 1px;
@@ -385,8 +395,10 @@ a:hover, a:active, a:focus {
 
 #portfolio .portfolio-thumb .portfolio-overlay {
   position: absolute;
-  background: #666;
-  color: #ffffff;
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+  background-color: rgba(255, 255, 255, .5);
+  color: #333333;
   top: 0;
   left: 0;
   right: 0;
@@ -444,6 +456,11 @@ a:hover, a:active, a:focus {
 #single-project a {
   font-weight: 600;
   color: #666;
+}
+
+#single-project a:hover {
+  font-weight: 600;
+  color: #333;
 }
 
 #single-project .single-project-thumb {
@@ -534,7 +551,7 @@ a:hover, a:active, a:focus {
 }
 
 #single-project .project-link i:hover {
-  color: #000;
+  color: #333;
   transform: scale(1.1);
 }
 
@@ -571,7 +588,7 @@ a:hover, a:active, a:focus {
 
 #single-project .single-project-figure img {
   width: 95%;
-  filter: grayscale(75%);
+  filter: grayscale(100%);
 }
 
 #single-project .single-project-figure hr {
@@ -652,7 +669,7 @@ a:hover, a:active, a:focus {
 }
 
 .blog-post-title a:hover {
-  color: #000;
+  color: #333;
 }
 
 .blog-post-format {
@@ -683,13 +700,13 @@ a:hover, a:active, a:focus {
   color: #777;
   font-weight: 400;
   letter-spacing: 1px;
-  padding: 14px 28px;
+  padding: 6px 20px;
   margin-top: 26px;
   transition: all 0.4s ease-in-out;
 }
 
 .blog-post-des .btn:hover {
-  background: #000;
+  background: #777;
   border-color: transparent;
   color: #ffffff;
 }
@@ -801,7 +818,13 @@ footer .col-md-3 .fa {
 }
 
 footer a {
+  font-weight: 300;
   color: #333;
+}
+
+footer a:hover {
+  font-weight: 300;
+  color: #000;
 }
 
 footer hr {
@@ -855,7 +878,7 @@ footer .avatar img {
 }
 
 .social-icon li a:hover {
-    color: #000;
+    color: #333;
     transform: scale(1.1);
 }
 
@@ -900,6 +923,10 @@ footer .avatar img {
   #blog-single-post .blog-post-title h2 {
     font-size: 29px;
     line-height: 40px;
+  }
+
+  .blog-post-format span img {
+    width: 20px;
   }
 
   footer {

@@ -10,7 +10,7 @@
      <meta name="author" content="">
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-     <title>So, I started a blog</title>
+     <title>rodrigo's blog</title>
 
      <link rel="stylesheet" href="../css/bootstrap.min.css">
      <link rel="stylesheet" href="../css/fontawesome.css">
@@ -53,73 +53,98 @@
                          <li class="active"><a href="../index.html">home</a></li>
                          <li><a href="../about.html">about</a></li>
                          <li><a href="https://github.com/rodluger/cv/raw/master-pdf/cv.pdf">cv</a></li>
-                         <li><a href="index.html">blog</a></li>
+                         <li><a href="#">blog</a></li>
                     </ul>
                </div>
 
           </div>
      </div>
 
-     <!-- Blog Single Post Section -->
+     <!-- Blog Section -->
 
-     <section id="blog-single-post">
+     <section id="blog">
           <div class="container">
                <div class="row">
 
                     <div class="col-md-offset-1 col-md-10 col-sm-12">
-                         <div class="blog-single-post-thumb">
-                              <div class="blog-post-image">
-                                   <img src="10-08-2020-0.jpg" class="img-responsive" alt="Blog Image">
-                              </div>
-
-                              <div class="blog-post-title">
-                                   <h3>So, I started a blog</a></h3>
-                              </div>
-
-                              <div class="blog-post-format">
-                                   <span><a href="#"><img src="../images/avatar.jpg" class="img-responsive img-circle"
-                                                  style="margin-right: 8px;">Rodrigo Luger</a></span>
-                                   <span><i class="far fa-calendar" style="margin-right:5px; color: #666;"></i>Aug 08,
-                                        2020</span>
-                              </div>
-
-                              <div class="blog-post-des">
-                                   <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                                        nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                                        fugiat nulla pariatur.
-                                   </p>
-                              </div>
-
-                              <div class="blog-author">
-                                   <div class="media">
-                                        <div class="media-object pull-left">
-                                             <img src="../images/avatar.jpg" class="img-circle img-responsive"
-                                                  alt="blog">
-                                        </div>
-                                        <div class="media-body">
-                                             <h3 class="media-heading"><a href="../about.html">Rodrigo Luger</a></h3>
-                                             <p style="text-align:justify;">
-                                                  I'm a Flatiron Fellow at the CCA in New York City, working on
-                                                  a variety of things related to exoplanets, stars, and astronomical
-                                                  data analysis. I'm interested in systematics de-trending,
-                                                  the search for and characterization of potentially habitable
-                                                  exoplanets,
-                                                  and the mapping of stellar and exoplanetary surfaces from photometric
-                                                  and spectroscopic datasets.
-                                                  Outside the office I love to hike, bike, swim, craft lattes, faulty
-                                                  parallelism, and oxford commas.
-                                             </p>
-                                        </div>
-                                   </div>
-                              </div>
-
-
+                         <div class="section-title">
+                              <h1>rodrigo's blog</h1>
                          </div>
+
+                         <style>
+                              #toc_container {
+                                   display: table;
+                                   font-size: 12pt;
+                                   margin-bottom: 1em;
+                                   padding: 20px;
+                                   width: auto;
+                                   margin-left: auto;
+                                   margin-right: auto;
+                              }
+
+                              .toc_title {
+                                   font-size: 16pt;
+                                   font-weight: 700;
+                                   color: #666;
+                                   text-align: center;
+                              }
+
+                              .toc_list {
+                                   padding: 0;
+                              }
+
+                              #toc_container a {
+                                   color: #666;
+                              }
+
+                              #toc_container a:hover {
+                                   color: #000;
+                              }
+                         </style>
+
+                         <div id="toc_container">
+                              <p class="toc_title">Contents</p>
+                              <table style="width:100%">
+
+                                   {% for item in posts %}
+                                   <tr>
+                                        <td style="text-align:right;">{{item.post.shortdate}}</td>
+                                        <td style="padding: 0 0.5em;">|</td>
+                                        <td><a href="{{item.post.id}}" style="font-weight:400;">{{item.post.title}}</a></td>
+                                   </tr>
+                                   {% endfor %}
+
+                              </table>
+                         </div>
+
+                         {% for item in posts %}
+                         <div class="blog-post-thumb" id="{{item.post.id}}">
+                              <div class="blog-post-image">
+                                   <a href="{{item.post.url}}">
+                                        <img src="{{item.post.banner}}" class="img-responsive" alt="Blog Image">
+                                   </a>
+                              </div>
+                              <div class="blog-post-title">
+                                   <h3><a href="{{item.post.url}}">{{item.post.title}}</a></h3>
+                              </div>
+                              <div class="blog-post-format">
+                                   <span><a href="{{item.post.author.url}}"><img src="{{item.post.author.image}}"
+                                                  class="img-responsive img-circle">
+                                             {{item.post.author.name}}</a></span>
+                                   <span><i class="far fa-calendar"
+                                             style="margin-right:5px; color: #666;"></i>{{item.post.date}}</span>
+                              </div>
+                              <div class="blog-post-des">
+                                   <p>{{item.post.summary}}</p>
+                                   <a href="{{item.post.url}}" class="btn btn-default">Continue Reading</a>
+                              </div>
+                         </div>
+                         {% endfor %}
+
                     </div>
+
                </div>
+          </div>
      </section>
 
      <!-- Footer Section -->
