@@ -90,42 +90,42 @@
                               </div>
 
                               <div class="blog-post-des">
-                                   <p>As I discussed in my <a href='2020-09-17.html'>previous post</a>, the information content of stellar light curves can be exceptionally tiny, owing to the large number of degeneracies when projecting from a two-dimensional space (the stellar surface) to a one-dimensional curve (the flux timeseries). Instead of trying to produce a definitive map of a stellar surface from a light curve, we can instead model the surface as a statistical process. In this post, I discuss ongoing work to develop a Gaussian process for stellar light curves whose hyperparameters are rooted in statistical properties of the stellar surface.</p>
-            <div id="Figure1Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body full-width">
-                            
+                                   <p>This is a continuation of the <a href='2020-09-24.html'>previous post</a>, in which we implemented a very slow, inefficient, and numerically unstable Gaussian process for stellar light curves. In this post I'll discuss how to compute the GP kernel analytically and show how to use this GP to learn about star spot properties from stellar light curves.</p>
+                <div id="Figure1Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body full-width">
+                                
                 <div class="blog-image-container full-width">
                 <video width='100%' autoplay muted loop>
                     <source src='images/starry-process.mp4' type='video/mp4'>
                     Your browser does not support the video tag.
                 </video>
                 </div>
-                            <p>
-                                <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
-                                <span>A video demo of a <a href='https://github.com/rodluger/starry_process'>starry process</a>. The kernel of the Gaussian process is a function of six hyperparameters that control the mean and standard deviation of the spot size, latitude, and contrast distributions (top panels). The bottom panels show random samples from the GP on the surface of the star (in a Mollweide projection) and in flux space. Line colors correspond to different stellar inclinations with respect to the line of sight. Because the kernel is an analytic function of the hyperparameters, drawing samples and computing marginal likelihoods with a <a href='https://github.com/rodluger/starry_process'>starry process</a> is extremely fast.</span>
-                            </p>
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
+                                    <span>A video demo of a <a href='https://github.com/rodluger/starry_process'>starry process</a>. The kernel of the Gaussian process is a function of six hyperparameters that control the mean and standard deviation of the spot size, latitude, and contrast distributions (top panels). The bottom panels show random samples from the GP on the surface of the star (in a Mollweide projection) and in flux space. Line colors correspond to different stellar inclinations with respect to the line of sight. Because the kernel is an analytic function of the hyperparameters, drawing samples and computing marginal likelihoods with a <a href='https://github.com/rodluger/starry_process'>starry process</a> is extremely fast.</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="Figure1" class="blog-image full-width">
-                <a href="#" data-toggle="modal" data-target="#Figure1Modal">
-                    
+                <div id="Figure1" class="blog-image full-width">
+                    <a href="#" data-toggle="modal" data-target="#Figure1Modal">
+                        
                 <div class="blog-image-container full-width">
                 <video width='100%' autoplay muted loop>
                     <source src='images/starry-process.mp4' type='video/mp4'>
                     Your browser does not support the video tag.
                 </video>
                 </div>
-                </a>
-                <p>
-                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
-                    <span>A video demo of a <a href='https://github.com/rodluger/starry_process'>starry process</a>. The kernel of the Gaussian process is a function of six hyperparameters that control the mean and standard deviation of the spot size, latitude, and contrast distributions (top panels). The bottom panels show random samples from the GP on the surface of the star (in a Mollweide projection) and in flux space. Line colors correspond to different stellar inclinations with respect to the line of sight. Because the kernel is an analytic function of the hyperparameters, drawing samples and computing marginal likelihoods with a <a href='https://github.com/rodluger/starry_process'>starry process</a> is extremely fast.</span>
-                </p>
-            </div>
-            
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
+                        <span>A video demo of a <a href='https://github.com/rodluger/starry_process'>starry process</a>. The kernel of the Gaussian process is a function of six hyperparameters that control the mean and standard deviation of the spot size, latitude, and contrast distributions (top panels). The bottom panels show random samples from the GP on the surface of the star (in a Mollweide projection) and in flux space. Line colors correspond to different stellar inclinations with respect to the line of sight. Because the kernel is an analytic function of the hyperparameters, drawing samples and computing marginal likelihoods with a <a href='https://github.com/rodluger/starry_process'>starry process</a> is extremely fast.</span>
+                    </p>
+                </div>
+                
                               </div>
 
                               <div class="blog-author">

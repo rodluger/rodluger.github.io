@@ -857,6 +857,14 @@ p {
   padding-top: 16px;
 }
 
+#blog-single-post .blog-post-des h1 {
+  font-size: 20px;
+  font-weight: 400;
+  padding-top: 14px;
+  color: #666;
+}
+
+
 
 /*---------------------------------------
    Footer section              

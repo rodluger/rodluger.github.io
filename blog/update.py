@@ -69,43 +69,52 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
                 )
             else:
                 raise ValueError("")
-            text += """
-            <div id="Figure{:d}Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body {:s}">
-                            {:s}
-                            <p>
-                                <span style="font-weight: 600; padding-right: 0.5em;">Figure {:d}</span>
-                                <span>{:s}</span>
-                            </p>
+            if len(item.get("caption", "")) == 0:
+                text += """
+                <div class="blog-image {:s}">
+                    {:s}
+                </div> 
+                """.format(
+                    " ".join(item.get("css_classes", [])), media
+                )
+            else:
+                text += """
+                <div id="Figure{:d}Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body {:s}">
+                                {:s}
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure {:d}</span>
+                                    <span>{:s}</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="Figure{:d}" class="blog-image {:s}">
-                <a href="#" data-toggle="modal" data-target="#Figure{:d}Modal">
-                    {:s}
-                </a>
-                <p>
-                    <span style="font-weight: 600; padding-right: 0.5em;">Figure {:d}</span>
-                    <span>{:s}</span>
-                </p>
-            </div>
-            """.format(
-                fignum,
-                " ".join(item.get("css_classes", [])),
-                media,
-                fignum,
-                item.get("caption", ""),
-                fignum,
-                " ".join(item.get("css_classes", [])),
-                fignum,
-                media,
-                fignum,
-                item.get("caption", ""),
-            )
-            fignum += 1
+                <div id="Figure{:d}" class="blog-image {:s}">
+                    <a href="#" data-toggle="modal" data-target="#Figure{:d}Modal">
+                        {:s}
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure {:d}</span>
+                        <span>{:s}</span>
+                    </p>
+                </div>
+                """.format(
+                    fignum,
+                    " ".join(item.get("css_classes", [])),
+                    media,
+                    fignum,
+                    item.get("caption", ""),
+                    fignum,
+                    " ".join(item.get("css_classes", [])),
+                    fignum,
+                    media,
+                    fignum,
+                    item.get("caption", ""),
+                )
+                fignum += 1
         else:
             raise ValueError("")
 

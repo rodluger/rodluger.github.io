@@ -91,68 +91,68 @@
 
                               <div class="blog-post-des">
                                    <p>Ever since I started my postdoc at the <a href='https://www.simonsfoundation.org/flatiron/center-for-computational-astrophysics/'>CCA</a>, it feels like I've started a million different projects (and finished none). I have a lot of half-finished (or more like half-baked) ideas that I felt I had to write down somewhere, so I decided to start a blog! This blog will be a mishmash of posts on astronomy, data science, math, and any other random thoughts that pop into my head.</p><p>My main scientific interest right now is the mapping problem: trying to figure out what a (celestial) object looks like based only on its unresolved light curve (i.e., the changing flux we observe over time as the object spins on its axis). Astronomers have been studying the light curves of stars and solar system objects for <a href='http://articles.adsabs.harvard.edu/pdf/1906ApJ....24....1R'>over a century</a>, trying to figure out the shapes and albedo distributions of asteroids and the spot properties of magnetically active stars. More recently, this same technique has been applied to exoplanets: we can study their changing phase curves as they orbit their host star to infer temperature differences across their surfaces, which can tell us a whole host of information about their surface morphology, their atmospheres, and even (some day) their habitability. In the age of big data, where thanks to missions like Kepler and TESS we now have access to hundreds of thousands of stellar light curves, one might expect that astronomers have already figured out everything there is to know about stellar and planetary surfaces from their light curves. But, unfortunately, that is far from being true. The reason is mathematical in nature: the mapping problem is extremely ill-conditioned.</p>
-            <div id="Figure1Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body ">
-                            
+                <div id="Figure1Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body ">
+                                
                 <div class="blog-image-container ">
                     <img src='images/degeneracy.gif' style='width:100%;'></img>
                 </div>
                 
-                            <p>
-                                <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
-                                <span>To which of these planets does the phase curve at right correspond? This figure was generated from <a href='https://gist.github.com/rodluger/7ff11fb908a7caae4c1c72f855b87a74'>this python script</a>.</span>
-                            </p>
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
+                                    <span>To which of these planets does the phase curve at right correspond? This figure was generated from <a href='https://gist.github.com/rodluger/7ff11fb908a7caae4c1c72f855b87a74'>this python script</a>.</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="Figure1" class="blog-image ">
-                <a href="#" data-toggle="modal" data-target="#Figure1Modal">
-                    
+                <div id="Figure1" class="blog-image ">
+                    <a href="#" data-toggle="modal" data-target="#Figure1Modal">
+                        
                 <div class="blog-image-container ">
                     <img src='images/degeneracy.gif' style='width:100%;'></img>
                 </div>
                 
-                </a>
-                <p>
-                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
-                    <span>To which of these planets does the phase curve at right correspond? This figure was generated from <a href='https://gist.github.com/rodluger/7ff11fb908a7caae4c1c72f855b87a74'>this python script</a>.</span>
-                </p>
-            </div>
-            <p>I like showing the figure above whenever I give talks, as it summarizes why the mapping problem is so difficult to tackle. Consider the following thought experiment:</p><p><p style='font-style:italic; margin-left:3em;'>Imagine that in the not-so-distant future we launch a large, coronagraph-equipped imaging telescope to measure the phase curve of a planet in the habitable zone around a nearby star. We measure the light curve shown at right in the figure, in which the stellar contribution has been removed. Armed with their own sophisticated imaging algorithms, four different teams of astronomers promptly submit papers to a prestigious scientific journal claiming to have produced the first map of a terrestrial planet in the habitable zone, showing evidence of clouds, oceans, and continents. The four maps are shown at the left of the figure. However, as you can see, they all look very different from one another. As the editor of this scientific journal, you must decide which (if any) of these maps is correct. Which team should have their paper accepted and win eternal scientific glory (and quite possibly a Nobel prize)?</p></p><p>The answer, you may have guessed, is (probably) none of them. Not because they did anything wrong in their analysis; in fact, all four of the maps shown are <span style='font-style:italic;'>perfectly</span> consistent with the observed light curve. And that is exactly the problem: the light curve admits an infinite number of map solutions, even at infinite signal-to-noise. The problem is so degenerate that surface maps that look nothing alike give equally good fits to the data. Absent other data or good priors, <span style='font-style:italic;'>there is no way to infer a unique surface map from a planetary or stellar phase curve</span>.</p><p>Fortunately, however, this does not spell doom for the mapping problem. Thinking as a Bayesian, if our data is not sufficiently informative, we either need to get a better dataset or find a better prior. While phase curves aren't that informative about the surface map that generated them, <span style='font-style:italic;'>occultation light curves</span> are. If observed at high enough signal-to-noise and cadence, secondary eclipses of exoplanets can be extremely informative about their surface brightness (or temperature) distributions. This is the case with HD 189733b, a hot Jupiter whose secondary eclipsed was analyzed to infer a very low-resolution map of its surface (<a href='#Figure2'>Figure 2</a>).</p>
-            <div id="Figure2Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body ">
-                            
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
+                        <span>To which of these planets does the phase curve at right correspond? This figure was generated from <a href='https://gist.github.com/rodluger/7ff11fb908a7caae4c1c72f855b87a74'>this python script</a>.</span>
+                    </p>
+                </div>
+                <p>I like showing the figure above whenever I give talks, as it summarizes why the mapping problem is so difficult to tackle. Consider the following thought experiment:</p><p><p style='font-style:italic; margin-left:3em;'>Imagine that in the not-so-distant future we launch a large, coronagraph-equipped imaging telescope to measure the phase curve of a planet in the habitable zone around a nearby star. We measure the light curve shown at right in the figure, in which the stellar contribution has been removed. Armed with their own sophisticated imaging algorithms, four different teams of astronomers promptly submit papers to a prestigious scientific journal claiming to have produced the first map of a terrestrial planet in the habitable zone, showing evidence of clouds, oceans, and continents. The four maps are shown at the left of the figure. However, as you can see, they all look very different from one another. As the editor of this scientific journal, you must decide which (if any) of these maps is correct. Which team should have their paper accepted and win eternal scientific glory (and quite possibly a Nobel prize)?</p></p><p>The answer, you may have guessed, is (probably) none of them. Not because they did anything wrong in their analysis; in fact, all four of the maps shown are <span style='font-style:italic;'>perfectly</span> consistent with the observed light curve. And that is exactly the problem: the light curve admits an infinite number of map solutions, even at infinite signal-to-noise. The problem is so degenerate that surface maps that look nothing alike give equally good fits to the data. Absent other data or good priors, <span style='font-style:italic;'>there is no way to infer a unique surface map from a planetary or stellar phase curve</span>.</p><p>Fortunately, however, this does not spell doom for the mapping problem. Thinking as a Bayesian, if our data is not sufficiently informative, we either need to get a better dataset or find a better prior. While phase curves aren't that informative about the surface map that generated them, <span style='font-style:italic;'>occultation light curves</span> are. If observed at high enough signal-to-noise and cadence, secondary eclipses of exoplanets can be extremely informative about their surface brightness (or temperature) distributions. This is the case with HD 189733b, a hot Jupiter whose secondary eclipsed was analyzed to infer a very low-resolution map of its surface (<a href='#Figure2'>Figure 2</a>).</p>
+                <div id="Figure2Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body ">
+                                
                 <div class="blog-image-container ">
                     <img src='images/hd189733b.jpg' style='width:100%;'></img>
                 </div>
                 
-                            <p>
-                                <span style="font-weight: 600; padding-right: 0.5em;">Figure 2</span>
-                                <span>A light curve of HD 189733 (left) and the inferred surface map of its hot Jupiter companion, HD 189733b (right), from <a href='https://ui.adsabs.harvard.edu/abs/2007Natur.447..183K/abstract'>Knutson et al. (2007)</a> and <a href='https://ui.adsabs.harvard.edu/abs/2012ApJ...747L..20M/abstract'>Majeau et al. (2012)</a>.</span>
-                            </p>
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 2</span>
+                                    <span>A light curve of HD 189733 (left) and the inferred surface map of its hot Jupiter companion, HD 189733b (right), from <a href='https://ui.adsabs.harvard.edu/abs/2007Natur.447..183K/abstract'>Knutson et al. (2007)</a> and <a href='https://ui.adsabs.harvard.edu/abs/2012ApJ...747L..20M/abstract'>Majeau et al. (2012)</a>.</span>
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div id="Figure2" class="blog-image ">
-                <a href="#" data-toggle="modal" data-target="#Figure2Modal">
-                    
+                <div id="Figure2" class="blog-image ">
+                    <a href="#" data-toggle="modal" data-target="#Figure2Modal">
+                        
                 <div class="blog-image-container ">
                     <img src='images/hd189733b.jpg' style='width:100%;'></img>
                 </div>
                 
-                </a>
-                <p>
-                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 2</span>
-                    <span>A light curve of HD 189733 (left) and the inferred surface map of its hot Jupiter companion, HD 189733b (right), from <a href='https://ui.adsabs.harvard.edu/abs/2007Natur.447..183K/abstract'>Knutson et al. (2007)</a> and <a href='https://ui.adsabs.harvard.edu/abs/2012ApJ...747L..20M/abstract'>Majeau et al. (2012)</a>.</span>
-                </p>
-            </div>
-            <p>Similarly, transits of planets across stars can yield <a href='https://ui.adsabs.harvard.edu/abs/2017ApJ...846...99M/abstract'>exquisite constraints</a> on their star spot sizes and latitudes. Even more promising are observations that take advantage of the wavelength dimension, such as <a href='https://ui.adsabs.harvard.edu/abs/1987ApJ...321..496V/abstract'>Doppler imaging</a>. Commonly applied to giant stars, this technique takes advantage of the changing Doppler shift of star spots as they rotate into and out of view, imparting subtle line shape changes to the stellar spectrum. These line shape changes encode an incredible amount of information &mdash; much more than a phase curve.</p><p>I plan on writing about all these different techniques in future posts (I have lots of thoughts about them!), but in the next couple posts I want to focus on the other way we can improve our inference: with better <span style='font-style:italic;'>priors</span>. It's true that phase curves are only weakly informative about surface maps, but nowadays we just have so incredibly many of them (hundreds of thousands of stellar light curves, thanks to <span style='font-style:italic;'>Kepler</span> and <span style='font-style:italic;'>TESS</span>) that it would be a huge shame if they proved useless for the mapping problem.</p><p>Fortunately, that is not the case!</p><p>With clever statistical tricks, lots of data, and some fancy math, it is possible to squeeze more information out of these light curves to infer the things we actually care about: star spot properties, exoplanet atmosphere properties, and (eventually) surface properties of temperate terrestrial exoplanets. I plan to write a lot more about how to do this in future posts, so if you're interested, stay tuned!</p>
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 2</span>
+                        <span>A light curve of HD 189733 (left) and the inferred surface map of its hot Jupiter companion, HD 189733b (right), from <a href='https://ui.adsabs.harvard.edu/abs/2007Natur.447..183K/abstract'>Knutson et al. (2007)</a> and <a href='https://ui.adsabs.harvard.edu/abs/2012ApJ...747L..20M/abstract'>Majeau et al. (2012)</a>.</span>
+                    </p>
+                </div>
+                <p>Similarly, transits of planets across stars can yield <a href='https://ui.adsabs.harvard.edu/abs/2017ApJ...846...99M/abstract'>exquisite constraints</a> on their star spot sizes and latitudes. Even more promising are observations that take advantage of the wavelength dimension, such as <a href='https://ui.adsabs.harvard.edu/abs/1987ApJ...321..496V/abstract'>Doppler imaging</a>. Commonly applied to giant stars, this technique takes advantage of the changing Doppler shift of star spots as they rotate into and out of view, imparting subtle line shape changes to the stellar spectrum. These line shape changes encode an incredible amount of information &mdash; much more than a phase curve.</p><p>I plan on writing about all these different techniques in future posts (I have lots of thoughts about them!), but in the next couple posts I want to focus on the other way we can improve our inference: with better <span style='font-style:italic;'>priors</span>. It's true that phase curves are only weakly informative about surface maps, but nowadays we just have so incredibly many of them (hundreds of thousands of stellar light curves, thanks to <span style='font-style:italic;'>Kepler</span> and <span style='font-style:italic;'>TESS</span>) that it would be a huge shame if they proved useless for the mapping problem.</p><p>Fortunately, that is not the case!</p><p>With clever statistical tricks, lots of data, and some fancy math, it is possible to squeeze more information out of these light curves to infer the things we actually care about: star spot properties, exoplanet atmosphere properties, and (eventually) surface properties of temperate terrestrial exoplanets. I plan to write a lot more about how to do this in future posts, so if you're interested, stay tuned!</p>
                               </div>
 
                               <div class="blog-author">
