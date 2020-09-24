@@ -24,7 +24,7 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
 
     # Generate the url
     date = dateparser.parse(post_dict["post"]["date"])
-    date_str = "{:02d}-{:02d}-{:04d}".format(date.day, date.month, date.year)
+    date_str = "{:04d}-{:02d}-{:02d}".format(date.year, date.month, date.day)
     post_dict["post"]["url"] = "{:s}.html".format(date_str)
 
     # Add metadata
@@ -45,21 +45,69 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
         if type(item) is str:
             # Regular text
             text += "<p>{:s}</p>".format(item)
-        elif type(item) is list:
-            # Image
-            url, caption = item
+        elif type(item) is dict:
+            # Image / video
+            IMAGE_EXTS = ["jpg", "gif", "png"]
+            VIDEO_EXTS = ["mp4"]
+            if any([item.get("src", "").endswith(ext) for ext in IMAGE_EXTS]):
+                media = """
+                <div class="blog-image-container {:s}">
+                    <img src='{:s}' style='width:100%;'></img>
+                </div>
+                """.format(
+                    " ".join(item.get("css_classes", [])), item.get("src", "")
+                )
+            elif any([item.get("src", "").endswith(ext) for ext in VIDEO_EXTS]):
+                media = """
+                <div class="blog-image-container {:s}">
+                <video width='100%' autoplay muted loop>
+                    <source src='{:s}' type='video/mp4'>
+                    Your browser does not support the video tag.
+                </video>
+                </div>""".format(
+                    " ".join(item.get("css_classes", [])), item.get("src", "")
+                )
+            else:
+                raise ValueError("")
             text += """
-            <div style='text-align: center; width:75%; margin-left: auto; margin-right:auto; margin-bottom: 30px;'>
-                <a href='{:s}'><img src='{:s}' style='width:100%;'></img></a>
+            <div id="Figure{:d}Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body {:s}">
+                            {:s}
+                            <p>
+                                <span style="font-weight: 600; padding-right: 0.5em;">Figure {:d}</span>
+                                <span>{:s}</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="Figure{:d}" class="blog-image {:s}">
+                <a href="#" data-toggle="modal" data-target="#Figure{:d}Modal">
+                    {:s}
+                </a>
                 <p>
-                <span style='font-weight: 600; padding-right: 0.5em;'>Figure {:d}</span>
-                <span>{:s}</span>
+                    <span style="font-weight: 600; padding-right: 0.5em;">Figure {:d}</span>
+                    <span>{:s}</span>
                 </p>
             </div>
             """.format(
-                url, url, fignum, caption
+                fignum,
+                " ".join(item.get("css_classes", [])),
+                media,
+                fignum,
+                item.get("caption", ""),
+                fignum,
+                " ".join(item.get("css_classes", [])),
+                fignum,
+                media,
+                fignum,
+                item.get("caption", ""),
             )
             fignum += 1
+        else:
+            raise ValueError("")
 
     post_dict["post"]["text"] = text
 
@@ -68,8 +116,9 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
         f.write(template.render(**post_dict))
 
     # Append to the running list
-    dates.append(date_str)
-    posts.append(post_dict)
+    if post_dict["post"]["publish"]:
+        dates.append(date_str)
+        posts.append(post_dict)
 
 # Sort the posts in reverse chronological order
 posts = [post for _, post in sorted(zip(dates, posts))][::-1]

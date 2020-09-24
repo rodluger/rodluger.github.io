@@ -1,0 +1,24 @@
+{
+    "post": {
+        "title": "An interpretable Gaussian process for stellar rotation (Part 2)",
+        "date": "October 1 2020",
+        "publish": false,
+        "author": {
+            "name": "Rodrigo Luger",
+            "url": "../about.html",
+            "image": "../images/rodrigo-luger-avatar.jpg",
+            "about": "I'm a Flatiron Fellow at the CCA in New York City, working on a variety of things related to exoplanets, stars, and astronomical data analysis. I'm interested in systematics de-trending, the search for and characterization of potentially habitable exoplanets, and the mapping of stellar and exoplanetary surfaces from photometric and spectroscopic datasets. Outside the office I love to hike, bike, swim, craft lattes, faulty parallelism, and Oxford commas."
+        },
+        "banner": "images/starry-process.jpg",
+        "summary": "This is a continuation of the <a href='2020-09-24.html'>previous post</a>, in which we implemented a very slow, inefficient, and numerically unstable Gaussian process for stellar light curves. In this post I'll discuss how to compute the GP kernel analytically and show how to use this GP to learn about star spot properties from stellar light curves.",
+        "contents": [
+            {
+                "src": "images/starry-process.mp4",
+                "caption": "A video demo of a <a href='https://github.com/rodluger/starry_process'>starry process</a>. The kernel of the Gaussian process is a function of six hyperparameters that control the mean and standard deviation of the spot size, latitude, and contrast distributions (top panels). The bottom panels show random samples from the GP on the surface of the star (in a Mollweide projection) and in flux space. Line colors correspond to different stellar inclinations with respect to the line of sight. Because the kernel is an analytic function of the hyperparameters, drawing samples and computing marginal likelihoods with a <a href='https://github.com/rodluger/starry_process'>starry process</a> is extremely fast.",
+                "css_classes": [
+                    "full-width"
+                ]
+            }
+        ]
+    }
+}

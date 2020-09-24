@@ -17,6 +17,12 @@
 
      <!-- Main css -->
      <link rel="stylesheet" href="../css/custom.css">
+     <link rel="stylesheet" href="static/custom.css">
+
+     <script src='https://polyfill.io/v3/polyfill.min.js?features=es6'>
+     </script>
+     <script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'>
+     </script>
 
 </head>
 
@@ -44,7 +50,7 @@
                     </button>
                     <a href="../index.html" class="navbar-brand">
                          <span class="avatar">
-                              <img src="../images/avatar.jpg">
+                              <img src="../images/rodrigo-luger-avatar.jpg">
                          </span>
                     </a>
                </div>
@@ -52,7 +58,7 @@
                     <ul class="nav navbar-nav navbar-right">
                          <li class="active"><a href="../index.html">home</a></li>
                          <li><a href="../about.html">about</a></li>
-                         <li><a href="https://github.com/rodluger/cv/raw/master-pdf/cv.pdf">cv</a></li>
+                         <li><a href="https://github.com/rodluger/cv/raw/master-pdf/luger_cv.pdf">cv</a></li>
                          <li><a href="index.html">blog</a></li>
                     </ul>
                </div>
@@ -113,6 +119,7 @@
           </div>
      </section>
 
+     {% if post.publish %}
      <script>
           var disqus_config = function () {
           this.page.url = "{{post.disqus.url}}";
@@ -126,6 +133,7 @@
           })();
      </script>
      <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+     {% endif %}
 
      <!-- Footer Section -->
 
@@ -135,7 +143,7 @@
 
                     <div class="col-md-3 col-sm-3">
                          <span class="avatar">
-                              <img src="../images/avatar.jpg">
+                              <img src="../images/rodrigo-luger-avatar.jpg">
                          </span>
                     </div>
 
@@ -163,7 +171,7 @@
                          <ul class="social-icon">
                               <li><a href="https://github.com/rodluger" class="fab fa-github"></a></li>
                               <li><a href="https://twitter.com/rodluger" class="fab fa-twitter"></a></li>
-                              <li><a href="https://www.facebook.com/rodrigo.luger" class="fab fa-facebook"></a></li>
+                              
                          </ul>
                     </div>
 

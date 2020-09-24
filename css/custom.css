@@ -3,6 +3,7 @@
 
 html{
   scroll-behavior: smooth;
+  hyphens: auto;
 }
 
 body {
@@ -16,7 +17,7 @@ body {
 
 img {
   filter: grayscale(100%);
-  transition: 3s;
+  transition: 2s;
 }
 
 img:hover {
@@ -84,6 +85,39 @@ strong {
   border-color: transparent;
 }
 
+.tooltip > .tooltip-inner {
+  max-width: 300px !important;
+}
+.tooltip > .tooltip-inner {
+  text-align: center !important;
+}
+.tooltip.top > .tooltip-arrow {
+border-top-color: #666 !important;
+}
+.tooltip.top-left> .tooltip-arrow {
+border-top-color: #666 !important;
+}
+.tooltip.top-right > .tooltip-arrow {
+border-top-color:#666 !important;
+}
+.tooltip.right > .tooltip-arrow {
+border-right-color: #666 !important;
+}
+.tooltip.left > .tooltip-arrow {
+border-left-color: #666 !important;
+}
+.tooltip.bottom > .tooltip-arrow {
+border-bottom-color: #666 !important;
+}
+.tooltip.bottom-left > .tooltip-arrow {
+border-bottom-color: #666 !important;
+}
+.tooltip.bottom-right > .tooltip-arrow {
+border-bottom-color: #666 !important;
+}
+.tooltip > .tooltip-inner {
+background-color: #666 !important;
+}
 
 /*---------------------------------------
     General               
@@ -345,6 +379,10 @@ p {
    About section              
 -----------------------------------------*/
 
+#about {
+  text-align: center;
+}
+
 #about .text-center {
   padding-bottom: 42px;
 }
@@ -376,7 +414,11 @@ p {
   padding-bottom: 2px;
 }
 
+#about .tooltip > .tooltip-inner {background-color: #f00;}
 
+#about a.thumbnail.active, a.thumbnail:focus, a.thumbnail:hover {
+  border-color: #ddd;
+}
 
 /*---------------------------------------
    Portfolio section              
@@ -602,6 +644,14 @@ p {
   color: #666;
 }
 
+#single-project .project-links {
+  margin-top: 20px;
+  margin-bottom: 35px;
+}
+
+#single-project .project-links i {
+  font-size:22pt;
+}
 
 /*---------------------------------------
    Contact section              
@@ -794,6 +844,9 @@ p {
   border-color: transparent;
 }
 
+.color-image img {
+  filter: unset;
+}
 
 
 /*---------------------------------------
@@ -927,6 +980,10 @@ footer .avatar img {
     line-height: 40px;
   }
 
+  .blog-author .media img {
+    width: 45px;
+  }
+
   .blog-post-format span img {
     width: 20px;
   }
@@ -955,6 +1012,10 @@ footer .avatar img {
 
   #single-project .single-project-figure {
     display: none;
+  }
+
+  footer p {
+    text-align: center;
   }
 
 }

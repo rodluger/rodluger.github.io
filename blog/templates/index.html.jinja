@@ -17,6 +17,7 @@
 
      <!-- Main css -->
      <link rel="stylesheet" href="../css/custom.css">
+     <link rel="stylesheet" href="static/custom.css">
 
 </head>
 
@@ -44,7 +45,7 @@
                     </button>
                     <a href="../index.html" class="navbar-brand">
                          <span class="avatar">
-                              <img src="../images/avatar.jpg">
+                              <img src="../images/rodrigo-luger-avatar.jpg">
                          </span>
                     </a>
                </div>
@@ -52,7 +53,7 @@
                     <ul class="nav navbar-nav navbar-right">
                          <li class="active"><a href="../index.html">home</a></li>
                          <li><a href="../about.html">about</a></li>
-                         <li><a href="https://github.com/rodluger/cv/raw/master-pdf/cv.pdf">cv</a></li>
+                         <li><a href="https://github.com/rodluger/cv/raw/master-pdf/luger_cv.pdf">cv</a></li>
                          <li><a href="#">blog</a></li>
                     </ul>
                </div>
@@ -110,7 +111,7 @@
                                    <tr>
                                         <td style="text-align:right;">{{item.post.shortdate}}</td>
                                         <td style="padding: 0 0.5em;">|</td>
-                                        <td><a href="{{item.post.id}}" style="font-weight:400;">{{item.post.title}}</a></td>
+                                        <td><a href="#{{item.post.id}}" style="font-weight:400;">{{item.post.title}}</a></td>
                                    </tr>
                                    {% endfor %}
 
@@ -155,7 +156,7 @@
 
                     <div class="col-md-3 col-sm-3">
                          <span class="avatar">
-                              <img src="../images/avatar.jpg">
+                              <img src="../images/rodrigo-luger-avatar.jpg">
                          </span>
                     </div>
 
@@ -183,7 +184,7 @@
                          <ul class="social-icon">
                               <li><a href="https://github.com/rodluger" class="fab fa-github"></a></li>
                               <li><a href="https://twitter.com/rodluger" class="fab fa-twitter"></a></li>
-                              <li><a href="https://www.facebook.com/rodrigo.luger" class="fab fa-facebook"></a></li>
+                              
                          </ul>
                     </div>
 
