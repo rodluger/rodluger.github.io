@@ -101,6 +101,24 @@
                               #toc_container a:hover {
                                    color: #000;
                               }
+
+                              @media (min-width: 768px) {
+                                   .toc-regular {
+                                        display: inherit;
+                                   }
+                                   .toc-tiny {
+                                        display: none;
+                                   }
+                              }
+
+                              @media (max-width: 768px) {
+                                   .toc-regular {
+                                        display: none;
+                                   }
+                                   .toc-tiny {
+                                        display: inherit;
+                                   }
+                              }
                          </style>
 
                          <div id="toc_container">
@@ -109,15 +127,19 @@
 
                                    
                                    <tr>
-                                        <td style="text-align:right;">2020-09-24</td>
+                                        <td class="toc-regular" style="text-align:right;">2020-09-24</td>
+                                        <td class="toc-tiny" style="text-align:right;">20-09-24</td>
                                         <td style="padding: 0 0.5em;">|</td>
-                                        <td><a href="#2020_09_24" style="font-weight:400;">An interpretable Gaussian process for stellar rotation (Part 1)</a></td>
+                                        <td class="toc-regular"><a href="#2020_09_24" style="font-weight:400;">Interpretable GPs for stellar rotation (Part 1)</a></td>
+                                        <td class="toc-tiny"><a href="#2020_09_24" style="font-weight:400;">Interpretable GPs I</a></td>
                                    </tr>
                                    
                                    <tr>
-                                        <td style="text-align:right;">2020-09-17</td>
+                                        <td class="toc-regular" style="text-align:right;">2020-09-17</td>
+                                        <td class="toc-tiny" style="text-align:right;">20-09-17</td>
                                         <td style="padding: 0 0.5em;">|</td>
-                                        <td><a href="#2020_09_17" style="font-weight:400;">So I started a blog...</a></td>
+                                        <td class="toc-regular"><a href="#2020_09_17" style="font-weight:400;">So I started a blog...</a></td>
+                                        <td class="toc-tiny"><a href="#2020_09_17" style="font-weight:400;">So I started a blog...</a></td>
                                    </tr>
                                    
 
@@ -132,7 +154,7 @@
                                    </a>
                               </div>
                               <div class="blog-post-title">
-                                   <h3><a href="2020-09-24.html">An interpretable Gaussian process for stellar rotation (Part 1)</a></h3>
+                                   <h3><a href="2020-09-24.html">Interpretable GPs for stellar rotation (Part 1)</a></h3>
                               </div>
                               <div class="blog-post-format">
                                    <span><a href="../about.html"><img src="../images/rodrigo-luger-avatar.jpg"

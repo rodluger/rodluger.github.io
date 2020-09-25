@@ -1,6 +1,7 @@
 {
     "post": {
-        "title": "An interpretable Gaussian process for stellar rotation (Part 1)",
+        "title": "Interpretable GPs for stellar rotation (Part 1)",
+        "title_tiny": "Interpretable GPs I",
         "date": "September 24 2020",
         "publish": true,
         "author": {

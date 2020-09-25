@@ -25,11 +25,16 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
     # Generate the url
     date = dateparser.parse(post_dict["post"]["date"])
     date_str = "{:04d}-{:02d}-{:02d}".format(date.year, date.month, date.day)
+    date_str_tiny = date_str[2:]
     post_dict["post"]["url"] = "{:s}.html".format(date_str)
 
     # Add metadata
     post_dict["post"]["shortdate"] = date_str
+    post_dict["post"]["shortdate_tiny"] = date_str_tiny
     post_dict["post"]["id"] = date_str.replace("-", "_")
+    post_dict["post"]["title_tiny"] = post_dict["post"].get(
+        "title_tiny", post_dict["post"]["title"]
+    )
 
     # Disqus metadata
     post_dict["post"]["disqus"] = {}
