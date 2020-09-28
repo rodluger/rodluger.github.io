@@ -33,6 +33,11 @@
      gtag('config', 'UA-47070068-1');
      </script>
 
+     <!-- Code syntax highlighting -->
+     <link rel="stylesheet" href="static/highlight/styles/default.css">
+     <script src="static/highlight/highlight.pack.js"></script>
+     <script>hljs.initHighlightingOnLoad();</script>
+
 </head>
 
 <body>
@@ -161,7 +166,7 @@
                         <span>Five samples from the exact spot distribution. Each one corresponds to a spherical harmonic coefficient vector drawn from the spot size, position, and contrast distribution, visualized on a Mollweide projection on the stellar surface. This figure was generated from <a href='https://gist.github.com/rodluger/dc78096db044a6fac2ee58e82fcbb3df'>this python script</a>.</span>
                     </p>
                 </div>
-                <p>Now, if we generate an infinite number of these maps, we could compute the mean and the covariance of the dataset. By definition, this will give us the mean and covariance of the multidimensional Gaussian distribution that best describes our input distribution: i.e., a Gaussian process model for our maps. While we can't really genereate infinite maps, we can certainly generate a large number of them. <a href='#Figure3'>Figure 3</a> shows the mean and covariance computed from 10,000 draws from our distribution.</p>
+                <p>Now, if we generate an infinite number of these maps, we could compute the mean and the covariance of the dataset. By definition, this will give us the mean and covariance of the multidimensional Gaussian distribution that best describes our input distribution: i.e., a Gaussian process model for our maps. While we can't really generate infinite maps, we can certainly generate a large number of them. <a href='#Figure3'>Figure 3</a> shows the mean and covariance computed from 10,000 draws from our distribution.</p>
                 <div id="Figure3Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -255,7 +260,7 @@
                     </p>
                 </div>
                 <p><h1>Back to the Marginal Likelihood</h1></p><p>Now, what we <span style='font-style:italic;'>really</span> would like to do is use this GP to compute likelihoods. Thanks to the amazing properties of Gaussians, that's also straightforward to do. If \( f \) is the flux (light curve) vector, \( C \) is the data covariance matrix (i.e., the uncertainties), and \( \mu \) and \( \Sigma \) are the GP mean and covariance (in flux space), respectively, the likelihood of the data given a set of GP hyperparameters \( \theta \) is</p>
-                <div class="blog-image ">
+                <div class="blog-image " id='GPLikelihood'>
                     
                 <div class="blog-image-container ">
                     <img src='images/gp-likelihood.jpg' style='width:100%;'></img>

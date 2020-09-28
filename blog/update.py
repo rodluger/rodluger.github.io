@@ -75,12 +75,15 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
             else:
                 raise ValueError("")
             if len(item.get("caption", "")) == 0:
+                idstr = item.get("id", "")
+                if len(idstr):
+                    idstr = "id='{:s}'".format(idstr)
                 text += """
-                <div class="blog-image {:s}">
+                <div class="blog-image {:s}" {:s}>
                     {:s}
                 </div> 
                 """.format(
-                    " ".join(item.get("css_classes", [])), media
+                    " ".join(item.get("css_classes", [])), idstr, media
                 )
             else:
                 text += """

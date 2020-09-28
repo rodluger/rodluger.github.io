@@ -1,6 +1,6 @@
 {
     "post": {
-        "title": "An interpretable Gaussian process for stellar rotation (Part 2)",
+        "title": "Interpretable GPs for stellar rotation (Part 2)",
         "date": "October 1 2020",
         "publish": false,
         "author": {
@@ -12,13 +12,51 @@
         "banner": "images/starry-process.jpg",
         "summary": "This is a continuation of the <a href='2020-09-24.html'>previous post</a>, in which we implemented a very slow, inefficient, and numerically unstable Gaussian process for stellar light curves. In this post I'll discuss how to compute the GP kernel analytically and show how to use this GP to learn about star spot properties from stellar light curves.",
         "contents": [
+            "<h1>Demo</h1>",
+            "Before I discuss <span style='font-style:italic;'>how</span> any of this works, let's cut to the chase. <a href='#Figure1'>Figure 1</a> below shows a demo of a <span style='font-style:italic;'>starry process</span>, a Gaussian process whose hyperparameters correspond to physical properties of the distribution of star spots on the stellar surface.",
             {
                 "src": "images/starry-process.mp4",
                 "caption": "A video demo of a <a href='https://github.com/rodluger/starry_process'>starry process</a>. The kernel of the Gaussian process is a function of six hyperparameters that control the mean and standard deviation of the spot size, latitude, and contrast distributions (top panels). The bottom panels show random samples from the GP on the surface of the star (in a Mollweide projection) and in flux space. Line colors correspond to different stellar inclinations with respect to the line of sight. Because the kernel is an analytic function of the hyperparameters, drawing samples and computing marginal likelihoods with a <a href='https://github.com/rodluger/starry_process'>starry process</a> is extremely fast.",
                 "css_classes": [
                     "full-width"
                 ]
-            }
+            },
+            "The kernel of the GP is a function of six parameters: the mean and standard deviation of the spot latitude distribution (in degrees; top left), the mean and standard deviation of the spot size distribution (also in degrees; top center), and the mean and standard deviation of the spot contrast (measured as a fraction of the photospheric intensity; top right). Below the distribution are five random samples from the GP, visualized on the surface of the star in an equal-area Mollweide projection. Below each are the corresponding light curves assuming different viewing inclinations ranging from 15&deg; (yellow) to 90&deg (dark red). In the video, everything is computed in real time as the GP parameters are adjusted: because the <span style='font-style:italic;'>starry process</span> is analytic, it is extremely fast to evaluate.",
+            "The demo above is of course just a video. I'm hoping to turn it into a proper web app in the near future, but for the time being it has to be run locally. If you want to play around with it yourself, you can install the (very experimental) beta version as follows:",
+            "<pre><code class='bash'>pip install \"git+git://github.com/rodluger/starry_process.git@blog#egg=starry_process[app]\"</code></pre>",
+            "then, in the command line, type",
+            "<pre><code class='bash'>starry-process</code></pre>",
+            "to launch the Bokeh app.",
+            "<h1>What you can do with a starry process</h1>",
+            "Again, let's delay for the time being discussing how the GP works and briefly talk about <span style='font-style:italic;'>what</span> the GP can do. I mentioned in the <a href='2020-09-24.html'>previous post</a> that an interpretable GP can be used within a hierarchical model to learn about ensemble statistics of many light curves. To recap, the idea behind this is that any individual light curve contains only a small fraction of the information about what the surface of the star looks like (because of all the degeneracies that come with projecting a two-dimensional surface down to a one-dimensional flux timeseries). However, these degeneracies are inclination-dependent, so different stars will have different degeneracies. The trick is to realize that if we collect light curves of many <span style='font-style:italic;'>similar</span> stars, we can learn more about the population than we can for any individual star. Here, <span style='font-style:italic;'>similar</span> is loosely defined: we simply want stars whose properties are drawn from the same parent distribution (individual stars may still look quite different!) To show how we can do this using a <span style='font-style:italic;'>starry process</span>, let's create a toy dataset:",
+            {
+                "src": "images/starry-process-synthetic-data.jpg",
+                "caption": "A synthetic dataset consisting of ten light curves of stars with similar star spot properties. The surface maps were generated by placing 20 discrete circular spots at latitudes and with sizes and contrasts drawn from fiducial Gaussian distributions. The light curves were then computed by expanding the surface in spherical harmonics to high degree (30) and using <a href='https://github.com/rodluger/starry'>starry</a> to compute fluxes. Each star was given a random inclination drawn from a \\(\\sin i\\) prior; the \\( \\times \\) on each map marks the sub-observer point. Finally, a small amount of noise was added to each light curve to simulate photon noise.",
+                "css_classes": [
+                    "full-width"
+                ]
+            },
+            "The figure above shows a dataset comprised of ten light curves of stars with statistically similar star spot properties. I generated it by choosing fiducial values for the mean and variance of the (Gaussian) distributions for the spot size, latitude, and contrast, then drawing 20 spots from these distributions for each star. The spots are circular and the contrast is uniform within each one (as we will see below, this is quite different from the prescription used to compute the GP; this is extremely important, since we don't want our proof that the GP works to be circular!) I then gave each star a random inclination, drawn from the expected \\(\\sin i\\) prior for inclination angles, and computed the \"observed\" light curve using <a href='https://github.com/rodluger/starry'>starry</a>.",
+            "Now, we pretend we merely observe these light curves, and that we have absolutely no knowledge of the number of spots, the spot sizes, positions, and contrasts, or the inclination of any of the stars. (For simplicity, we'll assume we know the rotational period exactly, although this could easily be sampled over as well). The only thing we'll assume is that these stars are \"similar\": that is, there is some parent distribution from which all these stellar surfaces were drawn. In practice, this might mean the stars have the same spectral type, similar ages (or rotation periods), and similar metallicities. What we therefore do is to place uninformative priors on all of these quantities and use the sampler of our choice to explore their posteriors. Our likelihood function is the usual GP likelihood (see <a href='2020-09-24.html#GPLikelihood'>this equation</a>), although this time our GP kernel is an explicit function of the parameters we care about. <a href='#Figure3'>Figure 3</a> below shows the posterior distributions for some of the quantities of interest from a Variational Inference (VI) scheme:",
+            {
+                "src": "images/starry-process-posteriors.jpg",
+                "caption": "Joint posterior distributions for the hyperparameters governing the spot latitude and contrast distributions, inferred by jointly analyzing the ten light curves in <a href='#Figure2'>Figure 2</a>. Uniform priors were assumed for all hyperparameters of the GP. The inclinations of each star were also treated as latent variables (see <a href='#Figure4'>Figure 4</a>). The blue lines indicate the true values used to generate the synthetic dataset; note the excellent agreement with the inferred values.",
+                "css_classes": [
+                    "full-width",
+                    "medium"
+                ]
+            },
+            "As you can tell from the figure, we were able to accurately infer the mean latitude of the spots, the scatter (variance) in the latitude, and the typical contrast of the spots in our ensemble of ten stars. Below, <a href='#Figure4'>Figure 4</a> shows the posterior distributions for the inclinations of each of the stars:",
+            {
+                "src": "images/starry-process-inclination-posteriors.jpg",
+                "caption": "Posterior distributions for the inclinations of each of the ten stars in <a href='#Figure1'>Figure 1</a>. A \\(\\sin i\\) prior was placed on each one. Stellar inclinations are notoriously difficult to infer from light curves given all the degeneracies in the mapping problem. However, ensemble analysis of similar stars allows one to infer these inclinations with fairly high precision and minimal bias.",
+                "css_classes": [
+                    "full-width"
+                ]
+            },
+            "Even though we assumed a completely uninformative inclination prior, we were able to infer the inclinations for all the stars in our sample with fairly good precision and minimal bias(!) This is something that is just not possible to do for a single star from its light curve, since the inclination is highly degenerate with the spot contrast, the number of spots, etc. This is the power of population-level analyses: the joint information content of lots of members allows us to learn not only population-level information (the typical latitude and contrast of the spots) but it also helps uncover information specific to individual members.",
+            "<h1>How it all works</h1>",
+            "Coming soon!"
         ]
     }
 }

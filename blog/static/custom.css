@@ -26,12 +26,21 @@
     width:50% !important;
 }
 
-.modal-body.small {
+.blog-image.medium img {
+    width:75% !important;
+}
+
+
+.modal-body.small, .modal-body.medium {
     text-align: center;
 }
 
 .modal-body.small img {
     width:50% !important;
+}
+
+.modal-body.medium img {
+    width:75% !important;
 }
 
 .modal-body img {
@@ -53,4 +62,8 @@
     .blog-image {
         margin-bottom: 0px;
     }
+}
+
+.hljs {
+    background: unset !important;
 }
