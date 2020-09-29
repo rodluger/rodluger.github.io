@@ -80,6 +80,12 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
             elif any([item.get("src", "").endswith(ext) for ext in MATH_EXTS]):
                 with open(item["src"], "r") as f:
                     tex = f.read()
+                # HACK
+                tex = tex.replace(
+                    "\\begin{align}",
+                    "</p><p style='overflow-x: scroll;'>\\begin{align}",
+                )
+                tex = tex.replace("\\end{align}", "\\end{align}</p><p>")
                 text += """
                 <p class="math {:s}" {:s}>
                     {:s}

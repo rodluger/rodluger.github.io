@@ -180,6 +180,14 @@ p {
   letter-spacing: 4px;
 }
 
+.blinker {
+  font-weight: 400 !important;
+  animation: blinker 2s linear infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0.25; }
+}
 
 /*---------------------------------------
     Preloader section              

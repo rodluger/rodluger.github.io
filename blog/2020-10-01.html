@@ -81,7 +81,7 @@
                          <li class="active"><a href="../index.html">home</a></li>
                          <li><a href="../about.html">about</a></li>
                          <li><a href="https://github.com/rodluger/cv/raw/master-pdf/luger_cv.pdf">cv</a></li>
-                         <li><a href="index.html">blog</a></li>
+                         <li><a href="index.html" class="blinker">blog</a></li>
                     </ul>
                </div>
 
@@ -254,7 +254,7 @@ of $\mathbf{f}$, which together fully specify our Gaussian process.
 As with any random variable, the mean and covariance may be computed from
 the expectation value of $\mathbf{f}$ and
 $\mathbf{f}\,\mathbf{f}^\top$, respectively:
-\begin{align}
+</p><p style='overflow-x: scroll;'>\begin{align}
     \label{eq:mean}
     \pmb{\mu}(\pmb{\theta})
      & = \mathrm{E} \Big[ \mathbf{f} \, \Big| \, \pmb{\theta} \Big]
@@ -262,32 +262,32 @@ $\mathbf{f}\,\mathbf{f}^\top$, respectively:
     \label{eq:cov}
     \pmb{\Sigma}(\pmb{\theta})
      & = \mathrm{E} \Big[ \mathbf{f} \, \mathbf{f}^\top \, \Big| \, \pmb{\theta} \Big] - \pmb{\mu}^2(\pmb{\theta})
-\end{align}
+\end{align}</p><p>
 where the squaring operation in Equation (\ref{eq:cov}) is
 performed element-wise.
 In <a href="https://ui.adsabs.harvard.edu/abs/2019AJ....157...64L/abstract">Luger et al. (2019)</a> I showed that $\mathbf{f}$ may be computed from a
 linear operation on the vector of spherical harmonic coefficients
 describing the surface, $\mathbf{y}$:
-\begin{align}
+</p><p style='overflow-x: scroll;'>\begin{align}
     \label{eq:fAy}
     \mathbf{f} = \mathbf{A} \, \mathbf{y}
     \quad,
-\end{align}
+\end{align}</p><p>
 where $\mathbf{A}$ is the <span style="font-style:italic">starry</span> design matrix, which is implicitly
 a function of $\pmb{\theta}$ (as it depends on the stellar inclination
 and rotation period, for example).
 Given Equation (\ref{eq:fAy}),
 we may write the mean and covariance of our flux GP as
-\begin{align}
+</p><p style='overflow-x: scroll;'>\begin{align}
     \pmb{\mu}(\pmb{\theta})
      & = \mathbf{A}(\pmb{\theta}) \, \pmb{\mu}_{\mathbf{y}}(\pmb{\theta})
     \\
     \pmb{\Sigma}(\pmb{\theta})
      & = \mathbf{A}(\pmb{\theta}) \, \pmb{\Sigma}_{\mathbf{y}} \, \mathbf{A}^\top(\pmb{\theta})
     \quad,
-\end{align}
+\end{align}</p><p>
 where
-\begin{align}
+</p><p style='overflow-x: scroll;'>\begin{align}
     \label{eq:mean_y}
     \pmb{\mu}_{\mathbf{y}}(\pmb{\theta})
      & = \mathrm{E} \Big[ \mathbf{y} \, \Big| \, \pmb{\theta} \Big]
@@ -295,13 +295,13 @@ where
     \label{eq:cov_y}
     \pmb{\Sigma}_{\mathbf{y}}(\pmb{\theta})
      & = \mathrm{E} \Big[ \mathbf{y} \, \mathbf{y}^\top \, \Big| \, \pmb{\theta} \Big] - \pmb{\mu}_{\mathbf{y}}^2(\pmb{\theta})
-\end{align}
+\end{align}</p><p>
 are the mean and covariance of the GP in the spherical harmonics basis.
 It's a <span style="font-style:italic">lot</span> of math, but under certain
 assumptions it's possible to
 compute the expectations in the expressions above analytically. These
 are given by the integrals
-\begin{align}
+</p><p style='overflow-x: scroll;'>\begin{align}
     \label{eq:exp_y}
     \mathrm{E} \Big[ \mathbf{y} \, \Big| \, \pmb{\theta} \Big]
      & =
@@ -312,18 +312,18 @@ are given by the integrals
      & =
     \int \mathbf{y}(\mathbf{x} ) \mathbf{y}^\top(\mathbf{x} ) \, p(\mathbf{x} \, \big| \, \pmb{\theta})\mathrm{d}\mathbf{x}
     \quad,
-\end{align}
+\end{align}</p><p>
 where $\mathbf{x}$ is a random vector-valued variable corresponding to a particular
 distribution of features on the surface  (i.e., the size and location of star spots)
 and $p(\mathbf{x} \, \big| \, \pmb{\theta})$ is its probability density
 function (PDF).
 As we are specifically interested in modeling the effect of star spots
 on stellar light curves, we let
-\begin{align}
+</p><p style='overflow-x: scroll;'>\begin{align}
     \mathbf{x} = \left( \xi \,\, \lambda \,\, \phi \,\, \rho \right)^\top
-\end{align}
+\end{align}</p><p>
 and
-\begin{align}
+</p><p style='overflow-x: scroll;'>\begin{align}
     \label{eq:RRs}
     \mathbf{y}(\mathbf{x}) =
     \xi
@@ -334,7 +334,7 @@ and
     \,
     \mathbf{s}(\rho)
     \quad,
-\end{align}
+\end{align}</p><p>
 where $\xi$ is the contrast of a spot,
 $\lambda$ is its longitude, $\phi$ is its latitude,
 and $\rho$ is its radius.
@@ -356,7 +356,7 @@ the probability distribution governing the different spot properties $\mathbf{x}
 i.e., $p(\mathbf{x} \, \big| \, \pmb{\theta})$.
 For simplicity, we assume that $p(\mathbf{x} \, \big| \, \pmb{\theta})$
 is separable in each of the four spot properties:
-\begin{align}
+</p><p style='overflow-x: scroll;'>\begin{align}
     p(\mathbf{x} \, \big| \, \pmb{\theta})
     =
     p(\xi \, \big| \, \pmb{\theta}_{\xi}) \,
@@ -364,19 +364,19 @@ is separable in each of the four spot properties:
     p(\phi \, \big| \, \pmb{\theta}_{\phi})\,
     p(\rho \, \big| \, \pmb{\theta}_{\rho})
     \quad,
-\end{align}
+\end{align}</p><p>
 where
-\begin{align}
+</p><p style='overflow-x: scroll;'>\begin{align}
     \pmb{\theta} = \left(
     \pmb{\theta}_{\xi} \, \,
     \pmb{\theta}_{\lambda} \, \,
     \pmb{\theta}_{\phi} \, \,
     \pmb{\theta}_{\rho} \right)^\top
-\end{align}
+\end{align}</p><p>
 is the vector of hyperparameters of our GP.
 This allows us to rewrite the expectation integrals (\ref{eq:exp_y})
 and (\ref{eq:exp_yy}) as
-\begin{align}
+</p><p style='overflow-x: scroll;'>\begin{align}
     \label{eq:exp_y_sep}
     \mathrm{E} \Big[ \mathbf{y} \, \Big| \, \pmb{\theta} \Big]
      & =
@@ -386,9 +386,9 @@ and (\ref{eq:exp_yy}) as
     \mathrm{E} \Big[ \mathbf{y} \, \mathbf{y}^\top \, \Big| \, \pmb{\theta} \Big]
      & =
     \mathbf{E_4}(\pmb{\theta})
-\end{align}
+\end{align}</p><p>
 where we define the first moment integrals
-\begin{align}
+</p><p style='overflow-x: scroll;'>\begin{align}
     \label{eq:e1}
     \mathbf{e_1}(\pmb{\theta}_\rho)
      & \equiv
@@ -428,9 +428,9 @@ where we define the first moment integrals
     p(\xi \, \big| \, \pmb{\theta}_{\xi}) \,
     \mathrm{d}\xi
     %
-\end{align}
+\end{align}</p><p>
 and the second moment integrals
-\begin{align}
+</p><p style='overflow-x: scroll;'>\begin{align}
     \label{eq:E1}
     \mathbf{E_1}(\pmb{\theta}_\rho)
      & \equiv
@@ -477,7 +477,7 @@ and the second moment integrals
     \mathrm{d}\xi
     %
     \quad.
-\end{align}
+\end{align}</p><p>
 The trick now is to find a functional form for the spherical harmonic expansion
 of the spot, $\mathbf{s}(\rho)$, as well as for each of the probability
 distributions
