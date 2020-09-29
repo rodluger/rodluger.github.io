@@ -2,7 +2,7 @@
     "post": {
         "title": "Interpretable GPs for stellar rotation (Part 2)",
         "date": "October 1 2020",
-        "publish": false,
+        "publish": true,
         "author": {
             "name": "Rodrigo Luger",
             "url": "../about.html",
@@ -56,7 +56,24 @@
             },
             "Even though we assumed a completely uninformative inclination prior, we were able to infer the inclinations for all the stars in our sample with fairly good precision and minimal bias(!) This is something that is just not possible to do for a single star from its light curve, since the inclination is highly degenerate with the spot contrast, the number of spots, etc. This is the power of population-level analyses: the joint information content of lots of members allows us to learn not only population-level information (the typical latitude and contrast of the spots) but it also helps uncover information specific to individual members.",
             "<h1>How it all works</h1>",
-            "Coming soon!"
+            "In the <a href='2020-09-24.html'>previous post</a> we talked about how to compute the mean and the covariance of the GP the brute force way: draw a huge number of samples from the desired distribution and then compute the empirical mean and covariance. That is super easy to do, but extremely inefficient (not to mention also very imprecise). What we need to do to make this GP scalable is to find closed form, analytic solutions for the GP mean and covariance. What follows is a (very rough) sketch of how to do this.",
+            {
+                "src": "math/starry-process.tex"
+            },
+            "I'm also hoping to officially release the code soon. It's at the same <a href='https://github.com/rodluger/starry_process'>github repository</a> as the paper, and if you installed the app up top, you already have it on your computer. I'm still actively developing it, so there are likely still some bugs and the syntax might change a bit. There's also no documentation. But if you want to play around with it, here's an example of how to draw flux samples from a starry process:",
+            {
+                "src": "code/sp_example.py",
+                "css_classes": [
+                    "python"
+                ]
+            },
+            {
+                "src": "images/flux_samples.jpg",
+                "caption": "Flux samples from a starry process, generated from the code snippet above."
+            },
+            "The parameters <code>sa</code> and <code>sb</code> are the normalized $\\alpha$ and $\\beta$ parameters of the Beta distribution controlling the spot size; the parameters <code>la</code> and <code>lb</code> are similar, but for the latitude distribution; <code>ca</code> and <code>cb</code> are the mean and variance of the log-Normal distribution for the spot contrast; and <code>period</code> and <code>inc</code> are the rotational period in days and inclination of the star in degrees. There is a one-to-one correspondence between parameters like <code>sa</code> and <code>sb</code> and the mean and variance of the spot size distribution (which are far more intuitive!), but I'll leave a more detailed discussion of this to the documentation (which I'm actively writing!)",
+            "<h1>Wrapping up</h1>",
+            "Hopefully I've convinced you that an interpretable Gaussian process is a useful development for stellar light curve analyses. This post only scratched the surface of how this GP works and what we can use it for, so I hope to write a lot more on this topic in coming posts. I'm also working on a paper describing the methodology and on making the code user-friendly and turning it into a pip-installable package. As always, feedback is extremely welcome!"
         ]
     }
 }

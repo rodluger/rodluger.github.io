@@ -1,0 +1,266 @@
+Let
+$\mathbf{f} = \left( f_0 \, f_1 \, \cdots \,  f_K \right)^\top$
+denote a vector of $K$ flux measurements at times
+$\left( t_0 \,  t_1 \,  \cdots \, t_K \right)^\top$; i.e., an observed
+light curve.
+Conditioned on certain physical properties of the star, $\pmb{\theta}$,
+we wish to compute the mean $\pmb{\mu}(\pmb{\theta})$ and
+covariance $\pmb{\Sigma}(\pmb{\theta})$
+of $\mathbf{f}$, which together fully specify our Gaussian process.
+As with any random variable, the mean and covariance may be computed from
+the expectation value of $\mathbf{f}$ and
+$\mathbf{f}\,\mathbf{f}^\top$, respectively:
+\begin{align}
+    \label{eq:mean}
+    \pmb{\mu}(\pmb{\theta})
+     & = \mathrm{E} \Big[ \mathbf{f} \, \Big| \, \pmb{\theta} \Big]
+    \\
+    \label{eq:cov}
+    \pmb{\Sigma}(\pmb{\theta})
+     & = \mathrm{E} \Big[ \mathbf{f} \, \mathbf{f}^\top \, \Big| \, \pmb{\theta} \Big] - \pmb{\mu}^2(\pmb{\theta})
+\end{align}
+where the squaring operation in Equation (\ref{eq:cov}) is
+performed element-wise.
+In <a href="https://ui.adsabs.harvard.edu/abs/2019AJ....157...64L/abstract">Luger et al. (2019)</a> I showed that $\mathbf{f}$ may be computed from a
+linear operation on the vector of spherical harmonic coefficients
+describing the surface, $\mathbf{y}$:
+\begin{align}
+    \label{eq:fAy}
+    \mathbf{f} = \mathbf{A} \, \mathbf{y}
+    \quad,
+\end{align}
+where $\mathbf{A}$ is the <span style="font-style:italic">starry</span> design matrix, which is implicitly
+a function of $\pmb{\theta}$ (as it depends on the stellar inclination
+and rotation period, for example).
+Given Equation (\ref{eq:fAy}),
+we may write the mean and covariance of our flux GP as
+\begin{align}
+    \pmb{\mu}(\pmb{\theta})
+     & = \mathbf{A}(\pmb{\theta}) \, \pmb{\mu}_{\mathbf{y}}(\pmb{\theta})
+    \\
+    \pmb{\Sigma}(\pmb{\theta})
+     & = \mathbf{A}(\pmb{\theta}) \, \pmb{\Sigma}_{\mathbf{y}} \, \mathbf{A}^\top(\pmb{\theta})
+    \quad,
+\end{align}
+where
+\begin{align}
+    \label{eq:mean_y}
+    \pmb{\mu}_{\mathbf{y}}(\pmb{\theta})
+     & = \mathrm{E} \Big[ \mathbf{y} \, \Big| \, \pmb{\theta} \Big]
+    \\
+    \label{eq:cov_y}
+    \pmb{\Sigma}_{\mathbf{y}}(\pmb{\theta})
+     & = \mathrm{E} \Big[ \mathbf{y} \, \mathbf{y}^\top \, \Big| \, \pmb{\theta} \Big] - \pmb{\mu}_{\mathbf{y}}^2(\pmb{\theta})
+\end{align}
+are the mean and covariance of the GP in the spherical harmonics basis.
+It's a <span style="font-style:italic">lot</span> of math, but under certain
+assumptions it's possible to
+compute the expectations in the expressions above analytically. These
+are given by the integrals
+\begin{align}
+    \label{eq:exp_y}
+    \mathrm{E} \Big[ \mathbf{y} \, \Big| \, \pmb{\theta} \Big]
+     & =
+    \int \mathbf{y}(\mathbf{x} ) \, p(\mathbf{x} \, \big| \, \pmb{\theta})\mathrm{d}\mathbf{x}
+    \\
+    \label{eq:exp_yy}
+    \mathrm{E} \Big[ \mathbf{y} \, \mathbf{y}^\top \, \Big| \, \pmb{\theta} \Big]
+     & =
+    \int \mathbf{y}(\mathbf{x} ) \mathbf{y}^\top(\mathbf{x} ) \, p(\mathbf{x} \, \big| \, \pmb{\theta})\mathrm{d}\mathbf{x}
+    \quad,
+\end{align}
+where $\mathbf{x}$ is a random vector-valued variable corresponding to a particular
+distribution of features on the surface  (i.e., the size and location of star spots)
+and $p(\mathbf{x} \, \big| \, \pmb{\theta})$ is its probability density
+function (PDF).
+As we are specifically interested in modeling the effect of star spots
+on stellar light curves, we let
+\begin{align}
+    \mathbf{x} = \left( \xi \,\, \lambda \,\, \phi \,\, \rho \right)^\top
+\end{align}
+and
+\begin{align}
+    \label{eq:RRs}
+    \mathbf{y}(\mathbf{x}) =
+    \xi
+    \,
+    \mathbf{R}_{\hat{\mathbf{y}}}(\lambda)
+    \,
+    \mathbf{R}_{\hat{\mathbf{x}}}(\phi)
+    \,
+    \mathbf{s}(\rho)
+    \quad,
+\end{align}
+where $\xi$ is the contrast of a spot,
+$\lambda$ is its longitude, $\phi$ is its latitude,
+and $\rho$ is its radius.
+The vector function $\mathbf{s}(\rho)$
+returns the spherical harmonic expansion of a negative unit brightness
+circular spot at $\lambda = \phi = 0$,
+$\mathbf{R}_{\hat{\mathbf{x}}}(\phi)$ is the <a href="https://en.wikipedia.org/wiki/Wigner_D-matrix">Wigner matrix</a> that rotates the
+expansion about $\hat{\mathbf{x}}$ such that the spot is centered at a
+latitude $\phi$, and $\mathbf{R}_{\hat{\mathbf{y}}}(\lambda)$ is the Wigner
+matrix that then rotates the
+expansion about $\hat{\mathbf{y}}$ such that the spot is centered at a
+longitude $\lambda$; these three functions are detailed in the sections below.
+Equation (\ref{eq:RRs}) thus provides a way of converting a random variable
+$\mathbf{x}$ describing the size, brightness, and position of a spot to the
+corresponding representation in terms of spherical harmonics.
+Note, importantly, that we are not interested in any specific value of
+$\mathbf{y}$; rather, we would like to know its expectation value under
+the probability distribution governing the different spot properties $\mathbf{x}$,
+i.e., $p(\mathbf{x} \, \big| \, \pmb{\theta})$.
+For simplicity, we assume that $p(\mathbf{x} \, \big| \, \pmb{\theta})$
+is separable in each of the four spot properties:
+\begin{align}
+    p(\mathbf{x} \, \big| \, \pmb{\theta})
+    =
+    p(\xi \, \big| \, \pmb{\theta}_{\xi}) \,
+    p(\lambda \, \big| \, \pmb{\theta}_{\lambda}) \,
+    p(\phi \, \big| \, \pmb{\theta}_{\phi})\,
+    p(\rho \, \big| \, \pmb{\theta}_{\rho})
+    \quad,
+\end{align}
+where
+\begin{align}
+    \pmb{\theta} = \left(
+    \pmb{\theta}_{\xi} \, \,
+    \pmb{\theta}_{\lambda} \, \,
+    \pmb{\theta}_{\phi} \, \,
+    \pmb{\theta}_{\rho} \right)^\top
+\end{align}
+is the vector of hyperparameters of our GP.
+This allows us to rewrite the expectation integrals (\ref{eq:exp_y})
+and (\ref{eq:exp_yy}) as
+\begin{align}
+    \label{eq:exp_y_sep}
+    \mathrm{E} \Big[ \mathbf{y} \, \Big| \, \pmb{\theta} \Big]
+     & =
+    \mathbf{e_4}(\pmb{\theta})
+    \\[1em]
+    \label{eq:exp_yy_sep}
+    \mathrm{E} \Big[ \mathbf{y} \, \mathbf{y}^\top \, \Big| \, \pmb{\theta} \Big]
+     & =
+    \mathbf{E_4}(\pmb{\theta})
+\end{align}
+where we define the first moment integrals
+\begin{align}
+    \label{eq:e1}
+    \mathbf{e_1}(\pmb{\theta}_\rho)
+     & \equiv
+    \int
+    \mathbf{s}(\rho) \,
+    p(\rho \, \big| \, \pmb{\theta}_{\rho}) \,
+    \mathrm{d}\rho
+    %
+    \\[1em]
+    %
+    \label{eq:e2}
+    \mathbf{e_2}(\pmb{\theta}_\phi, \mathbf{e_1})
+     & \equiv
+    \int
+    \mathbf{R}_{\hat{\mathbf{x}}}(\phi) \,
+    \mathbf{e_1} \,
+    p(\phi \, \big| \, \pmb{\theta}_{\phi}) \,
+    \mathrm{d}\phi
+    %
+    \\[1em]
+    %
+    \label{eq:e3}
+    \mathbf{e_3}(\pmb{\theta}_\lambda, \mathbf{e_2})
+     & \equiv
+    \int
+    \mathbf{R}_{\hat{\mathbf{y}}}(\lambda) \,
+    \mathbf{e_2} \,
+    p(\lambda \, \big| \, \pmb{\theta}_{\lambda}) \,
+    \mathrm{d}\lambda
+    \\[1em]
+    \label{eq:e4}
+    \mathbf{e_4}(\pmb{\theta}_\xi, \mathbf{e_3})
+     & \equiv
+    \int
+    \xi \,
+    \mathbf{e_3} \,
+    p(\xi \, \big| \, \pmb{\theta}_{\xi}) \,
+    \mathrm{d}\xi
+    %
+\end{align}
+and the second moment integrals
+\begin{align}
+    \label{eq:E1}
+    \mathbf{E_1}(\pmb{\theta}_\rho)
+     & \equiv
+    \int
+    \mathbf{s}(\rho) \, \mathbf{s}^\top(\rho) \,
+    p(\rho \, \big| \, \pmb{\theta}_{\rho}) \,
+    \mathrm{d}\rho
+    %
+    \\[1em]
+    %
+    \label{eq:E2}
+    \mathbf{E_2}(\pmb{\theta}_\phi, \mathbf{E_1})
+     & \equiv
+    \int
+    \mathbf{R}_{\hat{\mathbf{x}}}(\phi) \,
+    \mathbf{E_1} \,
+    \mathbf{E_1}^\top \,
+    \mathbf{R}_{\hat{\mathbf{x}}}^\top(\phi) \,
+    p(\phi \, \big| \, \pmb{\theta}_{\phi})
+    \mathrm{d}\phi
+    %
+    \\[1em]
+    %
+    \label{eq:E3}
+    \mathbf{E_3}(\pmb{\theta}_\lambda, \mathbf{E_2})
+     & \equiv
+    \int
+    \mathbf{R}_{\hat{\mathbf{y}}}(\lambda) \,
+    \mathbf{E_2} \,
+    \mathbf{E_2}^\top \,
+    \mathbf{R}_{\hat{\mathbf{y}}}^\top(\lambda) \,
+    p(\lambda \, \big| \, \pmb{\theta}_{\lambda})
+    \mathrm{d}\phi
+    \\[1em]
+    %
+    \label{eq:E4}
+    \mathbf{E_4}(\pmb{\theta}_\xi, \mathbf{E_3})
+     & \equiv
+    \int
+    \xi^2 \,
+    \mathbf{E_3} \,
+    \mathbf{E_3}^\top \,
+    p(\xi \, \big| \, \pmb{\theta}_\xi)
+    \mathrm{d}\xi
+    %
+    \quad.
+\end{align}
+The trick now is to find a functional form for the spherical harmonic expansion
+of the spot, $\mathbf{s}(\rho)$, as well as for each of the probability
+distributions
+$p(\rho \, \big| \, \pmb{\theta}_{\rho})$,
+$p(\phi \, \big| \, \pmb{\theta}_{\phi})$,
+$p(\lambda \, \big| \, \pmb{\theta}_{\lambda})$,
+and
+$p(\xi \, \big| \, \pmb{\theta}_\xi)$,
+such that the integrals above have closed-form expressions.
+Note, importantly, that each integral is implicitly an integral of a vector
+(in the case of the first moment integrals) or a matrix (in the case
+of the second moment integrals), so we <span style="font-style=italic;">better</span>
+find analytic expressions for them (otherwise we'll spend a very long time
+integrating each of the indices of each vector and matrix numerically).
+
+<br><br/>
+
+I'm working on writing all this up into a paper, so I won't go any further into
+the math in this blog post, other than to say that for a Lorentzian-like
+star spot profile $\mathbf{s}(\rho)$, transformed Beta distributions for
+$p(\rho \, \big| \, \pmb{\theta}_{\rho})$ and $p(\phi \, \big| \, \pmb{\theta}_{\phi})$,
+and a log-Normal distribution for $p(\xi \, \big| \, \pmb{\theta}_\xi)$,
+it is in fact possible to write down a closed-form solution to each of these
+integrals. (Since we expect stars to be azimuthally symmetric on average,
+$p(\lambda \, \big| \, \pmb{\theta}_{\lambda})$ is a uniform distribution over
+$[0, 2\pi]$, so that's a relatively easy integral to take). If you're really
+interested in the math behind all this, I'm working on the paper in
+<a href="https://github.com/rodluger/starry_process">this github repository</a>,
+with the always up-to-date manuscript draft
+<a href="https://github.com/rodluger/starry_process/raw/master-pdf/tex/ms.pdf">here</a>.

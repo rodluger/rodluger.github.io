@@ -51,9 +51,14 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
             # Regular text
             text += "<p>{:s}</p>".format(item)
         elif type(item) is dict:
-            # Image / video
+            # Image / video / math
+            idstr = item.get("id", "")
+            if len(idstr):
+                idstr = "id='{:s}'".format(idstr)
             IMAGE_EXTS = ["jpg", "gif", "png"]
             VIDEO_EXTS = ["mp4"]
+            MATH_EXTS = ["tex"]
+            CODE_EXTS = ["py"]
             if any([item.get("src", "").endswith(ext) for ext in IMAGE_EXTS]):
                 media = """
                 <div class="blog-image-container {:s}">
@@ -72,12 +77,28 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
                 </div>""".format(
                     " ".join(item.get("css_classes", [])), item.get("src", "")
                 )
+            elif any([item.get("src", "").endswith(ext) for ext in MATH_EXTS]):
+                with open(item["src"], "r") as f:
+                    tex = f.read()
+                text += """
+                <p class="math {:s}" {:s}>
+                    {:s}
+                </p> 
+                """.format(
+                    " ".join(item.get("css_classes", [])), idstr, tex
+                )
+                continue
+            elif any([item.get("src", "").endswith(ext) for ext in CODE_EXTS]):
+                with open(item["src"], "r") as f:
+                    code = f.read()
+                text += """<pre><code class='{:s}' {:s}>{:s}</code></pre>
+                """.format(
+                    " ".join(item.get("css_classes", [])), idstr, code
+                )
+                continue
             else:
                 raise ValueError("")
             if len(item.get("caption", "")) == 0:
-                idstr = item.get("id", "")
-                if len(idstr):
-                    idstr = "id='{:s}'".format(idstr)
                 text += """
                 <div class="blog-image {:s}" {:s}>
                     {:s}
