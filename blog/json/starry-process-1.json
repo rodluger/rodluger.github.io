@@ -11,7 +11,7 @@
             "about": "I'm a Flatiron Fellow at the CCA in New York City, working on a variety of things related to exoplanets, stars, and astronomical data analysis. I'm interested in systematics de-trending, the search for and characterization of potentially habitable exoplanets, and the mapping of stellar and exoplanetary surfaces from photometric and spectroscopic datasets. Outside the office I love to hike, bike, swim, craft lattes, faulty parallelism, and Oxford commas."
         },
         "banner": "images/starry-process.jpg",
-        "social_image": "images/starry.jpg",
+        "social_image": "images/starry-logo.jpg",
         "summary": "As I discussed in my <a href='2020-09-17.html'>previous post</a>, the information content of stellar light curves can be exceptionally tiny, owing to the large number of degeneracies when projecting from a two-dimensional space (the stellar surface) to a one-dimensional curve (the flux timeseries). Instead of trying to produce a definitive map of a stellar surface from a light curve, we can instead model the surface as a statistical process. In this post, I discuss ongoing work to develop a Gaussian process for stellar light curves whose hyperparameters are rooted in statistical properties of the stellar surface.",
         "contents": [
             "<h1>Ensemble Statistics</h1>",
