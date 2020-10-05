@@ -11,6 +11,7 @@
             "about": "I'm a Flatiron Fellow at the CCA in New York City, working on a variety of things related to exoplanets, stars, and astronomical data analysis. I'm interested in systematics de-trending, the search for and characterization of potentially habitable exoplanets, and the mapping of stellar and exoplanetary surfaces from photometric and spectroscopic datasets. Outside the office I love to hike, bike, swim, craft lattes, faulty parallelism, and Oxford commas."
         },
         "banner": "images/starry-process.jpg",
+        "social_image": "images/starry.jpg",
         "summary": "This is a continuation of the <a href='2020-09-24.html'>previous post</a>, in which we implemented a very slow, inefficient, and numerically unstable Gaussian process for stellar light curves. In this post I'll discuss how to compute the GP kernel analytically and show how to use this GP to learn about star spot properties from stellar light curves.",
         "contents": [
             "<h1>Demo</h1>",

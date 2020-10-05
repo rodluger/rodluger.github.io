@@ -35,6 +35,9 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
     post_dict["post"]["title_tiny"] = post_dict["post"].get(
         "title_tiny", post_dict["post"]["title"]
     )
+    post_dict["post"]["social_image"] = post_dict["post"].get(
+        "social_image", post_dict["post"]["banner"]
+    )
 
     # Disqus metadata
     post_dict["post"]["disqus"] = {}
