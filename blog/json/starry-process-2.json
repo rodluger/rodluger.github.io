@@ -13,6 +13,7 @@
         "banner": "images/starry-process.jpg",
         "social_image": "images/starry-logo.jpg",
         "summary": "This is a continuation of the <a href='2020-09-24.html'>previous post</a>, in which we implemented a very slow, inefficient, and numerically unstable Gaussian process for stellar light curves. In this post I'll discuss how to compute the GP kernel analytically and show how to use this GP to learn about star spot properties from stellar light curves.",
+        "rss_summary": "This is a continuation of the previous post, in which we implemented a very slow, inefficient, and numerically unstable Gaussian process for stellar light curves. In this post I'll discuss how to compute the GP kernel analytically and show how to use this GP to learn about star spot properties from stellar light curves.",
         "contents": [
             "<h1>Demo</h1>",
             "Before I discuss <span style='font-style:italic;'>how</span> any of this works, let's cut to the chase. <a href='#Figure1'>Figure 1</a> below shows a demo of a <span style='font-style:italic;'>starry process</span>, a Gaussian process whose hyperparameters correspond to physical properties of the distribution of star spots on the stellar surface.",

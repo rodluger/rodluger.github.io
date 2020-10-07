@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Rodrigo Luger's Blog</title>
+<link>https://luger.dev/blog</link>
+<description>A blog about astronomy, data science, math, and random thoughts that pop into my head.</description>
+<atom:link href="https://luger.dev/blog/rss.xml" rel="self" type="application/rss+xml" />
+{% for item in posts %}
+<item>
+<title>{{item.post.title}}</title>
+<link>https://luger.dev/blog/{{item.post.url}}</link>
+<guid>https://luger.dev/blog/{{item.post.url}}</guid>
+<pubDate>{{item.post.rss_date}}</pubDate>
+<description>{{item.post.rss_summary}}</description>
+</item>
+{% endfor %}
+</channel>
+</rss>

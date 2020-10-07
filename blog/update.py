@@ -26,17 +26,39 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
     date = dateparser.parse(post_dict["post"]["date"])
     date_str = "{:04d}-{:02d}-{:02d}".format(date.year, date.month, date.day)
     date_str_tiny = date_str[2:]
+    months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ]
+    weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    rss_date = "{:s}, {:d} {:s} {:d} 00:00:00 GMT".format(
+        weekdays[date.weekday()], date.day, months[date.month - 1], date.year
+    )
     post_dict["post"]["url"] = "{:s}.html".format(date_str)
 
     # Add metadata
     post_dict["post"]["shortdate"] = date_str
     post_dict["post"]["shortdate_tiny"] = date_str_tiny
+    post_dict["post"]["rss_date"] = rss_date
     post_dict["post"]["id"] = date_str.replace("-", "_")
     post_dict["post"]["title_tiny"] = post_dict["post"].get(
         "title_tiny", post_dict["post"]["title"]
     )
     post_dict["post"]["social_image"] = post_dict["post"].get(
         "social_image", post_dict["post"]["banner"]
+    )
+    post_dict["post"]["rss_summary"] = post_dict["post"].get(
+        "rss_summary", post_dict["post"]["summary"]
     )
 
     # Disqus metadata
@@ -173,4 +195,10 @@ posts = [post for _, post in sorted(zip(dates, posts))][::-1]
 # Update the main page
 template = env.get_template("index.html.jinja")
 with open(os.path.join(root, "index.html"), "w") as f:
+    f.write(template.render(posts=posts))
+
+
+# Update the rss feed
+template = env.get_template("rss.xml.jinja")
+with open(os.path.join(root, "rss.xml"), "w") as f:
     f.write(template.render(posts=posts))

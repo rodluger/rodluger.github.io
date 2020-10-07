@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Rodrigo Luger's Blog</title>
+<link>https://luger.dev/blog</link>
+<description>A blog about astronomy, data science, math, and random thoughts that pop into my head.</description>
+<atom:link href="https://luger.dev/blog/rss.xml" rel="self" type="application/rss+xml" />
+
+<item>
+<title>Interpretable GPs for stellar rotation (Part 2)</title>
+<link>https://luger.dev/blog/2020-10-01.html</link>
+<guid>https://luger.dev/blog/2020-10-01.html</guid>
+<pubDate>Thu, 1 Oct 2020 00:00:00 GMT</pubDate>
+<description>This is a continuation of the previous post, in which we implemented a very slow, inefficient, and numerically unstable Gaussian process for stellar light curves. In this post I'll discuss how to compute the GP kernel analytically and show how to use this GP to learn about star spot properties from stellar light curves.</description>
+</item>
+
+<item>
+<title>Interpretable GPs for stellar rotation (Part 1)</title>
+<link>https://luger.dev/blog/2020-09-24.html</link>
+<guid>https://luger.dev/blog/2020-09-24.html</guid>
+<pubDate>Thu, 24 Sep 2020 00:00:00 GMT</pubDate>
+<description>The information content of stellar light curves can be exceptionally tiny, owing to the large number of degeneracies when projecting from a two-dimensional space (the stellar surface) to a one-dimensional curve (the flux timeseries). Instead of trying to produce a definitive map of a stellar surface from a light curve, we can instead model the surface as a statistical process. In this post, I discuss ongoing work to develop a Gaussian process for stellar light curves whose hyperparameters are rooted in statistical properties of the stellar surface.</description>
+</item>
+
+<item>
+<title>So I started a blog...</title>
+<link>https://luger.dev/blog/2020-09-17.html</link>
+<guid>https://luger.dev/blog/2020-09-17.html</guid>
+<pubDate>Thu, 17 Sep 2020 00:00:00 GMT</pubDate>
+<description>Ever since I started my postdoc at the CCA, it feels like I've started a million different projects (and finished none). I have a lot of half-finished (or more like half-baked) ideas that I felt I had to write down somewhere, so I decided to start a blog! This blog will be a mishmash of posts on astronomy, data science, math, and any other random thoughts that pop into my head.</description>
+</item>
+
+</channel>
+</rss>
