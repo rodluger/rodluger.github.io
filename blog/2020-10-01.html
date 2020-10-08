@@ -3,728 +3,527 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <meta name="description"
-        content="This is a continuation of the <a href='2020-09-24.html'>previous post</a>, in which we implemented a very slow, inefficient, and numerically unstable Gaussian process for stellar light curves. In this post I'll discuss how to compute the GP kernel analytically and show how to use this GP to learn about star spot properties from stellar light curves.">
-    <meta name="author" content="Rodrigo Luger">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="twitter:image" content="https://luger.dev/blog/images/starry-logo.jpg">
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Rodrigo Luger's Blog" />
-    <meta name="twitter:description" content="Interpretable GPs for stellar rotation (Part 2)" />
-    <meta property="og:title" content="Rodrigo Luger's Blog" />
-    <meta property="og:description" content="Interpretable GPs for stellar rotation (Part 2)" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://luger.dev/blog" />
-    <meta property="og:updated_time" content="2020-10-01T00:00:00+00:00" />
-    <meta property="og:site_name" content="Rodrigo Luger's Blog" />
-    <meta property="og:image" content="https://luger.dev/blog/images/starry-logo.jpg">
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="This is a continuation of the <a href='2020-09-24.html'>previous post</a>, in which we implemented a very slow, inefficient, and numerically unstable Gaussian process for stellar light curves. In this post I'll discuss how to compute the GP kernel analytically and show how to use this GP to learn about star spot properties from stellar light curves.">
+     <meta name="author" content="Rodrigo Luger">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="twitter:image" content="https://luger.dev/blog/images/starry-logo.jpg">
+     <meta name="twitter:card" content="summary"/>
+     <meta name="twitter:title" content="Rodrigo Luger's Blog"/>
+     <meta name="twitter:description" content="Interpretable GPs for stellar rotation (Part 2)"/>
+     <meta property="og:title" content="Rodrigo Luger's Blog" />
+     <meta property="og:description" content="Interpretable GPs for stellar rotation (Part 2)" />
+     <meta property="og:type" content="website" />
+     <meta property="og:url" content="https://luger.dev/blog" />
+     <meta property="og:updated_time" content="2020-10-01T00:00:00+00:00" />
+     <meta property="og:site_name" content="Rodrigo Luger's Blog" />
+     <meta property="og:image" content="https://luger.dev/blog/images/starry-logo.jpg">
 
-    <title>Interpretable GPs for stellar rotation (Part 2)</title>
+     <title>Interpretable GPs for stellar rotation (Part 2)</title>
 
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/fontawesome.css">
+     <link rel="stylesheet" href="../css/bootstrap.min.css">
+     <link rel="stylesheet" href="../css/fontawesome.css">
 
-    <!-- Main css -->
-    <link rel="stylesheet" href="../css/custom.css">
-    <link rel="stylesheet" href="static/custom.css">
+     <!-- Main css -->
+     <link rel="stylesheet" href="../css/custom.css">
+     <link rel="stylesheet" href="static/custom.css">
 
-    <!-- RSS -->
-    <link rel="alternate" type="application/rss+xml" href="https://luger.dev/blog/rss.xml" title="Rodrigo Luger's Blog">
+     <!-- RSS -->
+     <link rel="alternate" type="application/rss+xml" href="https://luger.dev/blog/rss.xml" title="Rodrigo Luger's Blog">
 
-    <script src='https://polyfill.io/v3/polyfill.min.js?features=es6'>
-    </script>
-    <script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'>
-    </script>
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                tags: 'ams'
-            }
-        };
-    </script>
+     <script src='https://polyfill.io/v3/polyfill.min.js?features=es6'>
+     </script>
+     <script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'>
+     </script>
+     <script>
+     window.MathJax = {
+          tex: {
+               inlineMath: [['$', '$'], ['\\(', '\\)']],
+               tags: 'ams'
+          }
+     };
+     </script>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47070068-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+     <!-- Global site tag (gtag.js) - Google Analytics -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47070068-1"></script>
+     <script>
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
 
-        gtag('config', 'UA-47070068-1');
-    </script>
+     gtag('config', 'UA-47070068-1');
+     </script>
 
-    <!-- Code syntax highlighting -->
-    <link rel="stylesheet" href="static/highlight/styles/default.css">
-    <script src="static/highlight/highlight.pack.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
+     <!-- Code syntax highlighting -->
+     <link rel="stylesheet" href="static/highlight/styles/default.css">
+     <script src="static/highlight/highlight.pack.js"></script>
+     <script>hljs.initHighlightingOnLoad();</script>
 
 </head>
 
 <body>
 
-    <!-- PRE LOADER -->
+     <!-- PRE LOADER -->
 
-    <div class="preloader">
-        <div class="spinner">
-            <div class="dot1"></div>
-            <div class="dot2"></div>
-        </div>
-    </div>
+     <div class="preloader">
+          <div class="spinner">
+               <div class="dot1"></div>
+               <div class="dot2"></div>
+          </div>
+     </div>
 
-    <!-- Navigation section  -->
+     <!-- Navigation section  -->
 
-    <div class="navbar navbar-default navbar-static-top" role="navigation">
-        <div class="container">
+     <div class="navbar navbar-default navbar-static-top" role="navigation">
+          <div class="container">
 
-            <div class="navbar-header">
-                <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon icon-bar"></span>
-                    <span class="icon icon-bar"></span>
-                    <span class="icon icon-bar"></span>
-                </button>
-                <a href="../index.html" class="navbar-brand">
-                    <span class="avatar">
-                        <img src="../images/rodrigo-luger-avatar.jpg">
-                    </span>
-                </a>
-            </div>
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="../index.html">home</a></li>
-                    <li><a href="../about.html">about</a></li>
-                    <li><a href="https://github.com/rodluger/cv/raw/master-pdf/luger_cv.pdf">cv</a></li>
-                    <li><a href="index.html" class="blinker">blog</a></li>
-                </ul>
-            </div>
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
+                    <a href="../index.html" class="navbar-brand">
+                         <span class="avatar">
+                              <img src="../images/rodrigo-luger-avatar.jpg">
+                         </span>
+                    </a>
+               </div>
+               <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                         <li class="active"><a href="../index.html">home</a></li>
+                         <li><a href="../about.html">about</a></li>
+                         <li><a href="https://github.com/rodluger/cv/raw/master-pdf/luger_cv.pdf">cv</a></li>
+                         <li><a href="index.html" class="blinker">blog</a></li>
+                    </ul>
+               </div>
 
-        </div>
-    </div>
+          </div>
+     </div>
 
-    <!-- Blog Single Post Section -->
+     <!-- Blog Single Post Section -->
 
-    <section id="blog-single-post">
-        <div class="container">
-            <div class="row">
+     <section id="blog-single-post">
+          <div class="container">
+               <div class="row">
 
-                <div class="col-md-offset-1 col-md-10 col-sm-12">
-                    <div class="blog-single-post-thumb">
-                        <div class="blog-post-image">
-                            <img src="images/starry-process.jpg" class="img-responsive" alt="Blog Image">
-                        </div>
+                    <div class="col-md-offset-1 col-md-10 col-sm-12">
+                         <div class="blog-single-post-thumb">
+                              <div class="blog-post-image">
+                                   <img src="images/starry-process.jpg" class="img-responsive" alt="Blog Image">
+                              </div>
 
-                        <div class="blog-post-title">
-                            <h3>Interpretable GPs for stellar rotation (Part 2)</h3>
-                        </div>
+                              <div class="blog-post-title">
+                                   <h3>Interpretable GPs for stellar rotation (Part 2)</h3>
+                              </div>
 
-                        <div class="blog-post-format">
-                            <span><a href="#"><img src="../images/rodrigo-luger-avatar.jpg"
-                                        class="img-responsive img-circle" style="margin-right: 8px;">Rodrigo
-                                    Luger</a></span>
-                            <span><i class="far fa-calendar" style="margin-right:5px; color: #666;"></i>October 1
-                                2020</span>
-                        </div>
+                              <div class="blog-post-format">
+                                   <span><a href="#"><img src="../images/rodrigo-luger-avatar.jpg" class="img-responsive img-circle"
+                                                  style="margin-right: 8px;">Rodrigo Luger</a></span>
+                                   <span><i class="far fa-calendar"
+                                             style="margin-right:5px; color: #666;"></i>October 1 2020</span>
+                              </div>
 
-                        <div class="blog-post-des">
-                            <p>This is a continuation of the <a href='2020-09-24.html'>previous post</a>, in which we
-                                implemented a very slow, inefficient, and numerically unstable Gaussian process for
-                                stellar light curves. In this post I'll discuss how to compute the GP kernel
-                                analytically and show how to use this GP to learn about star spot properties from
-                                stellar light curves.</p>
-                            <p>
-                            <h1>Demo</h1>
-                            </p>
-                            <p>Before I discuss <span style='font-style:italic;'>how</span> any of this works, let's cut
-                                to the chase. <a href='#Figure1'>Figure 1</a> below shows a demo of a <span
-                                    style='font-style:italic;'>starry process</span>, a Gaussian process whose
-                                hyperparameters correspond to physical properties of the distribution of star spots on
-                                the stellar surface.</p>
-                            <div id="Figure1Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body full-width">
-
-                                            <div class="blog-image-container full-width">
-                                                <video width='100%' autoplay muted loop>
-                                                    <source src='images/starry-process.mp4' type='video/mp4'>
-                                                    Your browser does not support the video tag.
-                                                </video>
-                                            </div>
-                                            <p>
-                                                <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
-                                                <span>A video demo of a <a
-                                                        href='https://github.com/rodluger/starry_process'>starry
-                                                        process</a>. The kernel of the Gaussian process is a function of
-                                                    six hyperparameters that control the mean and standard deviation of
-                                                    the spot size, latitude, and contrast distributions (top panels).
-                                                    The bottom panels show random samples from the GP on the surface of
-                                                    the star (in a Mollweide projection) and in flux space. Line colors
-                                                    correspond to different stellar inclinations with respect to the
-                                                    line of sight. Because the kernel is an analytic function of the
-                                                    hyperparameters, drawing samples and computing marginal likelihoods
-                                                    with a <a href='https://github.com/rodluger/starry_process'>starry
-                                                        process</a> is extremely fast.</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="Figure1" class="blog-image full-width">
-                                <a href="#" data-toggle="modal" data-target="#Figure1Modal">
-
-                                    <div class="blog-image-container full-width">
-                                        <video width='100%' autoplay muted loop>
-                                            <source src='images/starry-process.mp4' type='video/mp4'>
-                                            Your browser does not support the video tag.
-                                        </video>
-                                    </div>
-                                </a>
+                              <div class="blog-post-des">
+                                   <p>This is a continuation of the <a href='2020-09-24.html'>previous post</a>, in which we implemented a very slow, inefficient, and numerically unstable Gaussian process for stellar light curves. In this post I'll discuss how to compute the GP kernel analytically and show how to use this GP to learn about star spot properties from stellar light curves.</p><p><h1>Demo</h1></p><p>Before I discuss <span style='font-style:italic;'>how</span> any of this works, let's cut to the chase. <a href='#Figure1'>Figure 1</a> below shows a demo of a <span style='font-style:italic;'>starry process</span>, a Gaussian process whose hyperparameters correspond to physical properties of the distribution of star spots on the stellar surface.</p>
+                <div id="Figure1Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body full-width">
+                                
+                <div class="blog-image-container full-width">
+                <video width='100%' autoplay muted loop>
+                    <source src='images/starry-process.mp4' type='video/mp4'>
+                    Your browser does not support the video tag.
+                </video>
+                </div>
                                 <p>
                                     <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
-                                    <span>A video demo of a <a href='https://github.com/rodluger/starry_process'>starry
-                                            process</a>. The kernel of the Gaussian process is a function of six
-                                        hyperparameters that control the mean and standard deviation of the spot size,
-                                        latitude, and contrast distributions (top panels). The bottom panels show random
-                                        samples from the GP on the surface of the star (in a Mollweide projection) and
-                                        in flux space. Line colors correspond to different stellar inclinations with
-                                        respect to the line of sight. Because the kernel is an analytic function of the
-                                        hyperparameters, drawing samples and computing marginal likelihoods with a <a
-                                            href='https://github.com/rodluger/starry_process'>starry process</a> is
-                                        extremely fast.</span>
+                                    <span>A video demo of a <a href='https://github.com/rodluger/starry_process'>starry process</a>. The kernel of the Gaussian process is a function of six hyperparameters that control the mean and standard deviation of the spot size, latitude, and contrast distributions (top panels). The bottom panels show random samples from the GP on the surface of the star (in a Mollweide projection) and in flux space. Line colors correspond to different stellar inclinations with respect to the line of sight. Because the kernel is an analytic function of the hyperparameters, drawing samples and computing marginal likelihoods with a <a href='https://github.com/rodluger/starry_process'>starry process</a> is extremely fast.</span>
                                 </p>
                             </div>
-                            <p>The kernel of the GP is a function of six parameters: the mean and standard deviation of
-                                the spot latitude distribution (in degrees; top left), the mean and standard deviation
-                                of the spot size distribution (also in degrees; top center), and the mean and standard
-                                deviation of the spot contrast (measured as a fraction of the photospheric intensity;
-                                top right). Below the distribution are five random samples from the GP, visualized on
-                                the surface of the star in an equal-area Mollweide projection. Below each are the
-                                corresponding light curves assuming different viewing inclinations ranging from 15&deg;
-                                (yellow) to 90&deg (dark red). In the video, everything is computed in real time as the
-                                GP parameters are adjusted: because the <span style='font-style:italic;'>starry
-                                    process</span> is analytic, it is extremely fast to evaluate.</p>
-                            <p>The demo above is of course just a video. I'm hoping to turn it into a proper web app in
-                                the near future, but for the time being it has to be run locally. If you want to play
-                                around with it yourself, you can install the (very experimental) beta version as
-                                follows:</p>
-                            <p>
-                            <pre><code class='bash'>pip install "git+git://github.com/rodluger/starry_process.git@blog#egg=starry_process[app]"</code></pre>
-                            </p>
-                            <p>then, in the command line, type</p>
-                            <p>
-                            <pre><code class='bash'>starry-process</code></pre>
-                            </p>
-                            <p>to launch the Bokeh app.</p>
-                            <p>
-                            <h1>What you can do with a starry process</h1>
-                            </p>
-                            <p>Again, let's delay for the time being discussing how the GP works and briefly talk about
-                                <span style='font-style:italic;'>what</span> the GP can do. I mentioned in the <a
-                                    href='2020-09-24.html'>previous post</a> that an interpretable GP can be used within
-                                a hierarchical model to learn about ensemble statistics of many light curves. To recap,
-                                the idea behind this is that any individual light curve contains only a small fraction
-                                of the information about what the surface of the star looks like (because of all the
-                                degeneracies that come with projecting a two-dimensional surface down to a
-                                one-dimensional flux timeseries). However, these degeneracies are inclination-dependent,
-                                so different stars will have different degeneracies. The trick is to realize that if we
-                                collect light curves of many <span style='font-style:italic;'>similar</span> stars, we
-                                can learn more about the population than we can for any individual star. Here, <span
-                                    style='font-style:italic;'>similar</span> is loosely defined: we simply want stars
-                                whose properties are drawn from the same parent distribution (individual stars may still
-                                look quite different!) To show how we can do this using a <span
-                                    style='font-style:italic;'>starry process</span>, let's create a toy dataset:</p>
-                            <div id="Figure2Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body full-width">
-
-                                            <div class="blog-image-container full-width">
-                                                <img src='images/starry-process-synthetic-data.jpg'
-                                                    style='width:100%;'></img>
-                                            </div>
-
-                                            <p>
-                                                <span style="font-weight: 600; padding-right: 0.5em;">Figure 2</span>
-                                                <span>A synthetic dataset consisting of ten light curves of stars with
-                                                    similar star spot properties. The surface maps were generated by
-                                                    placing 20 discrete circular spots at latitudes and with sizes and
-                                                    contrasts drawn from fiducial Gaussian distributions. The light
-                                                    curves were then computed by expanding the surface in spherical
-                                                    harmonics to high degree (30) and using <a
-                                                        href='https://github.com/rodluger/starry'>starry</a> to compute
-                                                    fluxes. Each star was given a random inclination drawn from a \(\sin
-                                                    i\) prior; the \( \times \) on each map marks the sub-observer
-                                                    point. Finally, a small amount of noise was added to each light
-                                                    curve to simulate photon noise.</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="Figure2" class="blog-image full-width">
-                                <a href="#" data-toggle="modal" data-target="#Figure2Modal">
-
-                                    <div class="blog-image-container full-width">
-                                        <img src='images/starry-process-synthetic-data.jpg' style='width:100%;'></img>
-                                    </div>
-
-                                </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure1" class="blog-image full-width">
+                    <a href="#" data-toggle="modal" data-target="#Figure1Modal">
+                        
+                <div class="blog-image-container full-width">
+                <video width='100%' autoplay muted loop>
+                    <source src='images/starry-process.mp4' type='video/mp4'>
+                    Your browser does not support the video tag.
+                </video>
+                </div>
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
+                        <span>A video demo of a <a href='https://github.com/rodluger/starry_process'>starry process</a>. The kernel of the Gaussian process is a function of six hyperparameters that control the mean and standard deviation of the spot size, latitude, and contrast distributions (top panels). The bottom panels show random samples from the GP on the surface of the star (in a Mollweide projection) and in flux space. Line colors correspond to different stellar inclinations with respect to the line of sight. Because the kernel is an analytic function of the hyperparameters, drawing samples and computing marginal likelihoods with a <a href='https://github.com/rodluger/starry_process'>starry process</a> is extremely fast.</span>
+                    </p>
+                </div>
+                <p>The kernel of the GP is a function of six parameters: the mean and standard deviation of the spot latitude distribution (in degrees; top left), the mean and standard deviation of the spot size distribution (also in degrees; top center), and the mean and standard deviation of the spot contrast (measured as a fraction of the photospheric intensity; top right). Below the distribution are five random samples from the GP, visualized on the surface of the star in an equal-area Mollweide projection. Below each are the corresponding light curves assuming different viewing inclinations ranging from 15&deg; (yellow) to 90&deg (dark red). In the video, everything is computed in real time as the GP parameters are adjusted: because the <span style='font-style:italic;'>starry process</span> is analytic, it is extremely fast to evaluate.</p><p>The demo above is of course just a video. I'm hoping to turn it into a proper web app in the near future, but for the time being it has to be run locally. If you want to play around with it yourself, you can install the (very experimental) beta version as follows:</p><p><pre><code class='bash'>pip install "git+git://github.com/rodluger/starry_process.git@blog#egg=starry_process[app]"</code></pre></p><p>then, in the command line, type</p><p><pre><code class='bash'>starry-process</code></pre></p><p>to launch the Bokeh app.</p><p><h1>What you can do with a starry process</h1></p><p>Again, let's delay for the time being discussing how the GP works and briefly talk about <span style='font-style:italic;'>what</span> the GP can do. I mentioned in the <a href='2020-09-24.html'>previous post</a> that an interpretable GP can be used within a hierarchical model to learn about ensemble statistics of many light curves. To recap, the idea behind this is that any individual light curve contains only a small fraction of the information about what the surface of the star looks like (because of all the degeneracies that come with projecting a two-dimensional surface down to a one-dimensional flux timeseries). However, these degeneracies are inclination-dependent, so different stars will have different degeneracies. The trick is to realize that if we collect light curves of many <span style='font-style:italic;'>similar</span> stars, we can learn more about the population than we can for any individual star. Here, <span style='font-style:italic;'>similar</span> is loosely defined: we simply want stars whose properties are drawn from the same parent distribution (individual stars may still look quite different!) To show how we can do this using a <span style='font-style:italic;'>starry process</span>, let's create a toy dataset:</p>
+                <div id="Figure2Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body full-width">
+                                
+                <div class="blog-image-container full-width">
+                    <img src='images/starry-process-synthetic-data.jpg' style='width:100%;'></img>
+                </div>
+                
                                 <p>
                                     <span style="font-weight: 600; padding-right: 0.5em;">Figure 2</span>
-                                    <span>A synthetic dataset consisting of ten light curves of stars with similar star
-                                        spot properties. The surface maps were generated by placing 20 discrete circular
-                                        spots at latitudes and with sizes and contrasts drawn from fiducial Gaussian
-                                        distributions. The light curves were then computed by expanding the surface in
-                                        spherical harmonics to high degree (30) and using <a
-                                            href='https://github.com/rodluger/starry'>starry</a> to compute fluxes. Each
-                                        star was given a random inclination drawn from a \(\sin i\) prior; the \( \times
-                                        \) on each map marks the sub-observer point. Finally, a small amount of noise
-                                        was added to each light curve to simulate photon noise.</span>
+                                    <span>A synthetic dataset consisting of ten light curves of stars with similar star spot properties. The surface maps were generated by placing 20 discrete circular spots at latitudes and with sizes and contrasts drawn from fiducial Gaussian distributions. The light curves were then computed by expanding the surface in spherical harmonics to high degree (30) and using <a href='https://github.com/rodluger/starry'>starry</a> to compute fluxes. Each star was given a random inclination drawn from a \(\sin i\) prior; the \( \times \) on each map marks the sub-observer point. Finally, a small amount of noise was added to each light curve to simulate photon noise.</span>
                                 </p>
                             </div>
-                            <p>The figure above shows a dataset comprised of ten light curves of stars with
-                                statistically similar star spot properties. I generated it by choosing fiducial values
-                                for the mean and variance of the (Gaussian) distributions for the spot size, latitude,
-                                and contrast, then drawing 20 spots from these distributions for each star. The spots
-                                are circular and the contrast is uniform within each one (as we will see below, this is
-                                quite different from the prescription used to compute the GP; this is extremely
-                                important, since we don't want our proof that the GP works to be circular!) I then gave
-                                each star a random inclination, drawn from the expected \(\sin i\) prior for inclination
-                                angles, and computed the "observed" light curve using <a
-                                    href='https://github.com/rodluger/starry'>starry</a>.</p>
-                            <p>Now, we pretend we merely observe these light curves, and that we have absolutely no
-                                knowledge of the number of spots, the spot sizes, positions, and contrasts, or the
-                                inclination of any of the stars. (For simplicity, we'll assume we know the rotational
-                                period exactly, although this could easily be sampled over as well). The only thing
-                                we'll assume is that these stars are "similar": that is, there is some parent
-                                distribution from which all these stellar surfaces were drawn. In practice, this might
-                                mean the stars have the same spectral type, similar ages (or rotation periods), and
-                                similar metallicities. What we therefore do is to place uninformative priors on all of
-                                these quantities and use the sampler of our choice to explore their posteriors. Our
-                                likelihood function is the usual GP likelihood (see <a
-                                    href='2020-09-24.html#GPLikelihood'>this equation</a>), although this time our GP
-                                kernel is an explicit function of the parameters we care about. <a
-                                    href='#Figure3'>Figure 3</a> below shows the posterior distributions for some of the
-                                quantities of interest from a Variational Inference (VI) scheme:</p>
-                            <div id="Figure3Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body full-width medium">
-
-                                            <div class="blog-image-container full-width medium">
-                                                <img src='images/starry-process-posteriors.jpg'
-                                                    style='width:100%;'></img>
-                                            </div>
-
-                                            <p>
-                                                <span style="font-weight: 600; padding-right: 0.5em;">Figure 3</span>
-                                                <span>Joint posterior distributions for the hyperparameters governing
-                                                    the spot latitude and contrast distributions, inferred by jointly
-                                                    analyzing the ten light curves in <a href='#Figure2'>Figure 2</a>.
-                                                    Uniform priors were assumed for all hyperparameters of the GP. The
-                                                    inclinations of each star were also treated as latent variables (see
-                                                    <a href='#Figure4'>Figure 4</a>). The blue lines indicate the true
-                                                    values used to generate the synthetic dataset; note the excellent
-                                                    agreement with the inferred values.</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="Figure3" class="blog-image full-width medium">
-                                <a href="#" data-toggle="modal" data-target="#Figure3Modal">
-
-                                    <div class="blog-image-container full-width medium">
-                                        <img src='images/starry-process-posteriors.jpg' style='width:100%;'></img>
-                                    </div>
-
-                                </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure2" class="blog-image full-width">
+                    <a href="#" data-toggle="modal" data-target="#Figure2Modal">
+                        
+                <div class="blog-image-container full-width">
+                    <img src='images/starry-process-synthetic-data.jpg' style='width:100%;'></img>
+                </div>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 2</span>
+                        <span>A synthetic dataset consisting of ten light curves of stars with similar star spot properties. The surface maps were generated by placing 20 discrete circular spots at latitudes and with sizes and contrasts drawn from fiducial Gaussian distributions. The light curves were then computed by expanding the surface in spherical harmonics to high degree (30) and using <a href='https://github.com/rodluger/starry'>starry</a> to compute fluxes. Each star was given a random inclination drawn from a \(\sin i\) prior; the \( \times \) on each map marks the sub-observer point. Finally, a small amount of noise was added to each light curve to simulate photon noise.</span>
+                    </p>
+                </div>
+                <p>The figure above shows a dataset comprised of ten light curves of stars with statistically similar star spot properties. I generated it by choosing fiducial values for the mean and variance of the (Gaussian) distributions for the spot size, latitude, and contrast, then drawing 20 spots from these distributions for each star. The spots are circular and the contrast is uniform within each one (as we will see below, this is quite different from the prescription used to compute the GP; this is extremely important, since we don't want our proof that the GP works to be circular!) I then gave each star a random inclination, drawn from the expected \(\sin i\) prior for inclination angles, and computed the "observed" light curve using <a href='https://github.com/rodluger/starry'>starry</a>.</p><p>Now, we pretend we merely observe these light curves, and that we have absolutely no knowledge of the number of spots, the spot sizes, positions, and contrasts, or the inclination of any of the stars. (For simplicity, we'll assume we know the rotational period exactly, although this could easily be sampled over as well). The only thing we'll assume is that these stars are "similar": that is, there is some parent distribution from which all these stellar surfaces were drawn. In practice, this might mean the stars have the same spectral type, similar ages (or rotation periods), and similar metallicities. What we therefore do is to place uninformative priors on all of these quantities and use the sampler of our choice to explore their posteriors. Our likelihood function is the usual GP likelihood (see <a href='2020-09-24.html#GPLikelihood'>this equation</a>), although this time our GP kernel is an explicit function of the parameters we care about. <a href='#Figure3'>Figure 3</a> below shows the posterior distributions for some of the quantities of interest from a Variational Inference (VI) scheme:</p>
+                <div id="Figure3Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body full-width medium">
+                                
+                <div class="blog-image-container full-width medium">
+                    <img src='images/starry-process-posteriors.jpg' style='width:100%;'></img>
+                </div>
+                
                                 <p>
                                     <span style="font-weight: 600; padding-right: 0.5em;">Figure 3</span>
-                                    <span>Joint posterior distributions for the hyperparameters governing the spot
-                                        latitude and contrast distributions, inferred by jointly analyzing the ten light
-                                        curves in <a href='#Figure2'>Figure 2</a>. Uniform priors were assumed for all
-                                        hyperparameters of the GP. The inclinations of each star were also treated as
-                                        latent variables (see <a href='#Figure4'>Figure 4</a>). The blue lines indicate
-                                        the true values used to generate the synthetic dataset; note the excellent
-                                        agreement with the inferred values.</span>
+                                    <span>Joint posterior distributions for the hyperparameters governing the spot latitude and contrast distributions, inferred by jointly analyzing the ten light curves in <a href='#Figure2'>Figure 2</a>. Uniform priors were assumed for all hyperparameters of the GP. The inclinations of each star were also treated as latent variables (see <a href='#Figure4'>Figure 4</a>). The blue lines indicate the true values used to generate the synthetic dataset; note the excellent agreement with the inferred values.</span>
                                 </p>
                             </div>
-                            <p>As you can tell from the figure, we were able to accurately infer the mean latitude of
-                                the spots, the scatter (variance) in the latitude, and the typical contrast of the spots
-                                in our ensemble of ten stars. Below, <a href='#Figure4'>Figure 4</a> shows the posterior
-                                distributions for the inclinations of each of the stars:</p>
-                            <div id="Figure4Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body full-width">
-
-                                            <div class="blog-image-container full-width">
-                                                <img src='images/starry-process-inclination-posteriors.jpg'
-                                                    style='width:100%;'></img>
-                                            </div>
-
-                                            <p>
-                                                <span style="font-weight: 600; padding-right: 0.5em;">Figure 4</span>
-                                                <span>Posterior distributions for the inclinations of each of the ten
-                                                    stars in <a href='#Figure1'>Figure 1</a>. A \(\sin i\) prior was
-                                                    placed on each one. Stellar inclinations are notoriously difficult
-                                                    to infer from light curves given all the degeneracies in the mapping
-                                                    problem. However, ensemble analysis of similar stars allows one to
-                                                    infer these inclinations with fairly high precision and minimal
-                                                    bias.</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="Figure4" class="blog-image full-width">
-                                <a href="#" data-toggle="modal" data-target="#Figure4Modal">
-
-                                    <div class="blog-image-container full-width">
-                                        <img src='images/starry-process-inclination-posteriors.jpg'
-                                            style='width:100%;'></img>
-                                    </div>
-
-                                </a>
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure3" class="blog-image full-width medium">
+                    <a href="#" data-toggle="modal" data-target="#Figure3Modal">
+                        
+                <div class="blog-image-container full-width medium">
+                    <img src='images/starry-process-posteriors.jpg' style='width:100%;'></img>
+                </div>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 3</span>
+                        <span>Joint posterior distributions for the hyperparameters governing the spot latitude and contrast distributions, inferred by jointly analyzing the ten light curves in <a href='#Figure2'>Figure 2</a>. Uniform priors were assumed for all hyperparameters of the GP. The inclinations of each star were also treated as latent variables (see <a href='#Figure4'>Figure 4</a>). The blue lines indicate the true values used to generate the synthetic dataset; note the excellent agreement with the inferred values.</span>
+                    </p>
+                </div>
+                <p>As you can tell from the figure, we were able to accurately infer the mean latitude of the spots, the scatter (variance) in the latitude, and the typical contrast of the spots in our ensemble of ten stars. Below, <a href='#Figure4'>Figure 4</a> shows the posterior distributions for the inclinations of each of the stars:</p>
+                <div id="Figure4Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body full-width">
+                                
+                <div class="blog-image-container full-width">
+                    <img src='images/starry-process-inclination-posteriors.jpg' style='width:100%;'></img>
+                </div>
+                
                                 <p>
                                     <span style="font-weight: 600; padding-right: 0.5em;">Figure 4</span>
-                                    <span>Posterior distributions for the inclinations of each of the ten stars in <a
-                                            href='#Figure1'>Figure 1</a>. A \(\sin i\) prior was placed on each one.
-                                        Stellar inclinations are notoriously difficult to infer from light curves given
-                                        all the degeneracies in the mapping problem. However, ensemble analysis of
-                                        similar stars allows one to infer these inclinations with fairly high precision
-                                        and minimal bias.</span>
+                                    <span>Posterior distributions for the inclinations of each of the ten stars in <a href='#Figure1'>Figure 1</a>. A \(\sin i\) prior was placed on each one. Stellar inclinations are notoriously difficult to infer from light curves given all the degeneracies in the mapping problem. However, ensemble analysis of similar stars allows one to infer these inclinations with fairly high precision and minimal bias.</span>
                                 </p>
                             </div>
-                            <p>Even though we assumed a completely uninformative inclination prior, we were able to
-                                infer the inclinations for all the stars in our sample with fairly good precision and
-                                minimal bias(!) This is something that is just not possible to do for a single star from
-                                its light curve, since the inclination is highly degenerate with the spot contrast, the
-                                number of spots, etc. This is the power of population-level analyses: the joint
-                                information content of lots of members allows us to learn not only population-level
-                                information (the typical latitude and contrast of the spots) but it also helps uncover
-                                information specific to individual members.</p>
-                            <p>
-                            <h1>How it all works</h1>
-                            </p>
-                            <p>In the <a href='2020-09-24.html'>previous post</a> we talked about how to compute the
-                                mean and the covariance of the GP the brute force way: draw a huge number of samples
-                                from the desired distribution and then compute the empirical mean and covariance. That
-                                is super easy to do, but extremely inefficient (not to mention also very imprecise).
-                                What we need to do to make this GP scalable is to find closed form, analytic solutions
-                                for the GP mean and covariance. What follows is a (very rough) sketch of how to do this.
-                            </p>
-                            <p class="math ">
-                                Let
-                                $\mathbf{f} = \left( f_0 \, f_1 \, \cdots \, f_K \right)^\top$
-                                denote a vector of $K$ flux measurements at times
-                                $\left( t_0 \, t_1 \, \cdots \, t_K \right)^\top$; i.e., an observed
-                                light curve.
-                                Conditioned on certain physical properties of the star, $\pmb{\theta}$,
-                                we wish to compute the mean $\pmb{\mu}(\pmb{\theta})$ and
-                                covariance $\pmb{\Sigma}(\pmb{\theta})$
-                                of $\mathbf{f}$, which together fully specify our Gaussian process.
-                                As with any random variable, the mean and covariance may be computed from
-                                the expectation value of $\mathbf{f}$ and
-                                $\mathbf{f}\,\mathbf{f}^\top$, respectively:
-                            </p>
-                            <p style='overflow-x: scroll;'>\begin{align}
-                                \label{eq:mean}
-                                \pmb{\mu}(\pmb{\theta})
-                                & = \mathrm{E} \Big[ \mathbf{f} \, \Big| \, \pmb{\theta} \Big]
-                                \\
-                                \label{eq:cov}
-                                \pmb{\Sigma}(\pmb{\theta})
-                                & = \mathrm{E} \Big[ \mathbf{f} \, \mathbf{f}^\top \, \Big| \, \pmb{\theta} \Big] -
-                                \pmb{\mu}^2(\pmb{\theta})
-                                \end{align}</p>
-                            <p>
-                                where the squaring operation in Equation (\ref{eq:cov}) is
-                                performed element-wise.
-                                In <a href="https://ui.adsabs.harvard.edu/abs/2019AJ....157...64L/abstract">Luger et al.
-                                    (2019)</a> I showed that $\mathbf{f}$ may be computed from a
-                                linear operation on the vector of spherical harmonic coefficients
-                                describing the surface, $\mathbf{y}$:
-                            </p>
-                            <p style='overflow-x: scroll;'>\begin{align}
-                                \label{eq:fAy}
-                                \mathbf{f} = \mathbf{A} \, \mathbf{y}
-                                \quad,
-                                \end{align}</p>
-                            <p>
-                                where $\mathbf{A}$ is the <span style="font-style:italic">starry</span> design matrix,
-                                which is implicitly
-                                a function of $\pmb{\theta}$ (as it depends on the stellar inclination
-                                and rotation period, for example).
-                                Given Equation (\ref{eq:fAy}),
-                                we may write the mean and covariance of our flux GP as
-                            </p>
-                            <p style='overflow-x: scroll;'>\begin{align}
-                                \pmb{\mu}(\pmb{\theta})
-                                & = \mathbf{A}(\pmb{\theta}) \, \pmb{\mu}_{\mathbf{y}}(\pmb{\theta})
-                                \\
-                                \pmb{\Sigma}(\pmb{\theta})
-                                & = \mathbf{A}(\pmb{\theta}) \, \pmb{\Sigma}_{\mathbf{y}} \,
-                                \mathbf{A}^\top(\pmb{\theta})
-                                \quad,
-                                \end{align}</p>
-                            <p>
-                                where
-                            </p>
-                            <p style='overflow-x: scroll;'>\begin{align}
-                                \label{eq:mean_y}
-                                \pmb{\mu}_{\mathbf{y}}(\pmb{\theta})
-                                & = \mathrm{E} \Big[ \mathbf{y} \, \Big| \, \pmb{\theta} \Big]
-                                \\
-                                \label{eq:cov_y}
-                                \pmb{\Sigma}_{\mathbf{y}}(\pmb{\theta})
-                                & = \mathrm{E} \Big[ \mathbf{y} \, \mathbf{y}^\top \, \Big| \, \pmb{\theta} \Big] -
-                                \pmb{\mu}_{\mathbf{y}}^2(\pmb{\theta})
-                                \end{align}</p>
-                            <p>
-                                are the mean and covariance of the GP in the spherical harmonics basis.
-                                It's a <span style="font-style:italic">lot</span> of math, but under certain
-                                assumptions it's possible to
-                                compute the expectations in the expressions above analytically. These
-                                are given by the integrals
-                            </p>
-                            <p style='overflow-x: scroll;'>\begin{align}
-                                \label{eq:exp_y}
-                                \mathrm{E} \Big[ \mathbf{y} \, \Big| \, \pmb{\theta} \Big]
-                                & =
-                                \int \mathbf{y}(\mathbf{x} ) \, p(\mathbf{x} \, \big| \,
-                                \pmb{\theta})\mathrm{d}\mathbf{x}
-                                \\
-                                \label{eq:exp_yy}
-                                \mathrm{E} \Big[ \mathbf{y} \, \mathbf{y}^\top \, \Big| \, \pmb{\theta} \Big]
-                                & =
-                                \int \mathbf{y}(\mathbf{x} ) \mathbf{y}^\top(\mathbf{x} ) \, p(\mathbf{x} \, \big| \,
-                                \pmb{\theta})\mathrm{d}\mathbf{x}
-                                \quad,
-                                \end{align}</p>
-                            <p>
-                                where $\mathbf{x}$ is a random vector-valued variable corresponding to a particular
-                                distribution of features on the surface (i.e., the size and location of star spots)
-                                and $p(\mathbf{x} \, \big| \, \pmb{\theta})$ is its probability density
-                                function (PDF).
-                                As we are specifically interested in modeling the effect of star spots
-                                on stellar light curves, we let
-                            </p>
-                            <p style='overflow-x: scroll;'>\begin{align}
-                                \mathbf{x} = \left( \xi \,\, \lambda \,\, \phi \,\, \rho \right)^\top
-                                \end{align}</p>
-                            <p>
-                                and
-                            </p>
-                            <p style='overflow-x: scroll;'>\begin{align}
-                                \label{eq:RRs}
-                                \mathbf{y}(\mathbf{x}) =
-                                \xi
-                                \,
-                                \mathbf{R}_{\hat{\mathbf{y}}}(\lambda)
-                                \,
-                                \mathbf{R}_{\hat{\mathbf{x}}}(\phi)
-                                \,
-                                \mathbf{s}(\rho)
-                                \quad,
-                                \end{align}</p>
-                            <p>
-                                where $\xi$ is the contrast of a spot,
-                                $\lambda$ is its longitude, $\phi$ is its latitude,
-                                and $\rho$ is its radius.
-                                The vector function $\mathbf{s}(\rho)$
-                                returns the spherical harmonic expansion of a negative unit brightness
-                                circular spot at $\lambda = \phi = 0$,
-                                $\mathbf{R}_{\hat{\mathbf{x}}}(\phi)$ is the <a
-                                    href="https://en.wikipedia.org/wiki/Wigner_D-matrix">Wigner matrix</a> that rotates
-                                the
-                                expansion about $\hat{\mathbf{x}}$ such that the spot is centered at a
-                                latitude $\phi$, and $\mathbf{R}_{\hat{\mathbf{y}}}(\lambda)$ is the Wigner
-                                matrix that then rotates the
-                                expansion about $\hat{\mathbf{y}}$ such that the spot is centered at a
-                                longitude $\lambda$; these three functions are detailed in the sections below.
-                                Equation (\ref{eq:RRs}) thus provides a way of converting a random variable
-                                $\mathbf{x}$ describing the size, brightness, and position of a spot to the
-                                corresponding representation in terms of spherical harmonics.
-                                Note, importantly, that we are not interested in any specific value of
-                                $\mathbf{y}$; rather, we would like to know its expectation value under
-                                the probability distribution governing the different spot properties $\mathbf{x}$,
-                                i.e., $p(\mathbf{x} \, \big| \, \pmb{\theta})$.
-                                For simplicity, we assume that $p(\mathbf{x} \, \big| \, \pmb{\theta})$
-                                is separable in each of the four spot properties:
-                            </p>
-                            <p style='overflow-x: scroll;'>\begin{align}
-                                p(\mathbf{x} \, \big| \, \pmb{\theta})
-                                =
-                                p(\xi \, \big| \, \pmb{\theta}_{\xi}) \,
-                                p(\lambda \, \big| \, \pmb{\theta}_{\lambda}) \,
-                                p(\phi \, \big| \, \pmb{\theta}_{\phi})\,
-                                p(\rho \, \big| \, \pmb{\theta}_{\rho})
-                                \quad,
-                                \end{align}</p>
-                            <p>
-                                where
-                            </p>
-                            <p style='overflow-x: scroll;'>\begin{align}
-                                \pmb{\theta} = \left(
-                                \pmb{\theta}_{\xi} \, \,
-                                \pmb{\theta}_{\lambda} \, \,
-                                \pmb{\theta}_{\phi} \, \,
-                                \pmb{\theta}_{\rho} \right)^\top
-                                \end{align}</p>
-                            <p>
-                                is the vector of hyperparameters of our GP.
-                                This allows us to rewrite the expectation integrals (\ref{eq:exp_y})
-                                and (\ref{eq:exp_yy}) as
-                            </p>
-                            <p style='overflow-x: scroll;'>\begin{align}
-                                \label{eq:exp_y_sep}
-                                \mathrm{E} \Big[ \mathbf{y} \, \Big| \, \pmb{\theta} \Big]
-                                & =
-                                \mathbf{e_4}(\pmb{\theta})
-                                \\[1em]
-                                \label{eq:exp_yy_sep}
-                                \mathrm{E} \Big[ \mathbf{y} \, \mathbf{y}^\top \, \Big| \, \pmb{\theta} \Big]
-                                & =
-                                \mathbf{E_4}(\pmb{\theta})
-                                \end{align}</p>
-                            <p>
-                                where we define the first moment integrals
-                            </p>
-                            <p style='overflow-x: scroll;'>\begin{align}
-                                \label{eq:e1}
-                                \mathbf{e_1}(\pmb{\theta}_\rho)
-                                & \equiv
-                                \int
-                                \mathbf{s}(\rho) \,
-                                p(\rho \, \big| \, \pmb{\theta}_{\rho}) \,
-                                \mathrm{d}\rho
-                                %
-                                \\[1em]
-                                %
-                                \label{eq:e2}
-                                \mathbf{e_2}(\pmb{\theta}_\phi, \mathbf{e_1})
-                                & \equiv
-                                \int
-                                \mathbf{R}_{\hat{\mathbf{x}}}(\phi) \,
-                                \mathbf{e_1} \,
-                                p(\phi \, \big| \, \pmb{\theta}_{\phi}) \,
-                                \mathrm{d}\phi
-                                %
-                                \\[1em]
-                                %
-                                \label{eq:e3}
-                                \mathbf{e_3}(\pmb{\theta}_\lambda, \mathbf{e_2})
-                                & \equiv
-                                \int
-                                \mathbf{R}_{\hat{\mathbf{y}}}(\lambda) \,
-                                \mathbf{e_2} \,
-                                p(\lambda \, \big| \, \pmb{\theta}_{\lambda}) \,
-                                \mathrm{d}\lambda
-                                \\[1em]
-                                \label{eq:e4}
-                                \mathbf{e_4}(\pmb{\theta}_\xi, \mathbf{e_3})
-                                & \equiv
-                                \int
-                                \xi \,
-                                \mathbf{e_3} \,
-                                p(\xi \, \big| \, \pmb{\theta}_{\xi}) \,
-                                \mathrm{d}\xi
-                                %
-                                \end{align}</p>
-                            <p>
-                                and the second moment integrals
-                            </p>
-                            <p style='overflow-x: scroll;'>\begin{align}
-                                \label{eq:E1}
-                                \mathbf{E_1}(\pmb{\theta}_\rho)
-                                & \equiv
-                                \int
-                                \mathbf{s}(\rho) \, \mathbf{s}^\top(\rho) \,
-                                p(\rho \, \big| \, \pmb{\theta}_{\rho}) \,
-                                \mathrm{d}\rho
-                                %
-                                \\[1em]
-                                %
-                                \label{eq:E2}
-                                \mathbf{E_2}(\pmb{\theta}_\phi, \mathbf{E_1})
-                                & \equiv
-                                \int
-                                \mathbf{R}_{\hat{\mathbf{x}}}(\phi) \,
-                                \mathbf{E_1} \,
-                                \mathbf{E_1}^\top \,
-                                \mathbf{R}_{\hat{\mathbf{x}}}^\top(\phi) \,
-                                p(\phi \, \big| \, \pmb{\theta}_{\phi})
-                                \mathrm{d}\phi
-                                %
-                                \\[1em]
-                                %
-                                \label{eq:E3}
-                                \mathbf{E_3}(\pmb{\theta}_\lambda, \mathbf{E_2})
-                                & \equiv
-                                \int
-                                \mathbf{R}_{\hat{\mathbf{y}}}(\lambda) \,
-                                \mathbf{E_2} \,
-                                \mathbf{E_2}^\top \,
-                                \mathbf{R}_{\hat{\mathbf{y}}}^\top(\lambda) \,
-                                p(\lambda \, \big| \, \pmb{\theta}_{\lambda})
-                                \mathrm{d}\phi
-                                \\[1em]
-                                %
-                                \label{eq:E4}
-                                \mathbf{E_4}(\pmb{\theta}_\xi, \mathbf{E_3})
-                                & \equiv
-                                \int
-                                \xi^2 \,
-                                \mathbf{E_3} \,
-                                \mathbf{E_3}^\top \,
-                                p(\xi \, \big| \, \pmb{\theta}_\xi)
-                                \mathrm{d}\xi
-                                %
-                                \quad.
-                                \end{align}</p>
-                            <p>
-                                The trick now is to find a functional form for the spherical harmonic expansion
-                                of the spot, $\mathbf{s}(\rho)$, as well as for each of the probability
-                                distributions
-                                $p(\rho \, \big| \, \pmb{\theta}_{\rho})$,
-                                $p(\phi \, \big| \, \pmb{\theta}_{\phi})$,
-                                $p(\lambda \, \big| \, \pmb{\theta}_{\lambda})$,
-                                and
-                                $p(\xi \, \big| \, \pmb{\theta}_\xi)$,
-                                such that the integrals above have closed-form expressions.
-                                Note, importantly, that each integral is implicitly an integral of a vector
-                                (in the case of the first moment integrals) or a matrix (in the case
-                                of the second moment integrals), so we <span style="font-style=italic;">better</span>
-                                find analytic expressions for them (otherwise we'll spend a very long time
-                                integrating each of the indices of each vector and matrix numerically).
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure4" class="blog-image full-width">
+                    <a href="#" data-toggle="modal" data-target="#Figure4Modal">
+                        
+                <div class="blog-image-container full-width">
+                    <img src='images/starry-process-inclination-posteriors.jpg' style='width:100%;'></img>
+                </div>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 4</span>
+                        <span>Posterior distributions for the inclinations of each of the ten stars in <a href='#Figure1'>Figure 1</a>. A \(\sin i\) prior was placed on each one. Stellar inclinations are notoriously difficult to infer from light curves given all the degeneracies in the mapping problem. However, ensemble analysis of similar stars allows one to infer these inclinations with fairly high precision and minimal bias.</span>
+                    </p>
+                </div>
+                <p>Even though we assumed a completely uninformative inclination prior, we were able to infer the inclinations for all the stars in our sample with fairly good precision and minimal bias(!) This is something that is just not possible to do for a single star from its light curve, since the inclination is highly degenerate with the spot contrast, the number of spots, etc. This is the power of population-level analyses: the joint information content of lots of members allows us to learn not only population-level information (the typical latitude and contrast of the spots) but it also helps uncover information specific to individual members.</p><p><h1>How it all works</h1></p><p>In the <a href='2020-09-24.html'>previous post</a> we talked about how to compute the mean and the covariance of the GP the brute force way: draw a huge number of samples from the desired distribution and then compute the empirical mean and covariance. That is super easy to do, but extremely inefficient (not to mention also very imprecise). What we need to do to make this GP scalable is to find closed form, analytic solutions for the GP mean and covariance. What follows is a (very rough) sketch of how to do this.</p>
+                <p class="math " >
+                    Let
+$\mathbf{f} = \left( f_0 \, f_1 \, \cdots \,  f_K \right)^\top$
+denote a vector of $K$ flux measurements at times
+$\left( t_0 \,  t_1 \,  \cdots \, t_K \right)^\top$; i.e., an observed
+light curve.
+Conditioned on certain physical properties of the star, $\pmb{\theta}$,
+we wish to compute the mean $\pmb{\mu}(\pmb{\theta})$ and
+covariance $\pmb{\Sigma}(\pmb{\theta})$
+of $\mathbf{f}$, which together fully specify our Gaussian process.
+As with any random variable, the mean and covariance may be computed from
+the expectation value of $\mathbf{f}$ and
+$\mathbf{f}\,\mathbf{f}^\top$, respectively:
+</p><p style='overflow-x: scroll;'>\begin{align}
+    \label{eq:mean}
+    \pmb{\mu}(\pmb{\theta})
+     & = \mathrm{E} \Big[ \mathbf{f} \, \Big| \, \pmb{\theta} \Big]
+    \\
+    \label{eq:cov}
+    \pmb{\Sigma}(\pmb{\theta})
+     & = \mathrm{E} \Big[ \mathbf{f} \, \mathbf{f}^\top \, \Big| \, \pmb{\theta} \Big] - \pmb{\mu}^2(\pmb{\theta})
+\end{align}</p><p>
+where the squaring operation in Equation (\ref{eq:cov}) is
+performed element-wise.
+In <a href="https://ui.adsabs.harvard.edu/abs/2019AJ....157...64L/abstract">Luger et al. (2019)</a> I showed that $\mathbf{f}$ may be computed from a
+linear operation on the vector of spherical harmonic coefficients
+describing the surface, $\mathbf{y}$:
+</p><p style='overflow-x: scroll;'>\begin{align}
+    \label{eq:fAy}
+    \mathbf{f} = \mathbf{A} \, \mathbf{y}
+    \quad,
+\end{align}</p><p>
+where $\mathbf{A}$ is the <span style="font-style:italic">starry</span> design matrix, which is implicitly
+a function of $\pmb{\theta}$ (as it depends on the stellar inclination
+and rotation period, for example).
+Given Equation (\ref{eq:fAy}),
+we may write the mean and covariance of our flux GP as
+</p><p style='overflow-x: scroll;'>\begin{align}
+    \pmb{\mu}(\pmb{\theta})
+     & = \mathbf{A}(\pmb{\theta}) \, \pmb{\mu}_{\mathbf{y}}(\pmb{\theta})
+    \\
+    \pmb{\Sigma}(\pmb{\theta})
+     & = \mathbf{A}(\pmb{\theta}) \, \pmb{\Sigma}_{\mathbf{y}} \, \mathbf{A}^\top(\pmb{\theta})
+    \quad,
+\end{align}</p><p>
+where
+</p><p style='overflow-x: scroll;'>\begin{align}
+    \label{eq:mean_y}
+    \pmb{\mu}_{\mathbf{y}}(\pmb{\theta})
+     & = \mathrm{E} \Big[ \mathbf{y} \, \Big| \, \pmb{\theta} \Big]
+    \\
+    \label{eq:cov_y}
+    \pmb{\Sigma}_{\mathbf{y}}(\pmb{\theta})
+     & = \mathrm{E} \Big[ \mathbf{y} \, \mathbf{y}^\top \, \Big| \, \pmb{\theta} \Big] - \pmb{\mu}_{\mathbf{y}}^2(\pmb{\theta})
+\end{align}</p><p>
+are the mean and covariance of the GP in the spherical harmonics basis.
+It's a <span style="font-style:italic">lot</span> of math, but under certain
+assumptions it's possible to
+compute the expectations in the expressions above analytically. These
+are given by the integrals
+</p><p style='overflow-x: scroll;'>\begin{align}
+    \label{eq:exp_y}
+    \mathrm{E} \Big[ \mathbf{y} \, \Big| \, \pmb{\theta} \Big]
+     & =
+    \int \mathbf{y}(\mathbf{x} ) \, p(\mathbf{x} \, \big| \, \pmb{\theta})\mathrm{d}\mathbf{x}
+    \\
+    \label{eq:exp_yy}
+    \mathrm{E} \Big[ \mathbf{y} \, \mathbf{y}^\top \, \Big| \, \pmb{\theta} \Big]
+     & =
+    \int \mathbf{y}(\mathbf{x} ) \mathbf{y}^\top(\mathbf{x} ) \, p(\mathbf{x} \, \big| \, \pmb{\theta})\mathrm{d}\mathbf{x}
+    \quad,
+\end{align}</p><p>
+where $\mathbf{x}$ is a random vector-valued variable corresponding to a particular
+distribution of features on the surface  (i.e., the size and location of star spots)
+and $p(\mathbf{x} \, \big| \, \pmb{\theta})$ is its probability density
+function (PDF).
+As we are specifically interested in modeling the effect of star spots
+on stellar light curves, we let
+</p><p style='overflow-x: scroll;'>\begin{align}
+    \mathbf{x} = \left( \xi \,\, \lambda \,\, \phi \,\, \rho \right)^\top
+\end{align}</p><p>
+and
+</p><p style='overflow-x: scroll;'>\begin{align}
+    \label{eq:RRs}
+    \mathbf{y}(\mathbf{x}) =
+    \xi
+    \,
+    \mathbf{R}_{\hat{\mathbf{y}}}(\lambda)
+    \,
+    \mathbf{R}_{\hat{\mathbf{x}}}(\phi)
+    \,
+    \mathbf{s}(\rho)
+    \quad,
+\end{align}</p><p>
+where $\xi$ is the contrast of a spot,
+$\lambda$ is its longitude, $\phi$ is its latitude,
+and $\rho$ is its radius.
+The vector function $\mathbf{s}(\rho)$
+returns the spherical harmonic expansion of a negative unit brightness
+circular spot at $\lambda = \phi = 0$,
+$\mathbf{R}_{\hat{\mathbf{x}}}(\phi)$ is the <a href="https://en.wikipedia.org/wiki/Wigner_D-matrix">Wigner matrix</a> that rotates the
+expansion about $\hat{\mathbf{x}}$ such that the spot is centered at a
+latitude $\phi$, and $\mathbf{R}_{\hat{\mathbf{y}}}(\lambda)$ is the Wigner
+matrix that then rotates the
+expansion about $\hat{\mathbf{y}}$ such that the spot is centered at a
+longitude $\lambda$; these three functions are detailed in the sections below.
+Equation (\ref{eq:RRs}) thus provides a way of converting a random variable
+$\mathbf{x}$ describing the size, brightness, and position of a spot to the
+corresponding representation in terms of spherical harmonics.
+Note, importantly, that we are not interested in any specific value of
+$\mathbf{y}$; rather, we would like to know its expectation value under
+the probability distribution governing the different spot properties $\mathbf{x}$,
+i.e., $p(\mathbf{x} \, \big| \, \pmb{\theta})$.
+For simplicity, we assume that $p(\mathbf{x} \, \big| \, \pmb{\theta})$
+is separable in each of the four spot properties:
+</p><p style='overflow-x: scroll;'>\begin{align}
+    p(\mathbf{x} \, \big| \, \pmb{\theta})
+    =
+    p(\xi \, \big| \, \pmb{\theta}_{\xi}) \,
+    p(\lambda \, \big| \, \pmb{\theta}_{\lambda}) \,
+    p(\phi \, \big| \, \pmb{\theta}_{\phi})\,
+    p(\rho \, \big| \, \pmb{\theta}_{\rho})
+    \quad,
+\end{align}</p><p>
+where
+</p><p style='overflow-x: scroll;'>\begin{align}
+    \pmb{\theta} = \left(
+    \pmb{\theta}_{\xi} \, \,
+    \pmb{\theta}_{\lambda} \, \,
+    \pmb{\theta}_{\phi} \, \,
+    \pmb{\theta}_{\rho} \right)^\top
+\end{align}</p><p>
+is the vector of hyperparameters of our GP.
+This allows us to rewrite the expectation integrals (\ref{eq:exp_y})
+and (\ref{eq:exp_yy}) as
+</p><p style='overflow-x: scroll;'>\begin{align}
+    \label{eq:exp_y_sep}
+    \mathrm{E} \Big[ \mathbf{y} \, \Big| \, \pmb{\theta} \Big]
+     & =
+    \mathbf{e_4}(\pmb{\theta})
+    \\[1em]
+    \label{eq:exp_yy_sep}
+    \mathrm{E} \Big[ \mathbf{y} \, \mathbf{y}^\top \, \Big| \, \pmb{\theta} \Big]
+     & =
+    \mathbf{E_4}(\pmb{\theta})
+\end{align}</p><p>
+where we define the first moment integrals
+</p><p style='overflow-x: scroll;'>\begin{align}
+    \label{eq:e1}
+    \mathbf{e_1}(\pmb{\theta}_\rho)
+     & \equiv
+    \int
+    \mathbf{s}(\rho) \,
+    p(\rho \, \big| \, \pmb{\theta}_{\rho}) \,
+    \mathrm{d}\rho
+    %
+    \\[1em]
+    %
+    \label{eq:e2}
+    \mathbf{e_2}(\pmb{\theta}_\phi, \mathbf{e_1})
+     & \equiv
+    \int
+    \mathbf{R}_{\hat{\mathbf{x}}}(\phi) \,
+    \mathbf{e_1} \,
+    p(\phi \, \big| \, \pmb{\theta}_{\phi}) \,
+    \mathrm{d}\phi
+    %
+    \\[1em]
+    %
+    \label{eq:e3}
+    \mathbf{e_3}(\pmb{\theta}_\lambda, \mathbf{e_2})
+     & \equiv
+    \int
+    \mathbf{R}_{\hat{\mathbf{y}}}(\lambda) \,
+    \mathbf{e_2} \,
+    p(\lambda \, \big| \, \pmb{\theta}_{\lambda}) \,
+    \mathrm{d}\lambda
+    \\[1em]
+    \label{eq:e4}
+    \mathbf{e_4}(\pmb{\theta}_\xi, \mathbf{e_3})
+     & \equiv
+    \int
+    \xi \,
+    \mathbf{e_3} \,
+    p(\xi \, \big| \, \pmb{\theta}_{\xi}) \,
+    \mathrm{d}\xi
+    %
+\end{align}</p><p>
+and the second moment integrals
+</p><p style='overflow-x: scroll;'>\begin{align}
+    \label{eq:E1}
+    \mathbf{E_1}(\pmb{\theta}_\rho)
+     & \equiv
+    \int
+    \mathbf{s}(\rho) \, \mathbf{s}^\top(\rho) \,
+    p(\rho \, \big| \, \pmb{\theta}_{\rho}) \,
+    \mathrm{d}\rho
+    %
+    \\[1em]
+    %
+    \label{eq:E2}
+    \mathbf{E_2}(\pmb{\theta}_\phi, \mathbf{E_1})
+     & \equiv
+    \int
+    \mathbf{R}_{\hat{\mathbf{x}}}(\phi) \,
+    \mathbf{E_1} \,
+    \mathbf{E_1}^\top \,
+    \mathbf{R}_{\hat{\mathbf{x}}}^\top(\phi) \,
+    p(\phi \, \big| \, \pmb{\theta}_{\phi})
+    \mathrm{d}\phi
+    %
+    \\[1em]
+    %
+    \label{eq:E3}
+    \mathbf{E_3}(\pmb{\theta}_\lambda, \mathbf{E_2})
+     & \equiv
+    \int
+    \mathbf{R}_{\hat{\mathbf{y}}}(\lambda) \,
+    \mathbf{E_2} \,
+    \mathbf{E_2}^\top \,
+    \mathbf{R}_{\hat{\mathbf{y}}}^\top(\lambda) \,
+    p(\lambda \, \big| \, \pmb{\theta}_{\lambda})
+    \mathrm{d}\phi
+    \\[1em]
+    %
+    \label{eq:E4}
+    \mathbf{E_4}(\pmb{\theta}_\xi, \mathbf{E_3})
+     & \equiv
+    \int
+    \xi^2 \,
+    \mathbf{E_3} \,
+    \mathbf{E_3}^\top \,
+    p(\xi \, \big| \, \pmb{\theta}_\xi)
+    \mathrm{d}\xi
+    %
+    \quad.
+\end{align}</p><p>
+The trick now is to find a functional form for the spherical harmonic expansion
+of the spot, $\mathbf{s}(\rho)$, as well as for each of the probability
+distributions
+$p(\rho \, \big| \, \pmb{\theta}_{\rho})$,
+$p(\phi \, \big| \, \pmb{\theta}_{\phi})$,
+$p(\lambda \, \big| \, \pmb{\theta}_{\lambda})$,
+and
+$p(\xi \, \big| \, \pmb{\theta}_\xi)$,
+such that the integrals above have closed-form expressions.
+Note, importantly, that each integral is implicitly an integral of a vector
+(in the case of the first moment integrals) or a matrix (in the case
+of the second moment integrals), so we <span style="font-style=italic;">better</span>
+find analytic expressions for them (otherwise we'll spend a very long time
+integrating each of the indices of each vector and matrix numerically).
 
-                                <br><br />
+<br><br/>
 
-                                I'm working on writing all this up into a paper, so I won't go any further into
-                                the math in this blog post, other than to say that for a Lorentzian-like
-                                star spot profile $\mathbf{s}(\rho)$, transformed Beta distributions for
-                                $p(\rho \, \big| \, \pmb{\theta}_{\rho})$ and $p(\phi \, \big| \, \pmb{\theta}_{\phi})$,
-                                and a log-Normal distribution for $p(\xi \, \big| \, \pmb{\theta}_\xi)$,
-                                it is in fact possible to write down a closed-form solution to each of these
-                                integrals. (Since we expect stars to be azimuthally symmetric on average,
-                                $p(\lambda \, \big| \, \pmb{\theta}_{\lambda})$ is a uniform distribution over
-                                $[0, 2\pi]$, so that's a relatively easy integral to take). If you're really
-                                interested in the math behind all this, I'm working on the paper in
-                                <a href="https://github.com/rodluger/starry_process">this github repository</a>,
-                                with the always up-to-date manuscript draft
-                                <a href="https://github.com/rodluger/starry_process/raw/master-pdf/tex/ms.pdf">here</a>.
-                            </p>
-                            <p>I'm also hoping to officially release the code soon. It's at the same <a
-                                    href='https://github.com/rodluger/starry_process'>github repository</a> as the
-                                paper, and if you installed the app up top, you already have it on your computer. I'm
-                                still actively developing it, so there are likely still some bugs and the syntax might
-                                change a bit. There's also no documentation. But if you want to play around with it,
-                                here's an example of how to draw flux samples from a starry process:</p>
-                            <pre><code class='python' >from starry_process import StarryProcess
+I'm working on writing all this up into a paper, so I won't go any further into
+the math in this blog post, other than to say that for a Lorentzian-like
+star spot profile $\mathbf{s}(\rho)$, transformed Beta distributions for
+$p(\rho \, \big| \, \pmb{\theta}_{\rho})$ and $p(\phi \, \big| \, \pmb{\theta}_{\phi})$,
+and a log-Normal distribution for $p(\xi \, \big| \, \pmb{\theta}_\xi)$,
+it is in fact possible to write down a closed-form solution to each of these
+integrals. (Since we expect stars to be azimuthally symmetric on average,
+$p(\lambda \, \big| \, \pmb{\theta}_{\lambda})$ is a uniform distribution over
+$[0, 2\pi]$, so that's a relatively easy integral to take). If you're really
+interested in the math behind all this, I'm working on the paper in
+<a href="https://github.com/rodluger/starry_process">this github repository</a>,
+with the always up-to-date manuscript draft
+<a href="https://github.com/rodluger/starry_process/raw/master-pdf/tex/ms.pdf">here</a>.
+                </p> 
+                <p>I'm also hoping to officially release the code soon. It's at the same <a href='https://github.com/rodluger/starry_process'>github repository</a> as the paper, and if you installed the app up top, you already have it on your computer. I'm still actively developing it, so there are likely still some bugs and the syntax might change a bit. There's also no documentation. But if you want to play around with it, here's an example of how to draw flux samples from a starry process:</p><pre><code class='python' >from starry_process import StarryProcess
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -741,156 +540,131 @@ plt.xlabel("time [d]")
 plt.ylabel("flux [ppt]")
 plt.show()
 </code></pre>
-
-                            <div id="Figure5Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-body ">
-
-                                            <div class="blog-image-container ">
-                                                <img src='images/flux_samples.jpg' style='width:100%;'></img>
-                                            </div>
-
-                                            <p>
-                                                <span style="font-weight: 600; padding-right: 0.5em;">Figure 5</span>
-                                                <span>Flux samples from a starry process, generated from the code
-                                                    snippet above.</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="Figure5" class="blog-image ">
-                                <a href="#" data-toggle="modal" data-target="#Figure5Modal">
-
-                                    <div class="blog-image-container ">
-                                        <img src='images/flux_samples.jpg' style='width:100%;'></img>
-                                    </div>
-
-                                </a>
+                
+                <div id="Figure5Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body ">
+                                
+                <div class="blog-image-container ">
+                    <img src='images/flux_samples.jpg' style='width:100%;'></img>
+                </div>
+                
                                 <p>
                                     <span style="font-weight: 600; padding-right: 0.5em;">Figure 5</span>
-                                    <span>Flux samples from a starry process, generated from the code snippet
-                                        above.</span>
+                                    <span>Flux samples from a starry process, generated from the code snippet above.</span>
                                 </p>
                             </div>
-                            <p>The parameters <code>sa</code> and <code>sb</code> are the normalized $\alpha$ and
-                                $\beta$ parameters of the Beta distribution controlling the spot size; the parameters
-                                <code>la</code> and <code>lb</code> are similar, but for the latitude distribution;
-                                <code>ca</code> and <code>cb</code> are the mean and variance of the log-Normal
-                                distribution for the spot contrast; and <code>period</code> and <code>inc</code> are the
-                                rotational period in days and inclination of the star in degrees. There is a one-to-one
-                                correspondence between parameters like <code>sa</code> and <code>sb</code> and the mean
-                                and variance of the spot size distribution (which are far more intuitive!), but I'll
-                                leave a more detailed discussion of this to the documentation (which I'm actively
-                                writing!)</p>
-                            <p>
-                            <h1>Wrapping up</h1>
-                            </p>
-                            <p>Hopefully I've convinced you that an interpretable Gaussian process is a useful
-                                development for stellar light curve analyses. This post only scratched the surface of
-                                how this GP works and what we can use it for, so I hope to write a lot more on this
-                                topic in coming posts. I'm also working on a paper describing the methodology and on
-                                making the code user-friendly and turning it into a pip-installable package. As always,
-                                feedback is extremely welcome!</p>
                         </div>
-
-                        <div class="blog-author">
-                            <div class="media">
-                                <div class="media-object pull-left">
-                                    <img src="../images/rodrigo-luger-avatar.jpg" class="img-circle img-responsive"
-                                        alt="Rodrigo Luger">
-                                </div>
-                                <div class="media-body">
-                                    <h3 class="media-heading"><a href="../about.html">Rodrigo Luger</a>
-                                    </h3>
-                                    <p style="text-align:justify;">
-                                        I'm a Flatiron Fellow at the CCA in New York City, working on a variety of
-                                        things related to exoplanets, stars, and astronomical data analysis. I'm
-                                        interested in systematics de-trending, the search for and characterization of
-                                        potentially habitable exoplanets, and the mapping of stellar and exoplanetary
-                                        surfaces from photometric and spectroscopic datasets. Outside the office I love
-                                        to hike, bike, swim, craft lattes, faulty parallelism, and Oxford commas.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="disqus" id="disqus_thread"></div>
-
                     </div>
                 </div>
-            </div>
-
-        </div>
-    </section>
-
-
-    <script>
-        var disqus_config = function () {
-            this.page.url = "https://luger.dev/blog/2020-10-01.html";
-            this.page.identifier = "2020-10-01";
-        };
-        (function () { // DON'T EDIT BELOW THIS LINE
-            var d = document, s = d.createElement('script');
-            s.src = 'https://rodluger.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
-    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
-            Disqus.</a></noscript>
-
-
-    <!-- Footer Section -->
-
-    <footer>
-        <div class="container">
-            <div class="row">
-
-                <div class="col-md-3 col-sm-3">
-                    <span class="avatar">
-                        <img src="../images/rodrigo-luger-avatar.jpg">
-                    </span>
+                <div id="Figure5" class="blog-image ">
+                    <a href="#" data-toggle="modal" data-target="#Figure5Modal">
+                        
+                <div class="blog-image-container ">
+                    <img src='images/flux_samples.jpg' style='width:100%;'></img>
                 </div>
-
-                <div class="col-md-4 col-sm-4">
-                    <p>162 5th Ave, 5th Floor<br />New York NY 10100 United States</p>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 5</span>
+                        <span>Flux samples from a starry process, generated from the code snippet above.</span>
+                    </p>
                 </div>
+                <p>The parameters <code>sa</code> and <code>sb</code> are the normalized $\alpha$ and $\beta$ parameters of the Beta distribution controlling the spot size; the parameters <code>la</code> and <code>lb</code> are similar, but for the latitude distribution; <code>ca</code> and <code>cb</code> are the mean and variance of the log-Normal distribution for the spot contrast; and <code>period</code> and <code>inc</code> are the rotational period in days and inclination of the star in degrees. There is a one-to-one correspondence between parameters like <code>sa</code> and <code>sb</code> and the mean and variance of the spot size distribution (which are far more intuitive!), but I'll leave a more detailed discussion of this to the documentation (which I'm actively writing!)</p><p><h1>Wrapping up</h1></p><p>Hopefully I've convinced you that an interpretable Gaussian process is a useful development for stellar light curve analyses. This post only scratched the surface of how this GP works and what we can use it for, so I hope to write a lot more on this topic in coming posts. I'm also working on a paper describing the methodology and on making the code user-friendly and turning it into a pip-installable package. As always, feedback is extremely welcome!</p>
+                              </div>
 
-                <div class="col-md-offset-1 col-md-4 col-sm-offset-1 col-sm-3">
-                    <p><a href="mailto:rodluger@gmail.com">rodluger@gmail.com</a> <br /> (610) 675 6056</p>
-                </div>
+                              <div class="blog-author">
+                                   <div class="media">
+                                        <div class="media-object pull-left">
+                                             <img src="../images/rodrigo-luger-avatar.jpg" class="img-circle img-responsive"
+                                                  alt="Rodrigo Luger">
+                                        </div>
+                                        <div class="media-body">
+                                             <h3 class="media-heading"><a
+                                                       href="../about.html">Rodrigo Luger</a>
+                                             </h3>
+                                             <p style="text-align:justify;">
+                                                  I'm a Flatiron Fellow at the CCA in New York City, working on a variety of things related to exoplanets, stars, and astronomical data analysis. I'm interested in systematics de-trending, the search for and characterization of potentially habitable exoplanets, and the mapping of stellar and exoplanetary surfaces from photometric and spectroscopic datasets. Outside the office I love to hike, bike, swim, craft lattes, faulty parallelism, and Oxford commas.
+                                             </p>
+                                        </div>
+                                   </div>
+                              </div>
 
-                <div class="clearfix col-md-12 col-sm-12">
-                    <hr>
-                </div>
+                              <div class="disqus" id="disqus_thread"></div>
 
-                <div class="col-md-6 col-sm-6">
-                    <div class="footer-copyright">
-                        <p>© 2020 Rodrigo Luger &nbsp | &nbsp <a
-                                href="https://github.com/rodluger/rodluger.github.io">hosted on github</a>
-                        </p>
+                         </div>
                     </div>
-                </div>
+               </div>
+          
+          </div>
+     </section>
 
-                <div class="col-md-6 col-sm-6">
-                    <ul class="social-icon">
-                        <li><a href="https://github.com/rodluger" class="fab fa-github"></a></li>
-                        <li><a href="https://twitter.com/rodluger" class="fab fa-twitter"></a></li>
+     
+     <script>
+          var disqus_config = function () {
+          this.page.url = "https://luger.dev/blog/2020-10-01.html";
+          this.page.identifier = "2020-10-01";
+          };
+          (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://rodluger.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+     </script>
+     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+     
 
-                    </ul>
-                </div>
+     <!-- Footer Section -->
 
-            </div>
-        </div>
-    </footer>
+     <footer>
+          <div class="container">
+               <div class="row">
 
-    <!-- SCRIPTS -->
+                    <div class="col-md-3 col-sm-3">
+                         <span class="avatar">
+                              <img src="../images/rodrigo-luger-avatar.jpg">
+                         </span>
+                    </div>
 
-    <script src="../js/jquery.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/custom.js"></script>
+                    <div class="col-md-4 col-sm-4">
+                         <p>162 5th Ave, 5th Floor<br />New York NY 10100 United States</p>
+                    </div>
+
+                    <div class="col-md-offset-1 col-md-4 col-sm-offset-1 col-sm-3">
+                         <p><a href="mailto:rodluger@gmail.com">rodluger@gmail.com</a> <br /> <img src="../images/cel.jpg" style="width:90px;"></img></p>
+                    </div>
+
+                    <div class="clearfix col-md-12 col-sm-12">
+                         <hr>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <div class="footer-copyright">
+                              <p>© 2020 Rodrigo Luger &nbsp | &nbsp <a
+                                        href="https://github.com/rodluger/rodluger.github.io">hosted on github</a>
+                              </p>
+                         </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <ul class="social-icon">
+                              <li><a href="https://github.com/rodluger" class="fab fa-github"></a></li>
+                              <li><a href="https://twitter.com/rodluger" class="fab fa-twitter"></a></li>
+                              
+                         </ul>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+     <!-- SCRIPTS -->
+
+     <script src="../js/jquery.js"></script>
+     <script src="../js/bootstrap.min.js"></script>
+     <script src="../js/custom.js"></script>
 
 </body>
 
