@@ -80,59 +80,89 @@
           <div class="container">
                <div class="row">
 
+                    <style>
+                         #toc_container {
+                              display: table;
+                              font-size: 12pt;
+                              margin-bottom: 1em;
+                              padding: 20px;
+                              width: auto;
+                              margin-left: auto;
+                              margin-right: auto;
+                         }
+
+                         .toc_title {
+                              font-size: 16pt;
+                              font-weight: 700;
+                              color: #666;
+                              text-align: center;
+                         }
+
+                         .toc_list {
+                              padding: 0;
+                         }
+
+                         #toc_container a {
+                              color: #666;
+                         }
+
+                         #toc_container a:hover {
+                              color: #000;
+                         }
+
+                         #blog_description {
+                              width: 50%;
+                              margin-left: auto;
+                              margin-right: auto;
+                              margin-top: 30px;
+                         }
+
+                         #blog_description h2 {
+                              font-size: 14pt;
+                              line-height: 25px;
+                              font-style: italic;
+                         }
+
+                         @media (min-width: 768px) {
+                              .toc-regular {
+                                   display: inherit;
+                              }
+                              .toc-tiny {
+                                   display: none;
+                              }
+                              #blog_description {
+                                   width: 50%;
+                              }
+                         }
+
+                         @media (max-width: 768px) {
+                              .toc-regular {
+                                   display: none;
+                              }
+                              .toc-tiny {
+                                   display: inherit;
+                              }
+                              #blog_description {
+                                   width: 100%;
+                              }
+                         }
+                    </style>
+
                     <div class="col-md-offset-1 col-md-10 col-sm-12">
-                         <div class="section-title">
+                         <div class="section-title" style="padding-bottom:30px;">
                               <h1>rodrigo's blog</h1>
+                              <div id="blog_description">
+                              <h2>
+                                   A blog about astronomy,
+                                   stars, exoplanets,
+                                   data analysis,
+                                   Bayesian statistics,
+                                   open source code development,
+                                   and other
+                                   random thoughts that pop into my head.
+                              </h2>
+                              </div>
                          </div>
-
-                         <style>
-                              #toc_container {
-                                   display: table;
-                                   font-size: 12pt;
-                                   margin-bottom: 1em;
-                                   padding: 20px;
-                                   width: auto;
-                                   margin-left: auto;
-                                   margin-right: auto;
-                              }
-
-                              .toc_title {
-                                   font-size: 16pt;
-                                   font-weight: 700;
-                                   color: #666;
-                                   text-align: center;
-                              }
-
-                              .toc_list {
-                                   padding: 0;
-                              }
-
-                              #toc_container a {
-                                   color: #666;
-                              }
-
-                              #toc_container a:hover {
-                                   color: #000;
-                              }
-
-                              @media (min-width: 768px) {
-                                   .toc-regular {
-                                        display: inherit;
-                                   }
-                                   .toc-tiny {
-                                        display: none;
-                                   }
-                              }
-
-                              @media (max-width: 768px) {
-                                   .toc-regular {
-                                        display: none;
-                                   }
-                                   .toc-tiny {
-                                        display: inherit;
-                                   }
-                              }
-                         </style>
 
                          <div id="toc_container">
                               <p class="toc_title">Contents</p>

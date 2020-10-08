@@ -181,8 +181,10 @@ p {
 }
 
 .blinker {
+  /*
   font-weight: 400 !important;
   animation: blinker 2s linear infinite;
+  */
 }
 
 @keyframes blinker {  

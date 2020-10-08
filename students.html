@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description"
+          content="An open-source pipeline for telescope systematics de-trending designed for the K2 exoplanet-hunting mission.">
+     <meta name="author" content="Rodrigo Luger">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <title>students</title>
+
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/fontawesome.css">
+
+     <!-- Main css -->
+     <link rel="stylesheet" href="css/custom.css">
+
+     <!-- Global site tag (gtag.js) - Google Analytics -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47070068-1"></script>
+     <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+
+          gtag('config', 'UA-47070068-1');
+     </script>
+</head>
+
+<body>
+
+     <!-- PRE LOADER -->
+
+     <div class="preloader">
+          <div class="spinner">
+               <div class="dot1"></div>
+               <div class="dot2"></div>
+          </div>
+     </div>
+
+     <!-- Navigation section  -->
+
+     <div class="navbar navbar-default navbar-static-top" role="navigation">
+          <div class="container">
+
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
+                    <a href="index.html" class="navbar-brand">
+                         <span class="avatar">
+                              <img src="images/rodrigo-luger-avatar.jpg">
+                         </span>
+                    </a>
+               </div>
+               <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                         <li class="active"><a href="index.html">home</a></li>
+                         <li><a href="about.html">about</a></li>
+                         <li><a href="https://github.com/rodluger/cv/raw/master-pdf/luger_cv.pdf">cv</a></li>
+                         <li><a href="blog/index.html" class="blinker">blog</a></li>
+                    </ul>
+               </div>
+
+          </div>
+     </div>
+
+
+     <!-- Single Project Section -->
+
+     <style>
+          @media (max-width: 767px) {
+               #single-project .single-project-figure {
+                    display: block;
+               }
+
+               #single-project .single-project-figure .figure-left {
+                    display: none;
+               }
+
+               #single-project .single-project-figure .figure-right {
+                    display: none;
+               }
+
+               #single-project .single-project-figure img {
+                    display: none;
+               }
+
+               #single-project .single-project-figure .caption {
+                    width: 100%;
+               }
+          }
+     </style>
+
+     <section id="single-project">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-offset-1 col-md-10 col-sm-12">
+                         <h1>students</h1>
+
+                         <div class="single-project-figure">
+                              <hr>
+                              <div>
+                                   <div class="caption">
+                                        <a href="https://github.com/shashankdholakia">Shashank Dholakia (2020-)</a>
+                                        I am currently advising Shashank Dholakia on modeling transits of planets
+                                        across oblate stars. Shashank is adapting my <a href="starry.html">starry</a>
+                                        code to work for these non-spherical stars and has figured out how to
+                                        compute transit light curves analytically. This problem is typically solved
+                                        numerically, making these calculations slow (and prone to inaccuracies). An
+                                        analytic solution would allow for extremely fast posterior inference (as opposed
+                                        to least-squares optimization, which is often done in the literature). Shashank
+                                        is also interested in gravity darkening, and is working on a formalism to
+                                        incorporate that into <a href="starry.html">starry</a> as well.
+                                        &nbsp;
+                                        <a href="https://github.com/shashankdholakia" class="fas fa-user"></a>
+                                   </div>
+                                   <div class="figure-right">
+                                        <img src="images/ellipse.jpg" style="width:75%; margin-left: 75px;" />
+                                   </div>
+                              </div>
+                         </div>
+
+                         <br />
+                         <hr>
+                         <br />
+
+                         <div class="single-project-figure">
+                              <div>
+                                   <div class="figure-left">
+                                        <img src="images/rebecca.jpg" />
+                                   </div>
+                                   <div class="caption">
+                                        <a href="https://github.com/RebeccaYoung1997">Rebecca Young (2020-)</a>
+                                        I advised Rebecca Young as part of the Simons-National Society
+                                        of Black Physicists (<a
+                                             href="https://simonsobservatory.org/snsp.php">S-NSBP</a>).
+                                        Rebecca was a undergrad studying physics, so she was new to astronomy
+                                        research. Her project was to investigate the best way to infer
+                                        differential rotation rates from stellar light curves. This is a
+                                        notoriously difficult problem (see <a
+                                             href="https://ui.adsabs.harvard.edu/abs/2015MNRAS.450.3211A/abstract">here</a>).
+                                        She spent the summer working on reproducing the results of
+                                        <a href="https://ui.adsabs.harvard.edu/abs/2015ApJ...806..212D/abstract">Davenport
+                                             et al. (2015)</a>, who inferred the differential rotation rate of
+                                        GJ 1243 from its light curve by modeling its surface with two discrete
+                                        spots rotating at different rates. The next step in Rebecca's project is to
+                                        relax the assumption of discrete spots, and to treat the surface as a
+                                        statistical process (see <a href="starry-process.html">here</a>), which is
+                                        less prone to the degeneracies of the traditional mapping problem.
+                                        &nbsp;
+                                        <a href="https://github.com/RebeccaYoung1997" class="fas fa-user"></a>
+                                        &nbsp;
+                                        <a href="https://github.com/RebeccaYoung1997/DifferentialRotation"
+                                             class="fab fa-github"></a>
+                                   </div>
+
+                              </div>
+                         </div>
+
+                         <br />
+                         <hr>
+                         <br />
+
+                         <div class="single-project-figure">
+                              <div>
+                                   <div class="caption">
+                                        <a href="https://github.com/fbartolic">Fran Bartolic (2020-)</a>
+                                        I advised Fran Bartolic as part of the <a
+                                             href="https://www.simonsfoundation.org/grant/flatiron-institute-center-for-computational-astrophysics-pre-doctoral-program-342/">CCA
+                                             pre-doctoral program</a>. Fran is a graduate student at the
+                                        University of St. Andrews working on microlensing and statistical
+                                        methods for astronomy. Our project, however, was somewhat outside both Fran's
+                                        and my
+                                        wheelhouse: mapping volcanoes on the surface of Io, the moon of Jupiter.
+                                        There is a lot of high-quality archival data on occultations of Io by Jupiter
+                                        and the other
+                                        Galileian moons (Europa, Callisto, and Ganymede), which Fran used to infer the
+                                        locations and brightnesses of the main volcanic regions on the moon. The
+                                        significance
+                                        of this project lies in the fact that (1) we know the ground truth to some
+                                        extent
+                                        from fly-bys of Io, so it's a great benchmark for exoplanet secondary eclipse
+                                        mapping
+                                        in the near future; and (2) we don't know the ground truth
+                                        <span style="font-style:italic;">all that well</span>, since Io's surface is
+                                        constantly
+                                        evolving. Fran is working on a joint analysis of all observations of Io to
+                                        infer the time evolution of the surface in a principled, Bayesian way, which
+                                        could lead to new insights into the physics of the moon's interior and its tidal
+                                        interaction with Jupiter.
+                                        &nbsp;
+                                        <a href="https://github.com/fbartolic" class="fas fa-user"></a>
+                                        &nbsp;
+                                        <a href="https://github.com/fbartolic/volcano" class="fab fa-github"></a>
+                                        &nbsp;
+                                        <a href="https://github.com/fbartolic/volcano/tree/master-pdf/paper/paper.pdf"
+                                             class="far fa-file-alt"></a>
+                                   </div>
+                                   <div class="figure-right">
+                                        <img src="images/volcano.jpg" />
+                                   </div>
+                              </div>
+                         </div>
+
+                         <br />
+                         <hr>
+                         <br />
+
+                         <div class="single-project-figure">
+                              <div>
+                                   <div class="figure-left">
+                                        <img src="images/aasma.jpg" />
+                                   </div>
+                                   <div class="caption">
+                                        <a href="https://github.com/notasthma">Asmaa El-Sayed (2019-2020)</a>
+                                        I advised Asmaa El-Sayed as part of the
+                                        <a href="https://cunyastro.org/astrocom/">CUNY AstroCOM</a> summer program.
+                                        Asmaa was an undergrad at CUNY looking for research experience in astronomy.
+                                        Under my supervision, she worked on modeling stellar light curves observed by
+                                        <span style="font-style:italic;">Kepler</span>
+                                        using the <a href="starry.html">starry</a> software.
+                                        Asmaa investigated the idea of the null space, the set of modes on the surface
+                                        of a star that cannot be inferred from a light curve. While it is impossible to
+                                        reconstruct a unique map of a star from its light curve, certain statistics of
+                                        the stellar surface, such as the size and latitude of star spots, are more
+                                        robust
+                                        to the degeneracies in the mapping problem. Asmaa presented her work at
+                                        the 2020 Winter AAS in Hawaii.
+                                        &nbsp;
+                                        <a href="https://github.com/notasthma" class="fas fa-user"></a>
+                                        &nbsp;
+                                        <a href="https://github.com/notasthma/AAS" class="fab fa-github"></a>
+                                   </div>
+
+                              </div>
+                         </div>
+
+                         <br />
+                         <hr>
+                         <br />
+
+                         <div class="single-project-figure">
+                              <div>
+                                   <div class="caption">
+                                        <a href="https://nksaunders.space/">Nicholas Saunders (2016-2018)</a>
+                                        I advised Nicholas Saunders when I was a graduate
+                                        student (and later postdoc) at the University of Washington.
+                                        Nick helped we with various aspects of the
+                                        <a href="everest.html">everest</a> code for de-trending
+                                        <span style="font-style:italic;">K2</span> light curves.
+                                        His main project was to develop the
+                                        <a href="https://github.com/nksaunders/scope">scope</a>
+                                        software to forward-model the <span style="font-style:italic;">Kepler</span>
+                                        detector in order to better understand systematics and noise
+                                        sources in photometric surveys.
+                                        Nick went on to work at the Kepler GO Office, where he was one of
+                                        the co-developers of <a href="https://docs.lightkurve.org/">lightkurve</a>, and
+                                        is now in graduate school
+                                        at the University of Hawaii.
+                                        &nbsp;
+                                        <a href="https://nksaunders.space/" class="fas fa-user"></a>
+                                        &nbsp;
+                                        <a href="https://github.com/nksaunders" class="fab fa-github"></a>
+                                        &nbsp;
+                                        <a href="https://ui.adsabs.harvard.edu/abs/2019AJ....157..197S/abstract"
+                                             class="far fa-file-alt"></a>
+                                   </div>
+                                   <div class="figure-right">
+                                        <img src="images/scope.png" />
+                                   </div>
+                              </div>
+                         </div>
+
+
+
+                    </div>
+               </div>
+          </div>
+
+
+
+     </section>
+
+     <!-- Footer Section -->
+
+     <footer>
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-3 col-sm-3">
+                         <span class="avatar">
+                              <img src="images/rodrigo-luger-avatar.jpg">
+                         </span>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                         <p>162 5th Ave, 5th Floor<br />New York NY 10100 United States</p>
+                    </div>
+
+                    <div class="col-md-offset-1 col-md-4 col-sm-offset-1 col-sm-3">
+                         <p><a href="mailto:rodluger@gmail.com">rodluger@gmail.com</a> <br /> (610) 675 6056</p>
+                    </div>
+
+                    <div class="clearfix col-md-12 col-sm-12">
+                         <hr>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <div class="footer-copyright">
+                              <p>© 2020 Rodrigo Luger &nbsp | &nbsp <a
+                                        href="https://github.com/rodluger/rodluger.github.io">hosted on github</a>
+                              </p>
+                         </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <ul class="social-icon">
+                              <li><a href="https://github.com/rodluger" class="fab fa-github"></a></li>
+                              <li><a href="https://twitter.com/rodluger" class="fab fa-twitter"></a></li>
+
+                         </ul>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+
+     <!-- SCRIPTS -->
+
+     <script src="js/jquery.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/custom.js"></script>
+
+</body>
+
+</html>

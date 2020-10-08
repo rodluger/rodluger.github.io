@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description"
+          content="An open-source pipeline for telescope systematics de-trending designed for the K2 exoplanet-hunting mission.">
+     <meta name="author" content="Rodrigo Luger">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+     <title>starry process</title>
+
+     <link rel="stylesheet" href="css/bootstrap.min.css">
+     <link rel="stylesheet" href="css/fontawesome.css">
+
+     <!-- Main css -->
+     <link rel="stylesheet" href="css/custom.css">
+
+     <!-- Global site tag (gtag.js) - Google Analytics -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47070068-1"></script>
+     <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag() { dataLayer.push(arguments); }
+          gtag('js', new Date());
+
+          gtag('config', 'UA-47070068-1');
+     </script>
+</head>
+
+<body>
+
+     <!-- PRE LOADER -->
+
+     <div class="preloader">
+          <div class="spinner">
+               <div class="dot1"></div>
+               <div class="dot2"></div>
+          </div>
+     </div>
+
+     <!-- Navigation section  -->
+
+     <div class="navbar navbar-default navbar-static-top" role="navigation">
+          <div class="container">
+
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
+                    <a href="index.html" class="navbar-brand">
+                         <span class="avatar">
+                              <img src="images/rodrigo-luger-avatar.jpg">
+                         </span>
+                    </a>
+               </div>
+               <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                         <li class="active"><a href="index.html">home</a></li>
+                         <li><a href="about.html">about</a></li>
+                         <li><a href="https://github.com/rodluger/cv/raw/master-pdf/luger_cv.pdf">cv</a></li>
+                         <li><a href="blog/index.html" class="blinker">blog</a></li>
+                    </ul>
+               </div>
+
+          </div>
+     </div>
+
+
+     <!-- Single Project Section -->
+
+     <section id="single-project">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-offset-1 col-md-10 col-sm-12">
+                         <h1>starry process</h1>
+
+                         <div class="project-links">
+                              <div class="project-link">
+                                   <a href="https://github.com/rodluger/starry_process" data-toggle="tooltip"
+                                        data-placement="bottom" title="code">
+                                        <i class="fab fa-github"></i>
+                                   </a>
+                              </div>
+                              <div class="project-link">
+                                   <a href="https://github.com/rodluger/starry_process/raw/master-pdf/tex/ms.pdf"
+                                        data-toggle="tooltip" data-placement="bottom" title="paper draft">
+                                        <i class="far fa-file-alt"></i>
+                                   </a>
+                              </div>
+                              <div class="project-link">
+                                   <a href="blog/2020-09-24.html" data-toggle="tooltip" data-placement="bottom"
+                                        title="blog post">
+                                        <i class="fas fa-blog"></i>
+                                   </a>
+                              </div>
+                              <div class="project-link">
+                                   <a href="blog/2020-10-01.html" data-toggle="tooltip" data-placement="bottom"
+                                        title="blog post">
+                                        <i class="fas fa-blog"></i>
+                                   </a>
+                              </div>
+                         </div>
+
+                         <p>
+                              Thanks to missions like <span style="font-style:italic;">Kepler</span> and
+                              <span style="font-style:italic;">TESS</span>, we now have access to hundreds of
+                              thousands of light curves of stars. Many of these light curves are variable, often
+                              due to star spots, faculae, and other surface features that rotate into and out of
+                              view over the course of a stellar rotation. Even though these stars are unresolved
+                              &mdash; all we get is a one-dimensional flux timeseries &mdash; we can in principle
+                              use their light curves to learn about what their surfaces look like: how many spots
+                              does a given star have, how dark are they, and where on the surface do they typically
+                              appear? While interesting in their own right, these questions can address fundamental
+                              physical properties of a star, in particular the nature and topology of its magnetic field
+                              and convective processes in its interior.
+                         </p>
+
+                         <p>
+                              But <span style="font-style:italic;">how</span> exactly can we use a light curve to learn
+                              about the stellar surface? It turns out this is an extremely difficult problem because of
+                              the degeneracies involved. While a given configuration of spots on the surface of a star
+                              has a unique light curve (e.g., at a given inclination and in a given bandpass), the same
+                              is not true for the converse: a given light curve does <span
+                                   style="font-style:italic;">not</span>
+                              correspond to a unique stellar surfaces. In fact, for any light curve, we can find an
+                              infinite number of solutions to the mapping problem that fit the data <span
+                                   style="font-style:italic;">exactly</span>. To put it another way, if we are given a
+                              stellar light curve (and no other prior information), it is <span
+                                   style="font-style:italic;">provably impossible</span> to
+                              determine
+                              the shape, size, location, contrast, and number of spots on its surface.
+                         </p>
+
+                         <p>
+                              So how do we get around this? The trick is to abandon the notion of trying to image
+                              <span style="font-style:italic;">individual</span> stars. (If we have very strong priors,
+                              or if we're lucky enough to see the star being occulted by a companion, the mapping
+                              problem
+                              suddenly becomes a lot more tractable; but let's set this point aside for now.)
+                              While light curves of individual stars contain only a very small amount of information
+                              about
+                              their surfaces, the light curves of lots of stars together constrain a lot more about the
+                              distribution of stellar surfaces across the population.
+                              I talk through this point in a couple posts in my blog (<a
+                                   href="blog/2020-09-24.html">Interpretable GPs I</a> and <a
+                                   href="blog/2020-10-01.html">Interpretable GPs II</a>), so make sure to check those
+                              out
+                              if you're interested.
+                         </p>
+
+                         <p>
+                              Simultaneously analyzing lots of light curves can be extremely computationally expensive,
+                              since we typically want our population size to be large (e.g., hundreds of stars). Since
+                              we need
+                              to jointly fit for the surface parameters of each star, the number of parameters in our
+                              model can quickly
+                              become intractable (thousands to tens of thousands), making posterior inference quite
+                              tricky. One workaround is to use a <a
+                                   href="https://en.wikipedia.org/wiki/Gaussian_process">Gaussian process</a> (GP),
+                              which
+                              makes it extremely easy to compute marginal likelihoods: i.e., the likelihood that a
+                              star has spots concentrated at a certain latitude, marginalized (integrated) over all
+                              possible ways you can arrange the spots. But in order to do that, we need to first come
+                              up with a Gaussian process for stellar light curves: that is, one which is an explicit
+                              function of parameters we care about, such as the mean spot latitude, the mean spot size,
+                              etc.
+                         </p>
+
+                         <p>
+                              That's the idea behind a <span style="font-style:italic;">starry process</span>. It's an
+                              adaptation of my <a href="starry.html">starry</a> mapping code into a statistical process
+                              that makes it easy to ask questions about ensembles of light curves. Given lots of light
+                              curves
+                              of "similar" stars, a <span style="font-style:italic;">starry process</span> makes it
+                              easier
+                              to ask questions such as, "Do M dwarfs have polar or equatorial spots?" or
+                              "Do all G dwarfs have spots as small as those on the Sun"?
+                         </p>
+
+                         <p>
+                              This is very much still a work in progress, and I'm actively working on both the
+                              <a href="https://github.com/rodluger/starry_process">code</a> and the
+                              <a href="https://github.com/rodluger/starry_process/raw/master-pdf/tex/ms.pdf">paper</a>.
+                              If you're interested, check out these two blog posts: <a
+                                   href="blog/2020-09-24.html">Interpretable GPs I</a> and <a
+                                   href="blog/2020-10-01.html">Interpretable GPs II</a> for more information.
+                         </p>
+
+                         <div class="single-project-figure">
+                              <hr>
+                              <div class="blog-image-container full-width">
+                                   <video width='100%' autoplay muted loop>
+                                        <source src='blog/images/starry-process.mp4' type='video/mp4'>
+                                        Your browser does not support the video tag.
+                                   </video>
+                              </div>
+                              </a>
+                              <p>
+                              <div class="caption">
+                                   <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
+                                   <span>A video demo of a <a href='https://github.com/rodluger/starry_process'>starry
+                                             process</a>. The kernel of the Gaussian process is a function of six
+                                        hyperparameters that control the mean and standard deviation of the spot size,
+                                        latitude, and contrast distributions (top panels). The bottom panels show random
+                                        samples from the GP on the surface of the star (in a Mollweide projection) and
+                                        in flux space. Line colors correspond to different stellar inclinations with
+                                        respect to the line of sight. Because the kernel is an analytic function of the
+                                        hyperparameters, drawing samples and computing marginal likelihoods with a <a
+                                             href='https://github.com/rodluger/starry_process'>starry process</a> is
+                                        extremely fast.</span>
+                              </div>
+                              </p>
+                         </div>
+
+                    </div>
+               </div>
+          </div>
+
+
+
+     </section>
+
+     <!-- Footer Section -->
+
+     <footer>
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-3 col-sm-3">
+                         <span class="avatar">
+                              <img src="images/rodrigo-luger-avatar.jpg">
+                         </span>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                         <p>162 5th Ave, 5th Floor<br />New York NY 10100 United States</p>
+                    </div>
+
+                    <div class="col-md-offset-1 col-md-4 col-sm-offset-1 col-sm-3">
+                         <p><a href="mailto:rodluger@gmail.com">rodluger@gmail.com</a> <br /> (610) 675 6056</p>
+                    </div>
+
+                    <div class="clearfix col-md-12 col-sm-12">
+                         <hr>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <div class="footer-copyright">
+                              <p>© 2020 Rodrigo Luger &nbsp | &nbsp <a
+                                        href="https://github.com/rodluger/rodluger.github.io">hosted on github</a>
+                              </p>
+                         </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <ul class="social-icon">
+                              <li><a href="https://github.com/rodluger" class="fab fa-github"></a></li>
+                              <li><a href="https://twitter.com/rodluger" class="fab fa-twitter"></a></li>
+
+                         </ul>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+
+     <!-- SCRIPTS -->
+
+     <script src="js/jquery.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/custom.js"></script>
+
+</body>
+
+</html>
