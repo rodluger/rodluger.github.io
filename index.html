@@ -18,6 +18,11 @@
      <!-- Main css -->
      <link rel="stylesheet" href="css/custom.css">
 
+     <!-- js -->
+     <script src="js/jquery.js"></script>
+     <script src="js/bootstrap.min.js"></script>
+     <script src="js/custom.js"></script>
+
      <!-- Global site tag (gtag.js) - Google Analytics -->
      <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47070068-1"></script>
      <script>
@@ -26,6 +31,19 @@
           gtag('js', new Date());
 
           gtag('config', 'UA-47070068-1');
+     </script>
+
+     <script type="text/javascript" language="javascript">
+
+          $(document).ready(function () {
+               setTimeout(function () {
+                    var imgs = document.getElementsByClassName("lazy-load");
+                    for (var i = 0; i < imgs.length; i++) {
+                         imgs[i].src = imgs[i].getAttribute("data-src");
+                    }
+               }, 1000);
+          });
+
      </script>
 
 </head>
@@ -98,7 +116,8 @@
                     <div class="col-md-4 col-sm-6">
                          <a href="starry-process.html">
                               <div class="portfolio-thumb">
-                                   <img src="images/gp.gif" class="img-responsive" alt="gp">
+                                   <img src="images/gp.jpg" class="img-responsive lazy-load" alt="gp"
+                                        data-src="images/gp.gif">
                                    <div class="portfolio-overlay">
                                         <div class="portfolio-item">
                                              <h3>starry process</h3>
@@ -154,8 +173,8 @@
                     <div class="col-md-4 col-sm-6">
                          <a href="sold.html">
                               <div class="portfolio-thumb">
-                                   <img src="images/earthshine.gif" class="img-responsive" alt="Portfolio"
-                                        style="filter: inherit brightness(1.125);">
+                                   <img src="images/earthshine.jpg" class="img-responsive lazy-load" alt="earthshine"
+                                        data-src="images/earthshine.gif" style="filter: inherit brightness(1.125);">
                                    <div class="portfolio-overlay">
                                         <div class="portfolio-item">
                                              <h3>sol d</h3>
@@ -169,7 +188,7 @@
                     <div class="col-md-4 col-sm-6">
                          <a href="everest.html">
                               <div class="portfolio-thumb">
-                                   <img src="images/everest.jpg" class="img-responsive" alt="Portfolio">
+                                   <img src="images/everest.jpg" class="img-responsive" alt="everest">
                                    <div class="portfolio-overlay">
                                         <div class="portfolio-item">
                                              <h3>everest</h3>
@@ -183,7 +202,8 @@
                     <div class="col-md-4 col-sm-6">
                          <a href="trappist1.html">
                               <div class="portfolio-thumb">
-                                   <img src="images/trappist1.gif" class="img-responsive" alt="Portfolio">
+                                   <img src="images/trappist1.jpg" class="img-responsive lazy-load" alt="trappist-1"
+                                        data-src="images/trappist1.gif">
                                    <div class="portfolio-overlay">
                                         <div class="portfolio-item">
                                              <h3>trappist-1</h3>
@@ -197,8 +217,8 @@
                     <div class="col-md-4 col-sm-6">
                          <a href="exoaurora.html">
                               <div class="portfolio-thumb">
-                                   <img src="images/exoaurora.gif" class="img-responsive" alt="Portfolio"
-                                        style="filter: unset;">
+                                   <img src="images/exoaurora.jpg" class="img-responsive lazy-load" alt="exoaurora"
+                                        data-src="images/exoaurora.gif" style="filter: unset;">
                                    <div class="portfolio-overlay">
                                         <div class="portfolio-item">
                                              <h3>pale green dot</h3>
@@ -212,7 +232,8 @@
                     <div class="col-md-4 col-sm-6">
                          <a href="planetplanet.html">
                               <div class="portfolio-thumb">
-                                   <img src="images/planetplanet.gif" class="img-responsive" alt="Portfolio">
+                                   <img src="images/planetplanet.jpg" class="img-responsive lazy-load"
+                                        alt="planetplanet" data-src="images/planetplanet.gif">
                                    <div class="portfolio-overlay">
                                         <div class="portfolio-item">
                                              <h3>planetplanet</h3>
@@ -226,7 +247,7 @@
                     <div class="col-md-4 col-sm-6">
                          <a href="hecs.html">
                               <div class="portfolio-thumb">
-                                   <img src="images/hecs.jpg" class="img-responsive" alt="Portfolio">
+                                   <img src="images/hecs.jpg" class="img-responsive" alt="habitable evaporated cores">
                                    <div class="portfolio-overlay">
                                         <div class="portfolio-item">
                                              <h3>habitable evaporated cores</h3>
@@ -240,7 +261,7 @@
                     <div class="col-md-4 col-sm-6">
                          <a href="vplanet.html">
                               <div class="portfolio-thumb">
-                                   <img src="images/vplanet.jpg" class="img-responsive" alt="Portfolio">
+                                   <img src="images/vplanet.jpg" class="img-responsive" alt="vplanet">
                                    <div class="portfolio-overlay">
                                         <div class="portfolio-item">
                                              <h3>vplanet</h3>
@@ -254,7 +275,7 @@
                     <div class="col-md-4 col-sm-6">
                          <a href="mirage.html">
                               <div class="portfolio-thumb">
-                                   <img src="images/mirage.jpg" class="img-responsive" alt="Portfolio">
+                                   <img src="images/mirage.jpg" class="img-responsive" alt="mirage earths">
                                    <div class="portfolio-overlay">
                                         <div class="portfolio-item">
                                              <h3>mirage earths</h3>
@@ -313,13 +334,6 @@
                </div>
           </div>
      </footer>
-
-
-     <!-- SCRIPTS -->
-
-     <script src="js/jquery.js"></script>
-     <script src="js/bootstrap.min.js"></script>
-     <script src="js/custom.js"></script>
 
 </body>
 
