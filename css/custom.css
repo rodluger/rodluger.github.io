@@ -449,9 +449,6 @@ p {
 
 #portfolio .portfolio-thumb .portfolio-overlay {
   position: absolute;
-  -webkit-backdrop-filter: blur(15px);
-  backdrop-filter: blur(15px);
-  background-color: rgba(255, 255, 255, .5);
   color: #333333;
   top: 0;
   left: 0;
@@ -463,6 +460,18 @@ p {
   vertical-align: top;
   opacity: 0;
   transition: all 0.4s ease-in-out;
+}
+
+#portfolio .portfolio-thumb .portfolio-overlay {
+  background-color: rgba(255, 255, 255, .9);
+}
+
+@supports ((-webkit-backdrop-filter: blur(15px)) or (backdrop-filter: blur(15px))) {
+  #portfolio .portfolio-thumb .portfolio-overlay {
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    background-color: rgba(255, 255, 255, .5);
+  }
 }
 
 #portfolio .portfolio-item {
