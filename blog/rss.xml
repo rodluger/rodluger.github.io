@@ -7,6 +7,14 @@
 <atom:link href="https://luger.dev/blog/rss.xml" rel="self" type="application/rss+xml" />
 
 <item>
+<title>Synthetic Likelihoods</title>
+<link>https://luger.dev/blog/2020-10-27.html</link>
+<guid>https://luger.dev/blog/2020-10-27.html</guid>
+<pubDate>Tue, 27 Oct 2020 00:00:00 GMT</pubDate>
+<description>In this post I dig a little deeper into the assumptions I'm making when I try to model stellar surfaces (and, equivalently, stellar light curves) using a Gaussian Process. The true likelihood function for the data is certainly not a gaussian, but it turns out that approximating it as such is not a terrible idea. Here I'll discuss the concept of a synthetic likelihood, which is a term from the ecology literature (and is probably called different things in different fields), and explore its behavior with a very simple toy model. I'll warn you right now that I'm in a bit over my head with this, so comments / thoughts from proper statisticians are most welcome!</description>
+</item>
+
+<item>
 <title>Interpretable GPs for stellar rotation (Part 2)</title>
 <link>https://luger.dev/blog/2020-10-01.html</link>
 <guid>https://luger.dev/blog/2020-10-01.html</guid>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="In this post I dig a little deeper into the assumptions I'm making when I try to model stellar surfaces (and, equivalently, stellar light curves) using a Gaussian Process. The true likelihood function for the data is certainly not a gaussian, but it turns out that approximating it as such is not a terrible idea. Here I'll discuss the concept of a synthetic likelihood, which is a term from the ecology literature (and is probably called different things in different fields), and explore its behavior with a very simple toy model. I'll warn you right now that I'm in a bit over my head with this, so comments / thoughts from proper statisticians are most welcome!">
+     <meta name="author" content="Rodrigo Luger">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="twitter:image" content="https://luger.dev/blog/images/starry-logo.jpg">
+     <meta name="twitter:card" content="summary"/>
+     <meta name="twitter:title" content="Rodrigo Luger's Blog"/>
+     <meta name="twitter:description" content="Synthetic Likelihoods"/>
+     <meta property="og:title" content="Rodrigo Luger's Blog" />
+     <meta property="og:description" content="Synthetic Likelihoods" />
+     <meta property="og:type" content="website" />
+     <meta property="og:url" content="https://luger.dev/blog" />
+     <meta property="og:updated_time" content="2020-10-27T00:00:00+00:00" />
+     <meta property="og:site_name" content="Rodrigo Luger's Blog" />
+     <meta property="og:image" content="https://luger.dev/blog/images/starry-logo.jpg">
+
+     <title>Synthetic Likelihoods</title>
+
+     <link rel="stylesheet" href="../css/bootstrap.min.css">
+     <link rel="stylesheet" href="../css/fontawesome.css">
+
+     <!-- Main css -->
+     <link rel="stylesheet" href="../css/custom.css">
+     <link rel="stylesheet" href="static/custom.css">
+
+     <!-- RSS -->
+     <link rel="alternate" type="application/rss+xml" href="https://luger.dev/blog/rss.xml" title="Rodrigo Luger's Blog">
+
+     <script src='https://polyfill.io/v3/polyfill.min.js?features=es6'>
+     </script>
+     <script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'>
+     </script>
+     <script>
+     window.MathJax = {
+          tex: {
+               inlineMath: [['$', '$'], ['\\(', '\\)']],
+               tags: 'ams'
+          }
+     };
+     </script>
+
+     <!-- Global site tag (gtag.js) - Google Analytics -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47070068-1"></script>
+     <script>
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+
+     gtag('config', 'UA-47070068-1');
+     </script>
+
+     <!-- Code syntax highlighting -->
+     <link rel="stylesheet" href="static/highlight/styles/default.css">
+     <script src="static/highlight/highlight.pack.js"></script>
+     <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body>
+
+     <!-- PRE LOADER -->
+
+     <div class="preloader">
+          <div class="spinner">
+               <div class="dot1"></div>
+               <div class="dot2"></div>
+          </div>
+     </div>
+
+     <!-- Navigation section  -->
+
+     <div class="navbar navbar-default navbar-static-top" role="navigation">
+          <div class="container">
+
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
+                    <a href="../index.html" class="navbar-brand">
+                         <span class="avatar">
+                              <img src="../images/rodrigo-luger-avatar.jpg">
+                         </span>
+                    </a>
+               </div>
+               <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                         <li class="active"><a href="../index.html">home</a></li>
+                         <li><a href="../about.html">about</a></li>
+                         <li><a href="https://github.com/rodluger/cv/raw/master-pdf/luger_cv.pdf">cv</a></li>
+                         <li><a href="index.html" class="blinker">blog</a></li>
+                    </ul>
+               </div>
+
+          </div>
+     </div>
+
+     <!-- Blog Single Post Section -->
+
+     <section id="blog-single-post">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-offset-1 col-md-10 col-sm-12">
+                         <div class="blog-single-post-thumb">
+                              <div class="blog-post-image">
+                                   <img src="images/math-banner.jpg" class="img-responsive" alt="Blog Image">
+                              </div>
+
+                              <div class="blog-post-title">
+                                   <h3>Synthetic Likelihoods</h3>
+                              </div>
+
+                              <div class="blog-post-format">
+                                   <span><a href="#"><img src="../images/rodrigo-luger-avatar.jpg" class="img-responsive img-circle"
+                                                  style="margin-right: 8px;">Rodrigo Luger</a></span>
+                                   <span><i class="far fa-calendar"
+                                             style="margin-right:5px; color: #666;"></i>October 27 2020</span>
+                              </div>
+
+                              <div class="blog-post-des">
+                                   <p>In this post I dig a little deeper into the assumptions I'm making when I try to model stellar surfaces (and, equivalently, stellar light curves) using a Gaussian Process. The true likelihood function for the data is certainly not a gaussian, but it turns out that approximating it as such is not a terrible idea. Here I'll discuss the concept of a synthetic likelihood, which is a term from the ecology literature (and is probably called different things in different fields), and explore its behavior with a very simple toy model. I'll warn you right now that I'm in a bit over my head with this, so comments / thoughts from proper statisticians are most welcome!</p><p><h1>Difficult Integrals</h1></p><p>Thanks to its applications in the machine learning community, <a href='https://arxiv.org/abs/1601.00670'>variational inference (VI)</a> is now a popular method to approximate posterior distributions when the true density is difficult to compute. Rather than compute the posterior by sampling (such as in Markov Chain Monte Carlo), VI approximates the posterior via optimization. In the simplest variant of the method, one assumes the posterior distribution can be approximated by a (multivariate) gaussian and runs VI to find the mean(s) and variance(s) of the gaussian that best matches the true posterior. This is typically done by minimizing the <a href='https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence'>K-L divergence</a> between the two distributions. VI can be an excellent choice for otherwise intractable problems, but it does have drawbacks: in its vanilla form it is unable to capture multi-modality and can underestimate the posterior variance in the presence of correlated parameters.</p><p>In my research on <a href='https://luger.dev/starry.html'>modeling stellar light curve variability</a> the posterior distributions I'm interested in are often very intractable. Not because they're inherently difficult to sample from, but because my <span style='font-style:italic;'>likelihood function</span> is so difficult to compute. Briefly, I'm interested in inferring star spot properties, such as their typical sizes and latitudes, from stellar light curves. This is a notoriously ill-posed problem (<a href='https://ui.adsabs.harvard.edu/abs/2020ApJ...901...14B/abstract'>Basri et al. 2020</a> is a nice review), as there are perfect degeneracies at play that can lead to an infinite number of equally likely surface map solutions for a given light curve. As I described in <a href='https://luger.dev/blog/2020-10-01.html'>previous blog posts</a>, one trick is to accept that we cannot know <span style='font-style:italic;'>exactly</span> what any stellar surface looks like and instead directly solve for the <span style='font-style:italic;'>statistics</span> we care about: the distribution of star spot sizes and latitudes, irrespective of how big any individual spot is or where it is on the star. This works even better if we have an ensemble of light curves of "similar" stars: we can use their collective information to better constrain the statistics of star spots across all members of the ensemble.</p><p>This is all well and good until we think about the integrals we need to compute along the way. What I described above was the process of <span style='font-style:italic;'>marginalizing</span> over the nuisance parameters (the nitty gritty details of individual spots) to compute the <span style='font-style:italic;'>marginal likelihood</span> that a given star (or a given ensemble of stars) is a draw from a particular distribution of star spot sizes and latitudes.</p><p>Say we have some set of parameters $\theta$ controlling the spot distributions (say, the mean and variance of the spot size distribution, the mean and variance of the spot latitude distribution, etc.) The marginal likelihood is the probability of our data $y$ given $\theta$, which can be computed by integrating over all the nuisance parameters $c_0 \, \cdots \, c_n$:</p><p></p><p style='overflow-x: scroll;'>$$p\big(y \, \big| \, \theta \big) = \int \, \cdots \, \int p\big(y \, \big| \, c_0 \, \cdots \, c_n\big)  p\big(c_0 \, \big| \, \theta\big) \mathrm{d}c_0 \, \cdots \, p\big(c_n \, \big| \, \theta\big) \mathrm{d}c_n$$</p><p>Computing this is a tall order, especially since $n$ can be quite large (hundreds or even thousands in my problems). Instead of attempting to solve this integral exactly, the approach I took was to assume that my marginal likelihood can be well approximated by a multidimensional gaussian (see <a href='https://luger.dev/blog/2020-09-24.html'>this blog post</a>). The task then is to find how its mean $\mu(\theta)$ and the covariance $\Sigma(\theta)$ depend on the parameters I care about, $\theta$.</p>
+                <div id="Figure1Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body full-width">
+                                
+                <div class="blog-image-container full-width">
+                    <img src='images/starry-process-exact-samples.jpg' style='width:100%;'></img>
+                </div>
+                
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
+                                    <span>Random samples from the true distribution of star spots conditioned on a specific value of $\theta$, a vector that includes (among other things) the spot size distribution mean and variance and the spot latitude distribution mean and variance.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure1" class="blog-image full-width">
+                    <a href="#" data-toggle="modal" data-target="#Figure1Modal">
+                        
+                <div class="blog-image-container full-width">
+                    <img src='images/starry-process-exact-samples.jpg' style='width:100%;'></img>
+                </div>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
+                        <span>Random samples from the true distribution of star spots conditioned on a specific value of $\theta$, a vector that includes (among other things) the spot size distribution mean and variance and the spot latitude distribution mean and variance.</span>
+                    </p>
+                </div>
+                
+                <div id="Figure2Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body full-width">
+                                
+                <div class="blog-image-container full-width">
+                    <img src='images/starry-process-samples.jpg' style='width:100%;'></img>
+                </div>
+                
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 2</span>
+                                    <span>Random samples from the multidimensional gaussian approximation to the distribution in <a href='#Figure1'>Figure 1</a>.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure2" class="blog-image full-width">
+                    <a href="#" data-toggle="modal" data-target="#Figure2Modal">
+                        
+                <div class="blog-image-container full-width">
+                    <img src='images/starry-process-samples.jpg' style='width:100%;'></img>
+                </div>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 2</span>
+                        <span>Random samples from the multidimensional gaussian approximation to the distribution in <a href='#Figure1'>Figure 1</a>.</span>
+                    </p>
+                </div>
+                <p>This is where I thought about the parallels to variational inference, since again we're doing some sort of optimization to find the gaussian that best describes our probability distribution. Here, however, I am computing the variational distribution for the <span style='font-style:italic;'>likelihood</span>, not the posterior. So this isn't really VI at all! I spent a while poking around online to figure out <span style='font-style:italic;'>what</span> exactly the name for what I was doing was, and I found several papers in ecology doing similar things. They all date back to <a href='https://www.nature.com/articles/nature09319'>this paper by Wood (2010)</a>, who developed an approach he dubbed the <span style='font-style:italic;'>synthetic likelihood</span>.</p><p><h1>The Synthetic Likelihood</h1></p><p>The idea is fairly straightforward. The data consists of measurements of the size of an insect population over time, and the ecologist's task is to infer some fundamental parameter of the population that controls its growth rate. The problem is that the process generating the data is extremely chaotic; the population undergoes sudden, fast, and unpredictable jumps and declines in size due to various random environmental pressures. Thus, basic aspects of the dataset such as the particular times at which these spikes occur are mostly random and thus unrelated to the true parameters we care about. However, statistics of the dataset (such as, perhaps, the frequency of spikes, their relative amplitudes, the details of the shape of the spikes, etc.) <span style='font-style:italic;'>are</span> informative.</p>
+                <div id="Figure3Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body ">
+                                
+                <div class="blog-image-container ">
+                    <img src='images/wood_sl.jpg' style='width:100%;'></img>
+                </div>
+                
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 3</span>
+                                    <span>Reproduction of Figure 1 in <a href='https://www.nature.com/articles/nature09319'>Wood (2010)</a>. Panel <span style='font-weight:600;'>a</span> is the data: the size of the population over time. Panels <span style='font-weight:600;'>b</span> and <span style='font-weight:600;'>c</span> are the log likelihood as a function of a noise parameter $e_1$ and the growth rate parameter $r$, conditioned on the true values of $r$ and $e_1$, respectively. In addition to being difficult to compute, this likelihood is extremely noisy. Panel <span style='font-weight:600;'>d</span> is the (marginal) log synthetic likelihood, which is much smoother and peaks close to the true value $\log r = 3.8$.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure3" class="blog-image ">
+                    <a href="#" data-toggle="modal" data-target="#Figure3Modal">
+                        
+                <div class="blog-image-container ">
+                    <img src='images/wood_sl.jpg' style='width:100%;'></img>
+                </div>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 3</span>
+                        <span>Reproduction of Figure 1 in <a href='https://www.nature.com/articles/nature09319'>Wood (2010)</a>. Panel <span style='font-weight:600;'>a</span> is the data: the size of the population over time. Panels <span style='font-weight:600;'>b</span> and <span style='font-weight:600;'>c</span> are the log likelihood as a function of a noise parameter $e_1$ and the growth rate parameter $r$, conditioned on the true values of $r$ and $e_1$, respectively. In addition to being difficult to compute, this likelihood is extremely noisy. Panel <span style='font-weight:600;'>d</span> is the (marginal) log synthetic likelihood, which is much smoother and peaks close to the true value $\log r = 3.8$.</span>
+                    </p>
+                </div>
+                <p>The thing to do is therefore compute the likelihood marginalized over the phase of the spikes: that is, integrating over all of the (infinite number of) ways in which a population with a given intrinsic growth rate $r$ can evolve under a chaotic noise process. This is the same intractable integral as in the star spot mapping problem! In Wood's case, he needs to marginalize over the phases of the population spikes; in my case, I need to marginalize over the phases of the spots (among other things).</p><p>Wood's approach to computing this intractable integral is to bypass it by sampling. Chaotic systems are easy enough to <span style='font-style:italic;'>forward</span> model: pick a value of $r$, pick some parameters of the noise process, set your initial conditions, and diff-eq away. For a fixed value of $r$, we can generate lots (say, hundreds of thousands) of synthetic datasets. Each one will have spikes in different places and look different overall, but they will all be draws from the exact same statistical process. The trick then is to compute the empirical mean and (dense) covariance matrix from this simulated dataset, compute the likelihood of the corresponding gaussian, and call it a day. He dubs this likelihood function the <span style='font-style:italic;'>synthetic likelihood</span>.</p><p>Wood goes on to show just how powerful this approximate inference technique is in modeling chaotic ecological systems (see <a href='#Figure3'>Figure 3</a>, for instance). As he argues in the paper, it ends up being a pretty good, <span style='font-style:italic;'>asymptotically unbiased</span> technique for doing inference. Most of the statistics in the paper are devoted to figuring out just how small a synthetic sample he can get away with and still get good results with this estimator (large samples take time to generate; small samples lead to noisy means and covariances and biased results).</p><p>If you read my <a href='https://luger.dev/blog/2020-10-01.html'>last blog post</a>, you'll realize I'm doing the exact same thing, except that I know how to compute the mean and covariance <span style='font-style:italic;'>analytically</span>. No need to do any sampling! This is thanks to just how well-behaved spherical harmonics (and, in particular, their rotation matrices) are. Given a value of the spot distribution parameters $\theta$, I can compute the mean $\mu(\theta)$ and full covariance $\Sigma(\theta)$ describing the stellar light curves in <span style='font-style:italic;'>a few hundredths of a second</span>.</p><p>This sounds awesome (and it is!) but lately I've been thinking a lot about what the downsides of this approximation really are. If you compare Figures <a href='#Figure1'>1</a> and <a href='#Figure2'>2</a> (samples from the true distribution and samples from the gaussian approximation, respectively), you'll see that they are <span style='font-style:italic;'>similar</span>, but certainly not the same. If I showed you a random sample from one of those distributions, you'd probably have no trouble identifying whether it came from the true distribution or from the approximation. In particular, the gaussian approximation is smoother (since, after all, it's a GP!) and has some bright spots in addition to dark spots. At some level, this <span style='font-style:italic;'>has</span> to affect my posterior inference &mdash; I just wasn't sure how!</p><p>To tackle this question, below I run a simple experiment on a one-dimensional dataset where I can compute the synthetic likelihood analytically. It's just a simple toy version of the bigger problem I'm working on, but I think it captures some of the same behavior I've been seeing in my research.</p><p><h1>A Toy Model</h1></p><p>In this very simple toy model, let's assume I collect some data $\mathbf{y} = (y_0, y_1, \cdots, y_k)$, which I know to be Beta-distributed:</p><p>$$\mathbf{y} \sim \mathrm{Beta}(\alpha, \beta)$$</p><p>If I'm interested in inferring the values of $\alpha$ and $\beta$ that generated my data, I could compute the likelihood over a range of $\alpha$ and $\beta$ values, multiply it by my prior, and I'd be done. The likelihood for the Beta distribution is straightforward to compute:</p><p>$$p(\mathbf{y} | \alpha, \beta) = \prod_n \frac{y_n^{\alpha - 1}(1 - y_n)^{\beta - 1}}{B(\alpha, \beta)}$$</p><p>where $B$ is <a href='https://en.wikipedia.org/wiki/Beta_function'>Euler's Beta function</a>, which is just a ratio of gamma functions.</p><p>But <span style='font-style:italic;'>what if</span> we did not have a closed form for this likelihood function, or if it were too expensive to compute? The idea behind the synthetic likelihood approach is to approximate the probability distribution above as a gaussian. All we need are the first two moments of the distribution (its mean vector $\boldsymbol{\mu}$ and its covariance matrix $\mathbf{\Sigma}$). If we're able to compute those, we can write</p><p></p><p style='overflow-x: scroll;'>$$p(\mathbf{y} | \alpha, \beta) \approx p_{\mathrm{SL}}(\mathbf{y} | \alpha, \beta) \equiv \frac{1}{(2\pi)^\frac{k}{2}|\mathbf{\Sigma}|^\frac{1}{2}} \mathrm{exp}\bigg[ -\frac{1}{2} (\mathbf{y} - \boldsymbol{\mu})^\top \mathbf{\Sigma}^{-1} (\mathbf{y} - \boldsymbol{\mu}))\bigg]$$</p><p>where $p_{\mathrm{SL}}$ denotes the synthetic likelihood and $\boldsymbol{\mu}(\alpha, \beta)$ and $\mathbf{\Sigma}(\alpha, \beta)$ are functions of the parameters of interest.</p><p>In the present case, the mean and variance of the beta distribution are well defined:</p><p>$$\mu = \frac{\alpha}{\alpha + \beta}$$</p><p>$$\sigma^2 = \frac{\alpha\beta}{(\alpha + \beta)^2(\alpha + \beta + 1)}$$</p><p>We can therefore write down our two likelihood functions very easily, so we can compare them:<br/><br/></p><pre><code class='python' >import numpy as np
+from scipy.stats import beta as Beta
+
+
+def mu(alpha, beta):
+    """The mean of the Beta distribution."""
+    return alpha / (alpha + beta)
+
+
+def sigma(alpha, beta):
+    """The standard deviation of the Beta distribution."""
+    var = alpha * beta / (alpha + beta) ** 2 / (alpha + beta + 1)
+    return np.sqrt(var)
+
+
+def log_likelihood_synthetic(alpha, beta, y):
+    """The synthetic log-likelihood function."""
+    mean = mu(alpha, beta)
+    std = sigma(alpha, beta)
+    var = std ** 2
+    ll = -0.5 * np.sum((y - mean) ** 2 / var)
+    ll -= 0.5 * len(y) * np.log(var)
+    ll -= 0.5 * len(y) * np.log(2 * np.pi)
+    return ll
+
+
+def log_likelihood(alpha, beta, y):
+    """The true log-likelihood function."""
+    return np.sum(Beta.logpdf(y, alpha, beta))
+
+</code></pre>
+                <p><br/>Now, let's simulate an inference problem. <a href='#Figure4'>Figure 4</a> below shows a histogram of one million samples from a Beta distribution with $\alpha = 2$ and $\beta = \frac{1}{3}$ (blue), which we will take to be our fiducial values. In orange we show the gaussian approximation to this distribution: that is, the gaussian with the same mean and variance as the Beta distribution. Note that they look <span style='font-style:italic';>nothing</span> alike! The Beta distribution is extremely sharply peaked at $y = 1$ and is bounded in $0 < y < 1$, whereas the gaussian is symmetric and has significant support at $y > 1$.</p>
+                <div id="Figure4Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body full-width">
+                                
+                <div class="blog-image-container full-width">
+                    <img src='images/sl_distr.jpg' style='width:100%;'></img>
+                </div>
+                
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 4</span>
+                                    <span>One million samples from a Beta distribution with $\alpha = 2$ and $\beta = \frac{1}{3}$ (blue histogram), and the corresponding gaussian approximation (orange curve). The idea behind a synthetic likelihood is to replace the blue probability density function with the orange one. This might look like a terrible idea, but in practice it tends to work!</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure4" class="blog-image full-width">
+                    <a href="#" data-toggle="modal" data-target="#Figure4Modal">
+                        
+                <div class="blog-image-container full-width">
+                    <img src='images/sl_distr.jpg' style='width:100%;'></img>
+                </div>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 4</span>
+                        <span>One million samples from a Beta distribution with $\alpha = 2$ and $\beta = \frac{1}{3}$ (blue histogram), and the corresponding gaussian approximation (orange curve). The idea behind a synthetic likelihood is to replace the blue probability density function with the orange one. This might look like a terrible idea, but in practice it tends to work!</span>
+                    </p>
+                </div>
+                <p>This approximation cannot possibly be useful in inference... or can it? To find out, let's keep things simple and assume we know the true value of $\beta$. Our problem is therefore one-dimensional, so easy to solve numerically. We'll place a uniform prior on $\alpha$, so we can compute the posterior distribution by dividing the likelihood function by the evidence, which we compute by numerically integrating the likelihood over all values of $\alpha$.<br/><br/></p><pre><code class='python' >import matplotlib.pyplot as plt
+
+# True values
+alpha_true = 2.0
+beta_true = 0.33
+
+# Array of alpha values to test
+alpha_arr = np.linspace(1.5, 2.5, 1000)
+
+# Let's simulate 50 different `y` datasets, each with k=1000 points
+np.random.seed(0)
+for k in range(50):
+
+    # Draw our data: this is what we observe
+    y = Beta.rvs(alpha_true, beta_true, size=1000)
+
+    # Compute the log likelihood using the true likelihood function
+    # Exponentiate it and divide by the evidence to get the posterior
+    ll = np.array([log_likelihood(alpha, beta_true, y) for alpha in alpha_arr])
+    ll -= np.nanmax(ll)
+    pdf = np.exp(ll) / np.trapz(np.exp(ll))
+
+    # Now do the same thing using the synthetic likelihood function
+    ll_sl = np.array(
+        [log_likelihood_synthetic(alpha, beta_true, y) for alpha in alpha_arr]
+    )
+    ll_sl -= np.nanmax(ll_sl)
+    pdf_sl = np.exp(ll_sl) / np.trapz(np.exp(ll_sl))
+
+    # Plot the two distributions
+    plt.plot(alpha_arr, pdf, color="C0", alpha=0.25, lw=1)
+    plt.plot(alpha_arr, pdf_sl, color="C1", alpha=0.25, lw=1)
+
+plt.axvline(alpha_true, color="k", lw=1, ls="--", alpha=0.5)
+</code></pre>
+                <p><br/>If we run the code above, this is what we get:</p>
+                <div id="Figure5Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body full-width">
+                                
+                <div class="blog-image-container full-width">
+                    <img src='images/sl_posteriors.jpg' style='width:100%;'></img>
+                </div>
+                
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 5</span>
+                                    <span>Posterior distributions for $\alpha$ given 50 different simulated $\mathbf{y}$ datasets, conditioned on the true value of $\beta$. Blue curves are the posteriors obtained using the true (correct) likelihood function. Orange curves are using the misspecified synthetic likelihood. The dashed vertical line shows the true value of $\alpha$.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure5" class="blog-image full-width">
+                    <a href="#" data-toggle="modal" data-target="#Figure5Modal">
+                        
+                <div class="blog-image-container full-width">
+                    <img src='images/sl_posteriors.jpg' style='width:100%;'></img>
+                </div>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 5</span>
+                        <span>Posterior distributions for $\alpha$ given 50 different simulated $\mathbf{y}$ datasets, conditioned on the true value of $\beta$. Blue curves are the posteriors obtained using the true (correct) likelihood function. Orange curves are using the misspecified synthetic likelihood. The dashed vertical line shows the true value of $\alpha$.</span>
+                    </p>
+                </div>
+                <p>We actually do <span style='font-style:italic;'>really</span> well! Both the exact and synthetic posteriors are centered (on average) on the true value, meaning the synthetic likelihood approach is in fact unbiased. The main difference, however, lies in the posterior variance: the orange PDFs (which use the synthetic likelihood)are taller and skinnier, even though they span about the same range in $\alpha$ over all datasets as the blue curves. This is a sign that something is wrong with our variance!</p><p>To test this, let's run this inference procedure on a lot more synthetic datasets: let's do 1,000 this time. In addition to computing the posterior, we can estimate the mean and variance by integrating to find the first two moments of the distribution. Here is the distribution of posterior means for $\alpha$$ over the 1,000 runs using the synthetic likelihood:</p>
+                <div id="Figure6Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body full-width">
+                                
+                <div class="blog-image-container full-width">
+                    <img src='images/sl_means.jpg' style='width:100%;'></img>
+                </div>
+                
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 6</span>
+                                    <span>Distribution of posterior means for $\alpha$ under the synthetic likelihood model. The true value is indicated by the dashed vertical line.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure6" class="blog-image full-width">
+                    <a href="#" data-toggle="modal" data-target="#Figure6Modal">
+                        
+                <div class="blog-image-container full-width">
+                    <img src='images/sl_means.jpg' style='width:100%;'></img>
+                </div>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 6</span>
+                        <span>Distribution of posterior means for $\alpha$ under the synthetic likelihood model. The true value is indicated by the dashed vertical line.</span>
+                    </p>
+                </div>
+                <p>As expected, the method is unbiased on average, which is excellent. Next, let's look at the distribution of normalized residuals. I compute these as</p><p>$$ \Delta_n = \frac{\mu_n - \alpha_\mathrm{true}}{\sigma_n} $$</p><p>where $\mu_n$ and $\sigma_n$ are the posterior mean and variance for the $n^\mathrm{th}$ simulation and $\alpha_\mathrm{true}$ is the true value of $\alpha$. If our posterior variances $\sigma_n^2$ are correct, then $\Delta$ should be distributed according to the standard normal:</p>
+                <div id="Figure7Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body full-width">
+                                
+                <div class="blog-image-container full-width">
+                    <img src='images/sl_vars.jpg' style='width:100%;'></img>
+                </div>
+                
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 7</span>
+                                    <span>Distribution of normalized residuals, the difference between the posterior mean and the truth divided by the posterior standard deviation. The standard normal is overplotted in blue for reference.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure7" class="blog-image full-width">
+                    <a href="#" data-toggle="modal" data-target="#Figure7Modal">
+                        
+                <div class="blog-image-container full-width">
+                    <img src='images/sl_vars.jpg' style='width:100%;'></img>
+                </div>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 7</span>
+                        <span>Distribution of normalized residuals, the difference between the posterior mean and the truth divided by the posterior standard deviation. The standard normal is overplotted in blue for reference.</span>
+                    </p>
+                </div>
+                <p>Aha! The distribution of normalized residuals is wider than it should be, which means that the dispersion of posterior means is significantly wider than the individual posteriors. That confirms our suspicion from above that the synthetic likelihood method <span style='font-style:italic;'>underestimates</span> the posterior variance in this toy problem, by a factor of about 3 (alternatively, it underestimates the standard deviation by about 70 percent). So while the synthetic likelihood may be an unbiased estimator, it doesn't always provide a good estimate of the variance.</p><p><h1>Closing Thoughts</h1></p><p>In this post I discussed the idea behind a synthetic likelihood, which is pretty straightforward: if the true likelihood is difficult to calculate, we can instead try to find (or estimate) its first two moments and instead use the gaussian with the same mean and variance as our likelihood function. Surprisingly, this tends to yield unbiased posterior estimates, albeit with (slightly) wrong variance.</p><p>When I started writing this  post I was hoping I could derive something a bit more rigorous about <span style='font-style:italic;'>why</span> the synthetic likelihood can't capture the variance correctly, but I haven't made any progress on that. In general, it doesn't seem to be too bad. In the much more complex inference problem I'm working on related to stellar surface mapping, I find just about the same results: the posterior means are unbiased, but the variances are underestimated by a small factor.</p><p>It's important to note that the magnitude of the discrepancy in the variance sensitively depends on the distribution you're trying to model. For different values of $\alpha$ and $\beta$ in the example above, I find that the synthetic likelihood underestimates the variance by different amounts, but rarely by more than in the example shown above. I suspect the issues with the variance occur when the distribution is very asymmetric or sharply peaked (as in this case), but I am very curious to hear other people's thoughts or ideas on this! As always, comments are welcome!</p><p>Finally, if you're interested in playing around with the toy model, you can find it <a href='https://gist.github.com/rodluger/aea33d65cf68b29818afa44b3c51cb5c'>here</a>.</p>
+                              </div>
+
+                              <div class="blog-author">
+                                   <div class="media">
+                                        <div class="media-object pull-left">
+                                             <img src="../images/rodrigo-luger-avatar.jpg" class="img-circle img-responsive"
+                                                  alt="Rodrigo Luger">
+                                        </div>
+                                        <div class="media-body">
+                                             <h3 class="media-heading"><a
+                                                       href="../about.html">Rodrigo Luger</a>
+                                             </h3>
+                                             <p style="text-align:justify;">
+                                                  I'm a Flatiron Fellow at the CCA in New York City, working on a variety of things related to exoplanets, stars, and astronomical data analysis. I'm interested in systematics de-trending, the search for and characterization of potentially habitable exoplanets, and the mapping of stellar and exoplanetary surfaces from photometric and spectroscopic datasets. Outside the office I love to hike, bike, swim, craft lattes, faulty parallelism, and Oxford commas.
+                                             </p>
+                                        </div>
+                                   </div>
+                              </div>
+
+                              <div class="disqus" id="disqus_thread"></div>
+
+                         </div>
+                    </div>
+               </div>
+          
+          </div>
+     </section>
+
+     
+     <script>
+          var disqus_config = function () {
+          this.page.url = "https://luger.dev/blog/2020-10-27.html";
+          this.page.identifier = "2020-10-27";
+          };
+          (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://rodluger.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+     </script>
+     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+     
+
+     <!-- Footer Section -->
+
+     <footer>
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-3 col-sm-3">
+                         <span class="avatar">
+                              <img src="../images/rodrigo-luger-avatar.jpg">
+                         </span>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                         <p>162 5th Ave, 5th Floor<br />New York NY 10100 United States</p>
+                    </div>
+
+                    <div class="col-md-offset-1 col-md-4 col-sm-offset-1 col-sm-3">
+                         <p><a href="mailto:rodluger@gmail.com">rodluger@gmail.com</a> <br /> <img src="../images/cel.jpg" style="width:90px;"></img></p>
+                    </div>
+
+                    <div class="clearfix col-md-12 col-sm-12">
+                         <hr>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <div class="footer-copyright">
+                              <p>© 2020 Rodrigo Luger &nbsp | &nbsp <a
+                                        href="https://github.com/rodluger/rodluger.github.io">hosted on github</a>
+                              </p>
+                         </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <ul class="social-icon">
+                              <li><a href="https://github.com/rodluger" class="fab fa-github"></a></li>
+                              <li><a href="https://twitter.com/rodluger" class="fab fa-twitter"></a></li>
+                              
+                         </ul>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+     <!-- SCRIPTS -->
+
+     <script src="../js/jquery.js"></script>
+     <script src="../js/bootstrap.min.js"></script>
+     <script src="../js/custom.js"></script>
+
+</body>
+
+</html>
