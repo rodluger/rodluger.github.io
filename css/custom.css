@@ -782,6 +782,21 @@ p {
   color: #ffffff;
 }
 
+.blog-prev-next .btn {
+  border-radius: 100px;
+  color: #777;
+  font-weight: 400;
+  letter-spacing: 1px;
+  padding: 6px 20px;
+  transition: all 0.4s ease-in-out;
+}
+
+.blog-prev-next .btn:hover {
+  background: #777;
+  border-color: transparent;
+  color: #ffffff;
+}
+
 .blog-author {
   border-top: 1px solid #f0f0f0;
   border-bottom: 1px solid #f0f0f0;

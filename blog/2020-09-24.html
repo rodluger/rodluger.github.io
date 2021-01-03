@@ -292,6 +292,15 @@
                 <p>(see, e.g., <a href='https://ui.adsabs.harvard.edu/abs/2017RNAAS...1....7L/abstract'>this paper</a>).</p><p>To do inference on a set of light curves &mdash; i.e., infer the star spot properties from the flux timeseries &mdash; we could use this as our likelihood function in, say, a Markov Chain Monte Carlo (MCMC) simulation, or as our (negative) loss function in an optimization scheme. However, this requires evaluating \( \mu(\theta) \) and \( \Sigma(\theta) \) for every combination of hyperparameters \(\theta\) we wish to explore. The covariance matrix in <a href='#Figure3'>Figure 3</a> took about 20 seconds to compute, which is prohibitively long if you need to evaluate it tens to hundreds of thousands of times in an inference scheme. Plus, it's super noisy, as it's merely an empirical estimate of the true covariance.</p><p>In the next post, I'll discuss how to compute the covariance matrix (and the mean vector) <span style='font-style:italic;'>analytically</span>, in a fraction of a second and with minimal numerical error. Stay tuned!</p>
                               </div>
 
+                              <div class="blog-prev-next" style="padding-top: 50px; padding-bottom: 50px;">
+                                   
+                                        <a href="2020-09-17.html" class="btn btn-default" style="float: left;">&laquo; Previous Post</a>
+                                   
+                                   
+                                        <a href="2020-10-01.html" class="btn btn-default" style="float: right;">Next Post &raquo;</a>
+                                   
+                              </div>
+
                               <div class="blog-author">
                                    <div class="media">
                                         <div class="media-object pull-left">

@@ -13,7 +13,6 @@ for file in glob(os.path.join(root, "*.html")):
 # Render the individual posts
 templates_dir = os.path.join(root, "templates")
 env = Environment(loader=FileSystemLoader(templates_dir))
-template = env.get_template("post.html.jinja")
 posts = []
 dates = []
 for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
@@ -180,10 +179,6 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
 
     post_dict["post"]["text"] = text
 
-    # Write the html file
-    with open(os.path.join(root, post_dict["post"]["url"]), "w") as f:
-        f.write(template.render(**post_dict))
-
     # Append to the running list
     if post_dict["post"]["publish"]:
         dates.append(date_str)
@@ -197,6 +192,23 @@ template = env.get_template("index.html.jinja")
 with open(os.path.join(root, "index.html"), "w") as f:
     f.write(template.render(posts=posts))
 
+# Write the posts
+template = env.get_template("post.html.jinja")
+for k in range(len(posts)):
+
+    # Write the html file
+    with open(os.path.join(root, posts[k]["post"]["url"]), "w") as f:
+
+        if k < len(posts) - 1:
+            posts[k]["post"]["previous"] = posts[k + 1]["post"]["url"]
+        else:
+            posts[k]["post"]["previous"] = ""
+        if k > 0:
+            posts[k]["post"]["next"] = posts[k - 1]["post"]["url"]
+        else:
+            posts[k]["post"]["next"] = ""
+
+        f.write(template.render(**posts[k]))
 
 # Update the rss feed
 template = env.get_template("rss.xml.jinja")

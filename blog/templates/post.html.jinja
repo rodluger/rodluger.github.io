@@ -129,6 +129,15 @@
                                    {{post.text}}
                               </div>
 
+                              <div class="blog-prev-next" style="padding-top: 50px; padding-bottom: 50px;">
+                                   {% if post.previous != "" %}
+                                        <a href="{{post.previous}}" class="btn btn-default" style="float: left;">&laquo; Previous Post</a>
+                                   {% endif %}
+                                   {% if post.next != "" %}
+                                        <a href="{{post.next}}" class="btn btn-default" style="float: right;">Next Post &raquo;</a>
+                                   {% endif %}
+                              </div>
+
                               <div class="blog-author">
                                    <div class="media">
                                         <div class="media-object pull-left">

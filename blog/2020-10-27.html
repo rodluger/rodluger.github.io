@@ -412,6 +412,15 @@ plt.axvline(alpha_true, color="k", lw=1, ls="--", alpha=0.5)
                 <p>Aha! The distribution of normalized residuals is wider than it should be, which means that the dispersion of posterior means is significantly wider than the individual posteriors. That confirms our suspicion from above that the synthetic likelihood method <span style='font-style:italic;'>underestimates</span> the posterior variance in this toy problem, by a factor of about 3 (alternatively, it underestimates the standard deviation by about 70 percent). So while the synthetic likelihood may be an unbiased estimator, it doesn't always provide a good estimate of the variance.</p><p><h1>Closing Thoughts</h1></p><p>In this post I discussed the idea behind a synthetic likelihood, which is pretty straightforward: if the true likelihood is difficult to calculate, we can instead try to find (or estimate) its first two moments and instead use the gaussian with the same mean and variance as our likelihood function. Surprisingly, this tends to yield unbiased posterior estimates, albeit with (slightly) wrong variance.</p><p>When I started writing this  post I was hoping I could derive something a bit more rigorous about <span style='font-style:italic;'>why</span> the synthetic likelihood can't capture the variance correctly, but I haven't made any progress on that. In general, it doesn't seem to be too bad. In the much more complex inference problem I'm working on related to stellar surface mapping, I find just about the same results: the posterior means are unbiased, but the variances are underestimated by a small factor.</p><p>It's important to note that the magnitude of the discrepancy in the variance sensitively depends on the distribution you're trying to model. For different values of $\alpha$ and $\beta$ in the example above, I find that the synthetic likelihood underestimates the variance by different amounts, but rarely by more than in the example shown above. I suspect the issues with the variance occur when the distribution is very asymmetric or sharply peaked (as in this case), but I am very curious to hear other people's thoughts or ideas on this! As always, comments are welcome!</p><p>Finally, if you're interested in playing around with the toy model, you can find it <a href='https://gist.github.com/rodluger/aea33d65cf68b29818afa44b3c51cb5c'>here</a>.</p>
                               </div>
 
+                              <div class="blog-prev-next" style="padding-top: 50px; padding-bottom: 50px;">
+                                   
+                                        <a href="2020-10-01.html" class="btn btn-default" style="float: left;">&laquo; Previous Post</a>
+                                   
+                                   
+                                        <a href="2021-01-03.html" class="btn btn-default" style="float: right;">Next Post &raquo;</a>
+                                   
+                              </div>
+
                               <div class="blog-author">
                                    <div class="media">
                                         <div class="media-object pull-left">
