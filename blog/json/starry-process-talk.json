@@ -1,0 +1,24 @@
+{
+    "post": {
+        "title": "Interpretable GPs for stellar rotation (Part 3)",
+        "title_tiny": "Interpretable GPs III",
+        "date": "January 3 2021",
+        "publish": true,
+        "author": {
+            "name": "Rodrigo Luger",
+            "url": "../about.html",
+            "image": "../images/rodrigo-luger-avatar.jpg",
+            "about": "I'm a Flatiron Fellow at the CCA in New York City, working on a variety of things related to exoplanets, stars, and astronomical data analysis. I'm interested in systematics de-trending, the search for and characterization of potentially habitable exoplanets, and the mapping of stellar and exoplanetary surfaces from photometric and spectroscopic datasets. Outside the office I love to hike, bike, swim, craft lattes, faulty parallelism, and Oxford commas."
+        },
+        "banner": "images/starry-process.jpg",
+        "social_image": "images/starry-logo.jpg",
+        "summary": "This is a (long overdue) continuation of a <a href='2020-10-01.html'>previous post</a>, in which I discussed the development of an interpretable Gaussian process for stellar light curves. This post is mainly a wrapper for a talk I gave a couple months ago on the topic, so if you have 20 minutes (and an interest in stellar light curve modeling), please check it out!",
+        "rss_summary": "This is a (long overdue) continuation of a <a href='2020-10-01.html'>previous post</a>, in which I discussed the development of an interpretable Gaussian process for stellar light curves. This post is mainly a wrapper for a talk I gave a couple months ago on the topic, so if you have 20 minutes (and an interest in stellar light curve modeling), please check it out!",
+        "contents": [
+            "<h1>Talk</h1>",
+            "Below is the talk I gave at the CCA on November 5. It touches on many of the same things I covered in the previous two posts in this series (<a href='2020-09-24.html'>here</a> and <a href='2020-10-01.html'>here</a>). I've actually made quite a bit more progress on the problem since I gave that talk, so if you're interested, check out the (nearly complete) draft of the paper <a href='https://github.com/rodluger/starry_process/raw/master-pdf/tex/ms.pdf'>here</a>. The code, <code>starry_process</code>, is also nearly production-ready. You can install it from source <a href='https://github.com/rodluger/starry_process'>here</a>. I'm still working on the <a href='https://luger.dev/starry_process'>documentation</a>, but the API and a couple examples are ready to go.<br><br>",
+            "<style>.videoWrapper {position: relative;padding-bottom: 56.25%;padding-top: 25px;height: 0;}.videoWrapper iframe {position: absolute;top: 0;left: 0;width: 100%;height: 100%;}</style>",
+            "<div class='videoWrapper'><iframe width='560' height='349' src='https://www.youtube.com/embed/zB_QkfSlcKo' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media gyroscope; picture-in-picture' allowfullscreen></iframe></div>"
+        ]
+    }
+}

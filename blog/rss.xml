@@ -7,6 +7,14 @@
 <atom:link href="https://luger.dev/blog/rss.xml" rel="self" type="application/rss+xml" />
 
 <item>
+<title>Interpretable GPs for stellar rotation (Part 3)</title>
+<link>https://luger.dev/blog/2021-01-03.html</link>
+<guid>https://luger.dev/blog/2021-01-03.html</guid>
+<pubDate>Sun, 3 Jan 2021 00:00:00 GMT</pubDate>
+<description>This is a (long overdue) continuation of a <a href='2020-10-01.html'>previous post</a>, in which I discussed the development of an interpretable Gaussian process for stellar light curves. This post is mainly a wrapper for a talk I gave a couple months ago on the topic, so if you have 20 minutes (and an interest in stellar light curve modeling), please check it out!</description>
+</item>
+
+<item>
 <title>Synthetic Likelihoods</title>
 <link>https://luger.dev/blog/2020-10-27.html</link>
 <guid>https://luger.dev/blog/2020-10-27.html</guid>
