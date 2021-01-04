@@ -892,13 +892,25 @@ p {
 }
 
 #blog-single-post .blog-post-des h1 {
+  font-size: 28px;
+  font-weight: 400;
+  padding-top: 14px;
+  color: #666;
+}
+
+#blog-single-post .blog-post-des h2 {
   font-size: 20px;
   font-weight: 400;
   padding-top: 14px;
   color: #666;
 }
 
-
+#blog-single-post .blog-post-des h3 {
+  font-size: 16px;
+  font-weight: 400;
+  padding-top: 14px;
+  color: #333;
+}
 
 /*---------------------------------------
    Footer section              

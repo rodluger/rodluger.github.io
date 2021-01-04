@@ -3,6 +3,8 @@ import os
 import json
 from glob import glob
 import dateparser
+from nbconvert import HTMLExporter
+import nbformat
 
 root = os.path.dirname(os.path.abspath(__file__))
 
@@ -178,6 +180,70 @@ for k, post in enumerate(glob(os.path.join(root, "json/*.json"))):
             raise ValueError("")
 
     post_dict["post"]["text"] = text
+    post_dict["post"]["nb"] = None
+
+    # Append to the running list
+    if post_dict["post"]["publish"]:
+        dates.append(date_str)
+        posts.append(post_dict)
+
+# Render jupyter notebooks
+for k, post in enumerate(glob(os.path.join(root, "notebooks/*.ipynb"))):
+
+    # Grab the contents
+    with open(post, "rb") as f:
+        nb = nbformat.reads(f.read(), as_version=4)
+
+    post_dict = nb.metadata
+
+    # Generate the url
+    date = dateparser.parse(post_dict["post"]["date"])
+    date_str = "{:04d}-{:02d}-{:02d}".format(date.year, date.month, date.day)
+    date_str_tiny = date_str[2:]
+    months = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+    ]
+    weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+    rss_date = "{:s}, {:d} {:s} {:d} 00:00:00 GMT".format(
+        weekdays[date.weekday()], date.day, months[date.month - 1], date.year
+    )
+    post_dict["post"]["url"] = "{:s}.html".format(date_str)
+
+    # Add metadata
+    post_dict["post"]["shortdate"] = date_str
+    post_dict["post"]["shortdate_tiny"] = date_str_tiny
+    post_dict["post"]["rss_date"] = rss_date
+    post_dict["post"]["id"] = date_str.replace("-", "_")
+    post_dict["post"]["title_tiny"] = post_dict["post"].get(
+        "title_tiny", post_dict["post"]["title"]
+    )
+    post_dict["post"]["social_image"] = post_dict["post"].get(
+        "social_image", post_dict["post"]["banner"]
+    )
+    post_dict["post"]["rss_summary"] = post_dict["post"].get(
+        "rss_summary", post_dict["post"]["summary"]
+    )
+
+    # Disqus metadata
+    post_dict["post"]["disqus"] = {}
+    post_dict["post"]["disqus"]["url"] = "https://luger.dev/blog/{:s}".format(
+        post_dict["post"]["url"]
+    )
+    post_dict["post"]["disqus"]["identifier"] = date_str
+
+    post_dict["post"]["nb"] = nb
+    post_dict["post"]["text"] = None
 
     # Append to the running list
     if post_dict["post"]["publish"]:
@@ -194,6 +260,8 @@ with open(os.path.join(root, "index.html"), "w") as f:
 
 # Write the posts
 template = env.get_template("post.html.jinja")
+nb_template = HTMLExporter(template_file="templates/notebook.html.jinja")
+
 for k in range(len(posts)):
 
     # Write the html file
@@ -208,7 +276,11 @@ for k in range(len(posts)):
         else:
             posts[k]["post"]["next"] = ""
 
-        f.write(template.render(**posts[k]))
+        if posts[k]["post"]["text"] is not None:
+            f.write(template.render(**posts[k]))
+        elif posts[k]["post"]["nb"] is not None:
+            (body, resources) = nb_template.from_notebook_node(nb)
+            f.write(body)
 
 # Update the rss feed
 template = env.get_template("rss.xml.jinja")

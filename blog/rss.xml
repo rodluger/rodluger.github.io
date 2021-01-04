@@ -7,6 +7,14 @@
 <atom:link href="https://luger.dev/blog/rss.xml" rel="self" type="application/rss+xml" />
 
 <item>
+<title>Normalized Gaussian Processes</title>
+<link>https://luger.dev/blog/2021-01-04.html</link>
+<guid>https://luger.dev/blog/2021-01-04.html</guid>
+<pubDate>Mon, 4 Jan 2021 00:00:00 GMT</pubDate>
+<description>I ran into an interesting statistics problem while working on my interpretable Gaussian process for stellar light curves (see <a href='2020-10-01.html'>this post</a>). What happens to the covariance structure of a dataset when we normalize it to its own mean (or median)? This is something that happens a lot in the literature: astronomers love normalizing light curves to sweep the unknown baseline under the rug and convert their data in relative units. But it turns out that this is a dangerous thing to do, especially if you then go on to model it with a Gaussian process! In this post I'll show an example of this, how it can bias GP inference (in particular for periodic datasets), and how to fix it.</description>
+</item>
+
+<item>
 <title>Interpretable GPs for stellar rotation (Part 3)</title>
 <link>https://luger.dev/blog/2021-01-03.html</link>
 <guid>https://luger.dev/blog/2021-01-03.html</guid>

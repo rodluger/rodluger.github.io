@@ -1,0 +1,378 @@
+{%- extends 'basic.tpl' -%}
+{% from 'mathjax.tpl' import mathjax %}
+
+{%- block header -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  {%- block html_head -%}
+
+  {% set post = nb.metadata.get('post', {}) %}
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="description" content="{{post.summary}}">
+  <meta name="author" content="Rodrigo Luger">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="twitter:image" content="https://luger.dev/blog/{{post.social_image}}">
+  <meta name="twitter:card" content="summary"/>
+  <meta name="twitter:title" content="Rodrigo Luger's Blog"/>
+  <meta name="twitter:description" content="{{post.title}}"/>
+  <meta property="og:title" content="Rodrigo Luger's Blog" />
+  <meta property="og:description" content="{{post.title}}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://luger.dev/blog" />
+  <meta property="og:updated_time" content="{{post.shortdate}}T00:00:00+00:00" />
+  <meta property="og:site_name" content="Rodrigo Luger's Blog" />
+  <meta property="og:image" content="https://luger.dev/blog/{{post.social_image}}">
+  
+  <title>{{post.title}}</title>
+
+  <link rel="stylesheet" href="../css/bootstrap.min.css">
+  <link rel="stylesheet" href="../css/fontawesome.css">
+
+  <!-- Main css -->
+  <link rel="stylesheet" href="../css/custom.css">
+  <link rel="stylesheet" href="static/custom.css">
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" href="https://luger.dev/blog/rss.xml" title="Rodrigo Luger's Blog">
+
+  <script src='https://polyfill.io/v3/polyfill.min.js?features=es6'>
+  </script>
+  <script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'>
+  </script>
+  <script>
+  window.MathJax = {
+      tex: {
+            inlineMath: [['$', '$'], ['\\(', '\\)']],
+            tags: 'ams'
+      }
+  };
+  </script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47070068-1"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-47070068-1');
+  </script>
+
+  <!-- Code syntax highlighting -->
+  <link rel="stylesheet" href="static/highlight/styles/default.css">
+  <script src="static/highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+  {% block ipywidgets %}
+  {%- if "widgets" in nb.metadata -%}
+    <script>
+      (function() {
+        function addWidgetsRenderer() {
+          var mimeElement = document.querySelector('script[type="application/vnd.jupyter.widget-view+json"]');
+          var scriptElement = document.createElement('script');
+          var widgetRendererSrc = '{{ resources.ipywidgets_base_url }}@jupyter-widgets/html-manager@*/dist/embed-amd.js';
+          var widgetState;
+
+          // Fallback for older version:
+          try {
+            widgetState = mimeElement && JSON.parse(mimeElement.innerHTML);
+
+            if (widgetState && (widgetState.version_major < 2 || !widgetState.version_major)) {
+              widgetRendererSrc = '{{ resources.ipywidgets_base_url }}jupyter-js-widgets@*/dist/embed.js';
+            }
+          } catch(e) {}
+
+          scriptElement.src = widgetRendererSrc;
+          document.body.appendChild(scriptElement);
+        }
+
+        document.addEventListener('DOMContentLoaded', addWidgetsRenderer);
+      }());
+    </script>
+  {%- endif -%}
+  {% endblock ipywidgets %}
+
+  {% for css in resources.inlining.css -%}
+      <style type="text/css">
+      {{ css }}
+      </style>
+  {% endfor %}
+
+  <style type="text/css">
+    /* Overrides of notebook CSS for static HTML export */
+    body {
+      overflow: visible;
+      padding: 8px;
+    }
+
+    div#notebook {
+      overflow: visible;
+      border-top: none;
+    }
+
+    {%- if resources.global_content_filter.no_prompt-%}
+    div#notebook-container{
+      padding: 6ex 12ex 8ex 12ex;
+    }
+    {%- endif -%}
+
+    @media print {
+      div.cell {
+        display: block;
+        page-break-inside: avoid;
+      } 
+      div.output_wrapper { 
+        display: block;
+        page-break-inside: avoid; 
+      }
+      div.output { 
+        display: block;
+        page-break-inside: avoid; 
+      }
+    }
+
+    /* CUSTOM HACKS */
+
+    div .celltag_hide_input .input {
+      display: none;
+    } 
+
+    div .celltag_hide_input .text_cell_render {
+      display: none;
+    } 
+
+    div .celltag_hide_output .output {
+      display: none;
+    } 
+
+    div .input_prompt {
+      display: none;
+    }
+
+    div .prompt {
+      display: none;
+    }
+
+    div .output img {
+      filter: unset;
+    }
+
+    div.cell {
+      padding: 0;
+    }
+
+    div.output_area .rendered_html table {
+      margin-left:auto !important;
+      margin-right:auto  !important;
+    }
+
+    div.output_subarea {
+      max-width: 100% !important;
+    }
+
+  </style>
+
+  <!-- Loading mathjax macro -->
+  {{ mathjax() }}
+  {%- endblock html_head -%}
+
+</head>
+{%- endblock header -%}
+
+{% block body %}
+
+  {% set post = nb.metadata.get('post', {}) %}
+    
+  <body> 
+
+    <!-- PRE LOADER -->
+
+    <div class="preloader">
+        <div class="spinner">
+              <div class="dot1"></div>
+              <div class="dot2"></div>
+        </div>
+    </div>
+
+    <!-- Navigation section  -->
+
+    <div class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="container">
+
+              <div class="navbar-header">
+                  <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon icon-bar"></span>
+                        <span class="icon icon-bar"></span>
+                        <span class="icon icon-bar"></span>
+                  </button>
+                  <a href="../index.html" class="navbar-brand">
+                        <span class="avatar">
+                            <img src="../images/rodrigo-luger-avatar.jpg">
+                        </span>
+                  </a>
+              </div>
+              <div class="collapse navbar-collapse">
+                  <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="../index.html">home</a></li>
+                        <li><a href="../about.html">about</a></li>
+                        <li><a href="https://github.com/rodluger/cv/raw/master-pdf/luger_cv.pdf">cv</a></li>
+                        <li><a href="index.html" class="blinker">blog</a></li>
+                  </ul>
+              </div>
+
+        </div>
+    </div>
+
+    <!-- Blog Single Post Section -->
+
+    <section id="blog-single-post">
+        <div class="container">
+              <div class="row">
+
+                  <div class="col-md-offset-1 col-md-10 col-sm-12">
+                        <div class="blog-single-post-thumb">
+                            <div class="blog-post-image">
+                                  <img src="{{post.banner}}" class="img-responsive" alt="Blog Image">
+                            </div>
+
+                            <div class="blog-post-title">
+                                  <h3>{{post.title}}</h3>
+                            </div>
+
+                            <div class="blog-post-format">
+                                  <span><a href="#"><img src="{{post.author.image}}" class="img-responsive img-circle"
+                                                style="margin-right: 8px;">{{post.author.name}}</a></span>
+                                  <span><i class="far fa-calendar"
+                                            style="margin-right:5px; color: #666;"></i>{{post.date}}</span>
+                            </div>
+
+                            <div class="blog-post-des">
+
+                            <!-- NBCONVERT -->
+                            {{ super() }}
+                            <!-- NBCONVERT -->
+
+                            </div>
+
+                            <div class="blog-prev-next" style="padding-top: 50px; padding-bottom: 50px;">
+                                  {% if post.previous != "" %}
+                                      <a href="{{post.previous}}" class="btn btn-default" style="float: left;">&laquo; Previous Post</a>
+                                  {% endif %}
+                                  {% if post.next != "" %}
+                                      <a href="{{post.next}}" class="btn btn-default" style="float: right;">Next Post &raquo;</a>
+                                  {% endif %}
+                            </div>
+
+                            <div class="blog-author">
+                                  <div class="media">
+                                      <div class="media-object pull-left">
+                                            <img src="{{post.author.image}}" class="img-circle img-responsive"
+                                                alt="{{post.author.name}}">
+                                      </div>
+                                      <div class="media-body">
+                                            <h3 class="media-heading"><a
+                                                      href="{{post.author.url}}">{{post.author.name}}</a>
+                                            </h3>
+                                            <p style="text-align:justify;">
+                                                {{post.author.about}}
+                                            </p>
+                                      </div>
+                                  </div>
+                            </div>
+
+                            <div class="disqus" id="disqus_thread"></div>
+
+                        </div>
+                  </div>
+              </div>
+        
+        </div>
+    </section>
+
+    {% if post.publish %}
+    <script>
+        var disqus_config = function () {
+        this.page.url = "{{post.disqus.url}}";
+        this.page.identifier = "{{post.disqus.identifier}}";
+        };
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://rodluger.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    {% endif %}
+
+  </body>
+
+{%- endblock body %}
+
+{% block footer %}
+
+<footer>
+    <div class="container">
+          <div class="row">
+
+              <div class="col-md-3 col-sm-3">
+                    <span class="avatar">
+                        <img src="../images/rodrigo-luger-avatar.jpg">
+                    </span>
+              </div>
+
+              <div class="col-md-4 col-sm-4">
+                    <p>162 5th Ave, 5th Floor<br />New York NY 10100 United States</p>
+              </div>
+
+              <div class="col-md-offset-1 col-md-4 col-sm-offset-1 col-sm-3">
+                    <p><a href="mailto:rodluger@gmail.com">rodluger@gmail.com</a> <br /> <img src="../images/cel.jpg" style="width:90px;"></img></p>
+              </div>
+
+              <div class="clearfix col-md-12 col-sm-12">
+                    <hr>
+              </div>
+
+              <div class="col-md-6 col-sm-6">
+                    <div class="footer-copyright">
+                        <p>© 2020 Rodrigo Luger &nbsp | &nbsp <a
+                                  href="https://github.com/rodluger/rodluger.github.io">hosted on github</a>
+                        </p>
+                    </div>
+              </div>
+
+              <div class="col-md-6 col-sm-6">
+                    <ul class="social-icon">
+                        <li><a href="https://github.com/rodluger" class="fab fa-github"></a></li>
+                        <li><a href="https://twitter.com/rodluger" class="fab fa-twitter"></a></li>
+                        
+                    </ul>
+              </div>
+
+          </div>
+    </div>
+</footer>
+
+
+<!-- SCRIPTS -->
+
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/custom.js"></script>
+
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/fontawesome.css">
+
+<!-- Main css -->
+<link rel="stylesheet" href="../css/custom.css">
+<link rel="stylesheet" href="static/custom.css">
+
+</html>
+{% endblock footer %}
