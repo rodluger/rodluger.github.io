@@ -1,5 +1,5 @@
 
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700");
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,350,400,700");
 
 html{
   scroll-behavior: smooth;
@@ -10,9 +10,10 @@ body {
 		background: #ffffff;
     font-family: 'Source Sans Pro', sans-serif;
     font-style: normal;
-		font-weight: 300;
+		font-weight: 400;
     overflow-x: hidden;
     min-width: 320px;
+    color: #666;
 }
 
 img {
@@ -35,7 +36,7 @@ img:hover {
 
 h1,h2,h3,h4,h5,h6 {
   font-style: normal;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.5px;
 }
 
@@ -50,10 +51,10 @@ h1 {
 
 h2 {
   font-size: 16px;
-  font-weight: 300;
+  font-weight: 400;
   line-height: 46px;
   letter-spacing: 0px;
-  color: #333;
+  color: #666;
 }
 
 h3 {
@@ -69,9 +70,9 @@ h4 {
 }
 
 p {
-    color: #333;
+    color: #666;
     font-size: 15px;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 26px;
     letter-spacing: 0.2px;
 }
@@ -137,7 +138,7 @@ a {
 }
 a:hover, a:active, a:focus {
   font-weight: 600;
-  color: #333;
+  color: #666;
   outline: none;
 }
 
@@ -175,7 +176,7 @@ p {
 }
 
 .section-title h3 {
-  color: #555;
+  color: #666;
   font-weight: 400;
   letter-spacing: 4px;
 }
@@ -291,9 +292,9 @@ p {
 }
 
 .navbar-default .navbar-nav li a {
-    color: #333;
+    color: #666;
     font-size: 16px;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: 1px;
     -webkit-transition: all 0.4s ease-in-out;
     transition: all 0.4s ease-in-out;
@@ -302,7 +303,7 @@ p {
 }
 
 .navbar-default .navbar-nav > li a:hover {
-    color: #333 !important;
+    color: #666 !important;
 }
 
 .navbar-default .navbar-nav > li > a:hover,
@@ -313,13 +314,13 @@ p {
 
 .navbar-default .navbar-nav li a:hover,
  .navbar-default .navbar-nav .active > a {
-    color: #333;
+    color: #666;
   }
 
 .navbar-default .navbar-nav > .active > a,
 .navbar-default .navbar-nav > .active > a:hover,
 .navbar-default .navbar-nav > .active > a:focus {
-    color: #333;
+    color: #666;
     background-color: transparent;
 }
 
@@ -523,7 +524,7 @@ p {
 
 #single-project a:hover {
   font-weight: 600;
-  color: #333;
+  color: #666;
 }
 
 #single-project .single-project-thumb {
@@ -614,7 +615,7 @@ p {
 }
 
 #single-project .project-link i:hover {
-  color: #333;
+  color: #666;
   transform: scale(1.1);
 }
 
@@ -699,7 +700,7 @@ p {
 }
 
 #contact input[type="submit"] {
-  background: #222;
+  background: #666;
   border-radius: 100px;
   border: none;
   color: #ffffff;
@@ -736,11 +737,11 @@ p {
 }
 
 .blog-post-title a {
-  color: #555;
+  color: #666;
 }
 
 .blog-post-title a:hover {
-  color: #333;
+  color: #666;
 }
 
 .blog-post-format {
@@ -753,7 +754,7 @@ p {
 }
 
 .blog-post-format span a {
-  color: #333;
+  color: #666;
 }
 
 .blog-post-format span img {
@@ -865,7 +866,7 @@ p {
 }
 
 .blog-comment-form input[type="submit"] {
-  background: #222;
+  background: #666;
   border-radius: 100px;
   border: none;
   color: #ffffff;
@@ -909,7 +910,7 @@ p {
   font-size: 16px;
   font-weight: 400;
   padding-top: 14px;
-  color: #333;
+  color: #666;
 }
 
 /*---------------------------------------
@@ -927,12 +928,12 @@ footer .col-md-3 .fa {
 }
 
 footer a {
-  font-weight: 300;
-  color: #333;
+  font-weight: 400;
+  color: #666;
 }
 
 footer a:hover {
-  font-weight: 300;
+  font-weight: 400;
   color: #000;
 }
 
@@ -975,7 +976,7 @@ footer .avatar img {
 }
 
 .social-icon li a {
-    color: #333;
+    color: #666;
     cursor: pointer;
     font-size: 16px;
     text-decoration: none;
@@ -987,7 +988,7 @@ footer .avatar img {
 }
 
 .social-icon li a:hover {
-    color: #333;
+    color: #666;
     transform: scale(1.1);
 }
 
