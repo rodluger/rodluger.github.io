@@ -1,0 +1,860 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Basics: Exoplanet systems &mdash; starry 0.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="starry 0.3.0 documentation" href="../index.html"/>
+        <link rel="up" title="Examples &amp; Tutorials" href="../tutorials.html"/>
+        <link rel="next" title="Basics: Light curve gradients" href="basics4.html"/>
+        <link rel="prev" title="Basics: Limb-darkened maps" href="basics2.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> starry
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Examples &amp; tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#the-basics">The basics</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="basics1.html">Surface maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics2.html">Limb-darkened maps</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Exoplanet systems</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Creating-a-star">Creating a star</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Creating-a-planet">Creating a planet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Creating-a-system">Creating a system</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Computing-light-curves">Computing light curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Comparison-to-batman">Comparison to <code class="docutils literal notranslate"><span class="pre">batman</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="basics4.html">Light curve gradients</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics5.html">Multi-wavelength maps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#fitting-and-inference">Fitting and inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../proofs.html">Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry">Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues">Submit an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://rodluger.github.io/starry-benchmarks">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues?q=is%3Aissue+is%3Aopen+label%3A%22next+version%22">Upcoming features</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/raw/master-pdf/tex/starry.pdf">Read the paper</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">starry</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">starry</a> &raquo;</li>
+      
+        <li><a href="../tutorials.html">Examples &amp; Tutorials</a>&raquo;</li>
+      
+    
+      <li>Basics: Exoplanet systems</li>
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 0;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial was generated from an Jupyter notebook that can be
+downloaded <a class="reference external" href="https://github.com/rodluger/starry/blob/master/docs/tutorials/basics3.ipynb">here</a>.</p>
+</div>
+<div class="section" id="Basics:-Exoplanet-systems">
+<h1>Basics: Exoplanet systems<a class="headerlink" href="#Basics:-Exoplanet-systems" title="Permalink to this headline">¶</a></h1>
+<p>Here we’ll discuss how to instantiate an exoplanet system and compute its full light curve. Currently, all orbital stuff lives in the <code class="docutils literal notranslate"><span class="pre">starry.kepler</span></code> module, which implements a simple Keplerian solver. This works for systems of exoplanets orbiting stars, moons orbiting planets, and binary star systems. Keep in mind, however, that the primary object is assumed to sit at the origin, and the secondary objects are assumed to be massless. A more flexible N-body solver will be added in the next
+version of the code, so stay tuned!</p>
+<div class="section" id="Creating-a-star">
+<h2>Creating a star<a class="headerlink" href="#Creating-a-star" title="Permalink to this headline">¶</a></h2>
+<p>This is as easy as it gets:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">starry</span>
+<span class="n">star</span> <span class="o">=</span> <span class="n">starry</span><span class="o">.</span><span class="n">kepler</span><span class="o">.</span><span class="n">Primary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<p>A <code class="docutils literal notranslate"><span class="pre">kepler.Primary</span></code> object is just a body that sits at the origin and either occults or gets occulted by other bodies, so you don’t have too much freedom in settings its properties. For one, its radius and luminosity are fixed at unity: this sets the units for the properties of the <code class="docutils literal notranslate"><span class="pre">Secondary</span></code> bodies, since those bodies’ radii, semi-major axes, and luminosities are specified in units of the <code class="docutils literal notranslate"><span class="pre">Primary</span></code>. You can, however, specify spherical harmonic and/or limb darkening coefficients, an axis
+of rotation, and a rotational period. In fact, the <code class="docutils literal notranslate"><span class="pre">kepler.Primary</span></code> class is a subclass of the <code class="docutils literal notranslate"><span class="pre">Map</span></code> class, so everything you can do with a <code class="docutils literal notranslate"><span class="pre">Map</span></code> you can do here, too. Check out the <code class="docutils literal notranslate"><span class="pre">Spotted</span> <span class="pre">star</span></code> tutorial for some ideas.</p>
+<p>As a simple example, let’s set the limb darkening coefficients of the star. Let’s give the stellar map a linear and a quadratic limb-darkening coefficient:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">star</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.40</span>
+<span class="n">star</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.26</span>
+</pre></div>
+</div>
+</div>
+<p>Here’s what that looks like:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">star</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics3_8_0.png" src="../_images/tutorials_basics3_8_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Creating-a-planet">
+<h2>Creating a planet<a class="headerlink" href="#Creating-a-planet" title="Permalink to this headline">¶</a></h2>
+<p>Let’s create a (very) hot Jupiter with some interesting properties:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">planet</span> <span class="o">=</span> <span class="n">starry</span><span class="o">.</span><span class="n">kepler</span><span class="o">.</span><span class="n">Secondary</span><span class="p">(</span><span class="n">lmax</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="mf">5e-3</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">porb</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">prot</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">Omega</span> <span class="o">=</span> <span class="mi">30</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">ecc</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mi">30</span>
+</pre></div>
+</div>
+</div>
+<p>Here we’ve instantiated a planet with a fifth degree surface map, a radius that is one-tenth that of the star, a luminosity that is one-two-hundredth that of the star, an orbital period of 1 day, a rotational period of 1 day, and a semi-major axis that’s thirty times the stellar radius. This is essentially a tidally-locked hot Jupiter.</p>
+<p><strong>NOTE:</strong> <em>The default rotational period for planets is</em><strong>infinity</strong><em>, so if you don’t specify</em> <code class="docutils literal notranslate"><span class="pre">prot</span></code> <em>, the planet’s surface map will not rotate as the planet orbits the star and there will be no phase curve variation. For planets whose emission tracks the star–i.e., a hot Jupiter with a hotspot–set</em> <code class="docutils literal notranslate"><span class="pre">prot=porb</span></code> <em>. Also note that the default luminosity is</em>zero<em>, so make sure to set that as well if you want any emission from the planet!</em></p>
+<p>There are a bunch of other settings related to the orbit, so check out the docs for those. By default, planets are given zero eccentricity, edge-on inclination, and zero obliquity, and <span class="math notranslate nohighlight">\(t = 0\)</span> corresponds to a transiting configuration.</p>
+<p>OK, the next thing we get to do is specify the planet’s map. For simplicity, let’s just create a random one:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">planet</span><span class="o">.</span><span class="n">lmax</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="n">l</span><span class="p">,</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">planet</span><span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">m</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">planet</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics3_14_0.png" src="../_images/tutorials_basics3_14_0.png" />
+</div>
+</div>
+<p>Note that when instantiating a map for a <code class="docutils literal notranslate"><span class="pre">starry.kepler.Secondary</span></code> instance, <strong>the map should be defined as it would appear during occultation by the primary (i.e., secondary eclipse).</strong> That is, the image you see above is the full dayside of the planet, with the orbital plane slicing the planet’s equator and ecliptic north pointing up. <strong>This is true even for planets that aren’t edge on and don’t have secondary eclipses.</strong> The map is always defined as if it were seen edge on, with the orbital
+plane along the <span class="math notranslate nohighlight">\(xy\)</span> plane and the planet behind the primary. Check out the <a class="reference external" href="geometry.html">viewing geometry tutorial</a> for more information.</p>
+<p>Now, it’s probably a good idea to ensure we didn’t end up with negative specific intensity anywhere:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">planet</span><span class="o">.</span><span class="n">is_physical</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>True
+</pre></div>
+</div>
+</div>
+<p>This routine performs gradient descent to try to find the global minimum of the map, and returns <code class="docutils literal notranslate"><span class="pre">True</span></code> if the minimum is greater than or equal to zero. Since it’s determining this numerically, it’s probably a good idea to avoid doing this repeatedly (say, in an MCMC problem).</p>
+</div>
+<div class="section" id="Creating-a-system">
+<h2>Creating a system<a class="headerlink" href="#Creating-a-system" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have a star and a planet, we can instantiate a planetary system:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">system</span> <span class="o">=</span> <span class="n">starry</span><span class="o">.</span><span class="n">kepler</span><span class="o">.</span><span class="n">System</span><span class="p">(</span><span class="n">star</span><span class="p">,</span> <span class="n">planet</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The first argument to a <code class="docutils literal notranslate"><span class="pre">starry.System</span></code> call is a <code class="docutils literal notranslate"><span class="pre">kepler.Primary</span></code> object, followed by any number of <code class="docutils literal notranslate"><span class="pre">kepler.Secondary</span></code> objects.</p>
+<p>There are some other system attributes you can set–notably an exposure time (<code class="docutils literal notranslate"><span class="pre">exptime</span></code>)–if the exposure time of your data is long enough to affect the light curve shape. Check out the docs for more information.</p>
+</div>
+<div class="section" id="Computing-light-curves">
+<h2>Computing light curves<a class="headerlink" href="#Computing-light-curves" title="Permalink to this headline">¶</a></h2>
+<p>We’re ready to compute the full system light curve:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="o">%</span><span class="k">time</span> system.compute(time)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CPU times: user 17.5 ms, sys: 461 µs, total: 17.9 ms
+Wall time: 17.8 ms
+</pre></div></div>
+</div>
+<p>Cool – <code class="docutils literal notranslate"><span class="pre">starry</span></code> computed 10,000 cadences in 15 ms. Let’s check it out:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [days]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;System Flux&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">system</span><span class="o">.</span><span class="n">lightcurve</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics3_26_0.png" src="../_images/tutorials_basics3_26_0.png" />
+</div>
+</div>
+<p>We can also plot the stellar and planetary light curves individually:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># This will show you only the transits</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [days]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Planet Flux&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">star</span><span class="o">.</span><span class="n">lightcurve</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics3_28_0.png" src="../_images/tutorials_basics3_28_0.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># This will show you only the planet&#39;s flux (phase curve + secondary eclipse)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [days]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Planet Flux&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">planet</span><span class="o">.</span><span class="n">lightcurve</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics3_29_0.png" src="../_images/tutorials_basics3_29_0.png" />
+</div>
+</div>
+<p>And, just for fun, the planet’s orbit (the sky plane is the <span class="math notranslate nohighlight">\(xy\)</span> plane, with <span class="math notranslate nohighlight">\(y\)</span> pointing up and <span class="math notranslate nohighlight">\(x\)</span> pointing to the right; <span class="math notranslate nohighlight">\(z\)</span> points toward the observer):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">4.25</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">planet</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">planet</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">planet</span><span class="o">.</span><span class="n">Z</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;z&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Position [R$_*$]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;Time [days]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mf">4.25</span><span class="p">))</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">planet</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">planet</span><span class="o">.</span><span class="n">Y</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">planet</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">planet</span><span class="o">.</span><span class="n">Z</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">planet</span><span class="o">.</span><span class="n">Z</span><span class="p">,</span> <span class="n">planet</span><span class="o">.</span><span class="n">Y</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;x [R$_*$]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;y [R$_*$]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;x [R$_*$]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;z [R$_*$]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;z [R$_*$]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;y [R$_*$]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics3_31_0.png" src="../_images/tutorials_basics3_31_0.png" />
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics3_31_1.png" src="../_images/tutorials_basics3_31_1.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Comparison-to-batman">
+<h2>Comparison to <code class="docutils literal notranslate"><span class="pre">batman</span></code><a class="headerlink" href="#Comparison-to-batman" title="Permalink to this headline">¶</a></h2>
+<p>One last thing we can do is compare a simple transit calculation to what we’d get with the <code class="docutils literal notranslate"><span class="pre">batman</span></code> code <a class="reference external" href="https://astro.uchicago.edu/~kreidberg/batman/">(Kreidberg 2015)</a>, a widely used and well-tested light curve tool.</p>
+<p>First, let’s define all the system parameters:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">u1</span> <span class="o">=</span> <span class="mf">0.4</span>        <span class="c1"># Stellar linear limb darkening coefficient</span>
+<span class="n">u2</span> <span class="o">=</span> <span class="mf">0.26</span>       <span class="c1"># Stellar quadratic limb darkening coefficient</span>
+<span class="n">rplanet</span> <span class="o">=</span> <span class="mf">0.1</span>   <span class="c1"># Planet radius in units of stellar radius</span>
+<span class="n">inc</span> <span class="o">=</span> <span class="mf">89.95</span>      <span class="c1"># Planet orbital inclination</span>
+<span class="n">P</span> <span class="o">=</span> <span class="mi">50</span>          <span class="c1"># Planet orbital period in days</span>
+<span class="n">a</span> <span class="o">=</span> <span class="mi">300</span>         <span class="c1"># Planet semi-major axis in units of stellar radius</span>
+</pre></div>
+</div>
+</div>
+<p>We’ll evaluate the light curve on the following time grid:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">npts</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="n">npts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s evaluate the <code class="docutils literal notranslate"><span class="pre">starry</span></code> light curve for this system:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Instantiate the star</span>
+<span class="n">star</span> <span class="o">=</span> <span class="n">starry</span><span class="o">.</span><span class="n">kepler</span><span class="o">.</span><span class="n">Primary</span><span class="p">()</span>
+<span class="n">star</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u1</span>
+<span class="n">star</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">u2</span>
+
+<span class="c1"># Instantiate the planet</span>
+<span class="n">planet</span> <span class="o">=</span> <span class="n">starry</span><span class="o">.</span><span class="n">kepler</span><span class="o">.</span><span class="n">Secondary</span><span class="p">()</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="n">rplanet</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">inc</span> <span class="o">=</span> <span class="n">inc</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">porb</span> <span class="o">=</span> <span class="n">P</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">lambda0</span> <span class="o">=</span> <span class="mi">90</span>
+
+<span class="c1"># Instantiate the system</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">starry</span><span class="o">.</span><span class="n">kepler</span><span class="o">.</span><span class="n">System</span><span class="p">(</span><span class="n">star</span><span class="p">,</span> <span class="n">planet</span><span class="p">)</span>
+
+<span class="c1"># Compute and store the light curve</span>
+<span class="n">system</span><span class="o">.</span><span class="n">compute</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+<span class="n">flux_starry</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">lightcurve</span>
+</pre></div>
+</div>
+</div>
+<p>And now the <code class="docutils literal notranslate"><span class="pre">batman</span></code> light curve:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[42]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">batman</span>
+<span class="n">params</span> <span class="o">=</span> <span class="n">batman</span><span class="o">.</span><span class="n">TransitParams</span><span class="p">()</span>
+<span class="n">params</span><span class="o">.</span><span class="n">limb_dark</span> <span class="o">=</span> <span class="s2">&quot;quadratic&quot;</span>
+<span class="n">params</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">]</span>
+<span class="n">params</span><span class="o">.</span><span class="n">t0</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">params</span><span class="o">.</span><span class="n">ecc</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="n">params</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mf">90.</span>
+<span class="n">params</span><span class="o">.</span><span class="n">rp</span> <span class="o">=</span> <span class="n">rplanet</span>
+<span class="n">params</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+<span class="n">params</span><span class="o">.</span><span class="n">per</span> <span class="o">=</span> <span class="n">P</span>
+<span class="n">params</span><span class="o">.</span><span class="n">inc</span> <span class="o">=</span> <span class="n">inc</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">batman</span><span class="o">.</span><span class="n">TransitModel</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+<span class="n">flux_batman</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">light_curve</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s plot the two light curves:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[43]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [days]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Stellar Flux&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">flux_starry</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;starry&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">flux_batman</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;batman&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics3_43_0.png" src="../_images/tutorials_basics3_43_0.png" />
+</div>
+</div>
+<p>Here is the difference between the two models:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time [days]&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Residuals&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">flux_starry</span> <span class="o">-</span> <span class="n">flux_batman</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics3_45_0.png" src="../_images/tutorials_basics3_45_0.png" />
+</div>
+</div>
+<p>It’s on the order of a few parts per billion, which is quite small. The oscillations are due to the fact that <code class="docutils literal notranslate"><span class="pre">batman</span></code> uses <a class="reference external" href="https://github.com/lkreidberg/batman/blob/master/c_src/_quadratic_ld.c#L304">Hasting’s approximation</a> to compute the elliptic integrals, which is slightly faster but leads to small errors. In practice, however, the two models are equivalent for exoplanet transit modeling.</p>
+<p><strong>One final note.</strong> You may have noticed that some of the parameters accepted by <code class="docutils literal notranslate"><span class="pre">batman</span></code> and <code class="docutils literal notranslate"><span class="pre">starry</span></code> are slightly different. While <code class="docutils literal notranslate"><span class="pre">batman</span></code> accepts the transit mid-point <code class="docutils literal notranslate"><span class="pre">t0</span></code> as an input parameter, <code class="docutils literal notranslate"><span class="pre">starry</span></code> accepts the mean longitude <code class="docutils literal notranslate"><span class="pre">lambda0</span></code> at the reference time <code class="docutils literal notranslate"><span class="pre">tref</span></code> instead. This is a bit more general and useful, for instance, in the case of non-transiting bodies. By default, <code class="docutils literal notranslate"><span class="pre">tref=0</span></code> and <code class="docutils literal notranslate"><span class="pre">lambda0=90</span></code>, corresponding to a transit time of <code class="docutils literal notranslate"><span class="pre">t0=0</span></code>. For eccentric orbits
+things can get a little tricky converting between these two conventions, but the way to do is to remember that the <strong>true anomaly at the transit midpoint is</strong></p>
+<p><span class="math notranslate nohighlight">\(f_{t_0} = \frac{\pi}{2} - \varpi\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\varpi\)</span> is the longitude of pericenter, the <code class="docutils literal notranslate"><span class="pre">w</span></code> attribute of a <code class="docutils literal notranslate"><span class="pre">starry.kepler.Secondary</span></code> instance. Solving <a class="reference external" href="https://en.wikipedia.org/wiki/Eccentric_anomaly">Kepler’s equation</a> can then yield the time of the transit mid-point.</p>
+<p>For circular orbits, the true anomaly, eccentric anomaly, and mean anomaly are all the same (<span class="math notranslate nohighlight">\(f = E = M\)</span>), and since <span class="math notranslate nohighlight">\(M = \lambda - \varpi\)</span>, we have <span class="math notranslate nohighlight">\(\lambda = \frac{\pi}{2}\)</span> at the transit mid-point, as expected.</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="basics4.html" class="btn btn-neutral float-right" title="Basics: Light curve gradients" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basics2.html" class="btn btn-neutral" title="Basics: Limb-darkened maps" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Rodrigo Luger.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../None"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

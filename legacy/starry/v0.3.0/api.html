@@ -1,0 +1,1049 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>The starry Python API &mdash; starry 0.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="starry 0.3.0 documentation" href="index.html"/>
+        <link rel="prev" title="Upward recursion relations for \(\mathcal{J}_v\) for \(k^2 &gt; 1\)" href="proofs/Jseries0largek.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> starry
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Examples &amp; tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="proofs.html">Proofs</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Python API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#contents">Contents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-map-class">The Map class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-kepler-module">The kepler module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry">Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues">Submit an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://rodluger.github.io/starry-benchmarks">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues?q=is%3Aissue+is%3Aopen+label%3A%22next+version%22">Upcoming features</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/raw/master-pdf/tex/starry.pdf">Read the paper</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">starry</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">starry</a> &raquo;</li>
+      
+    
+      <li>The starry Python API</li>
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="the-starry-python-api">
+<h1>The starry Python API<a class="headerlink" href="#the-starry-python-api" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
+<table class="hlist"><tr><td><ul class="simple">
+<li><p><a class="reference internal" href="#introduction">Introduction</a></p></li>
+<li><p>The <a class="reference internal" href="#map">Map</a> class</p></li>
+<li><dl class="simple">
+<dt>The <a class="reference internal" href="#kepler">kepler</a> module</dt><dd><ul>
+<li><p>The <a class="reference internal" href="#primary">Primary</a> body</p></li>
+<li><p>The <a class="reference internal" href="#secondary">Secondary</a> body</p></li>
+<li><p>The <a class="reference internal" href="#system">System</a> class</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</td></tr></table>
+</div>
+<div class="section" id="introduction">
+<span id="id1"></span><h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This page documents the <code class="xref py py-mod docutils literal notranslate"><span class="pre">starry</span></code> API, which is coded
+in C++ with a <code class="xref py py-mod docutils literal notranslate"><span class="pre">pybind11</span></code> Python interface. The API consists
+of a <code class="xref py py-class docutils literal notranslate"><span class="pre">Map</span></code> class, which houses all of the surface map photometry
+stuff, and a <code class="xref py py-class docutils literal notranslate"><span class="pre">kepler</span></code> module, which connects photometry to
+dynamics via a simple (multi-)Keplerian solver.</p>
+<p>There are two broad ways in which users can access
+the core <code class="xref py py-mod docutils literal notranslate"><span class="pre">starry</span></code> functionality:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Users can instantiate a <code class="xref py py-class docutils literal notranslate"><span class="pre">Map</span></code> class to compute phase curves
+and occultation light curves by directly specifying the rotational state
+of the object and (optionally) the position and size of an occultor.
+Users can specify spherical harmonic coefficients, limb
+darkening coefficients, or both. There is also support for both
+monochromatic and wavelength-dependent maps and light curves.
+This class may be particularly useful for users who wish to
+integrate <code class="xref py py-mod docutils literal notranslate"><span class="pre">starry</span></code> with their own dynamical code or for users
+wishing to compute simple light curves without any orbital solutions.</p></li>
+<li><p>Users can instantiate a <code class="xref py py-class docutils literal notranslate"><span class="pre">kepler.Primary</span></code> and one or more
+<code class="xref py py-class docutils literal notranslate"><span class="pre">kepler.Secondary</span></code> objects and feed them into a
+<code class="xref py py-class docutils literal notranslate"><span class="pre">kepler.System</span></code> instance for integration
+with the Keplerian solver. The <code class="xref py py-class docutils literal notranslate"><span class="pre">kepler.Primary</span></code>
+and <code class="xref py py-class docutils literal notranslate"><span class="pre">kepler.Secondary</span></code> classes inherit from <code class="xref py py-class docutils literal notranslate"><span class="pre">Map</span></code>,
+so users have access to all of the functionality of the previous
+method.</p></li>
+</ul>
+</div></blockquote>
+<p>At present, <code class="xref py py-mod docutils literal notranslate"><span class="pre">starry</span></code> uses a simple Keplerian solver to compute orbits,
+so the second approach listed above is limited to two-body systems or systems
+where the secondary masses are negligible. Stay tuned for the next release
+of the code, which will incorporate an N-body solver.</p>
+</div>
+<div class="section" id="the-map-class">
+<span id="map"></span><h2>The Map class<a class="headerlink" href="#the-map-class" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="starry.Map">
+<em class="property">class </em><code class="descclassname">starry.</code><code class="descname">Map</code><a class="headerlink" href="#starry.Map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate a <code class="xref py py-mod docutils literal notranslate"><span class="pre">starry</span></code> surface map. The map is described
+as an expansion in spherical harmonics, with optional arbitrary
+order limb darkening. Users can set the spherical harmonic
+coefficients by direct assignment to the <code class="xref py py-obj docutils literal notranslate"><span class="pre">l,</span> <span class="pre">m</span></code> index of
+the map instance. If <a class="reference external" href="https://docs.python.org/3/library/functions.html#map" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">map</span></code></a> is an instance of this class,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+<p>sets the coefficient of the <span class="math notranslate nohighlight">\(Y_{1,0}\)</span> harmonic to
+<span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>. Users can set limb darkening coefficients
+by direct assignment to the <code class="xref py py-obj docutils literal notranslate"><span class="pre">l</span></code> index of the map:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">map</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.4</span>
+</pre></div>
+</div>
+<p>sets the first order limb darkening coefficient <span class="math notranslate nohighlight">\(u_1\)</span> to
+<span class="math notranslate nohighlight">\(0.4\)</span>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Map instances are normalized such that the
+<strong>average disk-integrated intensity is equal to the coefficient
+of the</strong> <span class="math notranslate nohighlight">\(Y_{0,0}\)</span> <strong>term</strong>, which defaults to unity. The
+total luminosity over all <span class="math notranslate nohighlight">\(4\pi\)</span> steradians is therefore
+four times the <span class="math notranslate nohighlight">\(Y_{0,0}\)</span> coefficient. This normalization
+is particularly convenient for constant or purely limb-darkened
+maps, whose disk-integrated intensity is always equal to unity.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Note that the total degree of the map can never
+exceed <a class="reference internal" href="#starry.Map.lmax" title="starry.Map.lmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lmax</span></code></a>. For example, if <code class="xref py py-obj docutils literal notranslate"><span class="pre">lmax=5</span></code> and
+you set spherical harmonic coefficients up to <code class="xref py py-obj docutils literal notranslate"><span class="pre">lmax=3</span></code>,
+you may only set limb darkening coefficients up to second
+order.</p>
+</div>
+<p>As of version 0.2.1, <code class="xref py py-obj docutils literal notranslate"><span class="pre">starry</span></code> supports multi-wavelength
+maps via the <a class="reference internal" href="#starry.Map.nwav" title="starry.Map.nwav"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span></code></a> keyword argument. If this argument is set
+to a value greater than one, light curves will be computed for each
+wavelength bin of the map. All coefficients at a given value of
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">l,</span> <span class="pre">m</span></code> and all limb darkening coefficients at a given value
+of <code class="xref py py-obj docutils literal notranslate"><span class="pre">l</span></code> are now <em>vectors</em>, with one value per wavelength
+bin. Functions like <a class="reference internal" href="#starry.Map.flux" title="starry.Map.flux"><code class="xref py py-meth docutils literal notranslate"><span class="pre">flux()</span></code></a> and <a class="reference internal" href="#starry.Map.__call__" title="starry.Map.__call__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">__call__()</span></code></a> will
+return one value per wavelength bin, and gradients will be
+computed at every wavelength. Note that this feature is still
+<strong>experimental</strong>, so please raise an issue on GitHub if you run
+into any trouble.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lmax</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Largest spherical harmonic degree in the surface map. Default 2.</p></li>
+<li><p><strong>nwav</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Number of map wavelength bins. Default 1.</p></li>
+<li><p><strong>multi</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Use multi-precision to perform all calculations? Default <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, defaults to 32-digit (approximately 128-bit) floating point precision. This can be adjusted by changing the <code class="xref py py-obj docutils literal notranslate"><span class="pre">STARRY_NMULTI</span></code> compiler macro.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="starry.Map.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>theta=0</em>, <em>x=0</em>, <em>y=0</em><span class="sig-paren">)</span><a class="headerlink" href="#starry.Map.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the specific intensity at a point <code class="xref py py-obj docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code> on the
+map. Users may optionally provide a rotation state. Note that this
+does not rotate the base map.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>theta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em> or </em><em>ndarray</em>) – Angle of rotation in degrees. Default 0.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em> or </em><em>ndarray</em>) – Position scalar or vector.</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em> or </em><em>ndarray</em>) – Position scalar or vector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The specific intensity at <code class="xref py py-obj docutils literal notranslate"><span class="pre">(x,</span> <span class="pre">y)</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Map.flux">
+<code class="descname">flux</code><span class="sig-paren">(</span><em>theta=0</em>, <em>xo=0</em>, <em>yo=0</em>, <em>ro=0</em>, <em>gradient=False</em><span class="sig-paren">)</span><a class="headerlink" href="#starry.Map.flux" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the total flux received by the observer from the map.
+Computes the total flux received by the observer
+during or outside of an occultation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>theta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em> or </em><em>ndarray</em>) – Angle of rotation. Default 0.</p></li>
+<li><p><strong>xo</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em> or </em><em>ndarray</em>) – The <code class="xref py py-obj docutils literal notranslate"><span class="pre">x</span></code> position of the occultor (if any). Default 0.</p></li>
+<li><p><strong>yo</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em> or </em><em>ndarray</em>) – The <a class="reference internal" href="#starry.Map.y" title="starry.Map.y"><code class="xref py py-obj docutils literal notranslate"><span class="pre">y</span></code></a> position of the occultor (if any). Default 0.</p></li>
+<li><p><strong>ro</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The radius of the occultor in units of this body’s radius. Default 0 (no occultation).</p></li>
+<li><p><strong>gradient</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Compute and return the gradient of the flux as well? Default <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The flux received by the observer (a scalar or a vector). If <code class="xref py py-obj docutils literal notranslate"><span class="pre">gradient</span></code> is <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, returns the tuple <code class="xref py py-obj docutils literal notranslate"><span class="pre">(F,</span> <span class="pre">dF)</span></code>, where <code class="xref py py-obj docutils literal notranslate"><span class="pre">F</span></code> is the flux and <code class="xref py py-obj docutils literal notranslate"><span class="pre">dF</span></code> is a dictionary containing the derivatives with respect to each of the input parameters and each of the map coefficients.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Map.rotate">
+<code class="descname">rotate</code><span class="sig-paren">(</span><em>theta=0</em><span class="sig-paren">)</span><a class="headerlink" href="#starry.Map.rotate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rotate the base map an angle <code class="xref py py-obj docutils literal notranslate"><span class="pre">theta</span></code> about <a class="reference internal" href="#starry.Map.axis" title="starry.Map.axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">axis</span></code></a>.
+This performs a permanent rotation to the base map. Subsequent
+rotations and calculations will be performed relative to this
+rotational state.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>theta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a><em> or </em><em>ndarray</em>) – Angle of rotation in degrees. Default 0.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Map.show">
+<code class="descname">show</code><span class="sig-paren">(</span><em>cmap='plasma'</em>, <em>res=300</em><span class="sig-paren">)</span><a class="headerlink" href="#starry.Map.show" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience routine to quickly display the body’s surface map.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The <code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code> colormap name. Default <code class="xref py py-obj docutils literal notranslate"><span class="pre">plasma</span></code>.</p></li>
+<li><p><strong>res</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The resolution of the map in pixels on a side. Default 300.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For maps with <code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>, this method displays an
+animated sequence of frames, one per wavelength bin. Users can
+save this to disk by specifying a <code class="xref py py-obj docutils literal notranslate"><span class="pre">gif</span></code> keyword with
+the name of the GIF image to save to.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Map.animate">
+<code class="descname">animate</code><span class="sig-paren">(</span><em>cmap='plasma'</em>, <em>res=150</em>, <em>frames=50</em>, <em>interval=75</em>, <em>gif=''</em><span class="sig-paren">)</span><a class="headerlink" href="#starry.Map.animate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convenience routine to animate the body’s surface map as it rotates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cmap</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The <code class="xref py py-mod docutils literal notranslate"><span class="pre">matplotlib</span></code> colormap name. Default <code class="xref py py-obj docutils literal notranslate"><span class="pre">plasma</span></code>.</p></li>
+<li><p><strong>res</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The resolution of the map in pixels on a side. Default 150.</p></li>
+<li><p><strong>frames</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The number of frames in the animation. Default 50.</p></li>
+<li><p><strong>interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – Interval in milliseconds between frames. Default 75.</p></li>
+<li><p><strong>gif</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a>) – The name of the <cite>.gif</cite> file to save the animation to. If set, does not show the animation. Default <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Map.load_image">
+<code class="descname">load_image</code><span class="sig-paren">(</span><em>image</em>, <em>lmax=None</em><span class="sig-paren">)</span><a class="headerlink" href="#starry.Map.load_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load an array or an image from file.
+This routine loads an image file, computes its spherical harmonic
+expansion up to degree <a class="reference internal" href="#starry.Map.lmax" title="starry.Map.lmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">lmax</span></code></a>, and sets the map vector.
+Alternatively, users may provide a two-dimensional <code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy</span></code>
+array, structured such that the pixel at index <code class="xref py py-obj docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0)</span></code>
+is at latitude <span class="math notranslate nohighlight">\(+90^\circ\)</span> and longitude <span class="math notranslate nohighlight">\(180^\circ W\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>array</em>) – The full path to the image file, or a 2D <code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy</span></code> array of floats.</p></li>
+<li><p><strong>lmax</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The maximum degree of the spherical harmonic expansion of the image. Default <a class="reference internal" href="#starry.Map.lmax" title="starry.Map.lmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">lmax</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For maps with <code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>, users may specify a
+<a class="reference internal" href="#starry.Map.nwav" title="starry.Map.nwav"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span></code></a> keyword argument indicating the wavelength bin
+into which the image or array will be loaded.</p>
+</div>
+<p>Load an array or an image from file.
+This routine loads an image file, computes its spherical harmonic
+expansion up to degree <a class="reference internal" href="#starry.Map.lmax" title="starry.Map.lmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">lmax</span></code></a>, and sets the map vector.
+Alternatively, users may provide a two-dimensional <code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy</span></code>
+array, structured such that the pixel at index <code class="xref py py-obj docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0)</span></code>
+is at latitude <span class="math notranslate nohighlight">\(+90^\circ\)</span> and longitude <span class="math notranslate nohighlight">\(180^\circ W\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.7)"><em>str</em></a><em> or </em><em>array</em>) – The full path to the image file, or a 2D <code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy</span></code> array of floats.</p></li>
+<li><p><strong>lmax</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The maximum degree of the spherical harmonic expansion of the image. Default <a class="reference internal" href="#starry.Map.lmax" title="starry.Map.lmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">lmax</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For maps with <code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>, users may specify a
+<a class="reference internal" href="#starry.Map.nwav" title="starry.Map.nwav"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span></code></a> keyword argument indicating the wavelength bin
+into which the image or array will be loaded.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Map.load_healpix">
+<code class="descname">load_healpix</code><span class="sig-paren">(</span><em>image</em>, <em>lmax=None</em><span class="sig-paren">)</span><a class="headerlink" href="#starry.Map.load_healpix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load a healpix image array.
+This routine loads a <code class="xref py py-obj docutils literal notranslate"><span class="pre">healpix</span></code> array, computes its
+spherical harmonic
+expansion up to degree <a class="reference internal" href="#starry.Map.lmax" title="starry.Map.lmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">lmax</span></code></a>, and sets the map vector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>ndarray</em>) – The ring-ordered <code class="xref py py-obj docutils literal notranslate"><span class="pre">healpix</span></code> array.</p></li>
+<li><p><strong>lmax</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.7)"><em>int</em></a>) – The maximum degree of the spherical harmonic expansion of the image. Default <a class="reference internal" href="#starry.Map.lmax" title="starry.Map.lmax"><code class="xref py py-attr docutils literal notranslate"><span class="pre">lmax</span></code></a>.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For maps with <code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>, users may specify a
+<a class="reference internal" href="#starry.Map.nwav" title="starry.Map.nwav"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span></code></a> keyword argument indicating the wavelength bin
+into which the image or array will be loaded.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Map.add_gaussian">
+<code class="descname">add_gaussian</code><span class="sig-paren">(</span><em>sigma=0.1</em>, <em>amp=1</em>, <em>lat=0</em>, <em>lon=0</em>, <em>lmax=None</em><span class="sig-paren">)</span><a class="headerlink" href="#starry.Map.add_gaussian" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add the spherical harmonic expansion of a gaussian to the current
+map. This routine adds a gaussian-like feature to the surface map
+by computing the spherical harmonic expansion of a 3D gaussian
+constrained to the surface of the sphere. This is useful for, say,
+modeling star spots or other discrete, localized features on a
+body’s surface.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Because this routine wraps a Python function,
+it is <strong>slow</strong> and should probably not be used repeatedly
+when fitting a map to data!</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This routine is still in beta and may change in the
+near future.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The standard deviation of the gaussian. Default 0.1</p></li>
+<li><p><strong>amp</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The amplitude. Default 1.0, resulting in a gaussian whose integral over the sphere is unity.</p></li>
+<li><p><strong>lat</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The latitude of the center of the gaussian in degrees. Default 0.</p></li>
+<li><p><strong>lon</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.7)"><em>float</em></a>) – The longitude of the center of the gaussian in degrees. Default 0.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Map.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#starry.Map.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set all of the map coefficients to zero, except for <span class="math notranslate nohighlight">\(Y_{0,0}\)</span>,
+which is set to unity.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.Map.lmax">
+<code class="descname">lmax</code><a class="headerlink" href="#starry.Map.lmax" title="Permalink to this definition">¶</a></dt>
+<dd><p>The highest spherical harmonic degree of the map. <em>Read-only.</em></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.Map.nwav">
+<code class="descname">nwav</code><a class="headerlink" href="#starry.Map.nwav" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of wavelength bins. <em>Read-only.</em></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.Map.multi">
+<code class="descname">multi</code><a class="headerlink" href="#starry.Map.multi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Are calculations done using multi-precision? <em>Read-only.</em></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.Map.N">
+<code class="descname">N</code><a class="headerlink" href="#starry.Map.N" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of map coefficients, equal to <span class="math notranslate nohighlight">\((l + 1)^2\)</span>.
+<em>Read-only.</em></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.Map.y">
+<code class="descname">y</code><a class="headerlink" href="#starry.Map.y" title="Permalink to this definition">¶</a></dt>
+<dd><p>The spherical harmonic map vector. This is a vector of the
+coefficients of the spherical harmonics
+<span class="math notranslate nohighlight">\(\{Y_{0,0}, Y_{1,-1}, Y_{1,0}, Y_{1,1}, ...\}\)</span>.
+<em>Read-only.</em></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.Map.u">
+<code class="descname">u</code><a class="headerlink" href="#starry.Map.u" title="Permalink to this definition">¶</a></dt>
+<dd><p>The limb darkening map vector. This is a vector of the limb
+darkening coefficients <span class="math notranslate nohighlight">\(\{u_1, u_2, u_3, ...\}\)</span>. <em>Read-only.</em></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.Map.p">
+<code class="descname">p</code><a class="headerlink" href="#starry.Map.p" title="Permalink to this definition">¶</a></dt>
+<dd><p>The polynomial map vector. This is a vector of the coefficients of
+the polynomial basis <span class="math notranslate nohighlight">\(\{1, x, z, y, x^2, xz, ...\}\)</span>.
+<em>Read-only.</em></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.Map.g">
+<code class="descname">g</code><a class="headerlink" href="#starry.Map.g" title="Permalink to this definition">¶</a></dt>
+<dd><p>The Green’s polynomial map vector. This is a vector of the
+coefficients of the polynomial basis
+<span class="math notranslate nohighlight">\(\{1, 2x, z, y, 3x^2, -3xz, ...\}\)</span>.
+<em>Read-only.</em></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.Map.r">
+<code class="descname">r</code><a class="headerlink" href="#starry.Map.r" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current rotation solution vector <cite>r</cite>. Each term in this vector
+corresponds to the total flux observed from each of the terms in
+the polynomial basis.
+<em>Read-only.</em></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.Map.s">
+<code class="descname">s</code><a class="headerlink" href="#starry.Map.s" title="Permalink to this definition">¶</a></dt>
+<dd><p>The current occultation solution vector <cite>s</cite>. Each term in this
+vector corresponds to the total flux observeed from each of the
+terms in the Green’s basis. <em>Read-only.</em></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For pure linear and quadratic limb darkening, the
+full solution vector is <strong>not</strong> computed, so this vector will
+not necessarily reflect the true solution coefficients.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.Map.axis">
+<code class="descname">axis</code><a class="headerlink" href="#starry.Map.axis" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <em>normalized</em> unit vector specifying the default axis of
+rotation for the map. Default <span class="math notranslate nohighlight">\(\hat{y} = (0, 1, 0)\)</span>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="the-kepler-module">
+<span id="kepler"></span><h2>The kepler module<a class="headerlink" href="#the-kepler-module" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">starry.kepler</span></code> module allows users to incorporate the
+features of the <a class="reference internal" href="#starry.Map" title="starry.Map"><code class="xref py py-class docutils literal notranslate"><span class="pre">starry.Map</span></code></a> class into a simple Keplerian
+solver to model systems of stars, planets, or moons. The bodies in the
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">starry.kepler</span></code> module inherit from <a class="reference internal" href="#starry.Map" title="starry.Map"><code class="xref py py-class docutils literal notranslate"><span class="pre">starry.Map</span></code></a>, so
+all of the functionality outlined above is also available here.</p>
+<span class="target" id="primary"></span><dl class="class">
+<dt id="starry.kepler.Primary">
+<em class="property">class </em><code class="descclassname">starry.kepler.</code><code class="descname">Primary</code><a class="headerlink" href="#starry.kepler.Primary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate a primary body. This body is assumed to be fixed
+at the origin. This class
+inherits from <code class="xref py py-class docutils literal notranslate"><span class="pre">Map</span></code>, so users can assign to and retrieve
+spherical harmonic and limb darkening coefficients in the same
+way. Refer to the documentation of <code class="xref py py-class docutils literal notranslate"><span class="pre">Map</span></code> for all
+options.</p>
+<dl class="attribute">
+<dt id="starry.kepler.Primary.r">
+<code class="descname">r</code><a class="headerlink" href="#starry.kepler.Primary.r" title="Permalink to this definition">¶</a></dt>
+<dd><p>The radius of the primary body, fixed at unity.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Primary.L">
+<code class="descname">L</code><a class="headerlink" href="#starry.kepler.Primary.L" title="Permalink to this definition">¶</a></dt>
+<dd><p>The luminosity of the primary body, fixed at unity.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Primary.tref">
+<code class="descname">tref</code><a class="headerlink" href="#starry.kepler.Primary.tref" title="Permalink to this definition">¶</a></dt>
+<dd><p>A reference time in days. Several of the orbital elements are
+specified at this time.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Primary.prot">
+<code class="descname">prot</code><a class="headerlink" href="#starry.kepler.Primary.prot" title="Permalink to this definition">¶</a></dt>
+<dd><p>The rotation period of the body in days. For non-rotating bodies,
+set this to <code class="xref py py-obj docutils literal notranslate"><span class="pre">np.inf</span></code> (or zero).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Primary.lightcurve">
+<code class="descname">lightcurve</code><a class="headerlink" href="#starry.kepler.Primary.lightcurve" title="Permalink to this definition">¶</a></dt>
+<dd><p>The computed light curve for this body. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">=</span> <span class="pre">1</span></code>, this
+is a timeseries vector of fluxes. For <code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>, this is a
+matrix whose columns are the timeseries in each wavelength bin.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users must call the <code class="xref py py-obj docutils literal notranslate"><span class="pre">compute</span></code> method of the
+<a class="reference internal" href="#starry.kepler.System" title="starry.kepler.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">System</span></code></a> object before accessing this attribute.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Primary.gradient">
+<code class="descname">gradient</code><a class="headerlink" href="#starry.kepler.Primary.gradient" title="Permalink to this definition">¶</a></dt>
+<dd><p>The gradient of the body’s light curve. This is a dictionary of
+vectors (<code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">=</span> <span class="pre">1</span></code>) or matrices (<code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>).
+The dictionary keys are the names of all parameters of all bodies
+in the current <a class="reference internal" href="#starry.kepler.System" title="starry.kepler.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">System</span></code></a> object, formatted as <code class="xref py py-obj docutils literal notranslate"><span class="pre">body.parameter</span></code>, where <code class="xref py py-obj docutils literal notranslate"><span class="pre">body</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">A</span></code>
+for the primary and <code class="xref py py-obj docutils literal notranslate"><span class="pre">b</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">c</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">d</span></code>, etc. for
+the secondaries. The <code class="xref py py-obj docutils literal notranslate"><span class="pre">parameter</span></code> label is the name of the
+parameter.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users must call the <code class="xref py py-obj docutils literal notranslate"><span class="pre">compute</span></code> method of the
+<a class="reference internal" href="#starry.kepler.System" title="starry.kepler.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">System</span></code></a> object with <code class="xref py py-obj docutils literal notranslate"><span class="pre">gradient=True</span></code>
+before accessing this attribute.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The gradients with respect to map coefficients are
+stored as vectors in the <cite>y</cite> and <cite>u</cite> attributes of the gradient
+dictionary, starting with the <em>first degree</em> coefficients.
+The derivatives with respect to the constant terms <span class="math notranslate nohighlight">\(Y_{0,0}\)</span>
+and <span class="math notranslate nohighlight">\(u_0\)</span> are not computed, since those values are
+constant!</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depending on the properties of a body’s map, not all map
+coefficient gradients may be computed. For instance, for purely
+limb-darkened maps (whose <span class="math notranslate nohighlight">\(Y_{l,m}\)</span> coefficients are zero
+for <span class="math notranslate nohighlight">\(l &gt; 1\)</span>), the derivatives of the flux with respect
+to the spherical harmonic coefficients are <strong>not computed</strong>.
+This is entirely in the interest of speed. To force the code
+to compute these, set one of the spherical harmonic coefficients
+to a very small (i.e., <span class="math notranslate nohighlight">\(10^{-15}\)</span>) value. A similar
+caveat applies to maps with <em>no</em> limb-darkening, for which the
+derivatives with respect to the limb darkening coefficients are
+not computed by default.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Primary.r_m">
+<code class="descname">r_m</code><a class="headerlink" href="#starry.kepler.Primary.r_m" title="Permalink to this definition">¶</a></dt>
+<dd><p>The radius of the primary body <strong>in meters</strong>. This is used
+exclusively for calculating the light travel time delay in the
+system. The default value is <strong>zero</strong>, in which case the speed of
+light is effectively infinite and there is no time delay. When this
+parameter is set, the time delay is computed with a second-order
+Taylor expansion, which should be accurate enough for most
+applications. Note that the reference point for the time delay
+(where <span class="math notranslate nohighlight">\(\Delta t = 0\)</span>) is the barycenter of the system.
+Transits of bodies across the primary will therefore occur
+<strong>earlier</strong>, while occultations will occur <strong>later</strong>, than
+if there were no delay.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="secondary"></span><dl class="class">
+<dt id="starry.kepler.Secondary">
+<em class="property">class </em><code class="descclassname">starry.kepler.</code><code class="descname">Secondary</code><a class="headerlink" href="#starry.kepler.Secondary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate a secondary body. This body is assumed to be massless
+and orbits the primary in a pure Keplerian orbit. This class
+inherits from <code class="xref py py-class docutils literal notranslate"><span class="pre">Map</span></code>, so users can assign to and retrieve
+spherical harmonic and limb darkening coefficients in the same
+way. Refer to the documentation of <code class="xref py py-class docutils literal notranslate"><span class="pre">Map</span></code> for all
+options.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When specifying the map coefficients of a
+<a class="reference internal" href="#starry.kepler.Secondary" title="starry.kepler.Secondary"><code class="xref py py-class docutils literal notranslate"><span class="pre">Secondary</span></code></a> body, we need to be careful about the
+<strong>frame</strong> in which the map is defined. <code class="xref py py-obj docutils literal notranslate"><span class="pre">starry</span></code> was
+developed with exoplanet secondary eclipses in mind, so the map
+coefficients correspond to the map that would be visible at
+<strong>opposition</strong>, i.e., at “secondary eclipse” for an exoplanet
+in an edge-on orbit. For bodies in inclined/rotated orbits,
+the map coefficients correspond to the map that would be visible
+to an observer located down the <span class="math notranslate nohighlight">\(z\)</span> axis, along the plane of the
+orbit. This means the <strong>map coefficients are independent of the
+inclination or longitude of ascending node of the orbit.</strong>
+If this is all very confusing, check out the <a class="reference external" href="tutorials/geometry.html">tutorial on
+orbital geometry</a>.</p>
+</div>
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.r">
+<code class="descname">r</code><a class="headerlink" href="#starry.kepler.Secondary.r" title="Permalink to this definition">¶</a></dt>
+<dd><p>The radius of the body in units of the primary’s radius.
+Default 0.1.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.L">
+<code class="descname">L</code><a class="headerlink" href="#starry.kepler.Secondary.L" title="Permalink to this definition">¶</a></dt>
+<dd><p>The luminosity of the body in units of the primary’s luminosity.
+Default 0.0.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.tref">
+<code class="descname">tref</code><a class="headerlink" href="#starry.kepler.Secondary.tref" title="Permalink to this definition">¶</a></dt>
+<dd><p>A reference time in days. Several of the orbital elements are
+specified at this time.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.prot">
+<code class="descname">prot</code><a class="headerlink" href="#starry.kepler.Secondary.prot" title="Permalink to this definition">¶</a></dt>
+<dd><p>The rotation period of the body in days. For non-rotating bodies,
+set this to <code class="xref py py-obj docutils literal notranslate"><span class="pre">np.inf</span></code> (or zero).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.lightcurve">
+<code class="descname">lightcurve</code><a class="headerlink" href="#starry.kepler.Secondary.lightcurve" title="Permalink to this definition">¶</a></dt>
+<dd><p>The computed light curve for this body. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">=</span> <span class="pre">1</span></code>, this
+is a timeseries vector of fluxes. For <code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>, this is a
+matrix whose columns are the timeseries in each wavelength bin.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users must call the <code class="xref py py-obj docutils literal notranslate"><span class="pre">compute</span></code> method of the
+<a class="reference internal" href="#starry.kepler.System" title="starry.kepler.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">System</span></code></a> object before accessing this attribute.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.gradient">
+<code class="descname">gradient</code><a class="headerlink" href="#starry.kepler.Secondary.gradient" title="Permalink to this definition">¶</a></dt>
+<dd><p>The gradient of the body’s light curve. This is a dictionary of
+vectors (<code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">=</span> <span class="pre">1</span></code>) or matrices (<code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>).
+The dictionary keys are the names of all parameters of all bodies
+in the current <a class="reference internal" href="#starry.kepler.System" title="starry.kepler.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">System</span></code></a> object, formatted as <code class="xref py py-obj docutils literal notranslate"><span class="pre">body.parameter</span></code>, where <code class="xref py py-obj docutils literal notranslate"><span class="pre">body</span></code> is <code class="xref py py-obj docutils literal notranslate"><span class="pre">A</span></code>
+for the primary and <code class="xref py py-obj docutils literal notranslate"><span class="pre">b</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">c</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">d</span></code>, etc. for
+the secondaries. The <code class="xref py py-obj docutils literal notranslate"><span class="pre">parameter</span></code> label is the name of the
+parameter.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users must call the <code class="xref py py-obj docutils literal notranslate"><span class="pre">compute</span></code> method of the
+<a class="reference internal" href="#starry.kepler.System" title="starry.kepler.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">System</span></code></a> object with <code class="xref py py-obj docutils literal notranslate"><span class="pre">gradient=True</span></code>
+before accessing this attribute.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The gradients with respect to map coefficients are
+stored as vectors in the <cite>y</cite> and <cite>u</cite> attributes of the gradient
+dictionary, starting with the <em>first degree</em> coefficients.
+The derivatives with respect to the constant terms <span class="math notranslate nohighlight">\(Y_{0,0}\)</span>
+and <span class="math notranslate nohighlight">\(u_0\)</span> are not computed, since those values are
+constant!</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Depending on the properties of a body’s map, not all map
+coefficient gradients may be computed. For instance, for purely
+limb-darkened maps (whose <span class="math notranslate nohighlight">\(Y_{l,m}\)</span> coefficients are zero
+for <span class="math notranslate nohighlight">\(l &gt; 1\)</span>), the derivatives of the flux with respect
+to the spherical harmonic coefficients are <strong>not computed</strong>.
+This is entirely in the interest of speed. To force the code
+to compute these, set one of the spherical harmonic coefficients
+to a very small (i.e., <span class="math notranslate nohighlight">\(10^{-15}\)</span>) value. A similar
+caveat applies to maps with <em>no</em> limb-darkening, for which the
+derivatives with respect to the limb darkening coefficients are
+not computed by default.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.a">
+<code class="descname">a</code><a class="headerlink" href="#starry.kepler.Secondary.a" title="Permalink to this definition">¶</a></dt>
+<dd><p>The semi-major axis of the body in units of the primary radius.
+Default 50.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.porb">
+<code class="descname">porb</code><a class="headerlink" href="#starry.kepler.Secondary.porb" title="Permalink to this definition">¶</a></dt>
+<dd><p>The orbital period of the body in days. Default 1.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.inc">
+<code class="descname">inc</code><a class="headerlink" href="#starry.kepler.Secondary.inc" title="Permalink to this definition">¶</a></dt>
+<dd><p>The inclination of the body in degrees. Default 90.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.ecc">
+<code class="descname">ecc</code><a class="headerlink" href="#starry.kepler.Secondary.ecc" title="Permalink to this definition">¶</a></dt>
+<dd><p>The eccentricity of the body. Default 0.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.w">
+<code class="descname">w</code><a class="headerlink" href="#starry.kepler.Secondary.w" title="Permalink to this definition">¶</a></dt>
+<dd><p>The longitude of pericenter for the body’s orbit in degrees.
+This parameter is typically denoted <span class="math notranslate nohighlight">\(\varpi\)</span>. Default 90.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.Omega">
+<code class="descname">Omega</code><a class="headerlink" href="#starry.kepler.Secondary.Omega" title="Permalink to this definition">¶</a></dt>
+<dd><p>The longitude of ascending node in degrees. Default 0.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.lambda0">
+<code class="descname">lambda0</code><a class="headerlink" href="#starry.kepler.Secondary.lambda0" title="Permalink to this definition">¶</a></dt>
+<dd><p>The mean longitude of the body in degrees at the reference time.
+Default 90. Note that for a circular, edge-on orbit, a transit
+occurs when <span class="math notranslate nohighlight">\(\lambda_0 = 90^\circ\)</span>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.X">
+<code class="descname">X</code><a class="headerlink" href="#starry.kepler.Secondary.X" title="Permalink to this definition">¶</a></dt>
+<dd><p>The vector of <code class="xref py py-obj docutils literal notranslate"><span class="pre">x</span></code> positions of the body in units of
+the primary radius. <em>Read-only</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users must call the <code class="xref py py-obj docutils literal notranslate"><span class="pre">compute</span></code> method of the
+<a class="reference internal" href="#starry.kepler.System" title="starry.kepler.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">System</span></code></a> object before accessing this attribute.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.Y">
+<code class="descname">Y</code><a class="headerlink" href="#starry.kepler.Secondary.Y" title="Permalink to this definition">¶</a></dt>
+<dd><p>The vector of <code class="xref py py-obj docutils literal notranslate"><span class="pre">y</span></code> positions of the body in units of
+the primary radius. <em>Read-only</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users must call the <code class="xref py py-obj docutils literal notranslate"><span class="pre">compute</span></code> method of the
+<a class="reference internal" href="#starry.kepler.System" title="starry.kepler.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">System</span></code></a> object before accessing this attribute.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.Secondary.Z">
+<code class="descname">Z</code><a class="headerlink" href="#starry.kepler.Secondary.Z" title="Permalink to this definition">¶</a></dt>
+<dd><p>The vector of <code class="xref py py-obj docutils literal notranslate"><span class="pre">z</span></code> positions of the body in units of
+the primary radius. <em>Read-only</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users must call the <code class="xref py py-obj docutils literal notranslate"><span class="pre">compute</span></code> method of the
+<a class="reference internal" href="#starry.kepler.System" title="starry.kepler.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">System</span></code></a> object before accessing this attribute.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="system"></span><dl class="class">
+<dt id="starry.kepler.System">
+<em class="property">class </em><code class="descclassname">starry.kepler.</code><code class="descname">System</code><a class="headerlink" href="#starry.kepler.System" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiate a Keplerian orbital system. The primary is fixed
+at the origin, and all secondary bodies are assumed to be
+massless.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>primary</strong> (<a class="reference internal" href="#starry.kepler.Primary" title="starry.kepler.Primary"><code class="xref py py-class docutils literal notranslate"><span class="pre">Primary</span></code></a>) – The primary body. This body has unit radius and luminosity and is fixed at the origin.</p></li>
+<li><p><strong>secondaries</strong> (<a class="reference internal" href="#starry.kepler.Secondary" title="starry.kepler.Secondary"><code class="xref py py-class docutils literal notranslate"><span class="pre">Secondary</span></code></a>) – The secondary body, or a sequence of secondaries.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="attribute">
+<dt id="starry.kepler.System.primary">
+<code class="descname">primary</code><a class="headerlink" href="#starry.kepler.System.primary" title="Permalink to this definition">¶</a></dt>
+<dd><p>The primary body in the Keplerian system.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.System.secondaries">
+<code class="descname">secondaries</code><a class="headerlink" href="#starry.kepler.System.secondaries" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of the secondary bodies in the Keplerian system.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.kepler.System.compute">
+<code class="descname">compute</code><span class="sig-paren">(</span><em>time</em>, <em>gradient=False</em><span class="sig-paren">)</span><a class="headerlink" href="#starry.kepler.System.compute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the system light curve analytically.
+Compute the full system light curve at the times
+given by the <a class="reference external" href="https://docs.python.org/3/library/time.html#module-time" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">time</span></code></a> array and store the result
+in <a class="reference internal" href="#starry.kepler.System.lightcurve" title="starry.kepler.System.lightcurve"><code class="xref py py-attr docutils literal notranslate"><span class="pre">lightcurve</span></code></a>. The light curve for each body in the
+system is stored in the body’s <a class="reference internal" href="#starry.kepler.System.lightcurve" title="starry.kepler.System.lightcurve"><code class="xref py py-attr docutils literal notranslate"><span class="pre">lightcurve</span></code></a> attribute.
+Optionally, also compute the gradient of the light curve and
+store it in the <a class="reference internal" href="#starry.kepler.System.gradient" title="starry.kepler.System.gradient"><code class="xref py py-attr docutils literal notranslate"><span class="pre">gradient</span></code></a> attribute of the system
+and each of the body instances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time</strong> (<em>ndarray</em>) – Time array, measured in days.</p></li>
+<li><p><strong>gradient</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.7)"><em>bool</em></a>) – Compute the gradient of the light curve with respect to all body parameters? Default <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.7)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a></p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.System.lightcurve">
+<code class="descname">lightcurve</code><a class="headerlink" href="#starry.kepler.System.lightcurve" title="Permalink to this definition">¶</a></dt>
+<dd><p>The computed light curve for the system, equal to the sum
+of the light curves of each of the bodies. If <code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">=</span> <span class="pre">1</span></code>,
+this is a timeseries vector of fluxes. For <code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>, this
+is a matrix whose columns are the timeseries in each wavelength bin.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users should call <a class="reference internal" href="#starry.kepler.System.compute" title="starry.kepler.System.compute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute()</span></code></a> first.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.System.gradient">
+<code class="descname">gradient</code><a class="headerlink" href="#starry.kepler.System.gradient" title="Permalink to this definition">¶</a></dt>
+<dd><p>The gradient of the systems’s light curve. This is a dictionary of
+vectors (<code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">=</span> <span class="pre">1</span></code>) or matrices (<code class="xref py py-obj docutils literal notranslate"><span class="pre">nwav</span> <span class="pre">&gt;</span> <span class="pre">1</span></code>).
+See the docstring of <a class="reference internal" href="#starry.kepler.Primary.gradient" title="starry.kepler.Primary.gradient"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Primary.gradient</span></code></a> for more details.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users should call <a class="reference internal" href="#starry.kepler.System.compute" title="starry.kepler.System.compute"><code class="xref py py-meth docutils literal notranslate"><span class="pre">compute()</span></code></a> first.</p>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.System.exposure_time">
+<code class="descname">exposure_time</code><a class="headerlink" href="#starry.kepler.System.exposure_time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exposure time for each data point in the light curve. Default 0.
+If nonzero, integrates the light curve over the exposure time
+using a recursive technique to approximate the integral.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.System.exposure_tol">
+<code class="descname">exposure_tol</code><a class="headerlink" href="#starry.kepler.System.exposure_tol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tolerance of the recursive exposure time algorithm. Default
+is square root of machine epsilon.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="starry.kepler.System.exposure_max_depth">
+<code class="descname">exposure_max_depth</code><a class="headerlink" href="#starry.kepler.System.exposure_max_depth" title="Permalink to this definition">¶</a></dt>
+<dd><p>Maximum number of recursions in the exposure time algorithm.
+Default 4. Increase this for higher accuracy (and longer
+run times).</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="proofs/Jseries0largek.html" class="btn btn-neutral" title="Upward recursion relations for \(\mathcal{J}_v\) for \(k^2 &gt; 1\)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Rodrigo Luger.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="None"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

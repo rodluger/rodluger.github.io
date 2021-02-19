@@ -1,0 +1,685 @@
+
+todos
+-----
+
+There are **33** todo items that need to be addressed in ``starry``.
+
+
+`kepler.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/kepler.py#L1181>`_:
+
+.. code-block:: python
+    :lineno-start: 1177
+    :emphasize-lines: 5
+
+            .. note::
+                Users may call the :py:meth:`draw` method of this class to draw
+                from the posterior after calling :py:meth:`solve`.
+            """
+            # TODO: Implement for spectral maps?
+            self._no_spectral()
+    
+            # Check that the data is set
+            if self._flux is None or self._C is None:
+                raise ValueError("Please provide a dataset with `set_data()`.")
+    
+            # Get the full design matrix
+
+
+
+`kepler.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/kepler.py#L1343>`_:
+
+.. code-block:: python
+    :lineno-start: 1339
+    :emphasize-lines: 5
+
+    
+            Returns:
+                lnlike: The log marginal likelihood.
+            """
+            # TODO: Implement for spectral maps?
+            self._no_spectral()
+    
+            # Check that the data is set
+            if self._flux is None or self._C is None:
+                raise ValueError("Please provide a dataset with `set_data()`.")
+    
+            # Get the full design matrix
+
+
+
+`maps.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/maps.py#L1808>`_:
+
+.. code-block:: python
+    :lineno-start: 1804
+    :emphasize-lines: 5
+
+    
+                # Require at least one point to be at a different latitude
+                j = np.argmax(np.abs(lat[idx] - lat[idx[0]]) > 1e-4)
+                if j >= 10:
+                    # TODO: untested!
+                    x[-1] = x_[idx[j]]
+                    y[-1] = y_[idx[j]]
+    
+                # Construct the design matrix that gives us
+                # the coefficients of the polynomial fit
+                # centered on the current point
+                X = np.vstack(
+
+
+
+`maps.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/maps.py#L2699>`_:
+
+.. code-block:: python
+    :lineno-start: 2695
+    :emphasize-lines: 5
+
+            source_npts = 1
+        if lazy is None:
+            lazy = config.lazy
+    
+        # TODO: phase this next warning out
+        if source_npts != 1:
+            logger.warning(
+                "Finite source size is still an experimental feature. "
+                "Use it with care."
+            )
+    
+        # Limb-darkened?
+
+
+
+`maps.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/maps.py#L2709>`_:
+
+.. code-block:: python
+    :lineno-start: 2705
+    :emphasize-lines: 5
+
+    
+        # Limb-darkened?
+        if (ydeg == 0) and (rv is False) and (reflected is False):
+    
+            # TODO: Add support for wavelength-dependent limb darkening
+            if nw is not None:
+                raise NotImplementedError(
+                    "Multi-wavelength limb-darkened maps are not yet supported."
+                )
+    
+            Bases = (LimbDarkenedBase, MapBase)
+        else:
+
+
+
+`core.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/core.py#L92>`_:
+
+.. code-block:: python
+    :lineno-start: 88
+    :emphasize-lines: 5
+
+            self._tensordotDz = tensordotDzOp(self._c_ops.tensordotDz)
+            self._dotR = dotROp(self._c_ops.dotR)
+    
+            # Filter
+            # TODO: Make the filter operator sparse
+            self._F = FOp(self._c_ops.F, self._c_ops.N, self._c_ops.Ny)
+    
+            # Misc
+            self._spotYlm = spotYlmOp(self._c_ops.spotYlm, self.ydeg, self.nw)
+            self._pT = pTOp(self._c_ops.pT, self.deg)
+            if self.nw is None:
+                if self._reflected:
+
+
+
+`core.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/core.py#L112>`_:
+
+.. code-block:: python
+    :lineno-start: 108
+    :emphasize-lines: 5
+
+                    self._minimize = minimizeOp(
+                        self.intensity, self.P, self.ydeg, self.udeg, self.fdeg
+                    )
+            else:
+                # TODO: Implement minimization for spectral maps?
+                self._minimize = None
+            self._LimbDarkIsPhysical = LDPhysicalOp(_c_ops.nroots)
+    
+        @property
+        def rT(self):
+            return self._rT
+    
+
+
+
+`core.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/core.py#L515>`_:
+
+.. code-block:: python
+    :lineno-start: 511
+    :emphasize-lines: 5
+
+            if self.ydeg == 0:
+                return M
+    
+            # Rotate to the sky frame
+            # TODO: Do this in a single compound rotation
+            M = self.dotR(
+                self.dotR(
+                    self.dotR(
+                        M,
+                        -tt.cos(obl),
+                        -tt.sin(obl),
+                        math.to_tensor(0.0),
+
+
+
+`core.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/core.py#L618>`_:
+
+.. code-block:: python
+    :lineno-start: 614
+    :emphasize-lines: 5
+
+                    ),
+                )
+    
+            # Rotate to the sky frame
+            # TODO: Do this in a single compound rotation
+            MT = self.dotR(
+                self.dotR(
+                    self.dotR(
+                        MT,
+                        math.to_tensor(1.0),
+                        math.to_tensor(0.0),
+                        math.to_tensor(0.0),
+
+
+
+`core.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/core.py#L2117>`_:
+
+.. code-block:: python
+    :lineno-start: 2113
+    :emphasize-lines: 5
+
+            sec_veq,
+            keplerian,
+        ):
+            """Compute the observed system radial velocity (RV maps only)."""
+            # TODO: This method is currently very inefficient, as it
+            # calls `X` twice per call and instantiates an `orbit`
+            # instance up to three separate times per call. We should
+            # re-code the logic from `X()` in here to optimize it.
+    
+            # Compute the RV filter
+            pri_f = self.primary.map.ops.compute_rv_filter(
+                pri_inc, pri_obl, pri_veq, pri_alpha
+
+
+
+`math.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/math.py#L232>`_:
+
+.. code-block:: python
+    :lineno-start: 228
+    :emphasize-lines: 5
+
+                MAP solution and the Cholesky factorization of the corresponding
+                covariance matrix.
+    
+            """
+            # TODO: These if statements won't play well with @autocompile!!!
+    
+            # Compute C^-1 . X
+            if cho_C.ndim == 0:
+                CInvX = X / cho_C ** 2
+            elif cho_C.ndim == 1:
+                CInvX = tt.dot(tt.diag(1 / cho_C ** 2), X)
+            else:
+
+
+
+`math.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/math.py#L287>`_:
+
+.. code-block:: python
+    :lineno-start: 283
+    :emphasize-lines: 5
+
+                all possible spherical harmonic vectors, which is analytically
+                computable for the linear `starry` model.
+    
+            """
+            # TODO: These if statements won't play well with @autocompile!!!
+    
+            # Compute the GP mean
+            gp_mu = tt.dot(X, mu)
+    
+            # Compute the GP covariance
+            if L.ndim == 0:
+                XLX = tt.dot(X, tt.transpose(X)) * L
+
+
+
+`math.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/math.py#L340>`_:
+
+.. code-block:: python
+    :lineno-start: 336
+    :emphasize-lines: 5
+
+                all possible spherical harmonic vectors, which is analytically
+                computable for the linear `starry` model.
+    
+            """
+            # TODO: These if statements won't play well with @autocompile!!!
+    
+            # Compute the GP mean
+            gp_mu = tt.dot(X, mu)
+    
+            # Residual vector
+            r = tt.reshape(flux - gp_mu, (-1, 1))
+    
+
+
+
+`utils.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/utils.py#L57>`_:
+
+.. code-block:: python
+    :lineno-start: 53
+    :emphasize-lines: 5
+
+            - an integer (`int`, `np.int`, `np.int16`, `np.int32`, `np.int64`)
+            - a numpy boolean (`np.array(True)`, `np.array(False)`)
+            - a numpy float array with ndim equal to 0, 1, 2, or 3
+    
+        # TODO: Cast lists to arrays and floats to np.array(float)
+    
+        """
+        ttype = type(arg)
+        if is_theano(arg):
+            return ttype
+        else:
+            if ttype in integers:
+
+
+
+`polybasis.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/polybasis.py#L69>`_:
+
+.. code-block:: python
+    :lineno-start: 65
+    :emphasize-lines: 5
+
+    
+        def perform(self, node, inputs, outputs):
+            x, y, z, bpT = inputs
+    
+            # TODO: When any of the coords are zero, there's a div
+            # by zero below. This hack fixes the issue. We should
+            # think of a better way of doing this!
+            tol = 1e-8
+            x[np.abs(x) < tol] = tol
+            y[np.abs(y) < tol] = tol
+            z[np.abs(z) < tol] = tol
+    
+
+
+
+`basis.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/basis.h#L48>`_:
+
+.. code-block:: c++
+    :lineno-start: 44
+    :emphasize-lines: 5
+
+    
+    /**
+    Compute the `P(z)` part of the Ylm vectors.
+    
+    TODO: This can be sped up with sparse algebra.
+    
+    */
+    template <typename Scalar>
+    inline void legendre(int lmax,
+                         std::vector<std::vector<Eigen::Triplet<Scalar>>> &M) {
+      // Compute densely
+      int N = (lmax + 1) * (lmax + 1);
+
+
+
+`basis.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/basis.h#L582>`_:
+
+.. code-block:: c++
+    :lineno-start: 578
+    :emphasize-lines: 5
+
+      explicit Basis(int ydeg, int udeg, int fdeg, T norm = 2.0 / root_pi<T>())
+          : ydeg(ydeg), udeg(udeg), fdeg(fdeg), deg(ydeg + udeg + fdeg), norm(norm),
+            x_cache(0), y_cache(0), z_cache(0), deg_cache(-1) {
+    
+        // TODO: This class needs to be re-written. We're computing the same
+        // things over and over again just to get different shapes...
+    
+        // Compute the augmented matrices
+        Eigen::SparseMatrix<T> A1Inv_, A2_, A_, U1_;
+        RowVector<T> rT_, rTA1_;
+        computeA1(deg, A1_big, norm);
+        computeA1Inv(deg, A1_big, A1Inv_);
+
+
+
+`filter.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/filter.h#L250>`_:
+
+.. code-block:: c++
+    :lineno-start: 246
+    :emphasize-lines: 5
+
+        Vector<Scalar> pf;
+        pf = B.A1_f * f;
+    
+        // Multiply them
+        // TODO: DpDpf and DpDpu are sparse, and we should probably exploit that
+        Vector<Scalar> p;
+        if (udeg > fdeg) {
+          computePolynomialProduct(udeg, pu, fdeg, pf, DpDpu, DpDpf);
+        } else {
+          computePolynomialProduct(fdeg, pf, udeg, pu, DpDpf, DpDpu);
+        }
+    
+
+
+
+`limbdark.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/limbdark.h#L5>`_:
+
+.. code-block:: c++
+    :lineno-start: 2
+    :emphasize-lines: 4
+
+    \file limbdark.h
+    \brief Limb darkening utilities from Agol, Luger & Foreman-Mackey (2019).
+    
+    TODO: Loop downward in `v` until `J[v] != 0`
+    TODO: Test all special cases
+    
+    */
+    
+    #ifndef _STARRY_LIMBDARK_H_
+    #define _STARRY_LIMBDARK_H_
+    
+
+
+
+`limbdark.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/limbdark.h#L6>`_:
+
+.. code-block:: c++
+    :lineno-start: 2
+    :emphasize-lines: 5
+
+    \file limbdark.h
+    \brief Limb darkening utilities from Agol, Luger & Foreman-Mackey (2019).
+    
+    TODO: Loop downward in `v` until `J[v] != 0`
+    TODO: Test all special cases
+    
+    */
+    
+    #ifndef _STARRY_LIMBDARK_H_
+    #define _STARRY_LIMBDARK_H_
+    
+    #include "ellip.h"
+
+
+
+`misc.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/misc.h#L99>`_:
+
+.. code-block:: c++
+    :lineno-start: 95
+    :emphasize-lines: 5
+
+                        RowVector<Scalar> &bamp, Scalar &bsigma, Scalar &blat,
+                        Scalar &blon) {
+    
+      // Forward diff for sigma
+      // TODO: Compute the backprop expression
+      using ADType = ADScalar<Scalar, 1>;
+      ADType sigma = sigma_;
+      sigma.derivatives() = Vector<Scalar>::Unit(1, 0);
+    
+      // Compute the integrals recursively
+      Vector<ADType> IP(l + 1);
+      Vector<ADType> ID(l + 1);
+
+
+
+`wigner.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/wigner.h#L417>`_:
+
+.. code-block:: c++
+    :lineno-start: 413
+    :emphasize-lines: 5
+
+              tol_ad, D_ad, R_ad);
+    
+        // Extract the matrices and their derivatives
+        for (int l = 0; l < ydeg + 1; ++l) {
+          // TODO: This data copy is *very* slow; is there a better way?
+          for (int i = 0; i < 2 * l + 1; ++i) {
+            for (int j = 0; j < 2 * l + 1; ++j) {
+              R[l](i, j) = R_ad[l](i, j).value();
+              DRDx[l](i, j) = R_ad[l](i, j).derivatives()(0);
+              DRDy[l](i, j) = R_ad[l](i, j).derivatives()(1);
+              DRDz[l](i, j) = R_ad[l](i, j).derivatives()(2);
+              DRDtheta[l](i, j) = R_ad[l](i, j).derivatives()(3);
+
+
+
+`wigner.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/wigner.h#L531>`_:
+
+.. code-block:: c++
+    :lineno-start: 527
+    :emphasize-lines: 5
+
+        if (unlikely(npts == 0))
+          return;
+    
+        // Dot them in
+        // TODO: There must be a more efficient way of doing this.
+        for (int l = 0; l < ydeg + 1; ++l) {
+          // d / dargs
+          dotR_bx += (M.block(0, l * l, npts, 2 * l + 1) * DRDx[l])
+                         .cwiseProduct(bMR.block(0, l * l, npts, 2 * l + 1))
+                         .sum();
+          dotR_by += (M.block(0, l * l, npts, 2 * l + 1) * DRDy[l])
+                         .cwiseProduct(bMR.block(0, l * l, npts, 2 * l + 1))
+
+
+
+`geometry.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/reflected/geometry.h#L759>`_:
+
+.. code-block:: c++
+    :lineno-start: 755
+    :emphasize-lines: 5
+
+        xi.resize(4);
+        lam.resize(2);
+    
+        // We need to do this case-by-case
+        // TODO: This section is really messy / cumbersome. Clean it up.
+        if (b > 0) {
+    
+          if ((-1 - xo) * (-1 - xo) + yo * yo < ro * ro) {
+    
+            Vector<T> tmp(3);
+            tmp << x(2), x(1), x(0);
+            x = tmp;
+
+
+
+`primitive.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/reflected/primitive.h#L137>`_:
+
+.. code-block:: c++
+    :lineno-start: 133
+    :emphasize-lines: 5
+
+    
+    /**
+        Compute the helper integral I by upward and/or downward recursion.
+    
+        TODO: This code currently can't handle cases where the (lo, hi)
+              limit pairs in the kappa vector belong to different regimes.
+              These regimes are
+    
+                    sin(kappa / 2) > 0.5 --> upward recursion
+                    sin(kappa / 2) <= 0.5 --> downward recursion
+    
+              Cases where the two angles are close to 0.5 are *fine*. Issues
+
+
+
+`primitive.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/reflected/primitive.h#L234>`_:
+
+.. code-block:: c++
+    :lineno-start: 230
+    :emphasize-lines: 5
+
+    inline Vector<T> W_indef(const int nmax, const T &s2_, const T &q2,
+                             const T &q3) {
+      Vector<T> result(nmax + 1);
+    
+      // TODO: Is this instability encountered in practice?
+      // If so, find the limiting value of W when s2 = 0.
+      T s2 = s2_;
+      if (abs(s2) < STARRY_MIN_SIN_ALPHA)
+        s2 = (s2 > 0) ? T(STARRY_MIN_SIN_ALPHA) : T(-STARRY_MIN_SIN_ALPHA);
+    
+      if (abs(1 - q2) < 0.5) {
+    
+
+
+
+`primitive.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/reflected/primitive.h#L358>`_:
+
+.. code-block:: c++
+    :lineno-start: 354
+    :emphasize-lines: 5
+
+      c(0) -= b(0) * f0;
+      c(nmax - 2) -= fN;
+    
+      // Construct the tridiagonal matrix
+      // TODO: We should probably use a sparse solve here!
+      Matrix<T> A(nmax - 1, nmax - 1);
+      A.setZero();
+      A.diagonal(0) = a;
+      A.diagonal(-1) = b.segment(1, nmax - 2);
+      A.diagonal(1).setOnes();
+    
+      // Solve
+
+
+
+`primitive.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/reflected/primitive.h#L572>`_:
+
+.. code-block:: c++
+    :lineno-start: 568
+    :emphasize-lines: 5
+
+        sgn *= -1;
+      }
+    
+      // Special limit: sin(theta) = 0
+      // TODO: eliminate the calls to pow in favor of recursion
+      if (abs(st) < STARRY_T_TOL) {
+    
+        int sgnct = ct > 0 ? 1 : ct < 0 ? -1 : 0;
+        int n = 0;
+        for (int l = 0; l < ydeg + 1; ++l) {
+          for (int m = -l; m < l + 1; ++m) {
+            int mu = l - m;
+
+
+
+`primitive.h <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/starry/_core/ops/lib/include/reflected/primitive.h#L604>`_:
+
+.. code-block:: c++
+    :lineno-start: 600
+    :emphasize-lines: 5
+
+    
+      }
+    
+      // Special limit: cos(theta) = 0
+      // TODO: eliminate the calls to pow in favor of recursion
+      else if (abs(ct) < STARRY_T_TOL) {
+    
+        int sgnst = st > 0 ? 1 : st < 0 ? -1 : 0;
+        int n = 0;
+        for (int l = 0; l < ydeg + 1; ++l) {
+          for (int m = -l; m < l + 1; ++m) {
+            int mu = l - m;
+
+
+
+`test_exceptions_greedy.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/tests/greedy/test_exceptions_greedy.py#L36>`_:
+
+.. code-block:: python
+    :lineno-start: 32
+    :emphasize-lines: 5
+
+    
+        # Bad `m`
+        x = map[1, 3]
+        assert len(x) == 0
+        # TODO: It would be nice if `map[1, 3] = ...` raised
+        # an error, but currently it does nothing (silently).
+    
+        # Bad type
+        with pytest.raises(ValueError) as e:
+            x = map[2.3, 5.7]
+        with pytest.raises(ValueError) as e:
+            map[2.3, 5.7] = 1
+
+
+
+`test_light_delay_greedy.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/tests/greedy/test_light_delay_greedy.py#L13>`_:
+
+.. code-block:: python
+    :lineno-start: 9
+    :emphasize-lines: 5
+
+        sec = starry.Secondary(starry.Map(), porb=1.0)
+        sys = starry.System(pri, sec, light_delay=True)
+        assert sys.light_delay is True
+    
+        # TODO: Add tests here.
+
+
+
+`test_system_greedy.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/tests/greedy/test_system_greedy.py#L87>`_:
+
+.. code-block:: python
+    :lineno-start: 83
+    :emphasize-lines: 5
+
+        sys = starry.System(pri, sec)
+        t = np.concatenate((np.linspace(0.1, 0.4, 50), np.linspace(0.6, 0.9, 50)))
+        flux = sys.flux(t)
+    
+        # TODO: Add an analytic validation here
+
+
+
+`test_op_gradients.py <https://github.com/rodluger/starry/blob/fac89fadb83a8e02b676e345d66882b1b7268534/tests/lazy/test_op_gradients.py#L219>`_:
+
+.. code-block:: python
+    :lineno-start: 215
+    :emphasize-lines: 5
+
+            )
+    
+    
+    """
+    # TODO: Implement the gradient of the OrenNayarOp.
+    def test_intensity_reflected(abs_tol=1e-5, rel_tol=1e-5, eps=1e-7):
+        with change_flags(compute_test_value="off"):
+            map = starry.Map(ydeg=2, udeg=2, reflected=True)
+            np.random.seed(11)
+            lat = 180 * (np.random.random(10) - 0.5)
+            lon = 360 * (np.random.random(10) - 0.5)
+            y = [1.0] + list(np.random.randn(8))
+
+
+

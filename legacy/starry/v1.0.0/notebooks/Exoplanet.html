@@ -1,0 +1,1271 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>A simple exoplanet system &mdash; starry 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="../_static/js/hacks.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="FAQs" href="FAQs.html" />
+    <link rel="prev" title="Map orientation" href="Orientation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home" alt="Documentation Home"> starry
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html"> Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changes.html"> New in version 1.0</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html"> Examples &amp; tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#the-basics">The basics</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="Basics.html">The basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LazyGreedy.html">Lazy versus greedy evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Orientation.html">Map orientation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">A simple exoplanet system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Creating-a-star">Creating a star</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Creating-a-planet">Creating a planet</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Creating-a-system">Creating a system</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Computing-light-curves">Computing light curves</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Comparison-to-batman">Comparison to <code class="docutils literal notranslate"><span class="pre">batman</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="FAQs.html">FAQs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#eclipsing-binary-example">Eclipsing binary example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#advanced">Advanced</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#miscellaneous">Miscellaneous</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#under-the-hood">Under the hood</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html"> API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../extensions.html"> Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../developer.html"> Developer</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry"> Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues"> Submit an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ui.adsabs.harvard.edu/public-libraries/b0KqtPtYRj6I7T8eAZc5Ig"> Papers</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">starry</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../tutorials.html">Examples &amp; Tutorials</a> &raquo;</li>
+        
+      <li>A simple exoplanet system</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    min-width: 0;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial was generated from a Jupyter notebook that can be
+downloaded <a class="reference external" href="https://github.com/rodluger/starry/blob/master/notebooks/Exoplanet.ipynb">here</a>.</p>
+</div>
+<div class="section" id="A-simple-exoplanet-system">
+<h1>A simple exoplanet system<a class="headerlink" href="#A-simple-exoplanet-system" title="Permalink to this headline">¶</a></h1>
+<p>Here we’ll discuss how to instantiate an exoplanet system and compute its full light curve. Currently, all orbital stuff lives in the <code class="docutils literal notranslate"><span class="pre">starry.kepler</span></code> module, which implements a simple Keplerian solver using the <code class="docutils literal notranslate"><span class="pre">exoplanet</span></code> package. This works for systems of exoplanets orbiting stars, moons orbiting planets, and binary star systems. Keep in mind, however, that the primary object is assumed to sit at the origin, and the secondary objects are assumed to be massless. A more flexible N-body
+solver using <code class="docutils literal notranslate"><span class="pre">rebound</span></code> is in the works, so stay tuned!</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">starry</span>
+
+<span class="n">starry</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">lazy</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">starry</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">quiet</span> <span class="o">=</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="Creating-a-star">
+<h2>Creating a star<a class="headerlink" href="#Creating-a-star" title="Permalink to this headline">¶</a></h2>
+<p>Let’s instantiate a <code class="docutils literal notranslate"><span class="pre">Primary</span></code> object:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">star</span> <span class="o">=</span> <span class="n">starry</span><span class="o">.</span><span class="n">Primary</span><span class="p">(</span><span class="n">starry</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">ydeg</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">udeg</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">m</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">prot</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The first argument to <code class="docutils literal notranslate"><span class="pre">starry.Primary</span></code> is a <code class="docutils literal notranslate"><span class="pre">starry.Map</span></code> instance defining the surface map of the object. We’re giving the star a quadratically limb-darkened (<code class="docutils literal notranslate"><span class="pre">udeg</span> <span class="pre">=</span> <span class="pre">2</span></code>) map with no other spatial features (<code class="docutils literal notranslate"><span class="pre">ydeg</span> <span class="pre">=</span> <span class="pre">0</span></code>). The aplitude <code class="docutils literal notranslate"><span class="pre">amp</span></code> controls the overall scaling of the intensity of the object and is therefore equal to its luminosity (in arbitrary units).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">starry.Primary</span></code> class takes additional keywords, including the mass, radius, and rotation period, all of which we set to unity. By default, these are measured in solar units (for the mass and radius) and days (for the periods), though it’s easy to change that. <a class="reference internal" href="../Primary.html"><span class="doc">Check out the docs for more details</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Parameters of the surface map (such as <code class="docutils literal notranslate"><span class="pre">ydeg</span></code>, <code class="docutils literal notranslate"><span class="pre">udeg</span></code>, and <code class="docutils literal notranslate"><span class="pre">amp</span></code>) should be passed to the <code class="docutils literal notranslate"><span class="pre">Map</span></code> object;
+all other parameters should be passed directly to the <code class="docutils literal notranslate"><span class="pre">Primary</span></code> object. You’ll get a warning if you
+try to do something like <code class="docutils literal notranslate"><span class="pre">star</span> <span class="pre">=</span> <span class="pre">starry.Primary(starry.Map(ydeg=0,</span> <span class="pre">udeg=2,</span> <span class="pre">amp=1.0,</span> <span class="pre">m=1.0))</span></code>
+since <code class="docutils literal notranslate"><span class="pre">starry.Map</span></code> isn’t aware of what a mass is!</p>
+</div>
+<p>Let’s now set the limb darkening coefficients of the star. Let’s give the stellar map a linear and a quadratic limb-darkening coefficient:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">star</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.40</span>
+<span class="n">star</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.26</span>
+</pre></div>
+</div>
+</div>
+<p>Here’s what that looks like:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">star</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/notebooks_Exoplanet_13_0.png"><img alt="../_images/notebooks_Exoplanet_13_0.png" src="../_images/notebooks_Exoplanet_13_0.png" style="width: 250px;" /></a>
+</div>
+</div>
+</div>
+<div class="section" id="Creating-a-planet">
+<h2>Creating a planet<a class="headerlink" href="#Creating-a-planet" title="Permalink to this headline">¶</a></h2>
+<p>Let’s create a (very) hot Jupiter with some interesting properties:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">planet</span> <span class="o">=</span> <span class="n">starry</span><span class="o">.</span><span class="n">kepler</span><span class="o">.</span><span class="n">Secondary</span><span class="p">(</span>
+    <span class="n">starry</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">ydeg</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">amp</span><span class="o">=</span><span class="mf">5e-3</span><span class="p">),</span>  <span class="c1"># the surface map</span>
+    <span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># mass in solar masses</span>
+    <span class="n">r</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>  <span class="c1"># radius in solar radii</span>
+    <span class="n">porb</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>  <span class="c1"># orbital period in days</span>
+    <span class="n">prot</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>  <span class="c1"># rotation period in days (synchronous)</span>
+    <span class="n">Omega</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>  <span class="c1"># longitude of ascending node in degrees</span>
+    <span class="n">ecc</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>  <span class="c1"># eccentricity</span>
+    <span class="n">w</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>  <span class="c1"># longitude of pericenter in degrees</span>
+    <span class="n">t0</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>  <span class="c1"># time of transit in days</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Here we’ve instantiated a planet with a fifth degree surface map, zero mass, a radius that is one-tenth that of the star, a luminosity (amplitude) that is <span class="math notranslate nohighlight">\(5\times 10^{-3}\)</span> times that of the star, an orbital period of 1 day, a rotational period of 1 day, and a bit of an eccentricity.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The default rotational period for objects is <strong>infinity</strong>, so if you don’t specify <code class="docutils literal notranslate"><span class="pre">prot</span></code>, the planet’s surface
+map will not rotate as the planet orbits the star and there will be no phase curve variation. For planets whose
+emission tracks the star (i.e., a hot Jupiter with a hotspot) set <code class="docutils literal notranslate"><span class="pre">prot=porb</span></code>. Also note that the default
+amplitude and mass are both <strong>unity</strong>, so make sure to change those as well if you don’t want a planet that’s as
+bright and as massive as its star!</p>
+</div>
+<p>There are a bunch of other settings related to the orbit, so check out the docs for those. The next thing we get to do is specify the planet’s map. For simplicity, let’s just create a random one:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">planet</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">Ny</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">planet</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/notebooks_Exoplanet_21_0.png"><img alt="../_images/notebooks_Exoplanet_21_0.png" src="../_images/notebooks_Exoplanet_21_0.png" style="width: 250px;" /></a>
+</div>
+</div>
+<p>Note that when instantiating a map for a <code class="docutils literal notranslate"><span class="pre">starry.kepler.Secondary</span></code> instance, <strong>the map is defined as it would appear at the reference time</strong>, <code class="docutils literal notranslate"><span class="pre">t0</span></code>. That’s also the time of <em>transit</em>. Quite often we’re interested in the side of the planet that faces the star during secondary eclipse (since that’s what we’re able to map!). In that case, we can specify the initial rotational phase of the planet (when <code class="docutils literal notranslate"><span class="pre">t=t0</span></code>) to be <span class="math notranslate nohighlight">\(180^\circ\)</span>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">planet</span><span class="o">.</span><span class="n">theta0</span> <span class="o">=</span> <span class="mi">180</span>
+</pre></div>
+</div>
+</div>
+<p>The image above now corresponds to the side of the planet visible during (or near) secondary eclipse, assuming it’s synchronously rotation. Check out the <a class="reference internal" href="Orientation.html"><span class="doc">viewing geometry tutorial</span></a> for more information.</p>
+<p>Now, it’s probably a good idea to ensure we didn’t end up with negative specific intensity anywhere:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">planet</span><span class="o">.</span><span class="n">map</span><span class="o">.</span><span class="n">minimize</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(32.77869170732118, -159.21879080507742, 0.0012465984320517332)
+</pre></div></div>
+</div>
+<p>This routine performs gradient descent to try to find the global minimum of the map, and returns the latitude, longitude, and value of the intensity at the minimum. The intensity is positive, so we’re good to go.</p>
+</div>
+<div class="section" id="Creating-a-system">
+<h2>Creating a system<a class="headerlink" href="#Creating-a-system" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have a star and a planet, we can instantiate a planetary system:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">system</span> <span class="o">=</span> <span class="n">starry</span><span class="o">.</span><span class="n">System</span><span class="p">(</span><span class="n">star</span><span class="p">,</span> <span class="n">planet</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The first argument to a <code class="docutils literal notranslate"><span class="pre">starry.System</span></code> call is a <code class="docutils literal notranslate"><span class="pre">Primary</span></code> object, followed by any number of <code class="docutils literal notranslate"><span class="pre">Secondary</span></code> objects.</p>
+<p>There are some other system attributes you can set–notably an exposure time (<code class="docutils literal notranslate"><span class="pre">texp</span></code>)–if the exposure time of your data is long enough to affect the light curve shape. <a class="reference internal" href="../System.html"><span class="doc">Check out the docs for more information</span></a>.</p>
+</div>
+<div class="section" id="Computing-light-curves">
+<h2>Computing light curves<a class="headerlink" href="#Computing-light-curves" title="Permalink to this headline">¶</a></h2>
+<p>We’re ready to compute the full system light curve:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="o">%%time</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">3.25</span><span class="p">,</span> <span class="mi">10000</span><span class="p">)</span>
+<span class="n">flux_system</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">flux</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CPU times: user 27.6 ms, sys: 0 ns, total: 27.6 ms
+Wall time: 27.2 ms
+</pre></div></div>
+</div>
+<p>Cool – <code class="docutils literal notranslate"><span class="pre">starry</span></code> computed 10,000 cadences in a few tens of ms. Let’s check it out:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">flux_system</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time [days]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;system flux&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/notebooks_Exoplanet_36_0.png"><img alt="../_images/notebooks_Exoplanet_36_0.png" src="../_images/notebooks_Exoplanet_36_0.png" style="width: 1032px;" /></a>
+</div>
+</div>
+<p>We can also plot the stellar and planetary light curves individually:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">flux_star</span><span class="p">,</span> <span class="n">flux_planet</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">flux</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">total</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">flux_star</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time [days]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;stellar flux&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/notebooks_Exoplanet_39_0.png"><img alt="../_images/notebooks_Exoplanet_39_0.png" src="../_images/notebooks_Exoplanet_39_0.png" style="width: 1032px;" /></a>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">flux_planet</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time [days]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;planet flux&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/notebooks_Exoplanet_40_0.png"><img alt="../_images/notebooks_Exoplanet_40_0.png" src="../_images/notebooks_Exoplanet_40_0.png" style="width: 1031px;" /></a>
+</div>
+</div>
+<p>And, just for fun, the planet’s orbit (the sky plane is the <span class="math notranslate nohighlight">\(xy\)</span> plane, with <span class="math notranslate nohighlight">\(y\)</span> pointing up and <span class="math notranslate nohighlight">\(x\)</span> pointing to the right; <span class="math notranslate nohighlight">\(z\)</span> points toward the observer):</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">position</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>The variables <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(y\)</span>, and <span class="math notranslate nohighlight">\(z\)</span> now contain two elements: the position of the star (index 0) and the position of the planet (index 1). Let’s plot the planet’s orbit:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;z&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;position [R$_*$]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time [days]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]:</span>
+    <span class="n">ax</span><span class="p">[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;x [R$_*$]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;y [R$_*$]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;x [R$_*$]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;z [R$_*$]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;z [R$_*$]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;y [R$_*$]&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/notebooks_Exoplanet_44_0.png"><img alt="../_images/notebooks_Exoplanet_44_0.png" src="../_images/notebooks_Exoplanet_44_0.png" style="width: 1007px;" /></a>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/notebooks_Exoplanet_44_1.png"><img alt="../_images/notebooks_Exoplanet_44_1.png" src="../_images/notebooks_Exoplanet_44_1.png" style="width: 1012px;" /></a>
+</div>
+</div>
+<p>We can also animate the orbit. We’ll make the planet a little bigger for this visualization:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">planet</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="mf">0.33</span>
+<span class="n">system</span><span class="o">.</span><span class="n">show</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">window_pad</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area rendered_html docutils container">
+<video width="800" height="800" controls autoplay loop>
+  <source type="video/mp4" src="data:video/mp4;base64,AAAAHGZ0eXBNNFYgAAACAGlzb21pc28yYXZjMQAAAAhmcmVlAABE1m1kYXQAAAKuBgX//6rcRem9
+5tlIt5Ys2CDZI+7veDI2NCAtIGNvcmUgMTQ4IHIyNjQzIDVjNjU3MDQgLSBILjI2NC9NUEVHLTQg
+QVZDIGNvZGVjIC0gQ29weWxlZnQgMjAwMy0yMDE1IC0gaHR0cDovL3d3dy52aWRlb2xhbi5vcmcv
+eDI2NC5odG1sIC0gb3B0aW9uczogY2FiYWM9MSByZWY9MyBkZWJsb2NrPTE6MDowIGFuYWx5c2U9
+MHgzOjB4MTEzIG1lPWhleCBzdWJtZT03IHBzeT0xIHBzeV9yZD0xLjAwOjAuMDAgbWl4ZWRfcmVm
+PTEgbWVfcmFuZ2U9MTYgY2hyb21hX21lPTEgdHJlbGxpcz0xIDh4OGRjdD0xIGNxbT0wIGRlYWR6
+b25lPTIxLDExIGZhc3RfcHNraXA9MSBjaHJvbWFfcXBfb2Zmc2V0PS0yIHRocmVhZHM9MyBsb29r
+YWhlYWRfdGhyZWFkcz0xIHNsaWNlZF90aHJlYWRzPTAgbnI9MCBkZWNpbWF0ZT0xIGludGVybGFj
+ZWQ9MCBibHVyYXlfY29tcGF0PTAgY29uc3RyYWluZWRfaW50cmE9MCBiZnJhbWVzPTMgYl9weXJh
+bWlkPTIgYl9hZGFwdD0xIGJfYmlhcz0wIGRpcmVjdD0xIHdlaWdodGI9MSBvcGVuX2dvcD0wIHdl
+aWdodHA9MiBrZXlpbnQ9MjUwIGtleWludF9taW49MTMgc2NlbmVjdXQ9NDAgaW50cmFfcmVmcmVz
+aD0wIHJjX2xvb2thaGVhZD00MCByYz1jcmYgbWJ0cmVlPTEgY3JmPTIzLjAgcWNvbXA9MC42MCBx
+cG1pbj0wIHFwbWF4PTY5IHFwc3RlcD00IGlwX3JhdGlvPTEuNDAgYXE9MToxLjAwAIAAAA0lZYiE
+AD///vdonwKbWkN6gOSVxSXbT4H/q2dwfI/pAwAAAwAAAwAAAwACfPmJ8czMy5FHQAAAAwDgACQg
+KWA+QHoBEQNcDLA7ANsEkBcgYwAAAwAAAwAAAwDrkKAAAAMAaXn8Ngz0AMQCLaWujHsiXOKYxrrX
++YYBGorc8jtR+Sl7dWFEpOu1YbEZYzFoWem3ky1KMzXP/Io17VR7S5o2BZ8llmvkEQRFFzOozrOn
+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
+">
+  Your browser does not support the video tag.
+</video></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A keen eye might note that the planet’s axis of rotation points up, even though the orbital plane is inclined
+(because <code class="docutils literal notranslate"><span class="pre">planet.Omega</span> <span class="pre">=</span> <span class="pre">30</span></code>). If you want the planet’s axis of rotation to be parallel to its orbital axis,
+you need to explicitly tell that to <code class="docutils literal notranslate"><span class="pre">starry</span></code>, since by default the axis of the map points up on the sky.
+To do this, set the map’s obliquity equal to the orbital obliquity: <code class="docutils literal notranslate"><span class="pre">planet.map.obl</span> <span class="pre">=</span> <span class="pre">30</span></code>. See the
+<a class="reference external" href="Orientation">tutorial on orbital orientation</a> for more information.</p>
+</div>
+</div>
+<div class="section" id="Comparison-to-batman">
+<h2>Comparison to <code class="docutils literal notranslate"><span class="pre">batman</span></code><a class="headerlink" href="#Comparison-to-batman" title="Permalink to this headline">¶</a></h2>
+<p>One last thing we can do is compare a simple transit calculation to what we’d get with the <code class="docutils literal notranslate"><span class="pre">batman</span></code> code <a class="reference external" href="https://astro.uchicago.edu/~kreidberg/batman/">(Kreidberg 2015)</a>, a widely used and well-tested light curve tool.</p>
+<p>First, let’s define all the system parameters:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">u1</span> <span class="o">=</span> <span class="mf">0.4</span>  <span class="c1"># Stellar linear limb darkening coefficient</span>
+<span class="n">u2</span> <span class="o">=</span> <span class="mf">0.26</span>  <span class="c1"># Stellar quadratic limb darkening coefficient</span>
+<span class="n">rplanet</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># Planet radius in units of stellar radius</span>
+<span class="n">inc</span> <span class="o">=</span> <span class="mf">89.95</span>  <span class="c1"># Planet orbital inclination</span>
+<span class="n">per</span> <span class="o">=</span> <span class="mi">50</span>  <span class="c1"># Planet orbital period in days</span>
+<span class="n">mstar</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Stellar mass in Msun</span>
+<span class="n">rstar</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Stellar radius in Rsun</span>
+<span class="n">a</span> <span class="o">=</span> <span class="p">(</span><span class="n">per</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">starry</span><span class="o">.</span><span class="n">_constants</span><span class="o">.</span><span class="n">G_grav</span> <span class="o">*</span> <span class="n">mstar</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">**</span> <span class="p">(</span>
+    <span class="mf">1.0</span> <span class="o">/</span> <span class="mf">3.0</span>
+<span class="p">)</span>  <span class="c1"># semi-major axis in Rsun</span>
+</pre></div>
+</div>
+</div>
+<p>We’ll evaluate the light curve on the following time grid:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">npts</span> <span class="o">=</span> <span class="mi">500</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">npts</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s evaluate the <code class="docutils literal notranslate"><span class="pre">starry</span></code> light curve for this system:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># Instantiate the star</span>
+<span class="n">star</span> <span class="o">=</span> <span class="n">starry</span><span class="o">.</span><span class="n">Primary</span><span class="p">(</span><span class="n">starry</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">udeg</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">star</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">u1</span>
+<span class="n">star</span><span class="o">.</span><span class="n">map</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">u2</span>
+
+<span class="c1"># Instantiate the planet</span>
+<span class="n">planet</span> <span class="o">=</span> <span class="n">starry</span><span class="o">.</span><span class="n">kepler</span><span class="o">.</span><span class="n">Secondary</span><span class="p">(</span><span class="n">starry</span><span class="o">.</span><span class="n">Map</span><span class="p">(</span><span class="n">amp</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">m</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">porb</span><span class="o">=</span><span class="n">per</span><span class="p">,</span> <span class="n">inc</span><span class="o">=</span><span class="n">inc</span><span class="p">,</span> <span class="n">r</span><span class="o">=</span><span class="n">rplanet</span><span class="p">)</span>
+
+<span class="c1"># Instantiate the system</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">starry</span><span class="o">.</span><span class="n">System</span><span class="p">(</span><span class="n">star</span><span class="p">,</span> <span class="n">planet</span><span class="p">)</span>
+
+<span class="c1"># Compute and store the light curve</span>
+<span class="n">flux_starry</span> <span class="o">=</span> <span class="n">system</span><span class="o">.</span><span class="n">flux</span><span class="p">(</span><span class="n">time</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>And now the <code class="docutils literal notranslate"><span class="pre">batman</span></code> light curve:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">batman</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="n">batman</span><span class="o">.</span><span class="n">TransitParams</span><span class="p">()</span>
+<span class="n">params</span><span class="o">.</span><span class="n">limb_dark</span> <span class="o">=</span> <span class="s2">&quot;quadratic&quot;</span>
+<span class="n">params</span><span class="o">.</span><span class="n">u</span> <span class="o">=</span> <span class="p">[</span><span class="n">u1</span><span class="p">,</span> <span class="n">u2</span><span class="p">]</span>
+<span class="n">params</span><span class="o">.</span><span class="n">t0</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">params</span><span class="o">.</span><span class="n">ecc</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">params</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mf">90.0</span>
+<span class="n">params</span><span class="o">.</span><span class="n">rp</span> <span class="o">=</span> <span class="n">rplanet</span>
+<span class="n">params</span><span class="o">.</span><span class="n">a</span> <span class="o">=</span> <span class="n">a</span>
+<span class="n">params</span><span class="o">.</span><span class="n">per</span> <span class="o">=</span> <span class="n">per</span>
+<span class="n">params</span><span class="o">.</span><span class="n">inc</span> <span class="o">=</span> <span class="n">inc</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">batman</span><span class="o">.</span><span class="n">TransitModel</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">time</span><span class="p">)</span>
+<span class="n">flux_batman</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">light_curve</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Let’s plot the two light curves:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">flux_starry</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;starry&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">flux_batman</span><span class="p">,</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;batman&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time [days]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;stellar flux&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/notebooks_Exoplanet_59_0.png"><img alt="../_images/notebooks_Exoplanet_59_0.png" src="../_images/notebooks_Exoplanet_59_0.png" style="width: 1034px;" /></a>
+</div>
+</div>
+<p>Here is the difference between the two models:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">flux_starry</span> <span class="o">-</span> <span class="n">flux_batman</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;time [days]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;residuals&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<a class="reference internal image-reference" href="../_images/notebooks_Exoplanet_61_0.png"><img alt="../_images/notebooks_Exoplanet_61_0.png" src="../_images/notebooks_Exoplanet_61_0.png" style="width: 1021px;" /></a>
+</div>
+</div>
+<p>It’s on the order of a few parts per billion, which is quite small. The oscillations are due to the fact that <code class="docutils literal notranslate"><span class="pre">batman</span></code> uses <a class="reference external" href="https://github.com/lkreidberg/batman/blob/master/c_src/_quadratic_ld.c#L304">Hasting’s approximation</a> to compute the elliptic integrals, which is slightly faster but leads to small errors. In practice, however, the two models are equivalent for exoplanet transit modeling.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+  <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+    
+    <a href="FAQs.html" class="btn btn-neutral float-right" title="FAQs" accesskey="n"
+      rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+    
+    
+    <a href="Orientation.html" class="btn btn-neutral float-left" title="Map orientation" accesskey="p"
+      rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+    
+  </div>
+  
+
+  <hr />
+
+  <div role="contentinfo">
+    <p>
+      
+      &copy; Copyright 2019, Rodrigo Luger.
+      <span class="lastupdated">
+        Last updated on 2020 Jan 05 at 07:06:01 UTC.
+      </span>
+
+    </p>
+  </div>
+  
+  
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a
+    href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by
+  <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

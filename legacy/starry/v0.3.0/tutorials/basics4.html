@@ -1,0 +1,799 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Basics: Light curve gradients &mdash; starry 0.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="starry 0.3.0 documentation" href="../index.html"/>
+        <link rel="up" title="Examples &amp; Tutorials" href="../tutorials.html"/>
+        <link rel="next" title="Basics: Multi-wavelength maps" href="basics5.html"/>
+        <link rel="prev" title="Basics: Exoplanet systems" href="basics3.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> starry
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Examples &amp; tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorials.html#the-basics">The basics</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="basics1.html">Surface maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics2.html">Limb-darkened maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="basics3.html">Exoplanet systems</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Light curve gradients</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#Gradients-of-Map-instances">Gradients of <code class="docutils literal notranslate"><span class="pre">Map</span></code> instances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#Gradients-of-System-instances">Gradients of <code class="docutils literal notranslate"><span class="pre">System</span></code> instances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#All-the-gradients">All the gradients</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="basics5.html">Multi-wavelength maps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#fitting-and-inference">Fitting and inference</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorials.html#miscellaneous">Miscellaneous</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../proofs.html">Proofs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry">Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues">Submit an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://rodluger.github.io/starry-benchmarks">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues?q=is%3Aissue+is%3Aopen+label%3A%22next+version%22">Upcoming features</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/raw/master-pdf/tex/starry.pdf">Read the paper</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">starry</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">starry</a> &raquo;</li>
+      
+        <li><a href="../tutorials.html">Examples &amp; Tutorials</a>&raquo;</li>
+      
+    
+      <li>Basics: Light curve gradients</li>
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput,
+div.nbinput div.prompt,
+div.nbinput div.input_area,
+div.nbinput div[class*=highlight],
+div.nbinput div[class*=highlight] pre,
+div.nboutput,
+div.nbinput div.prompt,
+div.nbinput div.output_area,
+div.nboutput div[class*=highlight],
+div.nboutput div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput,
+div.nboutput {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput,
+    div.nboutput {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput div.prompt,
+div.nboutput div.prompt {
+    min-width: 0;
+    padding-top: 0.4em;
+    padding-right: 0.4em;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput div.prompt,
+    div.nboutput div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput div.prompt pre,
+div.nboutput div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput div.input_area,
+div.nboutput div.output_area {
+    padding: 0.4em;
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput div.input_area,
+    div.nboutput div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial was generated from an Jupyter notebook that can be
+downloaded <a class="reference external" href="https://github.com/rodluger/starry/blob/master/docs/tutorials/basics4.ipynb">here</a>.</p>
+</div>
+<div class="section" id="Basics:-Light-curve-gradients">
+<h1>Basics: Light curve gradients<a class="headerlink" href="#Basics:-Light-curve-gradients" title="Permalink to this headline">¶</a></h1>
+<p>The cool thing about analytic expressions for light curves is that their derivatives are also analytic, and therefore fast to compute (and accurate!). We’ve coded up a lot of the flux derivatives in <code class="docutils literal notranslate"><span class="pre">starry</span></code>, but most of the heavy lifting is done using autodifferentiation. Let’s go over how to compute gradients with some simple examples.</p>
+<div class="section" id="Gradients-of-Map-instances">
+<h2>Gradients of <code class="docutils literal notranslate"><span class="pre">Map</span></code> instances<a class="headerlink" href="#Gradients-of-Map-instances" title="Permalink to this headline">¶</a></h2>
+<p>Let’s instantiate a low degree <code class="docutils literal notranslate"><span class="pre">Map</span></code> with some arbitrary spherical harmonic coefficients:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">starry</span> <span class="k">import</span> <span class="n">Map</span>
+<span class="nb">map</span> <span class="o">=</span> <span class="n">Map</span><span class="p">(</span><span class="n">lmax</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="nb">map</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="nb">map</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="nb">map</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span>
+<span class="nb">map</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics4_4_0.png" src="../_images/tutorials_basics4_4_0.png" />
+</div>
+</div>
+<p>We can compute the flux during an occultation as usual:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">map</span><span class="o">.</span><span class="n">flux</span><span class="p">(</span><span class="n">xo</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">yo</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">ro</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>1.3277964701859288
+</pre></div>
+</div>
+</div>
+<p>To also compute the gradient of the flux with respect to the input parameters, we can simply pass the <code class="docutils literal notranslate"><span class="pre">gradient=True</span></code> keyword:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">flux</span><span class="p">,</span> <span class="n">gradient</span> <span class="o">=</span> <span class="nb">map</span><span class="o">.</span><span class="n">flux</span><span class="p">(</span><span class="n">xo</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">yo</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">ro</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">gradient</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">flux</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">gradient</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+1.3277964701859288
+{&#39;theta&#39;: array([-6.89762425e-05]), &#39;xo&#39;: array([0.00460625]), &#39;yo&#39;: array([-0.006946]), &#39;ro&#39;: array([-0.37133373]), &#39;y&#39;: array([[ 0.99      ],
+       [-0.0069282 ],
+       [ 1.13975912],
+       [-0.00519615],
+       [-0.00464758],
+       [-0.01331904],
+       [ 0.54520927],
+       [-0.00998928],
+       [ 0.00135554]]), &#39;u&#39;: array([], shape=(0, 1), dtype=float64)}
+</pre></div></div>
+</div>
+<p>What <code class="docutils literal notranslate"><span class="pre">starry</span></code> returns is the tuple <code class="docutils literal notranslate"><span class="pre">(F,</span> <span class="pre">dF)</span></code> of the flux and its gradient. The gradient <code class="docutils literal notranslate"><span class="pre">dF</span></code> is a dictionary of derivatives with respect to each of the input parameters (including <code class="docutils literal notranslate"><span class="pre">theta</span></code>, which we omitted in the call and whose default value is zero) and each of the spherical harmonic coefficients. The latter are given as a vector,</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">gradient</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>array([[ 0.99      ],
+       [-0.0069282 ],
+       [ 1.13975912],
+       [-0.00519615],
+       [-0.00464758],
+       [-0.01331904],
+       [ 0.54520927],
+       [-0.00998928],
+       [ 0.00135554]])
+</pre></div>
+</div>
+</div>
+<p>where each element is the derivative with respect to the corresponding element in the <code class="docutils literal notranslate"><span class="pre">map.y</span></code> vector. Note that the gradient also contains an entry for the limb darkening coefficients <code class="docutils literal notranslate"><span class="pre">u</span></code>, but since we didn’t set any, <code class="docutils literal notranslate"><span class="pre">starry</span></code> didn’t bother computing those derivatives.</p>
+<p>Note that the gradient routines are fully vectorized, so we can compute an entire light curve and its time-dependent gradients in a single pass:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">xo</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="n">flux</span><span class="p">,</span> <span class="n">gradient</span> <span class="o">=</span> <span class="nb">map</span><span class="o">.</span><span class="n">flux</span><span class="p">(</span><span class="n">xo</span><span class="o">=</span><span class="n">xo</span><span class="p">,</span> <span class="n">yo</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">ro</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">gradient</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Here’s the light curve:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">pl</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">flux</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics4_15_0.png" src="../_images/tutorials_basics4_15_0.png" />
+</div>
+</div>
+<p>And here are the first few gradients, normalized so we can plot them all on the same graph:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">gradient</span><span class="p">[</span><span class="s1">&#39;xo&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">gradient</span><span class="p">[</span><span class="s1">&#39;xo&#39;</span><span class="p">])),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$dF/dx_o$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">gradient</span><span class="p">[</span><span class="s1">&#39;yo&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">gradient</span><span class="p">[</span><span class="s1">&#39;yo&#39;</span><span class="p">])),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$dF/dy_o$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">gradient</span><span class="p">[</span><span class="s1">&#39;ro&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">gradient</span><span class="p">[</span><span class="s1">&#39;ro&#39;</span><span class="p">])),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$dF/dr_o$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xo</span><span class="p">,</span> <span class="n">gradient</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">gradient</span><span class="p">[</span><span class="s1">&#39;theta&#39;</span><span class="p">])),</span> <span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s1">&#39;$dF/d\theta$&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics4_17_0.png" src="../_images/tutorials_basics4_17_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="Gradients-of-System-instances">
+<h2>Gradients of <code class="docutils literal notranslate"><span class="pre">System</span></code> instances<a class="headerlink" href="#Gradients-of-System-instances" title="Permalink to this headline">¶</a></h2>
+<p>We can take gradients of <code class="docutils literal notranslate"><span class="pre">System</span></code> instances as well. Let’s create a very simple star-planet system.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">starry.kepler</span> <span class="k">import</span> <span class="n">Primary</span><span class="p">,</span> <span class="n">Secondary</span><span class="p">,</span> <span class="n">System</span>
+
+<span class="c1"># Body A</span>
+<span class="n">star</span> <span class="o">=</span> <span class="n">Primary</span><span class="p">()</span>
+<span class="n">star</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.4</span>
+<span class="n">star</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.26</span>
+
+<span class="c1"># Body b</span>
+<span class="n">planet</span> <span class="o">=</span> <span class="n">Secondary</span><span class="p">()</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">L</span> <span class="o">=</span> <span class="mf">1e-3</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">r</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">prot</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">porb</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">ecc</span> <span class="o">=</span> <span class="mf">0.2</span>
+<span class="n">planet</span><span class="o">.</span><span class="n">w</span> <span class="o">=</span> <span class="mi">35</span>
+<span class="n">planet</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">planet</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">planet</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.1</span>
+
+<span class="c1"># System</span>
+<span class="n">system</span> <span class="o">=</span> <span class="n">System</span><span class="p">(</span><span class="n">star</span><span class="p">,</span> <span class="n">planet</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>As before, we request the gradient via the <code class="docutils literal notranslate"><span class="pre">gradient=True</span></code> keyword of the <code class="docutils literal notranslate"><span class="pre">compute()</span></code> method. Let’s compute a super high resolution light curve with 100,000 points so we can zoom in on interesting features.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">1.75</span><span class="p">,</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mi">100000</span><span class="p">)</span>
+<span class="o">%</span><span class="k">time</span> system.compute(time, gradient=True)
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+CPU times: user 727 ms, sys: 21.1 ms, total: 748 ms
+Wall time: 749 ms
+</pre></div></div>
+</div>
+<p>We can plot the resulting light curve:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">system</span><span class="o">.</span><span class="n">lightcurve</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (days)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Flux&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics4_24_0.png" src="../_images/tutorials_basics4_24_0.png" />
+</div>
+</div>
+<p>As for the gradients, these are stored in the <code class="docutils literal notranslate"><span class="pre">gradient</span></code> attribute of the <code class="docutils literal notranslate"><span class="pre">System</span></code> instance:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">system</span><span class="o">.</span><span class="n">gradient</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="output_area highlight-none notranslate"><div class="highlight"><pre>
+<span></span>{&#39;A.prot&#39;: array([0., 0., 0., ..., 0., 0., 0.]),
+ &#39;A.tref&#39;: array([0., 0., 0., ..., 0., 0., 0.]),
+ &#39;A.u&#39;: array([[0., 0., 0., ..., 0., 0., 0.],
+        [0., 0., 0., ..., 0., 0., 0.]]),
+ &#39;b.L&#39;: array([0.8365729 , 0.83663733, 0.83670177, ..., 1.07855564, 1.07847729,
+        1.07839894]),
+ &#39;b.Omega&#39;: array([nan, nan, nan, ..., nan, nan, nan]),
+ &#39;b.a&#39;: array([0., 0., 0., ..., 0., 0., 0.]),
+ &#39;b.ecc&#39;: array([-0.0005656 , -0.00056568, -0.00056576, ...,  0.00068785,
+         0.00068787,  0.00068789]),
+ &#39;b.inc&#39;: array([nan, nan, nan, ..., nan, nan, nan]),
+ &#39;b.lambda0&#39;: array([ 5.11298215e-06,  5.11372724e-06,  5.11447215e-06, ...,
+        -6.21812874e-06, -6.21831232e-06, -6.21849552e-06]),
+ &#39;b.porb&#39;: array([ 0.00081588,  0.000816  ,  0.00081612, ..., -0.00099223,
+        -0.00099226, -0.00099229]),
+ &#39;b.prot&#39;: array([0.00240529, 0.00240558, 0.00240587, ..., 0.0049095 , 0.00490972,
+        0.00490994]),
+ &#39;b.r&#39;: array([0., 0., 0., ..., 0., 0., 0.]),
+ &#39;b.tref&#39;: array([-0.00184067, -0.00184094, -0.00184121, ...,  0.00223853,
+         0.00223859,  0.00223866]),
+ &#39;b.w&#39;: array([ 1.02343954e-06,  1.02358868e-06,  1.02373779e-06, ...,
+        -1.24465109e-06, -1.24468784e-06, -1.24472451e-06]),
+ &#39;b.y&#39;: array([[ 0.        ,  0.        ,  0.        , ...,  0.        ,
+          0.        ,  0.        ],
+        [-0.00040304, -0.00040281, -0.00040257, ...,  0.00040352,
+          0.00040328,  0.00040304],
+        [ 0.00108208,  0.00108217,  0.00108225, ..., -0.0010819 ,
+         -0.00108199, -0.00108208],
+        ...,
+        [-0.00017735, -0.00017747, -0.00017759, ..., -0.00017711,
+         -0.00017723, -0.00017735],
+        [-0.00031671, -0.00031655, -0.00031638, ..., -0.00031703,
+         -0.00031687, -0.00031671],
+        [ 0.00042514,  0.00042521,  0.00042528, ...,  0.000425  ,
+          0.00042507,  0.00042514]]),
+ &#39;time&#39;: array([ 0.00184067,  0.00184094,  0.00184121, ..., -0.00223853,
+        -0.00223859, -0.00223866])}
+</pre></div>
+</div>
+</div>
+<p>Note that since there are multiple bodies, the dictionary keys are prepended with the body identifier. The primary body (the star, in this case) is always given the identifier <code class="docutils literal notranslate"><span class="pre">A</span></code>. The secondary bodies are given lower case letters, starting with <code class="docutils literal notranslate"><span class="pre">b</span></code> and increasing in the order the bodies were specified when the system was instantiated.</p>
+<p>There are a <em>ton</em> of interesting derivatives to show. But as a brief example, here’s the derivative of the light curve with respect to the coefficient of the <span class="math notranslate nohighlight">\(Y_{1,1}\)</span> spherical harmonic of the planet’s map (that’s the element of index <span class="math notranslate nohighlight">\(n=3\)</span> in the vector <code class="docutils literal notranslate"><span class="pre">planet.y</span></code>):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">system</span><span class="o">.</span><span class="n">gradient</span><span class="p">[</span><span class="s1">&#39;b.y&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (days)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Flux&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics4_29_0.png" src="../_images/tutorials_basics4_29_0.png" />
+</div>
+</div>
+<p>Cool! Let’s zoom in on those spikes, which happen at secondary eclipse ingress and egress:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">pl</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time</span><span class="p">,</span> <span class="n">system</span><span class="o">.</span><span class="n">gradient</span><span class="p">[</span><span class="s1">&#39;b.y&#39;</span><span class="p">][</span><span class="mi">2</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Time (days)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Flux&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">);</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mf">0.55</span><span class="p">,</span> <span class="mf">0.564</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mf">0.0005</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.0005</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="../_images/tutorials_basics4_31_0.png" src="../_images/tutorials_basics4_31_0.png" />
+</div>
+</div>
+<p><strong>Note:</strong> The <code class="docutils literal notranslate"><span class="pre">Secondary</span></code> and <code class="docutils literal notranslate"><span class="pre">Primary</span></code> instances also have their own <code class="docutils literal notranslate"><span class="pre">gradient</span></code> attributes, which store the gradient of <em>that body’s flux</em> with respect to each of the parameters. Check those out as well!</p>
+</div>
+<div class="section" id="All-the-gradients">
+<h2>All the gradients<a class="headerlink" href="#All-the-gradients" title="Permalink to this headline">¶</a></h2>
+<p>Finally, just for fun, we can plot <strong>all</strong> of the gradients <code class="docutils literal notranslate"><span class="pre">starry</span></code> is able to compute for a two-planet system. Below are three snippets of the light curve: a <strong>transit</strong> of the inner planet (left), a <strong>secondary eclipse</strong> of the inner planet by the star (center), and a <strong>planet-planet occultation</strong> of the inner planet by the outer planet (right). The top panels show the light curve and the sub panels show the derivatives of the light curve with respect to all 28 system parameters. Blue lines
+are the analytic versions computed by starry, while the orange dots are computed numerically. The numerical flux is computed using an adaptive mesh and the numerical derivatives are computed using finite differences. Note that several of the numerical derivatives show significant numerical instabilities, while the analytic derivatives do not!</p>
+<p><img alt="image0" src="../_images/gradients.png" /></p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="basics5.html" class="btn btn-neutral float-right" title="Basics: Multi-wavelength maps" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basics3.html" class="btn btn-neutral" title="Basics: Exoplanet systems" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Rodrigo Luger.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../None"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Contributed extensions &mdash; starry 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="_static/js/hacks.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Developer" href="developer.html" />
+    <link rel="prev" title="Configuration" href="config.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> starry
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html"> Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html"> New in version 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html"> Examples &amp; tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html"> API</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"> Extensions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-starry.extensions.nexsci.nexsci">nexsci</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html"> Developer</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry"> Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues"> Submit an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ui.adsabs.harvard.edu/public-libraries/b0KqtPtYRj6I7T8eAZc5Ig"> Papers</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">starry</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Contributed extensions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="contributed-extensions">
+<h1>Contributed extensions<a class="headerlink" href="#contributed-extensions" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-starry.extensions.nexsci.nexsci">
+<span id="nexsci"></span><h2>nexsci<a class="headerlink" href="#module-starry.extensions.nexsci.nexsci" title="Permalink to this headline">¶</a></h2>
+<p>Extension for querying NExSci for real planet systems.</p>
+<p><em>Created by `Christina Hedges &lt;mailto:christina.l.hedges&#64;nasa.gov&gt;`_ on
+November 1, 2019</em></p>
+<p class="rubric">Example</p>
+<p>Obtain the <a class="reference internal" href="System.html#starry.System" title="starry.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">starry.System</span></code></a> for Kepler-10 and evaluate at
+some times. Here <code class="docutils literal notranslate"><span class="pre">flux</span></code> contains the normalized flux from the
+Kepler-10 system.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">starry.extensions</span> <span class="kn">import</span> <span class="n">from_nexsci</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="n">sys</span> <span class="o">=</span> <span class="n">from_nexsci</span><span class="p">(</span><span class="s1">&#39;Kepler-10&#39;</span><span class="p">)</span>
+<span class="n">time</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+<span class="n">flux</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">flux</span><span class="p">(</span><span class="n">time</span><span class="p">)</span><span class="o">.</span><span class="n">eval</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="exception">
+<dt id="starry.extensions.nexsci.nexsci.DataRetrievalFailure">
+<em class="property">exception </em><code class="sig-prename descclassname">starry.extensions.nexsci.nexsci.</code><code class="sig-name descname">DataRetrievalFailure</code><a class="headerlink" href="#starry.extensions.nexsci.nexsci.DataRetrievalFailure" title="Permalink to this definition">¶</a></dt>
+<dd><p>Exception raised if data can’t be retrieved from NExSci</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="starry.extensions.nexsci.nexsci.from_nexsci">
+<code class="sig-prename descclassname">starry.extensions.nexsci.nexsci.</code><code class="sig-name descname">from_nexsci</code><span class="sig-paren">(</span><em class="sig-param">name, limb_darkening=[0.4, 0.2]</em><span class="sig-paren">)</span><a class="headerlink" href="#starry.extensions.nexsci.nexsci.from_nexsci" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extension for retrieving a <a class="reference internal" href="System.html#starry.System" title="starry.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">starry.System</span></code></a> initialized with parameters from NExSci.</p>
+<p>Specify the name of the system as a string to <code class="docutils literal notranslate"><span class="pre">name</span></code> to create that specific
+system. Users can also pass <code class="docutils literal notranslate"><span class="pre">'random'</span></code> to obtain a random system. Returns
+a <a class="reference internal" href="System.html#starry.System" title="starry.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">starry.System</span></code></a> object.</p>
+<p>This extension queries NExSci and then stores the data as a csv file in
+<code class="docutils literal notranslate"><span class="pre">/extensions/data</span></code>. Loading this module will trigger a query of NExSci if
+this csv file is more than 7 days out of date.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – Name of system to retrieve.
+e.g. ‘K2-43’ or ‘K2-43b’</p></li>
+<li><p><strong>limb_darkening</strong> (<em>list</em><em>, </em><em>optional</em>) – The quadratic limb-darkening
+parameters to apply to the model. Default is <code class="docutils literal notranslate"><span class="pre">[0.4,</span> <span class="pre">0.2]</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An instance of <a class="reference internal" href="System.html#starry.System" title="starry.System"><code class="xref py py-class docutils literal notranslate"><span class="pre">starry.System</span></code></a> using planet parameters         from NExSci</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+  <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+    
+    <a href="developer.html" class="btn btn-neutral float-right" title="Developer" accesskey="n"
+      rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+    
+    
+    <a href="config.html" class="btn btn-neutral float-left" title="Configuration" accesskey="p"
+      rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+    
+  </div>
+  
+
+  <hr />
+
+  <div role="contentinfo">
+    <p>
+      
+      &copy; Copyright 2019, Rodrigo Luger.
+      <span class="lastupdated">
+        Last updated on 2020 Jan 05 at 07:06:01 UTC.
+      </span>
+
+    </p>
+  </div>
+  
+  
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a
+    href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by
+  <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

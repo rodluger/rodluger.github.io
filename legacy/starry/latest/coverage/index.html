@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Coverage report</title>
+    <link rel="icon" sizes="32x32" href="favicon_32.png">
+    <link rel="stylesheet" href="style.css" type="text/css">
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jquery.ba-throttle-debounce.min.js"></script>
+    <script type="text/javascript" src="jquery.tablesorter.min.js"></script>
+    <script type="text/javascript" src="jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="coverage_html.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(coverage.index_ready);
+    </script>
+</head>
+<body class="indexfile">
+<div id="header">
+    <div class="content">
+        <h1>Coverage report:
+            <span class="pc_cov">84%</span>
+        </h1>
+        <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
+        <form id="filter_container">
+            <input id="filter" type="text" value="" placeholder="filter..." />
+        </form>
+    </div>
+</div>
+<div class="help_panel">
+    <img id="panel_icon" src="keybd_open.png" alt="Hide keyboard shortcuts" />
+    <p class="legend">Hot-keys on this page</p>
+    <div>
+    <p class="keyhelp">
+        <span class="key">n</span>
+        <span class="key">s</span>
+        <span class="key">m</span>
+        <span class="key">x</span>
+        <span class="key">c</span> &nbsp; change column sorting
+    </p>
+    </div>
+</div>
+<div id="index">
+    <table class="index">
+        <thead>
+            <tr class="tablehead" title="Click to sort">
+                <th class="name left headerSortDown shortkey_n">Module</th>
+                <th class="shortkey_s">statements</th>
+                <th class="shortkey_m">missing</th>
+                <th class="shortkey_x">excluded</th>
+                <th class="right shortkey_c">coverage</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr class="total">
+                <td class="name left">Total</td>
+                <td>3214</td>
+                <td>507</td>
+                <td>42</td>
+                <td class="right" data-ratio="2707 3214">84%</td>
+            </tr>
+        </tfoot>
+        <tbody>
+            <tr class="file">
+                <td class="name left"><a href="starry___init___py.html">starry/__init__.py</a></td>
+                <td>12</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="right" data-ratio="12 12">100%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__config_py.html">starry/_config.py</a></td>
+                <td>42</td>
+                <td>8</td>
+                <td>0</td>
+                <td class="right" data-ratio="34 42">81%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__constants_py.html">starry/_constants.py</a></td>
+                <td>11</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="right" data-ratio="11 11">100%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core___init___py.html">starry/_core/__init__.py</a></td>
+                <td>2</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="right" data-ratio="2 2">100%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_core_py.html">starry/_core/core.py</a></td>
+                <td>636</td>
+                <td>88</td>
+                <td>7</td>
+                <td class="right" data-ratio="548 636">86%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_math_py.html">starry/_core/math.py</a></td>
+                <td>193</td>
+                <td>16</td>
+                <td>0</td>
+                <td class="right" data-ratio="177 193">92%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops___init___py.html">starry/_core/ops/__init__.py</a></td>
+                <td>9</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="right" data-ratio="9 9">100%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_diffrot_py.html">starry/_core/ops/diffrot.py</a></td>
+                <td>37</td>
+                <td>19</td>
+                <td>0</td>
+                <td class="right" data-ratio="18 37">49%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_exceptions_py.html">starry/_core/ops/exceptions.py</a></td>
+                <td>48</td>
+                <td>32</td>
+                <td>0</td>
+                <td class="right" data-ratio="16 48">33%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_filter_py.html">starry/_core/ops/filter.py</a></td>
+                <td>55</td>
+                <td>6</td>
+                <td>0</td>
+                <td class="right" data-ratio="49 55">89%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_integration_py.html">starry/_core/ops/integration.py</a></td>
+                <td>126</td>
+                <td>9</td>
+                <td>0</td>
+                <td class="right" data-ratio="117 126">93%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_limbdark___init___py.html">starry/_core/ops/limbdark/__init__.py</a></td>
+                <td>2</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="right" data-ratio="2 2">100%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_limbdark_base_op_py.html">starry/_core/ops/limbdark/base_op.py</a></td>
+                <td>26</td>
+                <td>2</td>
+                <td>0</td>
+                <td class="right" data-ratio="24 26">92%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_limbdark_get_cl_py.html">starry/_core/ops/limbdark/get_cl.py</a></td>
+                <td>23</td>
+                <td>3</td>
+                <td>0</td>
+                <td class="right" data-ratio="20 23">87%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_limbdark_get_cl_rev_py.html">starry/_core/ops/limbdark/get_cl_rev.py</a></td>
+                <td>12</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="right" data-ratio="12 12">100%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_limbdark_limbdark_py.html">starry/_core/ops/limbdark/limbdark.py</a></td>
+                <td>38</td>
+                <td>6</td>
+                <td>0</td>
+                <td class="right" data-ratio="32 38">84%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_minimize_py.html">starry/_core/ops/minimize.py</a></td>
+                <td>103</td>
+                <td>5</td>
+                <td>0</td>
+                <td class="right" data-ratio="98 103">95%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_polybasis_py.html">starry/_core/ops/polybasis.py</a></td>
+                <td>62</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="right" data-ratio="62 62">100%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_rotation_py.html">starry/_core/ops/rotation.py</a></td>
+                <td>103</td>
+                <td>9</td>
+                <td>0</td>
+                <td class="right" data-ratio="94 103">91%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_ops_spot_py.html">starry/_core/ops/spot.py</a></td>
+                <td>42</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="right" data-ratio="42 42">100%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__core_utils_py.html">starry/_core/utils.py</a></td>
+                <td>59</td>
+                <td>5</td>
+                <td>0</td>
+                <td class="right" data-ratio="54 59">92%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__indices_py.html">starry/_indices.py</a></td>
+                <td>63</td>
+                <td>0</td>
+                <td>4</td>
+                <td class="right" data-ratio="63 63">100%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__plotting_py.html">starry/_plotting.py</a></td>
+                <td>111</td>
+                <td>49</td>
+                <td>0</td>
+                <td class="right" data-ratio="62 111">56%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry__sht_py.html">starry/_sht.py</a></td>
+                <td>65</td>
+                <td>7</td>
+                <td>0</td>
+                <td class="right" data-ratio="58 65">89%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry_kepler_py.html">starry/kepler.py</a></td>
+                <td>397</td>
+                <td>10</td>
+                <td>25</td>
+                <td class="right" data-ratio="387 397">97%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry_linalg_py.html">starry/linalg.py</a></td>
+                <td>59</td>
+                <td>54</td>
+                <td>0</td>
+                <td class="right" data-ratio="5 59">8%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry_maps_py.html">starry/maps.py</a></td>
+                <td>877</td>
+                <td>179</td>
+                <td>6</td>
+                <td class="right" data-ratio="698 877">80%</td>
+            </tr>
+            <tr class="file">
+                <td class="name left"><a href="starry_starry_version_py.html">starry/starry_version.py</a></td>
+                <td>1</td>
+                <td>0</td>
+                <td>0</td>
+                <td class="right" data-ratio="1 1">100%</td>
+            </tr>
+        </tbody>
+    </table>
+    <p id="no_rows">
+        No items found using the specified filter.
+    </p>
+</div>
+<div id="footer">
+    <div class="content">
+        <p>
+            <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.4</a>,
+            created at 2021-02-17 19:57 +0000
+        </p>
+    </div>
+</div>
+</body>
+</html>

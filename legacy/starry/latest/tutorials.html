@@ -1,0 +1,377 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Examples &amp; Tutorials &mdash; starry latest documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+        <script src="_static/js/hacks.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="The basics" href="notebooks/Basics.html" />
+    <link rel="prev" title="New in version 1.0" href="changes.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> starry
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                latest
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html"> Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html"> New in version 1.0</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"> Examples &amp; tutorials</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-basics">The basics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/Basics.html">The basics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/LazyGreedy.html">Lazy versus greedy evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/Orientation.html">Map orientation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/Exoplanet.html">A simple exoplanet system</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/FAQs.html">FAQs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#light-curves-in-reflected-light">Light curves in reflected light</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/ReflectedLight.html">Maps in reflected light</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#spectroscopy-and-radial-velocity">Spectroscopy and radial velocity</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/RossiterMcLaughlin.html">The Rossiter-McLaughlin effect</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/MultiWavelength.html">Multi-wavelength maps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#custom-models">Custom Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/StarSpots.html">Star spots</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/DifferentialRotation.html">Differential Rotation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/TimeEvolution.html">Time evolution of <code class="docutils literal notranslate"><span class="pre">starry</span></code> maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/ExposureTime.html">Exposure time integration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/LightTravelDelay.html">Light travel time delay</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#inference-and-optimization">Inference and optimization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/EclipsingBinary_Generate.html">Eclipsing binary: Generate the data</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/EclipsingBinary_PyMC3.html">Eclipsing binary: <code class="docutils literal notranslate"><span class="pre">pymc3</span></code> solution for the maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/EclipsingBinary_Linear.html">Eclipsing binary: Linear solution for the maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/EclipsingBinary_FullSolution_Painful.html">Eclipsing binary: Solving for <em>everything</em> the slow way</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/EclipsingBinary_FullSolution.html">Eclipsing binary: Solving for <em>everything</em> the fast way</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/SpotSolve.html">Where’s the spot?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/LinearSolve.html">Linear solve</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/MarginalLikelihood.html">Marginal likelihood</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/HotJupiterPhaseCurve.html">Hot jupiter phase curve example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/PixelTransform.html">The pixel transform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/PixelSampling.html">Pixel sampling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/DimReduce.html">Dimensionality Reduction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#miscellaneous">Miscellaneous</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/NullSpace.html">The null space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/StayingPositive.html">Staying Positive</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/LDNormalization.html">Notes on limb darkening normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/OrbitViz.html">Orbit visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/RVDerivation.html">Derivation of the radial velocity field expansion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notebooks/TimingTests.html">Timing tests</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html"> API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html"> Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html"> Developer</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry"> Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues"> Submit an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ui.adsabs.harvard.edu/public-libraries/b0KqtPtYRj6I7T8eAZc5Ig"> Papers</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">starry</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>Examples &amp; Tutorials</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="examples-tutorials">
+<h1>Examples &amp; Tutorials<a class="headerlink" href="#examples-tutorials" title="Permalink to this headline">¶</a></h1>
+<p>Below you’ll find a collection of Jupyter Notebooks that demonstrate how
+to use <code class="docutils literal notranslate"><span class="pre">starry</span></code> in various different ways. We’re still adding tutorials
+to this page, so check back soon for more.</p>
+<div class="section" id="the-basics">
+<h2>The basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Basics.html">The basics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/LazyGreedy.html">Lazy versus greedy evaluation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Orientation.html">Map orientation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/Exoplanet.html">A simple exoplanet system</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/FAQs.html">FAQs</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="light-curves-in-reflected-light">
+<h2>Light curves in reflected light<a class="headerlink" href="#light-curves-in-reflected-light" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/ReflectedLight.html">Maps in reflected light</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="spectroscopy-and-radial-velocity">
+<h2>Spectroscopy and radial velocity<a class="headerlink" href="#spectroscopy-and-radial-velocity" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/RossiterMcLaughlin.html">The Rossiter-McLaughlin effect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/MultiWavelength.html">Multi-wavelength maps</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="custom-models">
+<h2>Custom Models<a class="headerlink" href="#custom-models" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/StarSpots.html">Star spots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/DifferentialRotation.html">Differential Rotation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/TimeEvolution.html">Time evolution of <code class="docutils literal notranslate"><span class="pre">starry</span></code> maps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/ExposureTime.html">Exposure time integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/LightTravelDelay.html">Light travel time delay</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="inference-and-optimization">
+<h2>Inference and optimization<a class="headerlink" href="#inference-and-optimization" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/EclipsingBinary_Generate.html">Eclipsing binary: Generate the data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/EclipsingBinary_PyMC3.html">Eclipsing binary: <code class="docutils literal notranslate"><span class="pre">pymc3</span></code> solution for the maps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/EclipsingBinary_Linear.html">Eclipsing binary: Linear solution for the maps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/EclipsingBinary_FullSolution_Painful.html">Eclipsing binary: Solving for <em>everything</em> the slow way</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/EclipsingBinary_FullSolution.html">Eclipsing binary: Solving for <em>everything</em> the fast way</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/SpotSolve.html">Where’s the spot?</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/LinearSolve.html">Linear solve</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/MarginalLikelihood.html">Marginal likelihood</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/HotJupiterPhaseCurve.html">Hot jupiter phase curve example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/PixelTransform.html">The pixel transform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/PixelSampling.html">Pixel sampling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/DimReduce.html">Dimensionality Reduction</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="miscellaneous">
+<h2>Miscellaneous<a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/NullSpace.html">The null space</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/StayingPositive.html">Staying Positive</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/LDNormalization.html">Notes on limb darkening normalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/OrbitViz.html">Orbit visualization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/RVDerivation.html">Derivation of the radial velocity field expansion</a></li>
+<li class="toctree-l1"><a class="reference internal" href="notebooks/TimingTests.html">Timing tests</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+  <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+    
+    <a href="notebooks/Basics.html" class="btn btn-neutral float-right" title="The basics" accesskey="n"
+      rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+    
+    
+    <a href="changes.html" class="btn btn-neutral float-left" title="New in version 1.0" accesskey="p"
+      rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+    
+  </div>
+  
+
+  <hr />
+
+  <div role="contentinfo">
+    <p>
+      
+      &copy; Copyright 2019, Rodrigo Luger.
+      <span class="lastupdated">
+        Last updated on 2021 Feb 17 at 20:03:29 UTC.
+      </span>
+
+    </p>
+  </div>
+  
+  
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a
+    href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by
+  <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

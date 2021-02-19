@@ -1,0 +1,408 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>New in version 1.0 &mdash; starry 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="_static/js/hacks.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Examples &amp; Tutorials" href="tutorials.html" />
+    <link rel="prev" title="Installation" href="install.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> starry
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html"> Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#"> New in version 1.0</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#significant-changes">Significant changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#lazy-evaluation">Lazy evaluation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-frame-in-which-the-coefficients-are-defined">The frame in which the coefficients are defined</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#normalization-of-limb-darkened-maps">Normalization of limb-darkened maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#linearized-computations">Linearized computations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fixed-y-0-0-coefficient">Fixed <span class="math notranslate nohighlight">\(Y_{0,0}\)</span> coefficient</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#smaller-changes">Smaller changes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#deprecation-of-the-axis-attribute">Deprecation of the <code class="docutils literal notranslate"><span class="pre">axis</span></code> attribute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecation-of-load-image-in-favor-of-load">Deprecation of <code class="docutils literal notranslate"><span class="pre">load_image</span></code> in favor of <code class="docutils literal notranslate"><span class="pre">load</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecation-of-add-gaussian-in-favor-of-add-spot">Deprecation of <code class="docutils literal notranslate"><span class="pre">add_gaussian</span></code> in favor of <code class="docutils literal notranslate"><span class="pre">add_spot</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecation-of-the-animate-method">Deprecation of the <code class="docutils literal notranslate"><span class="pre">animate</span></code> method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#deprecation-of-the-call-method">Deprecation of the <code class="docutils literal notranslate"><span class="pre">__call__</span></code> method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#distinction-between-ydeg-and-udeg">Distinction between <code class="docutils literal notranslate"><span class="pre">ydeg</span></code> and <code class="docutils literal notranslate"><span class="pre">udeg</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#custom-units">Custom units</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#faster-linear-algebra">Faster linear algebra</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#new-stuff">New stuff</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#reflected-light-maps">Reflected light maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#doppler-maps">Doppler maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#differential-rotation-experimental">Differential rotation (experimental)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html"> Examples &amp; tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html"> API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html"> Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html"> Developer</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry"> Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues"> Submit an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ui.adsabs.harvard.edu/public-libraries/b0KqtPtYRj6I7T8eAZc5Ig"> Papers</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">starry</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>New in version 1.0</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="new-in-version-1-0">
+<h1>New in version 1.0<a class="headerlink" href="#new-in-version-1-0" title="Permalink to this headline">¶</a></h1>
+<p>The first official release version of <code class="docutils literal notranslate"><span class="pre">starry</span></code> differs quite a bit from the beta
+(<code class="docutils literal notranslate"><span class="pre">0.3.0</span></code>) version, particularly in how gradients are computed and propagated.
+The main difference is that <code class="docutils literal notranslate"><span class="pre">starry</span></code> now uses <code class="docutils literal notranslate"><span class="pre">theano</span></code> under the hood for all
+calculations, which allows it to interface efficiently with <code class="docutils literal notranslate"><span class="pre">exoplanet</span></code> and
+<code class="docutils literal notranslate"><span class="pre">pymc3</span></code>. From the user’s perspective the only major change is that calculations
+are performed <strong>lazily</strong> by default. What that means is that whenever the user
+calls a method like <code class="docutils literal notranslate"><span class="pre">flux()</span></code> or <code class="docutils literal notranslate"><span class="pre">intensity()</span></code>, the code will return a node in
+a graph rather than an actual numerical value. Operations can then be done on
+these nodes (such as computing the likelihood in an inference problem), with
+gradients automatically (back-)propagated along the way. This is exactly how
+<code class="docutils literal notranslate"><span class="pre">exoplanet</span></code> and <code class="docutils literal notranslate"><span class="pre">pymc3</span></code> work, so the whole inference problem is made much easier.</p>
+<div class="section" id="significant-changes">
+<h2>Significant changes<a class="headerlink" href="#significant-changes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="lazy-evaluation">
+<h3>Lazy evaluation<a class="headerlink" href="#lazy-evaluation" title="Permalink to this headline">¶</a></h3>
+<p>By default, all operations are done lazily, and all map properties are stored as
+<code class="docutils literal notranslate"><span class="pre">theano</span></code> nodes rather than numerical values. This behavior can be changed by
+setting <code class="docutils literal notranslate"><span class="pre">starry.config.lazy</span> <span class="pre">=</span> <span class="pre">False</span></code> as soon as <code class="docutils literal notranslate"><span class="pre">starry</span></code> is imported
+(before any maps have been instantiated). Doing so will automatically compile
+all functions behind the scenes, and the code will function similarly to version
+<code class="docutils literal notranslate"><span class="pre">0.3.0</span></code>.</p>
+</div>
+<div class="section" id="the-frame-in-which-the-coefficients-are-defined">
+<h3>The frame in which the coefficients are defined<a class="headerlink" href="#the-frame-in-which-the-coefficients-are-defined" title="Permalink to this headline">¶</a></h3>
+<p>Spherical harmonic coefficients are now defined in a static frame that is
+independent of the orientation of the map. Changing the rotational axis of the
+map (which is now done by specifying the inclination and obliquity of the object)
+no longer changes the <span class="math notranslate nohighlight">\(Y_{l,m}\)</span> coefficients. Another way to think about this
+is that changing the inclination and obliquity corresponds to moving the
+observer around, <em>not</em> rotating the map.</p>
+</div>
+<div class="section" id="normalization-of-limb-darkened-maps">
+<h3>Normalization of limb-darkened maps<a class="headerlink" href="#normalization-of-limb-darkened-maps" title="Permalink to this headline">¶</a></h3>
+<p>The normalization of limb-darkened spherical harmonic maps has changed.
+The normalization is such that the total luminosity of the map remains unchanged
+when limb darkening is applied or when the limb darkening coefficients are
+modified. Note that this could mean that the flux at any given viewing angle
+will be different from the non-limb-darkened version of the map. This is
+significantly different from the beta version of the code, which normalized
+it such that the flux remained unchanged. That normalization was almost certainly
+unphysical.</p>
+</div>
+<div class="section" id="linearized-computations">
+<h3>Linearized computations<a class="headerlink" href="#linearized-computations" title="Permalink to this headline">¶</a></h3>
+<p>All flux and intensity computations are now explicitly linear in the spherical
+harmonic coefficients. This allows users to easily access the <code class="docutils literal notranslate"><span class="pre">design_matrix</span></code>
+that transforms from a vector of spherical harmonic coefficients to a light
+curve. This matrix is extremely useful, as it lets you tackle the inverse
+problem analytically!</p>
+</div>
+<div class="section" id="fixed-y-0-0-coefficient">
+<h3>Fixed <span class="math notranslate nohighlight">\(Y_{0,0}\)</span> coefficient<a class="headerlink" href="#fixed-y-0-0-coefficient" title="Permalink to this headline">¶</a></h3>
+<p>The constant (<span class="math notranslate nohighlight">\(Y_{0,0}\)</span>) coefficient is now fixed at unity. The previous
+version allowed the user to change this, which effectively changed the
+luminosity of the map. There is now an explcit luminosity <code class="docutils literal notranslate"><span class="pre">L</span></code> attribute
+that can be changed instead.</p>
+</div>
+</div>
+<div class="section" id="smaller-changes">
+<h2>Smaller changes<a class="headerlink" href="#smaller-changes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="deprecation-of-the-axis-attribute">
+<h3>Deprecation of the <code class="docutils literal notranslate"><span class="pre">axis</span></code> attribute<a class="headerlink" href="#deprecation-of-the-axis-attribute" title="Permalink to this headline">¶</a></h3>
+<p>The axis of rotation is now specified by the inclination <code class="docutils literal notranslate"><span class="pre">inc</span></code> and obliquity
+<code class="docutils literal notranslate"><span class="pre">obl</span></code> of the map (see above).</p>
+</div>
+<div class="section" id="deprecation-of-load-image-in-favor-of-load">
+<h3>Deprecation of <code class="docutils literal notranslate"><span class="pre">load_image</span></code> in favor of <code class="docutils literal notranslate"><span class="pre">load</span></code><a class="headerlink" href="#deprecation-of-load-image-in-favor-of-load" title="Permalink to this headline">¶</a></h3>
+<p>Just a name change.</p>
+</div>
+<div class="section" id="deprecation-of-add-gaussian-in-favor-of-add-spot">
+<h3>Deprecation of <code class="docutils literal notranslate"><span class="pre">add_gaussian</span></code> in favor of <code class="docutils literal notranslate"><span class="pre">add_spot</span></code><a class="headerlink" href="#deprecation-of-add-gaussian-in-favor-of-add-spot" title="Permalink to this headline">¶</a></h3>
+<p>Also a name change, but the algorithm used to compute the spherical harmonic
+expansion of the spot is now analytic and much, much faster.</p>
+</div>
+<div class="section" id="deprecation-of-the-animate-method">
+<h3>Deprecation of the <code class="docutils literal notranslate"><span class="pre">animate</span></code> method<a class="headerlink" href="#deprecation-of-the-animate-method" title="Permalink to this headline">¶</a></h3>
+<p>All map visualizations are now performed via the <code class="docutils literal notranslate"><span class="pre">show</span></code> method. If you want
+to animate the map as it rotates, pass a vector-valued <code class="docutils literal notranslate"><span class="pre">theta</span></code>.</p>
+</div>
+<div class="section" id="deprecation-of-the-call-method">
+<h3>Deprecation of the <code class="docutils literal notranslate"><span class="pre">__call__</span></code> method<a class="headerlink" href="#deprecation-of-the-call-method" title="Permalink to this headline">¶</a></h3>
+<p>In the previous version, users could evaluate the intensity at a point on the
+surface of a map by calling the instance directly: <code class="docutils literal notranslate"><span class="pre">map(x=0,</span> <span class="pre">y=0)</span></code>. This is
+now done via the <code class="docutils literal notranslate"><span class="pre">intensity</span></code> method, whose arguments are the latitude
+<code class="docutils literal notranslate"><span class="pre">lat</span></code> and longitude <code class="docutils literal notranslate"><span class="pre">lon</span></code> of the point(s) rather than their Cartesian
+coordinates.</p>
+</div>
+<div class="section" id="distinction-between-ydeg-and-udeg">
+<h3>Distinction between <code class="docutils literal notranslate"><span class="pre">ydeg</span></code> and <code class="docutils literal notranslate"><span class="pre">udeg</span></code><a class="headerlink" href="#distinction-between-ydeg-and-udeg" title="Permalink to this headline">¶</a></h3>
+<p>Previously, maps were instantiated for a given maximum degree <code class="docutils literal notranslate"><span class="pre">lmax</span></code>.
+This has been deprecated in favor of a maximum <span class="math notranslate nohighlight">\(Y_{l,m}\)</span> degree <code class="docutils literal notranslate"><span class="pre">ydeg</span></code>
+and a maximum limb darkening degree <code class="docutils literal notranslate"><span class="pre">udeg</span></code>.</p>
+</div>
+<div class="section" id="custom-units">
+<h3>Custom units<a class="headerlink" href="#custom-units" title="Permalink to this headline">¶</a></h3>
+<p>Users can now pass custom <code class="docutils literal notranslate"><span class="pre">astropy</span></code> units to override the defaults.</p>
+</div>
+<div class="section" id="faster-linear-algebra">
+<h3>Faster linear algebra<a class="headerlink" href="#faster-linear-algebra" title="Permalink to this headline">¶</a></h3>
+<p>The change of basis matrices between spherical harmonics and polynomials are
+now computed recursively, rather than via the horrendous nested sums presented
+in the paper. The new method is more elegant and more stable.</p>
+</div>
+</div>
+<div class="section" id="new-stuff">
+<h2>New stuff<a class="headerlink" href="#new-stuff" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="reflected-light-maps">
+<h3>Reflected light maps<a class="headerlink" href="#reflected-light-maps" title="Permalink to this headline">¶</a></h3>
+<p>Maps can now be modelled in reflected light. The spherical harmonic
+coefficients now correspond to the surface albedo, rather than its specific
+intensity.</p>
+</div>
+<div class="section" id="doppler-maps">
+<h3>Doppler maps<a class="headerlink" href="#doppler-maps" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">Map</span></code> class can now also model radial velocity observations. This is
+useful for modeling the Rossiter-McLaughlin effect, for example.</p>
+</div>
+<div class="section" id="differential-rotation-experimental">
+<h3>Differential rotation (experimental)<a class="headerlink" href="#differential-rotation-experimental" title="Permalink to this headline">¶</a></h3>
+<p>Users can now specify the differential rotation parameter <code class="docutils literal notranslate"><span class="pre">alpha</span></code>
+to model weak differential rotation over short timescales. Unfortunately,
+differential rotation is not a linear operation on the spherical harmonic
+coefficient vector, since the shearing induces higher order modes that
+grow strongly with time. The version implemented in <code class="docutils literal notranslate"><span class="pre">starry</span></code> is just a
+low-order approximation to differential rotation that works in cases where
+both <code class="docutils literal notranslate"><span class="pre">alpha</span></code> and the number of rotations are small.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+  <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+    
+    <a href="tutorials.html" class="btn btn-neutral float-right" title="Examples &amp; Tutorials" accesskey="n"
+      rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+    
+    
+    <a href="install.html" class="btn btn-neutral float-left" title="Installation" accesskey="p"
+      rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+    
+  </div>
+  
+
+  <hr />
+
+  <div role="contentinfo">
+    <p>
+      
+      &copy; Copyright 2019, Rodrigo Luger.
+      <span class="lastupdated">
+        Last updated on 2020 Jan 05 at 07:06:01 UTC.
+      </span>
+
+    </p>
+  </div>
+  
+  
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a
+    href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by
+  <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

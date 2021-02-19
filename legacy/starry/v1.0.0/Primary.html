@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Primary Keplerian body &mdash; starry 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="_static/js/hacks.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Secondary Keplerian body" href="Secondary.html" />
+    <link rel="prev" title="Keplerian systems" href="Kepler.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> starry
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html"> Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html"> New in version 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html"> Examples &amp; tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html"> API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="MapFactory.html">Maps</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="Kepler.html">Keplerian systems</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Primary Keplerian body</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Secondary.html">Secondary Keplerian body</a></li>
+<li class="toctree-l3"><a class="reference internal" href="System.html">Keplerian system</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="linalg.html">Linear Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html"> Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html"> Developer</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry"> Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues"> Submit an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ui.adsabs.harvard.edu/public-libraries/b0KqtPtYRj6I7T8eAZc5Ig"> Papers</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">starry</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="api.html">The starry Python API</a> &raquo;</li>
+        
+          <li><a href="Kepler.html">Keplerian systems</a> &raquo;</li>
+        
+      <li>Primary Keplerian body</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="primary-keplerian-body">
+<h1>Primary Keplerian body<a class="headerlink" href="#primary-keplerian-body" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="starry.Primary">
+<em class="property">class </em><code class="sig-prename descclassname">starry.</code><code class="sig-name descname">Primary</code><a class="headerlink" href="#starry.Primary" title="Permalink to this definition">¶</a></dt>
+<dd><p>A primary (central) body.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>map</strong> – The surface map of this body. This should be an instance
+returned by <a class="reference internal" href="MapFactory.html#starry.Map" title="starry.Map"><code class="xref py py-func docutils literal notranslate"><span class="pre">starry.Map()</span></code></a>.</p></li>
+<li><p><strong>r</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The radius of the body in units of
+<a class="reference internal" href="#starry.Primary.length_unit" title="starry.Primary.length_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">length_unit</span></code></a>. Defaults to 1.0.</p></li>
+<li><p><strong>m</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The mass of the body in units of
+<a class="reference internal" href="#starry.Primary.mass_unit" title="starry.Primary.mass_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mass_unit</span></code></a>. Defaults to 1.0.</p></li>
+<li><p><strong>prot</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The rotation period of the body in units of
+<a class="reference internal" href="#starry.Primary.time_unit" title="starry.Primary.time_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">time_unit</span></code></a>. Defaults to 1.0.</p></li>
+<li><p><strong>t0</strong> (<em>scalar</em><em>, </em><em>optional</em>) – A reference time in units of
+<a class="reference internal" href="#starry.Primary.time_unit" title="starry.Primary.time_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">time_unit</span></code></a>. Defaults to 0.0.</p></li>
+<li><p><strong>theta0</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The rotational phase of the map at time
+<a class="reference internal" href="#starry.Primary.t0" title="starry.Primary.t0"><code class="xref py py-attr docutils literal notranslate"><span class="pre">t0</span></code></a> in units of <a class="reference internal" href="#starry.Primary.angle_unit" title="starry.Primary.angle_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">angle_unit</span></code></a>. Defaults to 0.0.</p></li>
+<li><p><strong>length_unit</strong> (<em>optional</em>) – An <code class="docutils literal notranslate"><span class="pre">astropy.units</span></code> unit defining the
+distance metric for this object. Defaults to
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">astropy.units.Rsun.</span></code></p></li>
+<li><p><strong>mass_unit</strong> (<em>optional</em>) – An <code class="docutils literal notranslate"><span class="pre">astropy.units</span></code> unit defining the
+mass metric for this object. Defaults to
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">astropy.units.Msun.</span></code></p></li>
+<li><p><strong>time_unit</strong> (<em>optional</em>) – An <code class="docutils literal notranslate"><span class="pre">astropy.units</span></code> unit defining the
+time metric for this object. Defaults to
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">astropy.units.day.</span></code></p></li>
+<li><p><strong>angle_unit</strong> (<em>optional</em>) – An <code class="docutils literal notranslate"><span class="pre">astropy.units</span></code> unit defining the
+angular metric for this object. Defaults to
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">astropy.units.degree.</span></code></p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="starry.Primary.angle_unit">
+<em class="property">property </em><code class="sig-name descname">angle_unit</code><a class="headerlink" href="#starry.Primary.angle_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>An <code class="docutils literal notranslate"><span class="pre">astropy.units</span></code> unit defining the angle metric for this body.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Primary.length_unit">
+<em class="property">property </em><code class="sig-name descname">length_unit</code><a class="headerlink" href="#starry.Primary.length_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>An <code class="docutils literal notranslate"><span class="pre">astropy.units</span></code> unit defining the length metric for this body.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Primary.m">
+<em class="property">property </em><code class="sig-name descname">m</code><a class="headerlink" href="#starry.Primary.m" title="Permalink to this definition">¶</a></dt>
+<dd><p>The mass in units of <a class="reference internal" href="#starry.Primary.mass_unit" title="starry.Primary.mass_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">mass_unit</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Primary.map">
+<em class="property">property </em><code class="sig-name descname">map</code><a class="headerlink" href="#starry.Primary.map" title="Permalink to this definition">¶</a></dt>
+<dd><p>The surface map for this body.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Primary.mass_unit">
+<em class="property">property </em><code class="sig-name descname">mass_unit</code><a class="headerlink" href="#starry.Primary.mass_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>An <code class="docutils literal notranslate"><span class="pre">astropy.units</span></code> unit defining the mass metric for this body.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Primary.prot">
+<em class="property">property </em><code class="sig-name descname">prot</code><a class="headerlink" href="#starry.Primary.prot" title="Permalink to this definition">¶</a></dt>
+<dd><p>The rotation period in units of <a class="reference internal" href="#starry.Primary.time_unit" title="starry.Primary.time_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">time_unit</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Primary.r">
+<em class="property">property </em><code class="sig-name descname">r</code><a class="headerlink" href="#starry.Primary.r" title="Permalink to this definition">¶</a></dt>
+<dd><p>The radius in units of <a class="reference internal" href="#starry.Primary.length_unit" title="starry.Primary.length_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">length_unit</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Primary.t0">
+<em class="property">property </em><code class="sig-name descname">t0</code><a class="headerlink" href="#starry.Primary.t0" title="Permalink to this definition">¶</a></dt>
+<dd><p>A reference time in units of <a class="reference internal" href="#starry.Primary.time_unit" title="starry.Primary.time_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">time_unit</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Primary.theta0">
+<em class="property">property </em><code class="sig-name descname">theta0</code><a class="headerlink" href="#starry.Primary.theta0" title="Permalink to this definition">¶</a></dt>
+<dd><p>The map rotational phase at time <a class="reference internal" href="#starry.Primary.t0" title="starry.Primary.t0"><code class="xref py py-attr docutils literal notranslate"><span class="pre">t0</span></code></a>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="starry.Primary.time_unit">
+<em class="property">property </em><code class="sig-name descname">time_unit</code><a class="headerlink" href="#starry.Primary.time_unit" title="Permalink to this definition">¶</a></dt>
+<dd><p>An <code class="docutils literal notranslate"><span class="pre">astropy.units</span></code> unit defining the time metric for this body.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+  <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+    
+    <a href="Secondary.html" class="btn btn-neutral float-right" title="Secondary Keplerian body" accesskey="n"
+      rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+    
+    
+    <a href="Kepler.html" class="btn btn-neutral float-left" title="Keplerian systems" accesskey="p"
+      rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+    
+  </div>
+  
+
+  <hr />
+
+  <div role="contentinfo">
+    <p>
+      
+      &copy; Copyright 2019, Rodrigo Luger.
+      <span class="lastupdated">
+        Last updated on 2020 Jan 05 at 07:06:01 UTC.
+      </span>
+
+    </p>
+  </div>
+  
+  
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a
+    href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by
+  <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

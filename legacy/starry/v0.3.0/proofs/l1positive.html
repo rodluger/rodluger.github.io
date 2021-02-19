@@ -1,0 +1,354 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Positive semi-definite surface maps &mdash; starry 0.3.0 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="starry 0.3.0 documentation" href="../index.html"/>
+        <link rel="up" title="Proofs" href="../proofs.html"/>
+        <link rel="next" title="Spherical harmonics" href="ylmxyz.html"/>
+        <link rel="prev" title="Quadratic limb darkening" href="qldylm.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> starry
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.3.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+                <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorials.html">Examples &amp; tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../proofs.html">Proofs</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bp.html">Equation (7)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bg.html">Equation (11)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="rnsoln.html">Equation (20)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lambda.html">Equation (25)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Gn.html">Equation (34)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qldylm.html">Equation (38)</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Equation (40)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#Derivation-of-the-positive-semi-definite-condtion-for-l-=-1-maps">Derivation of the positive semi-definite condtion for <span class="math notranslate nohighlight">\(l = 1\)</span> maps</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="ylmxyz.html">Equations (A5), (A9)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="A.html">Equations (B11), (B12), (B13)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="R.html">Equations (C15), (C16), (C17), (C20)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biglam.html">Equation (D22)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Huvsol.html">Equation (D29)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PGn_reparam.html">Equation (D32)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vieta.html">Equations (D33), (D34)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="PGn_reparam2.html">Equations (D35), (D39)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IJHypergeo.html">Equation (D41)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IJSeries.html">Equation (D42)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IJupward.html">Equations (D44), (D46)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="IJdownward.html">Equation (D48)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Ilargek.html">Equation (D49)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Jlargek.html">Equation (D50)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Jseries0largek.html">Equation (D51)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">Python API</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry">Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues">Submit an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://rodluger.github.io/starry-benchmarks">Benchmarks</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues?q=is%3Aissue+is%3Aopen+label%3A%22next+version%22">Upcoming features</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/raw/master-pdf/tex/starry.pdf">Read the paper</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../index.html">starry</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../index.html">starry</a> &raquo;</li>
+      
+        <li><a href="../proofs.html">Proofs</a>&raquo;</li>
+      
+    
+      <li>Positive semi-definite surface maps</li>
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast,
+.nboutput.nblast {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast + .nbinput {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This tutorial was generated from an Jupyter notebook that can be
+downloaded <a class="reference external" href="https://github.com/rodluger/starry/blob/master/docs/proofs/l1positive.ipynb">here</a>.</p>
+</div>
+<div class="section" id="Positive-semi-definite-surface-maps">
+<h1>Positive semi-definite surface maps<a class="headerlink" href="#Positive-semi-definite-surface-maps" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Derivation-of-the-positive-semi-definite-condtion-for-l-=-1-maps">
+<h2>Derivation of the positive semi-definite condtion for <span class="math notranslate nohighlight">\(l = 1\)</span> maps<a class="headerlink" href="#Derivation-of-the-positive-semi-definite-condtion-for-l-=-1-maps" title="Permalink to this headline">¶</a></h2>
+<p>If we denote our map coefficients by <span class="math notranslate nohighlight">\(\mathbf{y} = \{ \mathbf{y_0}, \mathbf{y_1}, \mathbf{y_2}, \mathbf{y_3} \}\)</span>, the specific intensity of a map of degree <span class="math notranslate nohighlight">\(l_\mathrm{max} = 1\)</span> as a function of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is given by</p>
+<dl class="simple">
+<dt>:nbsphinx-math:<a href="#id1"><span class="problematic" id="id2">`</span></a>begin{align}</dt><dd><dl class="simple">
+<dt>I(x, y) &amp;= mathbf{y_0} Y_{0,0} + mathbf{y_1} Y_{1,-1} + mathbf{y_2} Y_{1,0} + mathbf{y_3} Y_{1,1} \</dt><dd><dl class="simple">
+<dt>&amp;= mathbf{y_0} sqrt{frac{1}{4pi}}</dt><dd><ul class="simple">
+<li><p>mathbf{y_1} sqrt{frac{3}{4pi}} y</p></li>
+<li><p>mathbf{y_2} sqrt{frac{3}{4pi}} sqrt{1 - x^2 - y^2}</p></li>
+<li><p>mathbf{y_3} sqrt{frac{3}{4pi}} x</p></li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>end{align}`</p>
+<p>To ensure the map is positive semi-definite everywhere, the minimum value of <span class="math notranslate nohighlight">\(I(x, y)\)</span> must be <span class="math notranslate nohighlight">\(\ge 0\)</span>. We therefore differentiate it with respect to <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> and set the derivatives to zero to obtain two constraints on the location of the extrema:</p>
+<dl class="simple">
+<dt>:nbsphinx-math:<a href="#id3"><span class="problematic" id="id4">`</span></a>begin{align}</dt><dd><p>frac{mathrm{d}I}{mathrm{d}x} = sqrt{frac{3}{4pi}}left(-frac{mathbf{y_2} x}{sqrt{1 - x^2 - y^2}} + mathbf{y_3}right) = 0</p>
+</dd>
+</dl>
+<p>end{align}`</p>
+<p>and</p>
+<dl class="simple">
+<dt>:nbsphinx-math:<a href="#id5"><span class="problematic" id="id6">`</span></a>begin{align}</dt><dd><p>frac{mathrm{d}I}{mathrm{d}y} = sqrt{frac{3}{4pi}}left(-frac{mathbf{y_2} y}{sqrt{1 - x^2 - y^2}} + mathbf{y_1}right) = 0</p>
+</dd>
+</dl>
+<p>end{align}`</p>
+<p>so the values of <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> at the extrema satisfy</p>
+<dl class="simple">
+<dt>:nbsphinx-math:<a href="#id7"><span class="problematic" id="id8">`</span></a>begin{align}</dt><dd><p>tag{1}
+mathbf{y_2} x &amp;= mathbf{y_3}sqrt{1 - x^2 - y^2}</p>
+</dd>
+</dl>
+<p>end{align}`</p>
+<p>and</p>
+<dl class="simple">
+<dt>:nbsphinx-math:<a href="#id9"><span class="problematic" id="id10">`</span></a>begin{align}</dt><dd><p>tag{2}
+mathbf{y_2} y = mathbf{y_1}sqrt{1 - x^2 - y^2}</p>
+</dd>
+</dl>
+<p>end{align}`</p>
+<p>Rearranging (1),</p>
+<dl class="simple">
+<dt>:nbsphinx-math:<a href="#id11"><span class="problematic" id="id12">`</span></a>begin{align}</dt><dd><p>x^2 &amp;= frac{mathbf{y_3}^2}{(mathbf{y_2}^2 + mathbf{y_3}^2)}(1 - y^2).</p>
+</dd>
+</dl>
+<p>end{align}`</p>
+<p>Plugging into (2) and rearranging, we can solve for <span class="math notranslate nohighlight">\(y\)</span>:</p>
+<p><span class="math">\begin{align}
+y = \pm \frac{\mathbf{y_1}}{\sqrt{\mathbf{y_1}^2 + \mathbf{y_2}^2 + \mathbf{y_3}^2}}
+\end{align}</span></p>
+<p>and then for <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<p><span class="math">\begin{align}
+x = \pm \frac{\mathbf{y_3}}{\sqrt{\mathbf{y_1}^2 + \mathbf{y_2}^2 + \mathbf{y_3}^2}}
+\end{align}</span></p>
+<p>Finally, plugging these back into the equation for <span class="math notranslate nohighlight">\(I(x, y)\)</span>, we get the value of the specific intensity at the extrema:</p>
+<dl class="simple">
+<dt>:nbsphinx-math:<a href="#id13"><span class="problematic" id="id14">`</span></a>begin{align}</dt><dd><dl class="simple">
+<dt>I(x, y) &amp;= mathbf{y_0} sqrt{frac{1}{4pi}}</dt><dd><p>pm sqrt{frac{3}{4pi}} frac{mathbf{y_1^2}}{sqrt{mathbf{y_1}^2 + mathbf{y_2}^2 + mathbf{y_3}^2}}
++ mathbf{y_2} sqrt{frac{3}{4pi}} frac{mathbf{y_2^2}}{sqrt{mathbf{y_1}^2 + mathbf{y_2}^2 + mathbf{y_3}^2}}
+pm sqrt{frac{3}{4pi}} frac{mathbf{y_3^2}}{sqrt{mathbf{y_1}^2 + mathbf{y_2}^2 + mathbf{y_3}^2}} \
+&amp;= sqrt{frac{1}{4pi}} left( mathbf{y_0} pm sqrt{3} frac{mathbf{y_1}^2 + mathbf{y_2}^2 + mathbf{y_3}^2}{sqrt{mathbf{y_1}^2 + mathbf{y_2}^2 + mathbf{y_3}^2}} right)</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p>end{align}`</p>
+<p>By inspection, the minimum value corresponds to the solution with the minus sign. So the necessary and sufficient condition for <span class="math notranslate nohighlight">\(I(x,y) \ge 0\)</span> is</p>
+<dl class="simple">
+<dt>:nbsphinx-math:<a href="#id15"><span class="problematic" id="id16">`</span></a>begin{align}</dt><dd><p>mathbf{y_1}^2 + mathbf{y_2}^2 + mathbf{y_3}^2 le frac{mathbf{y_0}^2}{3}</p>
+</dd>
+</dl>
+<p>end{align}`</p>
+<p>■</p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="ylmxyz.html" class="btn btn-neutral float-right" title="Spherical harmonics" accesskey="n">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="qldylm.html" class="btn btn-neutral" title="Quadratic limb darkening" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Rodrigo Luger.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.3.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/language_data.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+      <script type="text/javascript" src="../None"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

@@ -1,0 +1,878 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Spherical harmonic maps &mdash; starry 1.0.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script type="text/javascript" src="_static/js/hacks.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["$", "$"], ["\\(", "\\)"]], "processEscapes": true, "ignoreClass": "document", "processClass": "math|output_area"}})</script>
+        <script type="text/javascript" src="https://unpkg.com/@jupyter-widgets/html-manager@^0.18.0/dist/embed-amd.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Limb darkened maps" href="LimbDarkenedMap.html" />
+    <link rel="prev" title="Maps" href="MapFactory.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home" alt="Documentation Home"> starry
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html"> Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="changes.html"> New in version 1.0</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html"> Examples &amp; tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html"> API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="MapFactory.html">Maps</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Spherical harmonic maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="LimbDarkenedMap.html">Limb darkened maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RadialVelocityMap.html">Radial velocity maps</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ReflectedLightMap.html">Maps in reflected light</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Kepler.html">Keplerian systems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="linalg.html">Linear Algebra</a></li>
+<li class="toctree-l2"><a class="reference internal" href="config.html">Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="extensions.html"> Extensions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="developer.html"> Developer</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry"> Github</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/rodluger/starry/issues"> Submit an issue</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://ui.adsabs.harvard.edu/public-libraries/b0KqtPtYRj6I7T8eAZc5Ig"> Papers</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">starry</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="api.html">The starry Python API</a> &raquo;</li>
+        
+          <li><a href="MapFactory.html">Maps</a> &raquo;</li>
+        
+      <li>Spherical harmonic maps</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  
+<style>
+/* CSS overrides for sphinx_rtd_theme */
+
+/* 24px margin */
+.nbinput.nblast.container,
+.nboutput.nblast.container {
+    margin-bottom: 19px;  /* padding has already 5px */
+}
+
+/* ... except between code cells! */
+.nblast.container + .nbinput.container {
+    margin-top: -19px;
+}
+
+.admonition > p:before {
+    margin-right: 4px;  /* make room for the exclamation icon */
+}
+
+/* Fix math alignment, see https://github.com/rtfd/sphinx_rtd_theme/pull/686 */
+.math {
+    text-align: unset;
+}
+</style>
+<div class="section" id="spherical-harmonic-maps">
+<h1>Spherical harmonic maps<a class="headerlink" href="#spherical-harmonic-maps" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">starry.</code><code class="sig-name descname">Map</code></dt>
+<dd><p>The default <code class="docutils literal notranslate"><span class="pre">starry</span></code> map class.</p>
+<p>This class handles light curves and phase curves of objects in
+emitted light.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Instantiate this class by calling <a class="reference internal" href="MapFactory.html#starry.Map" title="starry.Map"><code class="xref py py-func docutils literal notranslate"><span class="pre">starry.Map()</span></code></a> with
+<code class="docutils literal notranslate"><span class="pre">ydeg</span> <span class="pre">&gt;</span> <span class="pre">0</span></code> and both <code class="docutils literal notranslate"><span class="pre">rv</span></code> and <code class="docutils literal notranslate"><span class="pre">reflected</span></code> set to False.</p>
+</div>
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">N</code></dt>
+<dd><p>Total number of map coefficients. <em>Read-only</em></p>
+<p>This is equal to <span class="math notranslate nohighlight">\(N_\mathrm{y} + N_\mathrm{u} + N_\mathrm{f}\)</span>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">Nf</code></dt>
+<dd><p>Number of spherical harmonic coefficients in the filter. <em>Read-only</em></p>
+<p>This is equal to <span class="math notranslate nohighlight">\((f_\mathrm{deg} + 1)^2\)</span>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">Nu</code></dt>
+<dd><p>Number of limb darkening coefficients, including <span class="math notranslate nohighlight">\(u_0\)</span>. <em>Read-only</em></p>
+<p>This is equal to <span class="math notranslate nohighlight">\(u_\mathrm{deg} + 1\)</span>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">Ny</code></dt>
+<dd><p>Number of spherical harmonic coefficients. <em>Read-only</em></p>
+<p>This is equal to <span class="math notranslate nohighlight">\((y_\mathrm{deg} + 1)^2\)</span>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">add_spot</code><span class="sig-paren">(</span><em class="sig-param">amp=None</em>, <em class="sig-param">intensity=None</em>, <em class="sig-param">relative=True</em>, <em class="sig-param">sigma=0.1</em>, <em class="sig-param">lat=0.0</em>, <em class="sig-param">lon=0.0</em><span class="sig-paren">)</span></dt>
+<dd><p>Add the expansion of a gaussian spot to the map.</p>
+<p>This function adds a spot whose functional form is the spherical
+harmonic expansion of a gaussian in the quantity
+<span class="math notranslate nohighlight">\(\cos\Delta\theta\)</span>, where <span class="math notranslate nohighlight">\(\Delta\theta\)</span>
+is the angular separation between the center of the spot and another
+point on the surface. The spot brightness is controlled by either the
+parameter <code class="docutils literal notranslate"><span class="pre">amp</span></code>, defined as the fractional change in the
+total luminosity of the object due to the spot, or the parameter
+<code class="docutils literal notranslate"><span class="pre">intensity</span></code>, defined as the fractional change in the
+intensity at the center of the spot.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>amp</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – The amplitude of the spot. This
+is equal to the fractional change in the luminosity of the map
+due to the spot. If the map has more than one wavelength bin,
+this must be a vector of length equal to the number of
+wavelength bins. Default is None.
+Either <code class="docutils literal notranslate"><span class="pre">amp</span></code> or <code class="docutils literal notranslate"><span class="pre">intensity</span></code> must be given.</p></li>
+<li><p><strong>intensity</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – The intensity of the spot.
+This is equal to the fractional change in the intensity of the
+map at the <em>center</em> of the spot. If the map has more than one
+wavelength bin, this must be a vector of length equal to the
+number of wavelength bins. Default is None.
+Either <code class="docutils literal notranslate"><span class="pre">amp</span></code> or <code class="docutils literal notranslate"><span class="pre">intensity</span></code> must be given.</p></li>
+<li><p><strong>relative</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, computes the spot expansion
+assuming the fractional <cite>amp</cite> or <cite>intensity</cite> change is relative
+to the <strong>current</strong> map amplitude/intensity. If False, computes
+the spot expansion assuming the fractional change is relative
+to the <strong>original</strong> map amplitude/intensity (i.e., that of
+a featureless map). Defaults to True. Note that if True,
+adding two spots with the same values of <cite>amp</cite> or <cite>intensity</cite>
+will generally result in <em>different</em> intensities at their
+centers, since the first spot will have changed the map
+intensity everywhere! Defaults to True.</p></li>
+<li><p><strong>sigma</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The standard deviation of the gaussian.
+Defaults to 0.1.</p></li>
+<li><p><strong>lat</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The latitude of the spot in units of
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">angle_unit</span></code>. Defaults to 0.0.</p></li>
+<li><p><strong>lon</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The longitude of the spot in units of
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">angle_unit</span></code>. Defaults to 0.0.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">alpha</code></dt>
+<dd><p>The rotational shear coefficient, a number in the range <code class="docutils literal notranslate"><span class="pre">[0,</span> <span class="pre">1]</span></code>.</p>
+<p>The parameter <span class="math notranslate nohighlight">\(\alpha\)</span> is used to model linear differential
+rotation. The angular velocity at a given latitude <span class="math notranslate nohighlight">\(\theta\)</span>
+is</p>
+<p><span class="math notranslate nohighlight">\(\omega = \omega_{eq}(1 - \alpha \sin^2\theta)\)</span></p>
+<p>where <span class="math notranslate nohighlight">\(\omega_{eq}\)</span> is the equatorial angular velocity of
+the object.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This parameter is only used if <code class="xref py py-attr docutils literal notranslate"><span class="pre">drorder</span></code> is greater
+than zero and/or radial velocity mode is enabled.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">amp</code></dt>
+<dd><p>The overall amplitude of the map in arbitrary units. This factor
+multiplies the intensity and the flux and is thus proportional to the
+luminosity of the object. For multi-wavelength maps, this is a vector
+corresponding to the amplitude of each wavelength bin.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">angle_unit</code></dt>
+<dd><p>An <code class="docutils literal notranslate"><span class="pre">astropy.units</span></code> unit defining the angle metric for this map.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">deg</code></dt>
+<dd><p>Total degree of the map. <em>Read-only</em></p>
+<p>This is equal to <span class="math notranslate nohighlight">\(y_\mathrm{deg} + u_\mathrm{deg} + f_\mathrm{deg}\)</span>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">design_matrix</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Compute and return the light curve design matrix <span class="math notranslate nohighlight">\(A\)</span>.</p>
+<p>This matrix is used to compute the flux <span class="math notranslate nohighlight">\(f\)</span> from a vector of spherical
+harmonic coefficients <span class="math notranslate nohighlight">\(y\)</span> and the map amplitude <span class="math notranslate nohighlight">\(a\)</span>:
+<span class="math notranslate nohighlight">\(f = a A y\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xo</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – x coordinate of the occultor
+relative to this body in units of this body’s radius.</p></li>
+<li><p><strong>yo</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – y coordinate of the occultor
+relative to this body in units of this body’s radius.</p></li>
+<li><p><strong>zo</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – z coordinate of the occultor
+relative to this body in units of this body’s radius.</p></li>
+<li><p><strong>ro</strong> (<em>scalar</em><em>, </em><em>optional</em>) – Radius of the occultor in units of
+this body’s radius.</p></li>
+<li><p><strong>theta</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – Angular phase of the body
+in units of <code class="xref py py-attr docutils literal notranslate"><span class="pre">angle_unit</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Draw a map from the posterior distribution.</p>
+<p>This method draws a random map from the posterior distribution and
+sets the <code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> map vector and <code class="xref py py-attr docutils literal notranslate"><span class="pre">amp</span></code> map amplitude
+accordingly. Users should call <code class="xref py py-meth docutils literal notranslate"><span class="pre">solve()</span></code> to enable this
+attribute.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">drorder</code></dt>
+<dd><p>Differential rotation order. <em>Read-only</em></p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">fdeg</code></dt>
+<dd><p>Degree of the multiplicative filter. <em>Read-only</em></p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">flux</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Compute and return the light curve.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xo</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – x coordinate of the occultor
+relative to this body in units of this body’s radius.</p></li>
+<li><p><strong>yo</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – y coordinate of the occultor
+relative to this body in units of this body’s radius.</p></li>
+<li><p><strong>zo</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – z coordinate of the occultor
+relative to this body in units of this body’s radius.</p></li>
+<li><p><strong>ro</strong> (<em>scalar</em><em>, </em><em>optional</em>) – Radius of the occultor in units of
+this body’s radius.</p></li>
+<li><p><strong>theta</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – Angular phase of the body
+in units of <code class="xref py py-attr docutils literal notranslate"><span class="pre">angle_unit</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">inc</code></dt>
+<dd><p>The inclination of the rotation axis in units of <code class="xref py py-attr docutils literal notranslate"><span class="pre">angle_unit</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">intensity</code><span class="sig-paren">(</span><em class="sig-param">lat=0</em>, <em class="sig-param">lon=0</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Compute and return the intensity of the map.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lat</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – latitude at which to evaluate
+the intensity in units of <code class="xref py py-attr docutils literal notranslate"><span class="pre">angle_unit</span></code>.</p></li>
+<li><p><strong>lon</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – longitude at which to evaluate
+the intensity in units of <code class="xref py py-attr docutils literal notranslate"><span class="pre">angle_unit`</span></code>.</p></li>
+<li><p><strong>theta</strong> (<em>scalar</em><em>, </em><em>optional</em>) – For differentially rotating maps only,
+the angular phase at which to evaluate the intensity.
+Default 0.</p></li>
+<li><p><strong>limbdarken</strong> (<em>bool</em><em>, </em><em>optional</em>) – Apply limb darkening
+(only if <code class="xref py py-attr docutils literal notranslate"><span class="pre">udeg</span></code> &gt; 0)? Default True.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">intensity_design_matrix</code><span class="sig-paren">(</span><em class="sig-param">lat=0</em>, <em class="sig-param">lon=0</em><span class="sig-paren">)</span></dt>
+<dd><p>Compute and return the pixelization matrix <code class="docutils literal notranslate"><span class="pre">P</span></code>.</p>
+<p>This matrix is used to compute the intensity <span class="math notranslate nohighlight">\(I\)</span> from a vector of spherical
+harmonic coefficients <span class="math notranslate nohighlight">\(y\)</span> and the map amplitude <span class="math notranslate nohighlight">\(a\)</span>:
+<span class="math notranslate nohighlight">\(I = a P y\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lat</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – latitude at which to evaluate
+the design matrix in units of <code class="xref py py-attr docutils literal notranslate"><span class="pre">angle_unit</span></code>.</p></li>
+<li><p><strong>lon</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – longitude at which to evaluate
+the design matrix in units of <code class="xref py py-attr docutils literal notranslate"><span class="pre">angle_unit</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method ignores any filters (such as limb darkening
+or velocity weighting) and illumination (for reflected light
+maps).</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">limbdark_is_physical</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Check whether the limb darkening profile (if any) is physical.</p>
+<p>This method uses Sturm’s theorem to ensure that the limb darkening
+intensity is positive everywhere and decreases monotonically toward
+the limb.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Whether or not the limb darkening profile is physical.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">lnlike</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">design_matrix=None</em>, <em class="sig-param">woodbury=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Returns the log marginal likelihood of the data given a design matrix.</p>
+<p>This method computes the marginal likelihood (marginalized over the
+spherical harmonic coefficients) given a
+light curve and its covariance (set via the <code class="xref py py-meth docutils literal notranslate"><span class="pre">set_data()</span></code> method)
+and a Gaussian prior on the spherical harmonic coefficients
+(set via the <code class="xref py py-meth docutils literal notranslate"><span class="pre">set_prior()</span></code> method).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>design_matrix</strong> (<em>matrix</em><em>, </em><em>optional</em>) – The flux design matrix, the
+quantity returned by <code class="xref py py-meth docutils literal notranslate"><span class="pre">design_matrix()</span></code>. Default is
+None, in which case this is computed based on <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>.</p></li>
+<li><p><strong>woodbury</strong> (<em>bool</em><em>, </em><em>optional</em>) – Solve the linear problem using the
+Woodbury identity? Default is True. The
+<a class="reference external" href="https://en.wikipedia.org/wiki/Woodbury_matrix_identity">Woodbury identity</a>
+is used to speed up matrix operations in the case that the
+number of data points is much larger than the number of
+spherical harmonic coefficients. In this limit, it can
+speed up the code by more than an order of magnitude. Keep
+in mind that the numerical stability of the Woodbury identity
+is not great, so if you’re getting strange results try
+disabling this. It’s also a good idea to disable this in the
+limit of few data points and large spherical harmonic degree.</p></li>
+<li><p><strong>kwargs</strong> (<em>optional</em>) – Keyword arguments to be passed directly to
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">design_matrix()</span></code>, if a design matrix is not provided.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The log marginal likelihood, a scalar.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">healpix=False</em>, <em class="sig-param">nside=32</em>, <em class="sig-param">max_iter=3</em>, <em class="sig-param">sigma=None</em>, <em class="sig-param">force_psd=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Load an image, array, or <code class="docutils literal notranslate"><span class="pre">healpix</span></code> map.</p>
+<p>This routine uses various routines in <code class="docutils literal notranslate"><span class="pre">healpix</span></code> to compute the
+spherical harmonic expansion of the input image and sets the map’s
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> coefficients accordingly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> – A path to an image file, a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy</span></code>
+array, or a <code class="docutils literal notranslate"><span class="pre">healpix</span></code> map array (if <code class="docutils literal notranslate"><span class="pre">healpix</span></code> is True).</p></li>
+<li><p><strong>healpix</strong> (<em>bool</em><em>, </em><em>optional</em>) – Treat <code class="docutils literal notranslate"><span class="pre">image</span></code> as a <code class="docutils literal notranslate"><span class="pre">healpix</span></code> array?
+Default is False.</p></li>
+<li><p><strong>sigma</strong> (<em>float</em><em>, </em><em>optional</em>) – If not None, apply gaussian smoothing
+with standard deviation <code class="docutils literal notranslate"><span class="pre">sigma</span></code> to smooth over
+spurious ringing features. Smoothing is performed with
+the <code class="docutils literal notranslate"><span class="pre">healpix.sphtfunc.smoothalm</span></code> method.
+Default is None.</p></li>
+<li><p><strong>force_psd</strong> (<em>bool</em><em>, </em><em>optional</em>) – Force the map to be positive
+semi-definite? Default is False.</p></li>
+<li><p><strong>nside</strong> (<em>int</em><em>, </em><em>optional</em>) – The <code class="docutils literal notranslate"><span class="pre">NSIDE</span></code> argument to a Healpix
+map. This controls the angular resolution of the image; increase
+this for maps with higher fidelity, at the expense of extra
+compute time. Default is 32.</p></li>
+<li><p><strong>max_iter</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum number of iterations in trying
+to convert the map to a Healpix array. Each iteration, the
+input array is successively doubled in size in order to
+increase the angular coverage of the input. Default is 3. If
+the number of iterations exceeds this value, an error will
+be raised.</p></li>
+<li><p><strong>kwargs</strong> (<em>optional</em>) – Any other kwargs passed directly to
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">minimize()</span></code> (only if <code class="docutils literal notranslate"><span class="pre">psd</span></code> is True).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">minimize</code><span class="sig-paren">(</span><em class="sig-param">oversample=1</em>, <em class="sig-param">ntries=1</em>, <em class="sig-param">return_info=False</em><span class="sig-paren">)</span></dt>
+<dd><p>Find the global minimum of the map intensity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>oversample</strong> (<em>int</em>) – Factor by which to oversample the initial
+grid on which the brute force search is performed. Default 1.</p></li>
+<li><p><strong>ntries</strong> (<em>int</em>) – Number of times the nonlinear minimizer is called.
+Default 1.</p></li>
+<li><p><strong>return_info</strong> (<em>bool</em>) – Return the info from the minimization call?
+Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple of the latitude, longitude, and the value of the intensity             at the minimum. If <code class="docutils literal notranslate"><span class="pre">return_info</span></code> is True, also returns the detailed             solver information.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">nw</code></dt>
+<dd><p>Number of wavelength bins. <em>Read-only</em></p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">obl</code></dt>
+<dd><p>The obliquity of the rotation axis in units of <code class="xref py py-attr docutils literal notranslate"><span class="pre">angle_unit</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">remove_prior</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd><p>Remove the prior on the map coefficients.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">render</code><span class="sig-paren">(</span><em class="sig-param">res=300</em>, <em class="sig-param">projection='ortho'</em>, <em class="sig-param">theta=0.0</em><span class="sig-paren">)</span></dt>
+<dd><p>Compute and return the intensity of the map on a grid.</p>
+<p>Returns an image of shape <code class="docutils literal notranslate"><span class="pre">(res,</span> <span class="pre">res)</span></code>, unless <code class="docutils literal notranslate"><span class="pre">theta</span></code> is a vector,
+in which case returns an array of shape <code class="docutils literal notranslate"><span class="pre">(nframes,</span> <span class="pre">res,</span> <span class="pre">res)</span></code>, where
+<code class="docutils literal notranslate"><span class="pre">nframes</span></code> is the number of values of <code class="docutils literal notranslate"><span class="pre">theta</span></code>. However, if this is
+a spectral map, <code class="docutils literal notranslate"><span class="pre">nframes</span></code> is the number of wavelength bins and
+<code class="docutils literal notranslate"><span class="pre">theta</span></code> must be a scalar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>res</strong> (<em>int</em><em>, </em><em>optional</em>) – The resolution of the map in pixels on a
+side. Defaults to 300.</p></li>
+<li><p><strong>projection</strong> (<em>string</em><em>, </em><em>optional</em>) – The map projection. Accepted
+values are <code class="docutils literal notranslate"><span class="pre">ortho</span></code>, corresponding to an orthographic
+projection (as seen on the sky), and <code class="docutils literal notranslate"><span class="pre">rect</span></code>, corresponding
+to an equirectangular latitude-longitude projection.
+Defaults to <code class="docutils literal notranslate"><span class="pre">ortho</span></code>.</p></li>
+<li><p><strong>theta</strong> (<em>scalar</em><em> or </em><em>vector</em><em>, </em><em>optional</em>) – The map rotation phase in
+units of <code class="xref py py-attr docutils literal notranslate"><span class="pre">angle_unit</span></code>. If this is a vector, an
+animation is generated. Defaults to <code class="docutils literal notranslate"><span class="pre">0.0</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">rotate</code><span class="sig-paren">(</span><em class="sig-param">axis</em>, <em class="sig-param">theta</em><span class="sig-paren">)</span></dt>
+<dd><p>Rotate the current map vector an angle <code class="docutils literal notranslate"><span class="pre">theta</span></code> about <code class="docutils literal notranslate"><span class="pre">axis</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>axis</strong> (<em>vector</em>) – The axis about which to rotate the map.</p></li>
+<li><p><strong>theta</strong> (<em>scalar</em>) – The angle of (counter-clockwise) rotation.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">set_data</code><span class="sig-paren">(</span><em class="sig-param">flux</em>, <em class="sig-param">C=None</em>, <em class="sig-param">cho_C=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Set the data vector and covariance matrix.</p>
+<p>This method is required by the <code class="xref py py-meth docutils literal notranslate"><span class="pre">solve()</span></code> method, which
+analytically computes the posterior over surface maps given a
+dataset and a prior, provided both are described as multivariate
+Gaussians.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>flux</strong> (<em>vector</em>) – The observed light curve.</p></li>
+<li><p><strong>C</strong> (<em>scalar</em><em>, </em><em>vector</em><em>, or </em><em>matrix</em>) – The data covariance. This may be
+a scalar, in which case the noise is assumed to be
+homoscedastic, a vector, in which case the covariance
+is assumed to be diagonal, or a matrix specifying the full
+covariance of the dataset. Default is None. Either <cite>C</cite> or
+<cite>cho_C</cite> must be provided.</p></li>
+<li><p><strong>cho_C</strong> (<em>matrix</em>) – The lower Cholesky factorization of the data
+covariance matrix. Defaults to None. Either <cite>C</cite> or
+<cite>cho_C</cite> must be provided.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">set_prior</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">mu=None</em>, <em class="sig-param">L=None</em>, <em class="sig-param">cho_L=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Set the prior mean and covariance of the spherical harmonic coefficients.</p>
+<p>This method is required by the <code class="xref py py-meth docutils literal notranslate"><span class="pre">solve()</span></code> method, which
+analytically computes the posterior over surface maps given a
+dataset and a prior, provided both are described as multivariate
+Gaussians.</p>
+<p>Note that the prior is placed on the <strong>amplitude-weighted</strong> coefficients,
+i.e., the quantity <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">=</span> <span class="pre">map.amp</span> <span class="pre">*</span> <span class="pre">map.y</span></code>. Because the first spherical
+harmonic coefficient is fixed at unity, <code class="docutils literal notranslate"><span class="pre">x[0]</span></code> is
+the amplitude of the map. The actual spherical harmonic coefficients
+are given by <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">/</span> <span class="pre">map.amp</span></code>.</p>
+<p>This convention allows one to linearly fit for an arbitrary map normalization
+at the same time as the spherical harmonic coefficients, while ensuring
+the <code class="docutils literal notranslate"><span class="pre">starry</span></code> requirement that the coefficient of the <span class="math notranslate nohighlight">\(Y_{0,0}\)</span>
+harmonic is always unity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mu</strong> (<em>scalar</em><em> or </em><em>vector</em>) – The prior mean on the amplitude-weighted
+spherical harmonic coefficients. Default is unity for the
+first term and zero for the remaining terms. If this is a vector,
+it must have length equal to <code class="xref py py-attr docutils literal notranslate"><span class="pre">Ny</span></code>.</p></li>
+<li><p><strong>L</strong> (<em>scalar</em><em>, </em><em>vector</em><em>, or </em><em>matrix</em>) – The prior covariance. This may be
+a scalar, in which case the covariance is assumed to be
+homoscedastic, a vector, in which case the covariance
+is assumed to be diagonal, or a matrix specifying the full
+prior covariance. Default is None. Either <cite>L</cite> or
+<cite>cho_L</cite> must be provided.</p></li>
+<li><p><strong>cho_L</strong> (<em>matrix</em>) – The lower Cholesky factorization of the prior
+covariance matrix. Defaults to None. Either <cite>L</cite> or
+<cite>cho_L</cite> must be provided.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Display an image of the map, with optional animation. See the
+docstring of <code class="xref py py-meth docutils literal notranslate"><span class="pre">render()</span></code> for more details and additional
+keywords accepted by this method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ax</strong> (<em>optional</em>) – A matplotlib axis instance to use. Default is
+to create a new figure.</p></li>
+<li><p><strong>cmap</strong> (<em>string</em><em> or </em><em>colormap instance</em><em>, </em><em>optional</em>) – The matplotlib colormap
+to use. Defaults to <code class="docutils literal notranslate"><span class="pre">plasma</span></code>.</p></li>
+<li><p><strong>figsize</strong> (<em>tuple</em><em>, </em><em>optional</em>) – Figure size in inches. Default is
+(3, 3) for orthographic maps and (7, 3.5) for rectangular
+maps.</p></li>
+<li><p><strong>projection</strong> (<em>string</em><em>, </em><em>optional</em>) – The map projection. Accepted
+values are <code class="docutils literal notranslate"><span class="pre">ortho</span></code>, corresponding to an orthographic
+projection (as seen on the sky), and <code class="docutils literal notranslate"><span class="pre">rect</span></code>, corresponding
+to an equirectangular latitude-longitude projection.
+Defaults to <code class="docutils literal notranslate"><span class="pre">ortho</span></code>.</p></li>
+<li><p><strong>colorbar</strong> (<em>bool</em><em>, </em><em>optional</em>) – Display a colorbar? Default is False.</p></li>
+<li><p><strong>grid</strong> (<em>bool</em><em>, </em><em>optional</em>) – Show latitude/longitude grid lines?
+Defaults to True.</p></li>
+<li><p><strong>interval</strong> (<em>int</em><em>, </em><em>optional</em>) – Interval between frames in milliseconds
+(animated maps only). Defaults to 75.</p></li>
+<li><p><strong>file</strong> (<em>string</em><em>, </em><em>optional</em>) – The file name (including the extension)
+to save the figure or animation to. Defaults to None.</p></li>
+<li><p><strong>html5_video</strong> (<em>bool</em><em>, </em><em>optional</em>) – If rendering in a Jupyter notebook,
+display as an HTML5 video? Default is True. If False, displays
+the animation using Javascript (file size will be larger.)</p></li>
+<li><p><strong>dpi</strong> (<em>int</em><em>, </em><em>optional</em>) – Image resolution in dots per square inch.
+Defaults to the value defined in <code class="docutils literal notranslate"><span class="pre">matplotlib.rcParams</span></code>.</p></li>
+<li><p><strong>bitrate</strong> (<em>int</em><em>, </em><em>optional</em>) – Bitrate in kbps (animations only).
+Defaults to the value defined in <code class="docutils literal notranslate"><span class="pre">matplotlib.rcParams</span></code>.</p></li>
+<li><p><strong>norm</strong> (<em>optional</em>) – The color normalization passed to
+<code class="docutils literal notranslate"><span class="pre">matplotlib.pyplot.imshow</span></code>. Default is None.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Pure limb-darkened maps do not accept a <code class="docutils literal notranslate"><span class="pre">projection</span></code> keyword.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">solution</code></dt>
+<dd><p>The posterior probability distribution for the map.</p>
+<p>This is a tuple containing the mean and lower Cholesky factorization of the
+covariance of the amplitude-weighted spherical harmonic coefficient vector,
+obtained by solving the regularized least-squares problem
+via the <code class="xref py py-meth docutils literal notranslate"><span class="pre">solve()</span></code> method.</p>
+<p>Note that to obtain the actual covariance matrix from the lower Cholesky
+factorization <span class="math notranslate nohighlight">\(L\)</span>, simply compute <span class="math notranslate nohighlight">\(L L^\top\)</span>.</p>
+<p>Note also that this is the posterior for the <strong>amplitude-weighted</strong>
+map vector. Under this convention, the map amplitude is equal to the
+first term of the vector and the spherical harmonic coefficients are
+equal to the vector normalized by the first term.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">solve</code><span class="sig-paren">(</span><em class="sig-param">*</em>, <em class="sig-param">design_matrix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span></dt>
+<dd><p>Solve the linear least-squares problem for the posterior over maps.</p>
+<p>This method solves the generalized least squares problem given a
+light curve and its covariance (set via the <code class="xref py py-meth docutils literal notranslate"><span class="pre">set_data()</span></code> method)
+and a Gaussian prior on the spherical harmonic coefficients
+(set via the <code class="xref py py-meth docutils literal notranslate"><span class="pre">set_prior()</span></code> method). The map amplitude and
+coefficients are set to the maximum a posteriori (MAP) solution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>design_matrix</strong> (<em>matrix</em><em>, </em><em>optional</em>) – The flux design matrix, the
+quantity returned by <code class="xref py py-meth docutils literal notranslate"><span class="pre">design_matrix()</span></code>. Default is
+None, in which case this is computed based on <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>.</p></li>
+<li><p><strong>kwargs</strong> (<em>optional</em>) – Keyword arguments to be passed directly to
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">design_matrix()</span></code>, if a design matrix is not provided.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A tuple containing the posterior mean for the amplitude-weighted             spherical harmonic coefficients (a vector) and the Cholesky factorization             of the posterior covariance (a lower triangular matrix).</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users may call <code class="xref py py-meth docutils literal notranslate"><span class="pre">draw()</span></code> to draw from the
+posterior after calling this method.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">u</code></dt>
+<dd><p>The vector of limb darkening coefficients. <em>Read-only</em></p>
+<p>To set this vector, index the map directly using one index:
+<code class="docutils literal notranslate"><span class="pre">map[n]</span> <span class="pre">=</span> <span class="pre">...</span></code> where <code class="docutils literal notranslate"><span class="pre">n</span></code> is the degree of the limb darkening
+coefficient. This may be an integer or an array of integers.
+Slice notation may also be used.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">udeg</code></dt>
+<dd><p>Limb darkening degree. <em>Read-only</em></p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">y</code></dt>
+<dd><p>The spherical harmonic coefficient vector. <em>Read-only</em></p>
+<p>To set this vector, index the map directly using two indices:
+<code class="docutils literal notranslate"><span class="pre">map[l,</span> <span class="pre">m]</span> <span class="pre">=</span> <span class="pre">...</span></code> where <code class="docutils literal notranslate"><span class="pre">l</span></code> is the spherical harmonic degree and
+<code class="docutils literal notranslate"><span class="pre">m</span></code> is the spherical harmonic order. These may be integers or
+arrays of integers. Slice notation may also be used.</p>
+</dd></dl>
+
+<dl class="method">
+<dt>
+<em class="property">property </em><code class="sig-name descname">ydeg</code></dt>
+<dd><p>Spherical harmonic degree of the map. <em>Read-only</em></p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+  <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+    
+    <a href="LimbDarkenedMap.html" class="btn btn-neutral float-right" title="Limb darkened maps" accesskey="n"
+      rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+    
+    
+    <a href="MapFactory.html" class="btn btn-neutral float-left" title="Maps" accesskey="p"
+      rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+    
+  </div>
+  
+
+  <hr />
+
+  <div role="contentinfo">
+    <p>
+      
+      &copy; Copyright 2019, Rodrigo Luger.
+      <span class="lastupdated">
+        Last updated on 2020 Jan 05 at 07:06:01 UTC.
+      </span>
+
+    </p>
+  </div>
+  
+  
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a
+    href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by
+  <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
