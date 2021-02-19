@@ -16,7 +16,7 @@ $(document).ready(function () {
   var txtFile = new XMLHttpRequest();
   txtFile.open(
     'GET',
-    'https://raw.githubusercontent.com/rodluger/rodluger.github.io/gh-pages/legacy/starry/versions.txt',
+    'https://raw.githubusercontent.com/rodluger/rodluger.github.io/master/legacy/starry/versions.txt',
     true);
   txtFile.onreadystatechange = function () {
     if (txtFile.readyState === 4) {  // document is ready to parse.
