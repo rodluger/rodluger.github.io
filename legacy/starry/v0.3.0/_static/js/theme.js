@@ -196,7 +196,7 @@ txtFile.send(null);
 // @rodluger: Re-direct to the selected version's docs
 version_selector.onchange = function()
 {
-    window.location.href = "/starry/" + this.value;
+    window.location.href = "/legacy/starry/" + this.value;
 }
     
 },{"jquery":"jquery"}]},{},["sphinx-rtd-theme"]);
