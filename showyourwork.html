@@ -78,13 +78,19 @@
                <div class="row">
 
                     <div class="col-md-offset-1 col-md-10 col-sm-12">
-                         <h1>open source scientific articles</h1>
+                         <h1>showyourwork!</h1>
 
                          <div class="project-links">
                               <div class="project-link">
                                    <a href="https://github.com/rodluger/showyourwork" data-toggle="tooltip"
                                         data-placement="bottom" title="code">
                                         <i class="fab fa-github"></i>
+                                   </a>
+                              </div>
+                              <div class="project-link">
+                                   <a href="https://showyourwork.readthedocs.io/en/stable/" data-toggle="tooltip"
+                                        data-placement="bottom" title="docs">
+                                        <i class="fas fa-info-circle"></i>
                                    </a>
                               </div>
                               <div class="project-link">
@@ -96,7 +102,38 @@
                          </div>
 
                          <p>
-                              Coming soon!
+                              The showyourwork workflow is intended to help authors publish the code that generated the figures and results in a scientific article. 
+                              It ensures that the compiled article PDF is always in sync with all of the code used to generate it. It does this 
+                              automatically—and seamlessly—with the help of the Snakemake workflow management system, the tectonic typesetting engine, and Github Actions CI.
+                         </p>
+
+                         <p>
+                              Within the showyourwork workflow, scientific articles exist as GitHub repositories with a specific layout. Whenever new commits are pushed to the 
+                              remote repository, a GitHub action is triggered that automatically builds the article from the input figure scripts, manuscript files, and 
+                              conda environment file, following the instructions specified in the Snakefile.
+                         </p>
+
+                         <br><br>
+                         <div class="single-project-figure">
+                              <div class="blog-image-container full-width">
+                                   <img src="images/showyourwork-workflow.png" width='100%'>
+                                   </img>
+                              </div>
+                              <p>
+                              </p>
+                         </div>  
+
+                         <p>
+                              The article PDF (along with a tarball containing all of the output) is then pushed to a special branch (usually main-pdf) on the repository. 
+                              This article is decorated with badges linking to the exact versions of the files on GitHub used to generate it.
+                         </p>
+                         <p>
+                              Thanks to the magic of Snakemake, showyourwork is both lightweight—it should work out-of-the-box for most users—and highly customizable. 
+                              It also uses intelligent caching to never re-run things it doesn’t have to (like figure scripts that haven’t changed), even when running on the cloud.
+                         </p>
+                         <p>
+                              To get started with showyourwork, check out the <a href="https://showyourwork.readthedocs.io/en/stable/quickstart/">quickstart tutorial</a>. 
+                              The full documentation is available <a href="https://showyourwork.readthedocs.io/en/stable/">here</a>.
                          </p>
 
                     </div>

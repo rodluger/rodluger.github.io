@@ -83,6 +83,12 @@
                          <div class="project-links">
                               <div class="project-link">
                                    <a href="https://github.com/rodluger/starry" data-toggle="tooltip"
+                                        data-placement="bottom" title="starry">
+                                        <i class="fab fa-github"></i>
+                                   </a>
+                              </div>
+                              <div class="project-link">
+                                   <a href="https://github.com/shashankdholakia/gravity-dark" data-toggle="tooltip"
                                         data-placement="bottom" title="code">
                                         <i class="fab fa-github"></i>
                                    </a>
@@ -96,8 +102,62 @@
                          </div>
 
                          <p>
-                              Coming soon!
+                              In this paper, led by my student <a href="https://shashankdholakia.github.io/">Shashank Dholakia</a>, we derived
+                              solutions to transit light curves of exoplanets orbiting rapidly-rotating stars. 
+                              Rapidly-rotating stars exhibit significant oblateness and gravity darkening, a phenomenon where the poles of the star have a higher temperature and 
+                              luminosity than the equator. Light curves for exoplanets transiting these stars can exhibit deviations from those of slowly-rotating stars, 
+                              even displaying significantly asymmetric transits depending on the system's spin-orbit angle. These phenomena can therefore be used as a 
+                              protractor to measure the spin-orbit alignment of the system. 
                          </p>
+                         
+                         <div class="single-project-figure">
+                              <hr>
+                              <div>
+                                   <div class="figure-left">
+                                        <img src="images/oblateness.jpg" />
+                                   </div>
+                                   <div class="caption">
+                                        <span class="bold">Figure 1</span>
+                                        Rapidly-rotating stars at a variety of rotation rates (slowest to fastest from left to
+                                        right) and orientations (from top to bottom: equator-on and inclined at 45 degrees).
+                                        The quantity omega is the equatorial angular velocity as a fraction of the breakup
+                                        velocity.
+                                   </div>
+                              </div>
+                              <hr>
+                         </div>
+
+                         <p>
+                              In this paper, we introduced a novel semi-analytic method for generating model 
+                              light curves for gravity-darkened and oblate stars with transiting exoplanets. 
+                              
+                              We implemented the model within my <a href="starry-about.html">starry</a> code package, 
+                              demonstrating several orders of magnitude improvement in speed and precision over existing methods. 
+                              We tested the model on a TESS light curve 
+                              of WASP-33, whose host star displays rapid rotation (vsini = 86.4 km/s). We subtracted the host's delta-Scuti pulsations from the 
+                              light curve, finding an asymmetric transit characteristic of gravity darkening. We found the projected spin orbit angle to be consistent with 
+                              Doppler tomography, constraining the true spin-orbit angle of the system to be 108 +/- 17 degrees.
+                         </p>
+
+                         <div class="single-project-figure">
+                              <hr>
+                              <div>
+                                   <div class="caption">
+                                        <span class="bold">Figure 2</span>
+                                        Phase-folded TESS light curve of WASP-33 (top) with pulsations removed (hover for color version). The
+                                        blue line is the best fitting standard transit model from von Essen et al. (2020) and the
+                                        red line is the best fitting oblate, gravity-darkened model from an MCMC fit.
+                                        It is clear from the middle panel that the residuals under the von Essen model show significant structure,
+                                        particularly near ingress and egress.
+                                        The residuals under the oblate model show much less structure (bottom panel) and are nearly consistent
+                                        with white noise.
+                                   </div>
+                                   <div class="figure-right">
+                                        <img src="images/wasp33.jpg" />
+                                   </div>
+                              </div>
+                              <hr>
+                         </div>
 
                     </div>
                </div>
