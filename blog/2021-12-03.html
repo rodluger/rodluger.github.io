@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+     <meta name="description" content="In this post I'll talk a bit about <code>showyourwork!</code>, the open source scientific article workflow I've been working on for the past few months. It's still very much a work in progress, but you can already use it in your own research to ensure the reproducibility of your results! If you're interested, please check out <a href='https://github.com/rodluger/showyourwork'>the GitHub repository</a> and <a href='https://showyourwork.readthedocs.io'>the documentation</a>.">
+     <meta name="author" content="Rodrigo Luger">
+     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="twitter:image" content="https://luger.dev/blog/images/rodrigo-luger-avatar.jpg">
+     <meta name="twitter:card" content="summary"/>
+     <meta name="twitter:title" content="Rodrigo Luger's Blog"/>
+     <meta name="twitter:description" content="Reproducible scientific articles"/>
+     <meta property="og:title" content="Rodrigo Luger's Blog" />
+     <meta property="og:description" content="Reproducible scientific articles" />
+     <meta property="og:type" content="website" />
+     <meta property="og:url" content="https://luger.dev/blog" />
+     <meta property="og:updated_time" content="2021-12-03T00:00:00+00:00" />
+     <meta property="og:site_name" content="Rodrigo Luger's Blog" />
+     <meta property="og:image" content="https://luger.dev/blog/images/rodrigo-luger-avatar.jpg">
+
+     <title>Reproducible scientific articles</title>
+
+     <link rel="stylesheet" href="../css/bootstrap.min.css">
+     <link rel="stylesheet" href="../css/fontawesome.css">
+
+     <!-- Main css -->
+     <link rel="stylesheet" href="../css/custom.css">
+     <link rel="stylesheet" href="static/custom.css">
+
+     <!-- RSS -->
+     <link rel="alternate" type="application/rss+xml" href="https://luger.dev/blog/rss.xml" title="Rodrigo Luger's Blog">
+
+     <script src='https://polyfill.io/v3/polyfill.min.js?features=es6'>
+     </script>
+     <script id='MathJax-script' async src='https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'>
+     </script>
+     <script>
+     window.MathJax = {
+          tex: {
+               inlineMath: [['$', '$'], ['\\(', '\\)']],
+               tags: 'ams'
+          }
+     };
+     </script>
+
+     <!-- Global site tag (gtag.js) - Google Analytics -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-47070068-1"></script>
+     <script>
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+
+     gtag('config', 'UA-47070068-1');
+     </script>
+
+     <!-- Code syntax highlighting -->
+     <link rel="stylesheet" href="static/highlight/styles/default.css">
+     <script src="static/highlight/highlight.pack.js"></script>
+     <script>hljs.initHighlightingOnLoad();</script>
+
+</head>
+
+<body>
+
+     <!-- PRE LOADER -->
+
+     <div class="preloader">
+          <div class="spinner">
+               <div class="dot1"></div>
+               <div class="dot2"></div>
+          </div>
+     </div>
+
+     <!-- Navigation section  -->
+
+     <div class="navbar navbar-default navbar-static-top" role="navigation">
+          <div class="container">
+
+               <div class="navbar-header">
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                         <span class="icon icon-bar"></span>
+                    </button>
+                    <a href="../index.html" class="navbar-brand">
+                         <span class="avatar">
+                              <img src="../images/rodrigo-luger-avatar.jpg">
+                         </span>
+                    </a>
+               </div>
+               <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                         <li class="active"><a href="../index.html">home</a></li>
+                         <li><a href="../about.html">about</a></li>
+                         <li><a href="https://github.com/rodluger/cv/raw/master-pdf/luger_cv.pdf">cv</a></li>
+                         <li><a href="index.html" class="blinker">blog</a></li>
+                    </ul>
+               </div>
+
+          </div>
+     </div>
+
+     <!-- Blog Single Post Section -->
+
+     <section id="blog-single-post">
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-offset-1 col-md-10 col-sm-12">
+                         <div class="blog-single-post-thumb">
+                              <div class="blog-post-image">
+                                   <img src="images/showyourwork.jpg" class="img-responsive" alt="Blog Image">
+                              </div>
+
+                              <div class="blog-post-title">
+                                   <h3>Reproducible scientific articles</h3>
+                              </div>
+
+                              <div class="blog-post-format">
+                                   <span><a href="#"><img src="../images/rodrigo-luger-avatar.jpg" class="img-responsive img-circle"
+                                                  style="margin-right: 8px;">Rodrigo Luger</a></span>
+                                   <span><i class="far fa-calendar"
+                                             style="margin-right:5px; color: #666;"></i>December 3 2021</span>
+                              </div>
+
+                              <div class="blog-post-des">
+                                   <p>In this post I'll talk a bit about <code>showyourwork!</code>, the open source scientific article workflow I've been working on for the past few months. It's still very much a work in progress, but you can already use it in your own research to ensure the reproducibility of your results! If you're interested, please check out <a href='https://github.com/rodluger/showyourwork'>the GitHub repository</a> and <a href='https://showyourwork.readthedocs.io'>the documentation</a>.</p>
+                <div id="Figure1Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body small">
+                                
+                <div class="blog-image-container small">
+                    <img src='https://raw.githubusercontent.com/rodluger/showyourwork/img/banner.png' style='width:100%;'></img>
+                </div>
+                
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
+                                    <span>Articles that use <code>showyourwork!</code> are automatically built on GitHub Actions CI to ensure the constant reproducibility of the results.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure1" class="blog-image small">
+                    <a href="#" data-toggle="modal" data-target="#Figure1Modal">
+                        
+                <div class="blog-image-container small">
+                    <img src='https://raw.githubusercontent.com/rodluger/showyourwork/img/banner.png' style='width:100%;'></img>
+                </div>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 1</span>
+                        <span>Articles that use <code>showyourwork!</code> are automatically built on GitHub Actions CI to ensure the constant reproducibility of the results.</span>
+                    </p>
+                </div>
+                <p><code>showyourwork!</code> is a workflow that enables the creation and distribution of fully reproducible and open source scientific articles. As astronomical software becomes increasingly more complex, and as research results become increasingly more interdependent, it is crucial to ensure the validity and correctness of papers published in the field. However, the current peer review system is simply not set up to do this, since checking all of the results in a paper would require the painstaking and methodical review of all of the paper’s methods—which usually means scrutinizing all of the code used to generate the figures, tables, and other quantities in the paper. In practice, this is virtually impossible for three reasons:</p><p><span style='font-weight:bold;'>1.</span> Modern codebases can be very large and often require deep familiarity with the software to use—not to mention review them.</p><p><span style='font-weight:bold;'>2.</span> Writing a paper in astronomy is rarely ever done in a linear, procedural fashion: the codebase is constantly changing, and the state of the code when (say) Figure 1 was produced may be very different from that when (say) Figure 2 was made. Moreover, many results depend on the execution of lengthy pipelines with intermediate steps, each potentially requiring manual tinkering that is not always documented and may be difficult to exactly replicate.</p><p><span style='font-weight:bold;'>3.</span> The majority of astronomical code is not open source and simply cannot be vetted by third parties. While there has been a marked increase in the number of open source astronomical <i>tools</i> in recent years (e.g., <a href='https://www.astropy.org/'>astropy</a>, <a href='https://docs.exoplanet.codes/en/latest/'>exoplanet</a>, <a href='https://github.com/dfm/emcee'>emcee</a>, <a href='https://exoplanetarchive.ipac.caltech.edu/docs/exofast/exofast_home.html'>exofast</a>...), most code associated with the generation of the results in individual papers is not open source; readers are often expected to take it on faith that there are no bugs in that code, or that the code works exactly as described in the text, with no pitfalls or missing details. Even when the code is made publicly available, e.g., by being published on GitHub, it is often not documented sufficiently to enable one to execute it and reproduce the paper’s results out-of-the-box. And even with proper documentation, the code may require external dependencies, custom virtual environments, or access to closed-source datasets that make it difficult or impossible for a third party to replicate it.</p><p><code>showyourwork!</code> was designed to tackle these three issues, making it easy to develop, publish, and distribute truly open and reproducible research papers in astronomy. It exists as a GitHub template repository, which <a href='https://github.com/rodluger/showyourwork-template/generate'>can be cloned at the click of a button</a> to set up a new article. Users then add their LaTeX manuscript, bibliography, scripts used in the generation of the paper’s figures, an anaconda environment specification, and instructions on how to download any external datasets required by the figures. Every time the user pushes a new commit to GitHub, the article is automatically built on the cloud using GitHub Actions and the resulting PDF is pushed to a separate branch of the repository. The build step—which sets up the conda environment, generates all figures from scratch (with intelligent caching), and compiles the PDF—acts as a unit test for the paper. If it passes, the paper is (by definition) reproducible.</p>
+                <div id="Figure2Modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-body small">
+                                
+                <div class="blog-image-container small">
+                    <img src='https://raw.githubusercontent.com/rodluger/showyourwork/img/workflow.png' style='width:100%;'></img>
+                </div>
+                
+                                <p>
+                                    <span style="font-weight: 600; padding-right: 0.5em;">Figure 2</span>
+                                    <span>The <code>showyourwork!</code> philosophy: scientific papers should exist as GitHub repositories comprised of LaTeX files, figure scripts, rules to access datasets, a platform/environment specification, and nothing else. Anyone should be able to re-generate the article PDF from scratch at the click of a button.</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="Figure2" class="blog-image small">
+                    <a href="#" data-toggle="modal" data-target="#Figure2Modal">
+                        
+                <div class="blog-image-container small">
+                    <img src='https://raw.githubusercontent.com/rodluger/showyourwork/img/workflow.png' style='width:100%;'></img>
+                </div>
+                
+                    </a>
+                    <p>
+                        <span style="font-weight: 600; padding-right: 0.5em;">Figure 2</span>
+                        <span>The <code>showyourwork!</code> philosophy: scientific papers should exist as GitHub repositories comprised of LaTeX files, figure scripts, rules to access datasets, a platform/environment specification, and nothing else. Anyone should be able to re-generate the article PDF from scratch at the click of a button.</span>
+                    </p>
+                </div>
+                <p>The workflow works out of the box for simple projects, in which each figure is generated by running a given Python script. But it also works for more complicated pipelines, such as projects that depend on many intermediate steps or those that require running expensive simulations on clusters. <code>showyourwork!</code> interfaces directly with Zenodo, allowing users to automatically upload the results of simulations so that expensive build steps can be bypassed on the cloud. In fact, most of the stuff under the hood in <code>showyourwork!</code> is there to make the workflow as flexible and customizable as possible; see the documentation for a list of examples of custom workflows.</p><p>Papers that use <code>showyourwork!</code> can be reproduced by cloning the repository and running <code>make</code>. Furthermore, these papers include clickable icons next to each of their figures linking to (1) the exact version of the script used to generate them and (2) the exact version(s) of the Zenodo-hosted dataset(s) used in their creation.</p><p>If you are interested in <code>showyourwork!</code>, please visit <a href='https://github.com/rodluger/showyourwork'>the GitHub repository</a> as well as <a href='https://showyourwork.readthedocs.io'>the documentation</a>. Specifically, check out <ul><li><a href='https://showyourwork.readthedocs.io/en/stable/quickstart/'>the quickstart tutorial</a></li><li><a href='https://showyourwork.readthedocs.io/en/stable/layout/'>the repository layout guide</a></li><li><a href='https://showyourwork.readthedocs.io/en/stable/faqs/'>the FAQs page</a></li><li><a href='https://showyourwork.readthedocs.io/en/stable/custom/'>the examples and custom workflows</a></li></ul>You can also find an up-to-date <a href='https://showyourwork.readthedocs.io/en/stable/projects/'>list of open-source projects that use showyourwork here</a>.</p><p><code>showyourwork!</code> is a work-in-progress. I am still actively developing it and working with several users, in astronomy and in other fields to make it flexible enough to accommodate various kinds of workflows. I released <code>showyourwork!</code> in mid-October 2021 and there are already four papers on the arXiv that were generated using it, with several others in prep. If you would like to contribute to the development or have any suggestions or feedback about <code>showyourwork!</code>, please contact me, post a comment in the discussion below, <a href='https://github.com/rodluger/showyourwork/issues/new'>raise an issue</a>, or open a pull request!</p>
+                              </div>
+
+                              <div class="blog-prev-next" style="padding-top: 50px; padding-bottom: 50px;">
+                                   
+                                        <a href="2021-01-04.html" class="btn btn-default" style="float: left;">&laquo; Previous Post</a>
+                                   
+                                   
+                              </div>
+
+                              <div class="blog-author">
+                                   <div class="media">
+                                        <div class="media-object pull-left">
+                                             <img src="../images/rodrigo-luger-avatar.jpg" class="img-circle img-responsive"
+                                                  alt="Rodrigo Luger">
+                                        </div>
+                                        <div class="media-body">
+                                             <h3 class="media-heading"><a
+                                                       href="../about.html">Rodrigo Luger</a>
+                                             </h3>
+                                             <p style="text-align:justify;">
+                                                  I'm a Flatiron Fellow at the CCA in New York City, working on a variety of things related to exoplanets, stars, and astronomical data analysis. I'm interested in systematics de-trending, the search for and characterization of potentially habitable exoplanets, and the mapping of stellar and exoplanetary surfaces from photometric and spectroscopic datasets. Outside the office I love to hike, bike, swim, craft lattes, faulty parallelism, and Oxford commas.
+                                             </p>
+                                        </div>
+                                   </div>
+                              </div>
+
+                              <div class="disqus" id="disqus_thread"></div>
+
+                         </div>
+                    </div>
+               </div>
+          
+          </div>
+     </section>
+
+     
+     <script>
+          var disqus_config = function () {
+          this.page.url = "https://luger.dev/blog/2021-12-03.html";
+          this.page.identifier = "2021-12-03";
+          };
+          (function() { // DON'T EDIT BELOW THIS LINE
+          var d = document, s = d.createElement('script');
+          s.src = 'https://rodluger.disqus.com/embed.js';
+          s.setAttribute('data-timestamp', +new Date());
+          (d.head || d.body).appendChild(s);
+          })();
+     </script>
+     <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+     
+
+     <!-- Footer Section -->
+
+     <footer>
+          <div class="container">
+               <div class="row">
+
+                    <div class="col-md-3 col-sm-3">
+                         <span class="avatar">
+                              <img src="../images/rodrigo-luger-avatar.jpg">
+                         </span>
+                    </div>
+
+                    <div class="col-md-4 col-sm-4">
+                         <p>162 5th Ave, 5th Floor<br />New York NY 10100 United States</p>
+                    </div>
+
+                    <div class="col-md-offset-1 col-md-4 col-sm-offset-1 col-sm-3">
+                         <p><a href="mailto:rodluger@gmail.com">rodluger@gmail.com</a> <br /> <img src="../images/cel.jpg" style="width:90px;"></img></p>
+                    </div>
+
+                    <div class="clearfix col-md-12 col-sm-12">
+                         <hr>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <div class="footer-copyright">
+                              <p>© 2020 Rodrigo Luger &nbsp | &nbsp <a
+                                        href="https://github.com/rodluger/rodluger.github.io">hosted on github</a>
+                              </p>
+                         </div>
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                         <ul class="social-icon">
+                              <li><a href="https://github.com/rodluger" class="fab fa-github"></a></li>
+                              <li><a href="https://twitter.com/rodluger" class="fab fa-twitter"></a></li>
+                              
+                         </ul>
+                    </div>
+
+               </div>
+          </div>
+     </footer>
+
+     <!-- SCRIPTS -->
+
+     <script src="../js/jquery.js"></script>
+     <script src="../js/bootstrap.min.js"></script>
+     <script src="../js/custom.js"></script>
+
+</body>
+
+</html>

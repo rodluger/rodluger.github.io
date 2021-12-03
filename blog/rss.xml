@@ -7,6 +7,14 @@
 <atom:link href="https://luger.dev/blog/rss.xml" rel="self" type="application/rss+xml" />
 
 <item>
+<title>Reproducible scientific articles</title>
+<link>https://luger.dev/blog/2021-12-03.html</link>
+<guid>https://luger.dev/blog/2021-12-03.html</guid>
+<pubDate>Fri, 3 Dec 2021 00:00:00 GMT</pubDate>
+<description>In this post I'll talk a bit about <code>showyourwork!</code>, the open source scientific article workflow I've been working on for the past few months. It's still very much a work in progress, but you can already use it in your own research to ensure the reproducibility of your results! If you're interested, please check out <a href='https://github.com/rodluger/showyourwork'>the GitHub repository</a> and <a href='https://showyourwork.readthedocs.io'>the documentation</a>.</description>
+</item>
+
+<item>
 <title>Normalized GPs</title>
 <link>https://luger.dev/blog/2021-01-04.html</link>
 <guid>https://luger.dev/blog/2021-01-04.html</guid>
