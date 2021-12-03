@@ -11,7 +11,7 @@
             "about": "I'm a Flatiron Fellow at the CCA in New York City, working on a variety of things related to exoplanets, stars, and astronomical data analysis. I'm interested in systematics de-trending, the search for and characterization of potentially habitable exoplanets, and the mapping of stellar and exoplanetary surfaces from photometric and spectroscopic datasets. Outside the office I love to hike, bike, swim, craft lattes, faulty parallelism, and Oxford commas."
         },
         "banner": "images/showyourwork.jpg",
-        "social_image": "images/rodrigo-luger-avatar.jpg",
+        "social_image": "../images/rodrigo-luger-avatar.jpg",
         "summary": "In this post I'll talk a bit about <code>showyourwork!</code>, the open source scientific article workflow I've been working on for the past few months. It's still very much a work in progress, but you can already use it in your own research to ensure the reproducibility of your results! If you're interested, please check out <a href='https://github.com/rodluger/showyourwork'>the GitHub repository</a> and <a href='https://showyourwork.readthedocs.io'>the documentation</a>.",
         "contents": [
             {
